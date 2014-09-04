@@ -7,18 +7,18 @@ class Inscripcion extends Eloquent {
     public $timestamps = false;
 
     public static $rules = array(
-        'oferta_academica_id'   => 'required|exists:oferta_academica,id|unique_with:inscripcion_persona,tipo_documento_cod,documento|unique_with:inscripcion_persona,email',
+        'oferta_academica_id'   => array('required', 'exists:oferta_academica,id', 'unique_persona' => 'unique_with:inscripcion_persona,tipo_documento_cod,documento'),
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,tipo_documento',
         'documento' => 'required|integer|min:1000000|max:99999999',
         'apellido' => 'required',
         'nombre' => 'required',
         'sexo' => 'required|in:m,M,f,F',
-        'fecha_nacimiento2' => 'required|date_format:"d/m/Y"|before:2004-01-01',
+        'fecha_nacimiento2' => 'required|date_format:"d/m/Y"|before:01/01/2004',
         'localidad_id' => 'required|exists:repo_localidad,id',
-        'localidad_otra' => 'text',
+        //'localidad_otra' => 'text',
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
-        'titulo_obtenido' => 'text',
+        //'titulo_obtenido' => 'text',
         'email'    => 'required|email',
         'telefono'  => 'required'
     );
@@ -36,6 +36,32 @@ class Inscripcion extends Eloquent {
     public function localidad()
     {
         return $this->belongsTo('Localidad', 'localidad_id');
+    }
+    
+    public function getColumnasCSV()
+    {
+        return [ 'documento', 'apellido', 'nombre', 'fecha_nacimiento', 'localidad', 'email', 'telefono' ];
+    }
+    
+    public function toCSV()
+    {
+        $data = [
+            'documento'         => $this->documento,
+            'apellido'          => $this->apellido,
+            'nombre'            => $this->nombre,
+            'fecha_nacimiento'  => $this->getFechaNacimiento2Attribute(),
+            'localidad'         => $this->localidad->localidad,
+            'email'             => $this->email,
+            'telefono'          => $this->telefono
+        ];
+        
+        $ftemp = fopen('php://temp', 'r+');
+        fputcsv($ftemp, $data, ',', "'");
+        rewind($ftemp);
+        $fila = fread($ftemp, 1048576);
+        fclose($ftemp);
+        
+        return $fila;
     }
     
     public function getTipoydocAttribute()

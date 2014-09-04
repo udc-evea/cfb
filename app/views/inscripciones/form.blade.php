@@ -1,8 +1,12 @@
+<?php $method        = $obj != null ? 'PUT' : 'POST';?>
+<?php $route_name    = $obj != null ? 'update' : 'store';?>
+<?php $route_params  = $obj != null ? array($curso->id, $obj->id) : array($curso->id);?>
+
 {{Former::framework('TwitterBootstrap3')}}
 {{ Former::horizontal_open()
         ->secure()
-        ->method('POST')
-        ->controller('InscripcionesController@store', $curso->id)
+        ->method($method)
+        ->route("cursos.inscripciones.$route_name", $route_params)
 }}
 {{ Former::populate($obj) }}
 {{ Former::hidden('oferta_academica_id')->value($curso->id) }}
@@ -11,7 +15,7 @@
             ->fromQuery(TipoDocumento::orderBy('descripcion')->get(), 'descripcion', 'tipo_documento')
             ->label('Tipo doc.')
             ->value(TipoDocumento::TIPODOC_DNI)->required() }}
-{{ Former::text('documento')->required() }}
+{{ Former::number('documento')->required() }}
 {{ Former::text('apellido')->required() }}
 {{ Former::text('nombre')->required() }}
 {{ Former::inline_radios('sexo')->radios([
@@ -38,7 +42,7 @@
 
 @if(Auth::check())
 {{ Former::actions(
-            link_to_route('cursos.index', 'Volver', null, array('class' => 'btn btn-lg btn-link')),
+            link_to_route('cursos.inscripciones.index', 'Volver', $curso->id, array('class' => 'btn btn-lg btn-link')),
             Former::lg_default_reset('Restablecer'),
             Former::lg_primary_submit('Guardar')
     )

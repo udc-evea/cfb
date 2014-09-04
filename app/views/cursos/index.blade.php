@@ -26,13 +26,13 @@
                                         <td>
                                             {{ $curso->inscriptos }}
                                             @if($curso->inscriptos > 0)
-                                            <small><a href="{{ URL::action('InscripcionesController@index', $curso->id) }}">[Ver]</a></small>
+                                            <small><a href="{{ URL::route('cursos.inscripciones.show', $curso->id) }}">[Ver]</a></small>
                                             @endif
                                         </td>
                                         <td>
                                             {{ BS3::bool_to_label($curso->permite_inscripciones) }}
                                             @if($curso->permite_inscripciones)
-                                            <small><a href="{{ URL::action('InscripcionesController@create', $curso->id) }}">[Form]</a></small>
+                                            <small><a href="{{ URL::action('cursos.inscripciones.create', $curso->id) }}">[Form]</a></small>
                                             @endif
                                         </td>
 					<td>{{ BS3::bool_to_label($curso->vigente) }}</td>

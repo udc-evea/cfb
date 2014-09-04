@@ -67,7 +67,7 @@ class CursosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		return Redirect::action('InscripcionesController@create', $id);
+		return Redirect::action('CursosInscripcionesController@create', $id);
 	}
 
 	/**

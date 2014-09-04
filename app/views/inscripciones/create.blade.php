@@ -16,6 +16,6 @@
     </div>
 </div>
 
-@include('inscripciones.form', array('obj' => null))
+@include('inscripciones.form', array('obj' => null, 'curso' => $curso))
 
 @stop

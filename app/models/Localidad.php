@@ -21,4 +21,9 @@ class Localidad extends Eloquent {
         {
             return $this->belongsTo('Provincia');
         }
+        
+        public function __toString()
+        {
+            return $this->localidad;
+        }
 }

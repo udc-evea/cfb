@@ -11,17 +11,16 @@
   |
  */
 
-Route::get('/cursos/{curso}/inscripcion', 'InscripcionesController@create');
-Route::post('/cursos/{curso}/inscripcion', 'InscripcionesController@store');
+Route::get('/cursos/{curso}/inscripcion',  'CursosInscripcionesController@create');
+Route::post('/cursos/{curso}/inscripcion', 'CursosInscripcionesController@store');
 
-Route::group(array('before' => 'auth.basic', 'except' => array('inscripciones.store')), function() {
+Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripciones.create', 'cursos.inscripciones.store')), function() {
     Route::get('/', function() {
-        return Redirect::route('cursos.index');
+        return Redirect::route('cursos');
     });
 
-    Route::match(array('GET'), '/cursos/{curso}/inscripciones', 'InscripcionesController@index');
     Route::resource('cursos', 'CursosController');
-    Route::resource('inscripciones', 'InscripcionesController', array('except' => array('create', 'store')));
+    Route::resource('cursos.inscripciones', 'CursosInscripcionesController');
 
     Route::resource('tipos_documento', 'TipoDocumentosController');
     Route::resource('localidades', 'LocalidadesController');

@@ -1,6 +1,6 @@
 <?php
 
-class InscripcionesController extends BaseController {
+class CursosInscripcionesController extends BaseController {
 
 	/**
 	 * inscripcion Repository
@@ -24,6 +24,14 @@ class InscripcionesController extends BaseController {
 	{
             $curso = Curso::findOrFail($curso_id);
             $inscripciones = $this->inscripcion->all();
+            
+            $csv = (int)Request::get('csv');
+            
+            if($csv == 1)
+            {
+                return $this->exportarCSV("inscriptos_".$curso->nombre.".csv", $inscripciones);
+            }
+            
             return View::make('inscripciones.index', compact('inscripciones'))->withCurso($curso);
 	}
 
@@ -50,30 +58,30 @@ class InscripcionesController extends BaseController {
 	 */
 	public function store($curso_id)
 	{
-		$curso    = Curso::findOrFail($curso_id);
-                $input    = Input::all();
-                $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field']);
-                
-                $reglas = Inscripcion::$rules;
-                
-                if(!Auth::check())
-                {
-                    $reglas['recaptcha_response_field'] = 'required|recaptcha';
-                }
-		$validation = Validator::make($input, $reglas);
+            $curso    = Curso::findOrFail($curso_id);
+            $input    = Input::all();
+            $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field']);
 
-		if ($validation->passes())
-		{
-			$this->inscripcion->create($input_db);
+            $reglas = Inscripcion::$rules;
 
-			return Redirect::to('/inscripcion_ok');
-		}
+            if(!Auth::check())
+            {
+                $reglas['recaptcha_response_field'] = 'required|recaptcha';
+            }
+            $validation = Validator::make($input, $reglas);
 
-		return Redirect::action('InscripcionesController@create', $curso_id)
-			->withCurso($curso)
-                        ->withInput()
-			->withErrors($validation)
-			->with('message', 'Error al guardar.');
+            if ($validation->passes())
+            {
+                    $this->inscripcion->create($input_db);
+
+                    return Redirect::to('/inscripcion_ok');
+            }
+
+            return Redirect::route('cursos.inscripciones.create', $curso_id)
+                    ->withCurso($curso)
+                    ->withInput()
+                    ->withErrors($validation)
+                    ->with('message', 'Error al guardar.');
 	}
 
 	/**
@@ -82,7 +90,7 @@ class InscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($curso_id, $id)
 	{
 		$inscripcion = $this->inscripcion->findOrFail($id);
 
@@ -95,13 +103,13 @@ class InscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($curso_id, $id)
 	{
 		$inscripcion = $this->inscripcion->find($id);
                 
 		if (is_null($inscripcion))
 		{
-			return Redirect::route('inscripciones.index');
+			return Redirect::route('cursos.inscripciones.index');
 		}
                 
                 $curso = $inscripcion->curso;
@@ -114,23 +122,25 @@ class InscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($curso_id, $id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, inscripcion::$rules);
+                $rules = inscripcion::$rules;
+                $rules['oferta_academica_id']['unique_persona'] .=', '.$id;
+		$validation = Validator::make($input, $rules);
 
 		if ($validation->passes())
 		{
 			$inscripcion = $this->inscripcion->find($id);
 			$inscripcion->update($input);
 
-			return Redirect::route('inscripciones.index');
+			return Redirect::route('cursos.inscripciones.index', array($curso_id));
 		}
 
-		return Redirect::route('inscripciones.edit', $id)
+		return Redirect::route('cursos.inscripciones.edit', array($curso_id, $id))
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+			->with('message', 'Ocurrieron errores al guardar.');
 	}
 
 	/**
@@ -139,14 +149,14 @@ class InscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($curso_id, $id)
 	{
             $this->inscripcion = $this->inscripcion->findOrFail($id);
             $curso = $this->inscripcion->curso;
             
             $this->inscripcion->delete();
 
-            return Redirect::action('InscripcionesController@index', $curso->id)
+            return Redirect::route('cursos.inscripciones.index', array($curso->id))
                     ->withCurso($curso)
                     ->with('message', 'Se eliminó el registro correctamente.');
 	}
