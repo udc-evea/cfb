@@ -11,7 +11,8 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}">
+        
+        <link rel="stylesheet" href="{{ asset('css/cerulean.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
         <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>

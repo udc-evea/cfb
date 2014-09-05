@@ -19,7 +19,7 @@ class Inscripcion extends Eloquent {
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
         //'titulo_obtenido' => 'text',
-        'email'    => 'required|email',
+        'email'    => array('required', 'email', 'unique_mail' => 'unique_with:inscripcion_persona,oferta_academica_id,email'),
         'telefono'  => 'required'
     );
     

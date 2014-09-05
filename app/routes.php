@@ -16,7 +16,7 @@ Route::post('/cursos/{curso}/inscripcion', 'CursosInscripcionesController@store'
 
 Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripciones.create', 'cursos.inscripciones.store')), function() {
     Route::get('/', function() {
-        return Redirect::route('cursos');
+        return Redirect::route('cursos.index');
     });
 
     Route::resource('cursos', 'CursosController');

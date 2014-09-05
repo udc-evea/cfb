@@ -1,4 +1,4 @@
-<?php
+st<?php
 
 class CursosInscripcionesController extends BaseController {
 
@@ -72,7 +72,15 @@ class CursosInscripcionesController extends BaseController {
 
             if ($validation->passes())
             {
-                    $this->inscripcion->create($input_db);
+                    $insc = $this->inscripcion->create($input_db);
+                    
+                    try {
+                        Mail::send('inscripciones.mail_bienvenida', array('inscripcion' => $insc), function($message) use($curso, $insc) {
+                            $message
+                                    ->to($insc->email, $insc->nombre)
+                                    ->subject('CFB-UDC: Inscripción a '.$curso->nombre);
+                        });
+                    } catch(Swift_TransportException $e) { /* nada  */ }
 
                     return Redirect::to('/inscripcion_ok');
             }
@@ -127,6 +135,7 @@ class CursosInscripcionesController extends BaseController {
 		$input = array_except(Input::all(), '_method');
                 $rules = inscripcion::$rules;
                 $rules['oferta_academica_id']['unique_persona'] .=', '.$id;
+                $rules['oferta_academica_id']['unique_email'] .=', '.$id;
 		$validation = Validator::make($input, $rules);
 
 		if ($validation->passes())
