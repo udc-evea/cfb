@@ -1,4 +1,4 @@
-st<?php
+<?php
 
 class CursosInscripcionesController extends BaseController {
 
