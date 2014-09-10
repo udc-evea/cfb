@@ -28,7 +28,15 @@ cp env.local_sample.php .env.local.php
 sudo chmod -R 775 app/storage
 sudo chgrp -R www-data app/storage
 
-# instalar la base de ejemplo
+# instalar la base de ejemplo (estructura) y datos simples
 mysql -u root -p  < app/database/base.sql
 
+# rellenar (seed) la base con datos iniciales
+# (usuario de prueba)
+php artisan db:seed
+
+# levantar el servidor de desarrollo
+php artisan serve
+
 ````
+Y hasta este punto, el proyecto debería estar disponible en `http://localhost:8000`.
