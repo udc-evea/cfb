@@ -1,25 +1,34 @@
-## Laravel PHP Framework
+## Centro de Formación Bimodal
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Proyecto para el CFB de la Universidad del Chubut, hecho con [Laravel](http://laravel.com).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+### Instalación
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+## Pre-requisitos:
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+# PHP 5.5+
+# [Composer](http://getcomposer.org).
+# git
 
-## Official Documentation
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+````bash
+# clonar el repositorio
+git clone https://github.com/udc-evea/cfb.git
 
-### Contributing To Laravel
+# instalar dependencias
+cd cfb
+composer install
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+# crear configuración para el entorno local a partir de la plantilla
+# el archivo debe llamarse '.env.local.php'
+cp env.local_sample.php .env.local.php
 
-### License
+# otorgar permisos de escritura al servidor web (Apache) en directorios de trabajo
+# (www-data suele ser el usuario con el que se ejecuta)
+sudo chmod -R 775 app/storage
+sudo chgrp -R www-data app/storage
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+# instalar la base de ejemplo
+mysql -u root -p  < app/database/base.sql
+
+````
