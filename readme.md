@@ -6,9 +6,9 @@ Proyecto para el CFB de la Universidad del Chubut, hecho con [Laravel](http://la
 
 ## Pre-requisitos:
 
-# PHP 5.5+
-# [Composer](http://getcomposer.org).
-# git
+1. PHP 5.4+ con extensión [MCrypt](http://stackoverflow.com/a/24233500).
+2. [Composer](http://getcomposer.org).
+3. git
 
 
 ````bash
