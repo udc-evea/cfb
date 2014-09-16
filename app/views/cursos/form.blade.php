@@ -19,6 +19,7 @@
 
 {{ Former::date('inicio')->label('Fecha inicio') }}
 {{ Former::date('fin')->label('Fecha fin') }}
+{{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
 {{ Former::actions(
             link_to_route('cursos.index', 'Volver', null, array('class' => 'btn btn-lg btn-link')),
             Former::lg_default_reset('Restablecer'),

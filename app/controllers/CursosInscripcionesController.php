@@ -60,13 +60,14 @@ class CursosInscripcionesController extends BaseController {
 	{
             $curso    = Curso::findOrFail($curso_id);
             $input    = Input::all();
-            $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field']);
+            $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field', 'reglamento']);
 
             $reglas = Inscripcion::$rules;
 
             if(!Auth::check())
             {
                 $reglas['recaptcha_response_field'] = 'required|recaptcha';
+                $reglas['reglamento'] = 'required|boolean';
             }
             $validation = Validator::make($input, $reglas);
 

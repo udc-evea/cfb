@@ -137,6 +137,7 @@ CREATE TABLE IF NOT EXISTS `oferta_academica` (
   `vigente` tinyint(1) NOT NULL,
   `inicio` date DEFAULT NULL,
   `fin` date DEFAULT NULL,
+  `reglamento` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
