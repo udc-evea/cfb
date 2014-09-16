@@ -12,8 +12,6 @@
 
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         
-        <link rel="stylesheet" href="{{ asset('css/cerulean.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
         <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
     </head>
@@ -27,8 +25,8 @@
           <div class="row">
             <div class="col-md-12">
                 @if (Session::has('message'))
-                <div class="flash alert">
-                    <p>{{ Session::get('message') }}</p>
+                <div class="flash alert alert-warning">
+                    <p><span class="glyphicon glyphicon-warning-sign"></span> {{ Session::get('message') }}</p>
                 </div>
                 @endif
                 
