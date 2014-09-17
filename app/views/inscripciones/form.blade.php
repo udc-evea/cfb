@@ -25,7 +25,7 @@
              'Mujer'  => ['value' => 'F']
            ])->required() }}
 
-        {{ Former::text('fecha_nacimiento2')->required()->label('Fecha nacimiento') }}
+        {{ Former::date('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}
     </div>
 </div>
 

@@ -13,7 +13,7 @@ class Inscripcion extends Eloquent {
         'apellido' => 'required',
         'nombre' => 'required',
         'sexo' => 'required|in:m,M,f,F',
-        'fecha_nacimiento2' => 'required|date_format:"d/m/Y"|before:01/01/2004',
+        'fecha_nacimiento' => 'required|before:01/01/2004',
         'localidad_id' => 'required|exists:repo_localidad,id',
         //'localidad_otra' => 'text',
         'localidad_anios_residencia'    => 'required|integer|min:1',
@@ -49,7 +49,7 @@ class Inscripcion extends Eloquent {
             'documento'         => $this->documento,
             'apellido'          => $this->apellido,
             'nombre'            => $this->nombre,
-            'fecha_nacimiento'  => $this->getFechaNacimiento2Attribute(),
+            'fecha_nacimiento'  => $this->getFechaNacimiento(),
             'localidad'         => $this->localidad->localidad,
             'email'             => $this->email,
             'telefono'          => $this->telefono
@@ -78,16 +78,4 @@ class Inscripcion extends Eloquent {
     {
         return array('fecha_nacimiento');
     }
-    
-    public function getFechaNacimiento2Attribute()
-    {
-       return ModelHelper::getFechaFormateada($this->fecha_nacimiento);
-    }
-    
-    public function setFechaNacimiento2Attribute($value)
-    {
-       $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaFormateadaDT($value);
-    }
-    
-    
 }

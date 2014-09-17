@@ -34,10 +34,10 @@ var MainModule = {
     
     initDatepicker: function()
     {
-        $("#fecha_nacimiento2").datepicker({
-             format: "dd/mm/yyyy",
-             language: "es"
-        });
+        if (!Modernizr.inputtypes.date) { $( "input[type=date]" ).datepicker({
+                format: "yyyy-mm-dd",
+                language: "es"
+        }); }
     }
 
 };
