@@ -4,6 +4,7 @@ var MainModule = {
         var self = this;
         self.initBootbox();
         self.confirmDeleteForm();
+        self.initDatepicker();
     },
     
     initBootbox: function()
@@ -28,6 +29,14 @@ var MainModule = {
                     currentForm.submit();
                 }
             });
+        });
+    },
+    
+    initDatepicker: function()
+    {
+        $("#fecha_nacimiento2").datepicker({
+             format: "dd/mm/yyyy",
+             language: "es"
         });
     }
 

@@ -61,7 +61,7 @@ class CursosInscripcionesController extends BaseController {
             $curso    = Curso::findOrFail($curso_id);
             $input    = Input::all();
             $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field', 'reglamento']);
-
+            Log::info($input['fecha_nacimiento2']);
             $reglas = Inscripcion::$rules;
 
             if(!Auth::check())
@@ -81,12 +81,12 @@ class CursosInscripcionesController extends BaseController {
                                     ->to($insc->email, $insc->nombre)
                                     ->subject('CFB-UDC: Inscripción a '.$curso->nombre);
                         });
-                    } catch(Swift_TransportException $e) { /* nada  */ }
-
+                    } catch(Swift_TransportException $e) { Log::info("No se pudo enviar correo a ".$insc->nombre. " <".$insc->email.">"); }
+                    
                     return Redirect::to('/inscripcion_ok');
             }
 
-            return Redirect::route('cursos.inscripciones.create', $curso_id)
+            return Redirect::route('cursos.inscripciones.nueva', $curso_id)
                     ->withCurso($curso)
                     ->withInput()
                     ->withErrors($validation)

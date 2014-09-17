@@ -11,10 +11,10 @@
   |
  */
 
-Route::get('/cursos/{curso}/inscripcion',  'CursosInscripcionesController@create');
-Route::post('/cursos/{curso}/inscripcion', 'CursosInscripcionesController@store');
+Route::get('/cursos/{curso}/inscripcion',  array('uses' => 'CursosInscripcionesController@create', 'as' => 'cursos.inscripciones.nueva'));
+Route::post('/cursos/{curso}/inscripcion', array('uses' => 'CursosInscripcionesController@store', 'as' => 'cursos.inscripciones.nueva'));
 
-Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripciones.create', 'cursos.inscripciones.store')), function() {
+Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripciones.nueva')), function() {
     Route::get('/', function() {
         return Redirect::route('cursos.index');
     });

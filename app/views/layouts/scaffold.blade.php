@@ -11,6 +11,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datepicker3.css') }}">
         
         <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
         <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
@@ -35,6 +36,8 @@
           </div>
         </div>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('js/locales/bootstrap-datepicker.es.js') }}"></script>
         <script src="{{ asset('js/bootbox.min.js') }}"></script>
         <script src="{{ asset('js/rails.js') }}"></script>
         {{ HTML::script('js/main.js') }}

@@ -1,5 +1,5 @@
 <?php $method        = $obj != null ? 'PUT' : 'POST';?>
-<?php $route_name    = $obj != null ? 'update' : 'store';?>
+<?php $route_name    = $obj != null ? 'update' : 'nueva';?>
 <?php $route_params  = $obj != null ? array($curso->id, $obj->id) : array($curso->id);?>
 
 {{Former::framework('TwitterBootstrap3')}}
@@ -25,7 +25,7 @@
              'Mujer'  => ['value' => 'F']
            ])->required() }}
 
-        {{ Former::date('fecha_nacimiento2')->required()->label('Fecha nacimiento') }}
+        {{ Former::text('fecha_nacimiento2')->required()->label('Fecha nacimiento') }}
     </div>
 </div>
 
