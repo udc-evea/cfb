@@ -63,7 +63,7 @@
 </div>
 {{ Former::checkbox('reglamento')
      ->label('Reglamento')
-     ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento del curso</a>.')
+     ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
      ->required()
 }}
 @include('inscripciones.reglamento', array('curso' => $curso))

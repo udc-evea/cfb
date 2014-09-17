@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Inscripción al curso: {{ $curso->nombre }}</h1>
+        <h1>Inscripción a: {{ $curso->nombre }}</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">

@@ -1,7 +1,7 @@
 @extends('layouts.scaffold')
-@section('title', 'Cursos - CFB')
+@section('title', 'Oferta Educativa - CFB')
 @section('main')
-<h1>Cursos</h1>
+<h1>Oferta Educativa</h1>
 
 @if ($cursos->count())
 	<table class="table table-striped">
@@ -53,8 +53,8 @@
 		</tbody>
 	</table>
 @else
-	No hay cursos registrados.
+	No hay ofertas educativas registradas.
 @endif
 
-{{ link_to_route('cursos.create', 'Crear nuevo curso', null, array('class' => 'btn btn-primary')) }}
+{{ link_to_route('cursos.create', 'Crear nueva oferta educativa', null, array('class' => 'btn btn-primary')) }}
 @stop
