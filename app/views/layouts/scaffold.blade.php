@@ -10,8 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/datepicker3.css') }}">
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bootstrap-extras/datepicker/css/datepicker3.css') }}">
         
         <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
         <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
@@ -35,11 +35,10 @@
             </div>
           </div>
         </div>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-        <script src="{{ asset('js/locales/bootstrap-datepicker.es.js') }}"></script>
-        <script src="{{ asset('js/bootbox.min.js') }}"></script>
-        <script src="{{ asset('js/rails.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bootstrap-extras/bootbox.min.js') }}"></script>
+        <script src="{{ asset('bootstrap-extras/datepicker/js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('bootstrap-extras/datepicker/js/locales/bootstrap-datepicker.es.js') }}"></script>
         {{ HTML::script('js/main.js') }}
     </body>
 </html>
