@@ -15,6 +15,7 @@
         
         <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
         <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
+        <script src="{{ asset('js/rails.js') }}"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
