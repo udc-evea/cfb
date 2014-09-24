@@ -7,7 +7,8 @@ class Requisito extends Eloquent {
     public $timestamps = false;
 
     public static $rules = array(
-            'requisito'  => 'required'
+            'requisito'   => 'required',
+            'obligatorio' => 'boolean'
     );
 
     public function curso()

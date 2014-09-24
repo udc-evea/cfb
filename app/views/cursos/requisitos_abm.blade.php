@@ -1,30 +1,32 @@
 {{ HTML::script('js/cursos.js') }}
 
-<form action="{{ route('cursos.requisitos.store', $curso->id) }}" class="form-horizontal nuevo" data-remote="true" method="post">
-    <div class="form-group form-group-sm">
-        <label class="control-label col-lg-2 col-sm-4">Nuevo</label>
-        <div class="col-sm-4">
-            <div class="nuevo input-group">
-                <input class="form-control input-sm" name="requisito" id="nuevo_requisito" type="text" placeholder="ingrese" />
-                <span class="input-group-btn">
-                    <button type="submit" class="accion btn btn-success btn-add btn-sm" data-disable-with="Guardando...">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-</form>
+{{ Former::horizontal_open()
+        ->secure()
+        ->rules(['requisito' => 'required'])
+        ->method('post')
+        ->route('cursos.requisitos.store', $curso->id)
+        ->addClass('nuevo')
+        ->data_remote('true')
+}}
+{{ Former::sm_text('requisito')->required()->label('Descripción') }}
+<input type="hidden" name="obligatorio" value="0"/>
+{{ Former::checkbox('obligatorio')->label('Obligatorio')->check()->addClass('checkbox') }}
+{{ Former::actions(Former::sm_primary_submit('Guardar'))}}
+{{ Former::close() }}
 
 <div class="form-horizontal">
     <div class="form-group form-group-sm">
-        <div class="col-sm-4 col-sm-offset-2 lista-requisitos">
-            <ul class="list-unstyled">
-                <li class="nuevo hide"></li>
-                @foreach($curso->requisitos as $item)
-                @include('requisitos.item', array('curso' => $curso, 'req' => $item))
-                @endforeach
-            </ul>
+        <div class="col-sm-4 col-sm-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                   <ul class="list-unstyled requisitos">
+                        <li class="nuevo hide"></li>
+                        @foreach($curso->requisitos as $item)
+                        @include('requisitos.item', array('curso' => $curso, 'req' => $item))
+                        @endforeach
+                    </ul>
+                </div>
+            </div> 
         </div>
     </div>
     <hr>

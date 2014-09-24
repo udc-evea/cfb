@@ -21,16 +21,16 @@ var CursosModule = {
         self.$form_nuevo_requisito = $("#tab_requisitos form.nuevo");
         
         self.$form_nuevo_requisito.bind('ajax:success', function(evt, xhr, status) {
-            $(xhr).insertAfter($("div.lista-requisitos .nuevo"));
-            self.$form_nuevo_requisito.get(0).reset();
+            $(xhr).insertAfter($(".requisitos .nuevo"));
+            $("#requisito").val("").focus();
         });
 
         self.$form_nuevo_requisito.bind('ajax:error', function(event, xhr, settings) {
             bootbox.alert("Error al guardar");
         });
 
-        $('.lista-requisitos').on('ajax:success', 'a.accion_borrar', function(data, status, xhr) {
-            $(this).parent('li').remove();
+        $('.requisitos').on('ajax:success', 'a.accion_borrar', function(data, status, xhr) {
+            $(this).closest('li').remove();
         });
     }
 };
