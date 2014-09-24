@@ -4,7 +4,7 @@
 
 <h1>
     Inscriptos - {{ $curso->nombre }} &nbsp;&nbsp;
-    <small class='text-muted'>|| <a class='text-muted    ' href="{{ URL::route('cursos.index') }}">Volver</a></small>
+    <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('cursos.index') }}">Volver</a></small>
 </h1>
 <h3>
     Total: {{ $inscripciones->count() }}

@@ -15,6 +15,11 @@
         
         <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
         <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
+        <script src="{{ asset('js/knockout-3.2.0.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bootstrap-extras/bootbox.min.js') }}"></script>
+        <script src="{{ asset('bootstrap-extras/datepicker/js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('bootstrap-extras/datepicker/js/locales/bootstrap-datepicker.es.js') }}"></script>
         <script src="{{ asset('js/rails.js') }}"></script>
     </head>
     <body>
@@ -36,10 +41,6 @@
             </div>
           </div>
         </div>
-        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bootstrap-extras/bootbox.min.js') }}"></script>
-        <script src="{{ asset('bootstrap-extras/datepicker/js/bootstrap-datepicker.js') }}"></script>
-        <script src="{{ asset('bootstrap-extras/datepicker/js/locales/bootstrap-datepicker.es.js') }}"></script>
         {{ HTML::script('js/main.js') }}
     </body>
 </html>

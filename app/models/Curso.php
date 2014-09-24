@@ -18,6 +18,11 @@ class Curso extends Eloquent {
             return $this->hasMany('Inscripcion', 'oferta_academica_id');
         }
         
+        public function requisitos()
+        {
+            return $this->hasMany('Requisito', 'oferta_id');
+        }
+        
         public function getInscriptosAttribute()
         {
             return $this->inscripciones->count();

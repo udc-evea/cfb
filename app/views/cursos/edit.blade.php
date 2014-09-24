@@ -15,5 +15,20 @@
         @endif
     </div>
 </div>
-@include('cursos.form', array('obj'=>$curso))
+
+<ul class="nav nav-tabs" role="tablist" id="tabs">
+    <li class="active"><a href="#tab_datos">Datos básicos</a></li>
+    @if(isset($curso))
+    <li><a href="#tab_requisitos">Requisitos</a></li>
+    @endif
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="tab_datos">
+        @include('cursos.form', array('obj'=>$curso))
+    </div>
+    <div class="tab-pane fade" id="tab_requisitos">
+        @include('cursos.requisitos_abm', array('obj'=>$curso))
+    </div>
+</div>
 @stop

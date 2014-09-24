@@ -22,6 +22,8 @@ Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripci
     Route::resource('cursos', 'CursosController');
     Route::resource('cursos.inscripciones', 'CursosInscripcionesController');
 
+    Route::resource('cursos.requisitos', 'RequisitosController');
+
     Route::resource('tipos_documento', 'TipoDocumentosController');
     Route::resource('localidades', 'LocalidadesController');
 });

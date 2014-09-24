@@ -1,6 +1,6 @@
-<?php $method        = $obj ? 'PATCH' : 'POST';?>
-<?php $route_name    = $obj ? 'cursos.update' : 'cursos.store';?>
-<?php $route_params  = $obj ? array('id' => $obj->id) : array();?>
+<?php $method = $obj ? 'PATCH' : 'POST'; ?>
+<?php $route_name = $obj ? 'cursos.update' : 'cursos.store'; ?>
+<?php $route_params = $obj ? array('id' => $obj->id) : array(); ?>
 
 {{Former::framework('TwitterBootstrap3')}}
 {{ Former::horizontal_open()
@@ -10,20 +10,24 @@
         ->route($route_name, $route_params  );
 }}
 {{ Former::populate($obj) }}
-{{ Former::text('nombre')->required() }}
+<fieldset>
+{{ Former::text('nombre')->required()->onGroupAddClass('form-group-lg') }}
 {{ Former::number('anio')->required()->value(date("Y")) }}
 <input type="hidden" name="permite_inscripciones" value="0"/>
-{{ Former::checkbox('permite_inscripciones') }}
+{{ Former::checkbox('permite_inscripciones')->addClass('checkbox') }}
 <input type="hidden" name="vigente" value="0"/>
-{{ Former::checkbox('vigente') }}
+{{ Former::checkbox('vigente')->addClass('checkbox') }}
 
 {{ Former::date('inicio')->label('Fecha inicio') }}
 {{ Former::date('fin')->label('Fecha fin') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
+
+<hr>
 {{ Former::actions(
             link_to_route('cursos.index', 'Volver', null, array('class' => 'btn btn-lg btn-link')),
             Former::lg_default_reset('Restablecer'),
-            Former::lg_primary_submit('Guardar curso')
+            Former::lg_primary_submit('Guardar')
     )
 }}
+</fieldset>
 {{ Former::close() }}
