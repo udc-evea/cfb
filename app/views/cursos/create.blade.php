@@ -1,10 +1,10 @@
 @extends('layouts.scaffold')
-@section('title', 'Nuevo Curso - CFB')
+@section('title', 'Nueva Oferta - CFB')
 @section('main')
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Registrar nuevo curso</h1>
+        <h1>Registrar nueva Oferta Educativa</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">

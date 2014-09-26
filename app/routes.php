@@ -19,6 +19,14 @@ Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripci
         return Redirect::route('cursos.index');
     });
 
+    Route::post('/cursos/{curso}/inscripciones/{inscripcion}/requisito', 
+      array('uses' => 'CursosInscripcionesController@presentarRequisito', 'as' => 'cursos.inscripciones.requisito_presentar')
+    );
+
+    Route::delete('/cursos/{curso}/inscripciones/{inscripcion}/requisito/{requisito}', 
+      array('uses' => 'CursosInscripcionesController@borrarRequisito', 'as' => 'cursos.inscripciones.requisito_borrar')
+    );
+
     Route::resource('cursos', 'CursosController');
     Route::resource('cursos.inscripciones', 'CursosInscripcionesController');
 

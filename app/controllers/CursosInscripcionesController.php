@@ -120,8 +120,12 @@ class CursosInscripcionesController extends BaseController {
 			return Redirect::route('cursos.inscripciones.index');
 		}
                 
-                $curso = $inscripcion->curso;
-		return View::make('inscripciones.edit', compact('inscripcion', 'curso'));
+        $curso = $inscripcion->curso;
+        $requisitos = $curso->requisitos;
+
+        $presentados = $inscripcion->requisitospresentados;
+
+		return View::make('inscripciones.edit', compact('inscripcion', 'curso', 'requisitos',  'presentados'));
 	}
 
 	/**
@@ -169,5 +173,51 @@ class CursosInscripcionesController extends BaseController {
                     ->withCurso($curso)
                     ->with('message', 'Se eliminó el registro correctamente.');
 	}
+
+	/**
+	 * Guarda la presentación de un requisito en la inscripción
+	 *
+	 * @return Response
+	 */
+	public function presentarRequisito($curso_id, $id)
+	{
+            $curso    = Curso::findOrFail($curso_id);
+            $input    = Input::all();
+            $reglas   = RequisitoPresentado::$rules;
+            $obj = new Inscripcion;
+            $obj = $obj->findOrFail($id);
+
+            $input['inscripcion_id'] = $obj->id;
+
+            $validation = Validator::make($input, $reglas);
+
+            if ($validation->passes())
+            {
+            	$requisito_presentado =  new RequisitoPresentado;
+                $inscripcion = $requisito_presentado->create($input);
+                $presentados = $obj->requisitospresentados;
+                $requisito = new Requisito;
+                $requisito = $requisito->findOrFail($input['requisito_id']);
+
+                return View::make('requisitos.itempresentado', compact('curso', 'requerimiento', 'inscripcion', 'presentados', 'requisito'));
+            } else
+            {
+            	return Response::json(array('error' => 'Error al guardar'), 400);
+            }
+	}
+
+	public function borrarRequisito($curso_id, $inscripcion_id, $requisito_id)
+	{
+      	$repo = new RequisitoPresentado;
+		$repo = $repo
+			->where('inscripcion_id', '=', $inscripcion_id)
+			->where('requisito_id', '=', $requisito_id)
+			->delete()
+			;
+
+		return Response::make('', 200);
+	}
+
+
 
 }

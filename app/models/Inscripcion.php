@@ -37,6 +37,11 @@ class Inscripcion extends Eloquent {
     {
         return $this->belongsTo('Localidad', 'localidad_id');
     }
+
+    public function requisitospresentados()
+    {
+        return $this->hasMany('RequisitoPresentado');
+    }
     
     public function getColumnasCSV()
     {
