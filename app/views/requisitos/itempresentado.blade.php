@@ -9,7 +9,7 @@
 @endforeach
 
 @if($cargado)
-{{ $pres1->fecha_presentacion }} 
+{{ $pres1->fecha_presentacion }}
 <a href="{{ route('cursos.inscripciones.requisito_borrar', array($curso->id, $inscripcion->id, $requisito->id)) }}" class="btn btn-default btn-sm action-borrar" data-method="delete" data-remote="true"><span class="glyphicon glyphicon-remove"></span></a>
 @else
 <form action="{{ route('cursos.inscripciones.requisito_presentar', array($curso->id, $inscripcion->id)) }}" class="nuevo" data-remote="true" method="post">

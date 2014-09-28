@@ -25,6 +25,12 @@
 					<td>{{ $curso->anio }}</td>
                                         <td>
                                             {{ $curso->inscriptos }}
+                                            @if((int)$curso->cupo_maximo > 0)
+                                             de {{$curso->cupo_maximo}}
+                                             @if($curso->inscriptos > $curso->cupo_maximo)
+                                             			<span class="text-danger glyphicon glyphicon-warning-sign"></span>
+                                             @endif
+                                            @endif
                                             @if($curso->inscriptos > 0)
                                             <small><a href="{{ URL::route('cursos.inscripciones.show', $curso->id) }}">[Ver]</a></small>
                                             @endif

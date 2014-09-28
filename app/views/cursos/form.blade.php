@@ -20,6 +20,7 @@
 
 {{ Former::date('inicio')->label('Fecha inicio') }}
 {{ Former::date('fin')->label('Fecha fin') }}
+{{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
 
 <hr>

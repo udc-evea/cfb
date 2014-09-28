@@ -1,4 +1,4 @@
-@extends('layouts.scaffold')
+@extends('layouts.inscripciones_publico')
 @section('title', 'Inscripción no disponible')
 @section('main')
 

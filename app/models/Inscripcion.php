@@ -83,4 +83,21 @@ class Inscripcion extends Eloquent {
     {
         return array('fecha_nacimiento');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        Inscripcion::created(function($inscripcion){
+            $inscripcion->curso->chequearDisponibilidad();
+        });
+
+        Inscripcion::updated(function($inscripcion){
+            $inscripcion->curso->chequearDisponibilidad();
+        });
+
+        Inscripcion::deleted(function($inscripcion){
+            $inscripcion->curso->chequearDisponibilidad();
+        });
+    }
 }

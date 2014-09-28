@@ -73,6 +73,7 @@ class CursosInscripcionesController extends BaseController {
             if ($validation->passes())
             {
                     $insc = $this->inscripcion->create($input_db);
+                    $curso->chequearDisponibilidad();
                     
                     try {
                         Mail::send('inscripciones.mail_bienvenida', array('inscripcion' => $insc), function($message) use($curso, $insc) {

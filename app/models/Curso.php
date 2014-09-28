@@ -7,10 +7,11 @@ class Curso extends Eloquent {
         public $timestamps = false;
 
 	public static $rules = array(
-		'nombre'  => 'required',
-		'anio'    => 'required|digits:4',
-                'inicio'  => 'date',
-                'fin'     => 'date'
+		'nombre'        => 'required',
+		'anio'          => 'required|digits:4',
+        'inicio'        => 'date',
+        'fin'           => 'date',
+        'cupo_maximo'   => 'integer|min:0'
 	);
         
         public function inscripciones()
@@ -56,6 +57,14 @@ class Curso extends Eloquent {
         public function getPermiteInscripcionesAttribute()
         {
             return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);
+        }
+
+        public function chequearDisponibilidad()
+        {
+            if($this->permite_inscripciones) return;
+
+            if((int)$this->inscripciones >= (int)$this->cupo_maximo)
+                $this->setPermiteInscripciones(false)->save();
         }
         
 }
