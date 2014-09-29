@@ -61,10 +61,12 @@ class Curso extends Eloquent {
 
         public function chequearDisponibilidad()
         {
-            if($this->permite_inscripciones) return;
-
-            if((int)$this->inscripciones >= (int)$this->cupo_maximo)
-                $this->setPermiteInscripciones(false)->save();
+            if($this->inscripciones->count() >= (int)$this->cupo_maximo)
+            {
+                $this->permite_inscripciones = false;
+                $this->save();
+            }    
+            
         }
         
 }
