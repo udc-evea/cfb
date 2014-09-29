@@ -54,7 +54,7 @@ class Inscripcion extends Eloquent {
             'documento'         => $this->documento,
             'apellido'          => $this->apellido,
             'nombre'            => $this->nombre,
-            'fecha_nacimiento'  => $this->getFechaNacimiento(),
+            'fecha_nacimiento'  => $this->fecha_nacimiento_text,
             'localidad'         => $this->localidad->localidad,
             'email'             => $this->email,
             'telefono'          => $this->telefono
@@ -77,6 +77,11 @@ class Inscripcion extends Eloquent {
     public function getInscriptoAttribute()
     {
         return sprintf("%s %s", $this->apellido, $this->nombre);
+    }
+
+    public function getFechaNacimientoTextAttribute()
+    {
+        return ModelHelper::getFechaFormateada($this->fecha_nacimiento);
     }
     
     public function getDates()
