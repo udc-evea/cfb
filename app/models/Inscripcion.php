@@ -12,7 +12,6 @@ class Inscripcion extends Eloquent {
         'documento' => 'required|integer|min:1000000|max:99999999',
         'apellido' => 'required',
         'nombre' => 'required',
-        'sexo' => 'required|in:m,M,f,F',
         'fecha_nacimiento' => 'required|before:01/01/2004',
         'localidad_id' => 'required|exists:repo_localidad,id',
         //'localidad_otra' => 'text',

@@ -9,7 +9,7 @@
         <title>@yield('title', 'UDC-CFB')</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+        <link rel="shortcut icon" href="/favicon.png?v=2">
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('bootstrap-extras/datepicker/css/datepicker3.css') }}">
         
@@ -28,6 +28,12 @@
 
         <!-- Add your site or application content here -->
         <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <img src="{{ asset('img/LOGO-horizontal-MQ-RGB-150dpi.png') }}"/>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-12">
                 @if (Session::has('message'))

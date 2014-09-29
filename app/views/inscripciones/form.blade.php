@@ -13,18 +13,14 @@
 <div class="panel panel-default">
     <div class="panel-heading"><strong>¿Quién sos?</strong></div>
     <div class="panel-body">
+        {{ Former::text('apellido')->required() }}
+        {{ Former::text('nombre')->required() }}
+
         {{ Former::select('tipo_documento_cod')
             ->fromQuery(TipoDocumento::orderBy('descripcion')->get(), 'descripcion', 'tipo_documento')
             ->label('Tipo doc.')
             ->value(TipoDocumento::TIPODOC_DNI)->required() }}
         {{ Former::number('documento')->required() }}
-        {{ Former::text('apellido')->required() }}
-        {{ Former::text('nombre')->required() }}
-        {{ Former::inline_radios('sexo')->radios([
-             'Hombre' => ['value' => 'M'],
-             'Mujer'  => ['value' => 'F']
-           ])->required() }}
-
         {{ Former::date('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}
     </div>
 </div>
@@ -61,6 +57,16 @@
         {{ Former::text('telefono')->label('Teléfono')->required() }}
     </div>
 </div>
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Para terminar...</strong></div>
+    <div class="panel-body">
+        {{ Former::select('como_te_enteraste')
+                ->options(['', 'TV', 'Radio', 'Diarios', 'Visita en las escuelas', 'Un amigo / familiar / vecino', 'Otro'])
+                ->label('¿Cómo te enteraste de esta oferta?')
+                ->required() }}
+    </div>
+</div>
+
 {{ Former::checkbox('reglamento')
      ->label('Reglamento')
      ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')

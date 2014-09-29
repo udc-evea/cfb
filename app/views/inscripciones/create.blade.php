@@ -3,7 +3,7 @@
 @section('main')
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-2">
+    <div class="col-md-6">
         <h1>Inscripción a: {{ $curso->nombre }}</h1>
 
         @if ($errors->any())
@@ -13,9 +13,7 @@
                 </ul>
         	</div>
         @endif
+        @include('inscripciones.form', array('obj' => null, 'curso' => $curso))
     </div>
 </div>
-
-@include('inscripciones.form', array('obj' => null, 'curso' => $curso))
-
 @stop
