@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-09-2014 a las 22:42:10
--- Versión del servidor: 5.6.17-0ubuntu0.14.04.1
--- Versión de PHP: 5.5.9-1ubuntu4.3
+-- Tiempo de generación: 29-09-2014 a las 16:35:25
+-- Versión del servidor: 5.6.19-0ubuntu0.14.04.1
+-- Versión de PHP: 5.5.9-1ubuntu4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,6 +28,7 @@ USE `cfb`;
 -- Estructura de tabla para la tabla `cfb_users`
 --
 
+DROP TABLE IF EXISTS `cfb_users`;
 CREATE TABLE IF NOT EXISTS `cfb_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
@@ -42,40 +43,8 @@ CREATE TABLE IF NOT EXISTS `cfb_users` (
 -- Volcado de datos para la tabla `cfb_users`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `inscripcion_datos_laborales`
---
-
-CREATE TABLE IF NOT EXISTS `inscripcion_datos_laborales` (
-  `inscripcion_id` int(10) unsigned NOT NULL,
-  `trabajo_lugar` varchar(50) DEFAULT NULL,
-  `trabajo_antiguedad` varchar(45) DEFAULT NULL,
-  `trabajo_condicion` varchar(45) DEFAULT NULL,
-  `trabajo_descripcion` varchar(45) DEFAULT NULL,
-  `trabajo_anterior_lugar` varchar(50) DEFAULT NULL,
-  `trabajo_anterior_descripcion` varchar(45) DEFAULT NULL,
-  `trabajo_anterior_antiguedad` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`inscripcion_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `inscripcion_encuesta`
---
-
-CREATE TABLE IF NOT EXISTS `inscripcion_encuesta` (
-  `inscripcion_id` int(10) unsigned NOT NULL,
-  `encuesta_1` text NOT NULL COMMENT 'Que te motiva a realizar este curso',
-  `encuesta_2` text NOT NULL COMMENT 'Cuales son tus expectativas respecto a este curso',
-  `encuesta_3` text NOT NULL COMMENT 'Cuales son tus competencias previas vinculadas a la tematica de este curso',
-  `encuesta_4` text NOT NULL COMMENT 'Participas actualmente del desarrollo de algun proyecto productivo',
-  `encuesta_5` text NOT NULL COMMENT 'Como te enteraste de este curso',
-  `encuesta_6` text NOT NULL COMMENT 'Participas de una asociacion de productores o de alguna promocion de proyectos productivos con o sin vinculacion con el Estado',
-  PRIMARY KEY (`inscripcion_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `cfb_users` (`id`, `nombre`, `username`, `password`, `remember_token`) VALUES
+(2, 'Administrador CFB', 'cfb', '$2y$10$/gHcep7RVikdCDPRYPg8ZetftLpMks8vdhzwrs8zgjft3IjzEWZVy', NULL);
 
 -- --------------------------------------------------------
 
@@ -83,24 +52,51 @@ CREATE TABLE IF NOT EXISTS `inscripcion_encuesta` (
 -- Estructura de tabla para la tabla `inscripcion_persona`
 --
 
+DROP TABLE IF EXISTS `inscripcion_persona`;
 CREATE TABLE IF NOT EXISTS `inscripcion_persona` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `persona_id` int(10) unsigned NOT NULL,
   `oferta_academica_id` int(10) unsigned NOT NULL,
-  `tipo_documento_cod` char(3) NOT NULL,
-  `documento` int(10) unsigned NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `sexo` char(1) NOT NULL,
+  `tipo_documento_cod` char(3) DEFAULT NULL,
+  `estado_inscripcion` int(10) unsigned NOT NULL DEFAULT '1',
+  `documento` int(10) unsigned DEFAULT NULL,
+  `apellido` varchar(100) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `sexo` char(1) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
+  `nacionalidad_id` int(10) unsigned DEFAULT NULL,
   `localidad_id` int(10) unsigned DEFAULT NULL,
   `localidad_otra` varchar(100) DEFAULT NULL,
-  `localidad_anios_residencia` int(10) unsigned NOT NULL,
-  `nivel_estudios_id` int(10) unsigned NOT NULL,
-  `email` varchar(80) NOT NULL,
-  `telefono` varchar(50) NOT NULL,
+  `localidad_anios_residencia` int(10) unsigned DEFAULT NULL,
+  `estado_civil` int(10) unsigned DEFAULT NULL,
+  `hijos` int(10) unsigned DEFAULT NULL,
+  `nivel_estudios_id` int(10) unsigned DEFAULT NULL,
+  `email` varchar(80) DEFAULT NULL,
+  `telefono` varchar(50) DEFAULT NULL,
   `titulo_obtenido` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `domicilio_procedencia_tipo` int(10) unsigned DEFAULT NULL,
+  `domicilio_procedencia_domicilio` varchar(200) DEFAULT NULL,
+  `domicilio_procedencia_localidad_id` int(10) unsigned DEFAULT NULL,
+  `domicilio_procedencia_pais_id` varchar(45) DEFAULT NULL,
+  `domicilio_clases_tipo` int(10) unsigned DEFAULT NULL,
+  `domicilio_clases_domicilio` varchar(200) DEFAULT NULL,
+  `domicilio_clases_localidad_id` int(10) unsigned DEFAULT NULL,
+  `situacion_laboral_id` int(10) unsigned DEFAULT NULL,
+  `relacion_trabajo_carrera` int(10) unsigned DEFAULT NULL,
+  `categoria_ocupacional` int(10) unsigned DEFAULT NULL,
+  `detalle_labor` text,
+  `padre_apeynom` varchar(255) DEFAULT NULL,
+  `padre_vive` int(10) unsigned DEFAULT NULL,
+  `padre_estudios` int(10) unsigned DEFAULT NULL,
+  `padre_categoria_ocupacional` int(10) unsigned DEFAULT NULL,
+  `padre_labor` text,
+  `madre_apeynom` varchar(255) DEFAULT NULL,
+  `madre_vive` int(10) unsigned DEFAULT NULL,
+  `madre_estudios` int(10) unsigned DEFAULT NULL,
+  `madre_categoria_ocupacional` int(10) unsigned DEFAULT NULL,
+  `madre_labor` text,
+  `como_te_enteraste` int(10) unsigned DEFAULT NULL,
+  `inscripcion_persona_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`,`inscripcion_persona_id`),
   UNIQUE KEY `oferta_academica_id_2` (`oferta_academica_id`,`tipo_documento_cod`,`documento`),
   UNIQUE KEY `oferta_academica_id_3` (`oferta_academica_id`,`email`),
   KEY `tipo_documento_cod` (`tipo_documento_cod`),
@@ -108,20 +104,47 @@ CREATE TABLE IF NOT EXISTS `inscripcion_persona` (
   KEY `documento` (`documento`),
   KEY `apellido` (`apellido`,`nombre`),
   KEY `nivel_estudios_id` (`nivel_estudios_id`),
-  KEY `oferta_academica_id` (`oferta_academica_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=456 ;
+  KEY `oferta_academica_id` (`oferta_academica_id`),
+  KEY `fk_inscripcion_persona_encuesta_tipo_residencia1_idx` (`domicilio_procedencia_tipo`),
+  KEY `fk_inscripcion_persona_encuesta_tipo_residencia2_idx` (`domicilio_clases_tipo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=454 ;
 
 --
 -- Volcado de datos para la tabla `inscripcion_persona`
 --
 
-INSERT INTO `inscripcion_persona` (`id`, `persona_id`, `oferta_academica_id`, `tipo_documento_cod`, `documento`, `apellido`, `nombre`, `sexo`, `fecha_nacimiento`, `localidad_id`, `localidad_otra`, `localidad_anios_residencia`, `nivel_estudios_id`, `email`, `telefono`, `titulo_obtenido`) VALUES
-(435, 0, 5, 'DU', 12312312, 'argento', 'josé', 'M', '2003-05-31', 57, '', 12, 4, 'me@example.com', '011-442177425', ''),
-(451, 0, 5, 'DU', 55464643, 'Perez', 'Juan', 'M', '2000-12-12', 57, '', 3, 5, 'euu@yo.com', '025-1252552', 'aaam'),
-(452, 0, 5, 'DU', 55464644, 'Perez', 'Juan', 'M', '2000-12-12', 57, '', 3, 5, 'euu@yoz.com', '025-1252552', 'aaam'),
-(453, 0, 5, 'DU', 55464646, 'Perez', 'Juan', 'M', '2000-12-12', 57, '', 3, 5, 'euuss@yoz.com', '025-1252552', 'aaam'),
-(454, 0, 5, 'DU', 14646462, 'Perez', 'Juan', 'M', '2000-12-12', 57, '', 3, 5, 'euuss@yozz.com', '025-1252552', 'aaam'),
-(455, 0, 5, 'DU', 14646463, 'Perez', 'Juan', 'M', '2000-12-12', 57, '', 3, 5, 'euuss@yozzz.com', '025-1252552', 'aaam');
+INSERT INTO `inscripcion_persona` (`id`, `oferta_academica_id`, `tipo_documento_cod`, `estado_inscripcion`, `documento`, `apellido`, `nombre`, `sexo`, `fecha_nacimiento`, `nacionalidad_id`, `localidad_id`, `localidad_otra`, `localidad_anios_residencia`, `estado_civil`, `hijos`, `nivel_estudios_id`, `email`, `telefono`, `titulo_obtenido`, `domicilio_procedencia_tipo`, `domicilio_procedencia_domicilio`, `domicilio_procedencia_localidad_id`, `domicilio_procedencia_pais_id`, `domicilio_clases_tipo`, `domicilio_clases_domicilio`, `domicilio_clases_localidad_id`, `situacion_laboral_id`, `relacion_trabajo_carrera`, `categoria_ocupacional`, `detalle_labor`, `padre_apeynom`, `padre_vive`, `padre_estudios`, `padre_categoria_ocupacional`, `padre_labor`, `madre_apeynom`, `madre_vive`, `madre_estudios`, `madre_categoria_ocupacional`, `madre_labor`, `como_te_enteraste`, `inscripcion_persona_id`) VALUES
+(435, 5, 'DU', 1, 12312312, 'argento', 'josé', 'M', '2003-05-31', NULL, 57, '', 12, NULL, NULL, 4, 'me@example.com', '011-442177425', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(451, 5, 'DU', 1, 55464643, 'Perez', 'Juan', 'M', '2000-12-12', NULL, 57, '', 3, NULL, NULL, 5, 'euu@yo.com', '025-1252552', 'aaam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(452, 5, 'DU', 1, 55464644, 'Perez', 'Juan', 'M', '2000-12-12', NULL, 57, '', 3, NULL, NULL, 5, 'euu@yoz.com', '025-1252552', 'aaam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(453, 5, 'DU', 1, 55464646, 'Perez', 'Juan', 'M', '2000-12-12', NULL, 57, '', 3, NULL, NULL, 5, 'euuss@yoz.com', '025-1252552', 'aaam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `inscripcion_requisito_presentado`
+--
+
+DROP TABLE IF EXISTS `inscripcion_requisito_presentado`;
+CREATE TABLE IF NOT EXISTS `inscripcion_requisito_presentado` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `inscripcion_id` int(10) unsigned NOT NULL,
+  `requisito_id` int(10) unsigned NOT NULL,
+  `fecha_presentacion` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_inscripcion_requisito_presentado_oferta_requisitos1_idx` (`requisito_id`),
+  KEY `inscripcion_id` (`inscripcion_id`),
+  KEY `requisito_id` (`requisito_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Volcado de datos para la tabla `inscripcion_requisito_presentado`
+--
+
+INSERT INTO `inscripcion_requisito_presentado` (`id`, `inscripcion_id`, `requisito_id`, `fecha_presentacion`) VALUES
+(8, 435, 46, '2014-09-17'),
+(10, 435, 48, '2014-09-17'),
+(11, 435, 47, '2014-09-17');
 
 -- --------------------------------------------------------
 
@@ -129,6 +152,7 @@ INSERT INTO `inscripcion_persona` (`id`, `persona_id`, `oferta_academica_id`, `t
 -- Estructura de tabla para la tabla `oferta_academica`
 --
 
+DROP TABLE IF EXISTS `oferta_academica`;
 CREATE TABLE IF NOT EXISTS `oferta_academica` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
@@ -137,7 +161,9 @@ CREATE TABLE IF NOT EXISTS `oferta_academica` (
   `vigente` tinyint(1) NOT NULL,
   `inicio` date DEFAULT NULL,
   `fin` date DEFAULT NULL,
-  `reglamento` text,
+  `terminos` text,
+  `cupo_maximo` int(10) unsigned NOT NULL DEFAULT '0',
+  `tiene_preinscripcion` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
@@ -145,8 +171,34 @@ CREATE TABLE IF NOT EXISTS `oferta_academica` (
 -- Volcado de datos para la tabla `oferta_academica`
 --
 
-INSERT INTO `oferta_academica` (`id`, `nombre`, `anio`, `permite_inscripciones`, `vigente`, `inicio`, `fin`) VALUES
-(5, 'Curso de prueba', 2014, 1, 1, NULL, NULL);
+INSERT INTO `oferta_academica` (`id`, `nombre`, `anio`, `permite_inscripciones`, `vigente`, `inicio`, `fin`, `terminos`, `cupo_maximo`, `tiene_preinscripcion`) VALUES
+(5, 'Curso de prueba', 2014, 1, 1, NULL, NULL, 'Términos y condiciones de servicio\r\n\r\nEstos términos y condiciones de servicio ("TOS", por sus siglas en inglés) contienen información relevante que debe leer de manera cuidadosa. Además, Commerce le aconseja que revise nuestra Política de privacidad.\r\n\r\nLas palabras "nosotros", "nuestro" y "Commerce" hacen referencia a Commerce Bank, ya sea a su matriz o subsidiarias y a cualquier agente, contratista independiente o asignado que Commerce, de acuerdo a su sola discreción, pueda involucrar dentro de la disposición del Sitio. Las palabras "usted" y "su" hacen referencia a los visitantes y usuarios de este Sitio. Como referencia para el término "Sitio" podemos incluir cualquier sitio de Commerce o servicio de Commerce que esté asociado y al que se pueda acceder de forma directa o indirecta por medio del Sitio de Commerce o sus sitios Web relacionados.\r\n\r\nAl utilizar el Sitio, usted celebra un acuerdo legal con Commerce para atenerse a estos TOS. Si no quiere estar ligado de alguna forma a estos TOS, entonces no ingrese al Sitio. La única solución en caso que no esté satisfecho con el Sitio, o con cualquier cosa que esté a disposición en éste, es renunciar al uso del Sitio o a los servicios específicos.\r\n\r\nAlgunos servicios que están disponibles por medio del Sitio pueden contener términos y condiciones de servicio que son aún más restrictivos que estos TOS. Tanto estos TOS como los términos y condiciones de servicio que corresponden a un servicio en particular tienen validez al momento de utilizar este Sitio. En el caso que exista un conflicto entre estos TOS y los términos y condiciones de servicio más restrictivos prevalecerá aquel que sea más restrictivo.\r\n\r\nCommerce se reserva el derecho a modificar en cualquier momento los TOS o las políticas correspondientes al uso del Sitio y a notificar al cliente a través de la versión actualizada de los TOS que se describen en este Sitio. Usted tiene la responsabilidad de revisar de forma frecuente los TOS. El uso continuado del Sitio después de cualquier modificación representa su consentimiento para aquellas modificaciones.\r\n\r\nCommerce, en el momento que estime conveniente, puede discontinuar o realizar modificaciones en la información, productos o servicios que se describen aquí. Cualquier información fechada se publica sólo de acuerdo a su fecha, y Commerce no tiene la obligación o responsabilidad de actualizar o corregir aquella información. Commerce se reserva el derecho a poner término a cualquier o todo ofrecimiento que se realiza por medio del sitio Web sin requerir de una notificación previa al usuario. Asimismo, el hecho de ofrecer información, productos o servicios a través de este Sitio no constituye una solicitud por parte de Commerce para que cualquier persona utilice aquella información, productos o servicios en las jurisdicciones donde la entrega de tal información, productos o servicios está prohibida por ley.', 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `oferta_requisitos`
+--
+
+DROP TABLE IF EXISTS `oferta_requisitos`;
+CREATE TABLE IF NOT EXISTS `oferta_requisitos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `oferta_id` int(10) unsigned NOT NULL,
+  `requisito` varchar(200) NOT NULL,
+  `obligatorio` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `fk_oferta_requisitos_oferta_academicaa` (`oferta_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+
+--
+-- Volcado de datos para la tabla `oferta_requisitos`
+--
+
+INSERT INTO `oferta_requisitos` (`id`, `oferta_id`, `requisito`, `obligatorio`) VALUES
+(46, 5, 'uno obligatorio', 1),
+(47, 5, 'otro obligatorio', 1),
+(48, 5, 'uno opcional', 0),
+(49, 5, 'otro mas', 0);
 
 -- --------------------------------------------------------
 
@@ -154,6 +206,7 @@ INSERT INTO `oferta_academica` (`id`, `nombre`, `anio`, `permite_inscripciones`,
 -- Estructura de tabla para la tabla `repo_localidad`
 --
 
+DROP TABLE IF EXISTS `repo_localidad`;
 CREATE TABLE IF NOT EXISTS `repo_localidad` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigo_provincia` char(1) NOT NULL DEFAULT '' COMMENT 'Código de provincia según ISO31662',
@@ -264,6 +317,7 @@ INSERT INTO `repo_localidad` (`id`, `codigo_provincia`, `localidad`, `codigoPost
 -- Estructura de tabla para la tabla `repo_nivel_estudios`
 --
 
+DROP TABLE IF EXISTS `repo_nivel_estudios`;
 CREATE TABLE IF NOT EXISTS `repo_nivel_estudios` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nivel_estudios` varchar(60) NOT NULL,
@@ -286,31 +340,10 @@ INSERT INTO `repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `repo_persona`
---
-
-CREATE TABLE IF NOT EXISTS `repo_persona` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tipo_documento_cod` char(3) NOT NULL,
-  `documento` int(10) unsigned NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `sexo` char(1) NOT NULL,
-  `fecha_nacimiento` date DEFAULT NULL,
-  `localidad_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_documento_cod` (`tipo_documento_cod`),
-  KEY `localidad_id` (`localidad_id`),
-  KEY `documento` (`documento`),
-  KEY `apellido` (`apellido`,`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `repo_provincia`
 --
 
+DROP TABLE IF EXISTS `repo_provincia`;
 CREATE TABLE IF NOT EXISTS `repo_provincia` (
   `provincia` varchar(255) NOT NULL,
   `id` char(1) NOT NULL COMMENT 'Código de provincia según ISO 3166-2:AR',
@@ -353,6 +386,7 @@ INSERT INTO `repo_provincia` (`provincia`, `id`) VALUES
 -- Estructura de tabla para la tabla `repo_tipo_documento`
 --
 
+DROP TABLE IF EXISTS `repo_tipo_documento`;
 CREATE TABLE IF NOT EXISTS `repo_tipo_documento` (
   `tipo_documento` char(3) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
@@ -366,45 +400,42 @@ CREATE TABLE IF NOT EXISTS `repo_tipo_documento` (
 INSERT INTO `repo_tipo_documento` (`tipo_documento`, `descripcion`) VALUES
 ('CI', 'Cédula de Identificación'),
 ('DU', 'Documento Único (DNI)'),
-('LE', 'Libreta Enrolamiento');
+('LE', 'Libreta Enrolamiento'),
+('PA', 'Pasaporte');
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `inscripcion_datos_laborales`
---
-ALTER TABLE `inscripcion_datos_laborales`
-  ADD CONSTRAINT `fk_inscripcion_datos_laborales_inscripcion_persona1` FOREIGN KEY (`inscripcion_id`) REFERENCES `inscripcion_persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `inscripcion_encuesta`
---
-ALTER TABLE `inscripcion_encuesta`
-  ADD CONSTRAINT `fk_inscripcion_encuesta_inscripcion_persona1` FOREIGN KEY (`inscripcion_id`) REFERENCES `inscripcion_persona` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `inscripcion_persona`
 --
 ALTER TABLE `inscripcion_persona`
   ADD CONSTRAINT `fk_inscripcion_persona_oferta_academica1` FOREIGN KEY (`oferta_academica_id`) REFERENCES `oferta_academica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `inscripcion_persona_ibfk_1` FOREIGN KEY (`tipo_documento_cod`) REFERENCES `repo_tipo_documento` (`tipo_documento`),
   ADD CONSTRAINT `inscripcion_persona_ibfk_2` FOREIGN KEY (`localidad_id`) REFERENCES `repo_localidad` (`id`),
+  ADD CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia1` FOREIGN KEY (`domicilio_procedencia_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia2` FOREIGN KEY (`domicilio_clases_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `inscripcion_persona_ibfk_1` FOREIGN KEY (`tipo_documento_cod`) REFERENCES `repo_tipo_documento` (`tipo_documento`),
   ADD CONSTRAINT `inscripcion_persona_ibfk_3` FOREIGN KEY (`nivel_estudios_id`) REFERENCES `repo_nivel_estudios` (`id`);
+
+--
+-- Filtros para la tabla `inscripcion_requisito_presentado`
+--
+ALTER TABLE `inscripcion_requisito_presentado`
+  ADD CONSTRAINT `fk_inscripcion_requisito_presentado_inscripcion_persona1` FOREIGN KEY (`inscripcion_id`) REFERENCES `inscripcion_persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_inscripcion_requisito_presentado_oferta_requisitos1` FOREIGN KEY (`requisito_id`) REFERENCES `oferta_requisitos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `oferta_requisitos`
+--
+ALTER TABLE `oferta_requisitos`
+  ADD CONSTRAINT `fk_oferta_requisitos_oferta_academicaa` FOREIGN KEY (`oferta_id`) REFERENCES `oferta_academica` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `repo_localidad`
 --
 ALTER TABLE `repo_localidad`
   ADD CONSTRAINT `repo_localidad_ibfk_1` FOREIGN KEY (`codigo_provincia`) REFERENCES `repo_provincia` (`id`);
-
---
--- Filtros para la tabla `repo_persona`
---
-ALTER TABLE `repo_persona`
-  ADD CONSTRAINT `repo_persona_ibfk_1` FOREIGN KEY (`tipo_documento_cod`) REFERENCES `repo_tipo_documento` (`tipo_documento`),
-  ADD CONSTRAINT `repo_persona_ibfk_2` FOREIGN KEY (`localidad_id`) REFERENCES `repo_localidad` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
