@@ -1,5 +1,3 @@
-{{ HTML::script('js/inscripciones.js') }}
-
 <div class="form-horizontal">
     <div class="form-group form-group-sm">
         <div class="col-sm-4 col-sm-offset-2">
@@ -43,12 +41,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(function(){
-       InscripcionesModule.init({{ $curso->id }}); 
-    });
-</script>
 <style type="text/css">
     div.lista-requisitos { margin-top: 10px; }
 </style>

@@ -41,7 +41,7 @@
 		@endforeach
 		</tbody>
 	</table>
-<a class='text-muted    ' href="{{ URL::route('cursos.index') }}">Volver</a>
+<a class='text-muted' href="{{ URL::route('cursos.index') }}">Volver</a>
 @else
 <p>Aún no hay inscriptos en este curso.</p>
 <p><a href="{{ URL::action('cursos.inscripciones.create', $curso->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('cursos.index') }}">Lista de cursos</a></p>

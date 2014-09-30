@@ -1,12 +1,18 @@
 <?php $method        = $obj != null ? 'PUT' : 'POST';?>
 <?php $route_name    = $obj != null ? 'update' : 'nueva';?>
 <?php $route_params  = $obj != null ? array($curso->id, $obj->id) : array($curso->id);?>
-
+{{ HTML::script('js/inscripciones.js') }}
+<script>
+    $(function(){
+       InscripcionesModule.init({{ $curso->id }}); 
+    });
+</script>
 {{Former::framework('TwitterBootstrap3')}}
 {{ Former::horizontal_open()
         ->secure()
         ->method($method)
         ->route("cursos.inscripciones.$route_name", $route_params)
+        ->autocomplete("off")
 }}
 {{ Former::populate($obj) }}
 {{ Former::hidden('oferta_academica_id')->value($curso->id) }}
@@ -31,11 +37,11 @@
     </div>
     <div class="panel-body">
     {{ Former::select('localidad_id')
-                ->fromQuery(Localidad::all(), 'localidad', 'id')
+                ->fromQuery(Localidad::orderBy('localidad')->get(), 'localidad', 'id')
                 ->value(Localidad::ID_RAWSON)
                 ->label('Localidad')
                 ->required() }}
-        {{ Former::text('localidad_otra')->label('Otra') }}
+        {{ Former::text('localidad_otra')->label('Otra')->addGroupClass('otra_localidad hide') }}
         {{ Former::number('localidad_anios_residencia')->label('Años de residencia')->required() }}
     </div>
 </div>
