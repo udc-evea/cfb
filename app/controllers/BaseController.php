@@ -18,7 +18,7 @@ class BaseController extends Controller {
         protected function exportar($filename, $rows)
         {
             Excel::create($filename, function($excel) use($rows) {
-                $excel->sheet('First sheet', function($sheet) use($rows) {
+                $excel->sheet('hoja1', function($sheet) use($rows) {
                     $sheet->fromArray($rows);
                 }); 
             })->export('xls');

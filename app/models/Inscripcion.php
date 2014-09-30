@@ -19,7 +19,8 @@ class Inscripcion extends Eloquent {
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
         //'titulo_obtenido' => 'text',
         'email'    => array('required', 'email', 'unique_mail' => 'unique_with:inscripcion_persona,oferta_academica_id,email'),
-        'telefono'  => 'required'
+        'telefono'  => 'required',
+        'como_te_enteraste' => 'required'
     );
     
     public function curso()
