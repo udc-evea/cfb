@@ -15,30 +15,13 @@ class BaseController extends Controller {
 		}
 	}
         
-        protected function exportarCSV($filename, $rows)
+        protected function exportar($filename, $rows)
         {
-            $ftemp = fopen('php://temp', 'r+');
-            $output = '';
-            
-            fputcsv($ftemp, $rows[0]->getColumnasCSV());
-            rewind($ftemp);
-            $fila = fread($ftemp, 1048576);
-            fclose($ftemp);
-            $output .= $fila;
-            
-            foreach($rows as $row)
-            {
-                $fila = $row->toCSV();
-                
-                $output .= $fila;
-            }
-            
-            $headers = array(
-                'Content-Type' => 'text/csv',
-                'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-            );
-
-            return Response::make(rtrim($output, "\n"), 200, $headers);
+            Excel::create($filename, function($excel) use($rows) {
+                $excel->sheet('First sheet', function($sheet) use($rows) {
+                    $sheet->fromArray($rows);
+                }); 
+            })->export('xls');
         }
 
 }

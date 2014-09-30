@@ -9,7 +9,7 @@
                 "anahkiasen/former": "dev-master",
                 "greggilbert/recaptcha": "dev-master",
                 "felixkiss/uniquewith-validator": "1.1.*",
-                "kalani/validation-rule-generator": "dev-master"
+                "maatwebsite/excel": "1.*"
 	},
 	"autoload": {
 		"classmap": [

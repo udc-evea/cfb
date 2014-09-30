@@ -124,7 +124,8 @@ return array(
                 'Dollar\Generators\GeneratorsServiceProvider',
                 'Former\FormerServiceProvider',
                 'Greggilbert\Recaptcha\RecaptchaServiceProvider',
-                'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider'
+                'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
+                'Maatwebsite\Excel\ExcelServiceProvider',
 
 	),
 
@@ -195,6 +196,7 @@ return array(
                 'BS3'             => 'CFB\Bootstrap\Bootstrap3',
                 'ModelHelper'     => 'CFB\Model\Main',
                 'Former' => 'Former\Facades\Former',
+                'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
 	),
 
