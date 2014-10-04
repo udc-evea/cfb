@@ -7,12 +7,12 @@
     <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('cursos.index') }}">Volver</a></small>
 </h1>
 <h3>
-    Total: {{ $inscripciones->count() }}
+    Total: {{ count($inscripciones) }}
     &nbsp;&nbsp;&nbsp;&nbsp;
     <a href='{{ URL::Route('cursos.inscripciones.index', array('curso_id' => $curso->id, 'csv' => 1)) }}' class='btn btn-small'><span class='glyphicon glyphicon-export'></span> Exportar</a>
 </h3>
 
-@if ($inscripciones->count())
+@if (count($inscripciones))
 	<table class="table table-striped">
 		<thead>
 			<tr>

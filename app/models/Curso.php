@@ -16,7 +16,10 @@ class Curso extends Eloquent {
         
         public function inscripciones()
         {
-            return $this->hasMany('Inscripcion', 'oferta_academica_id');
+            return $this
+                ->hasMany('Inscripcion', 'oferta_academica_id')
+                ->orderBy('apellido')
+                ->orderBy('nombre');
         }
         
         public function requisitos()

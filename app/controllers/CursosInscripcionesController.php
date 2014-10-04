@@ -23,12 +23,12 @@ class CursosInscripcionesController extends BaseController {
 	public function index($curso_id)
 	{
             $curso = Curso::findOrFail($curso_id);
-            $inscripciones = $this->inscripcion->all();
+            $inscripciones = $curso->inscripciones->all();
             
             $csv = (int)Request::get('csv');
             
             if($csv == 1)
-            {
+            {	//$inscripciones->lists
                 return $this->exportar("inscriptos_".$curso->nombre, $inscripciones);
             }
             
