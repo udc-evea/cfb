@@ -73,13 +73,6 @@
     </div>
 </div>
 
-{{ Former::checkbox('reglamento')
-     ->label('Reglamento')
-     ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
-     ->required()
-}}
-@include('inscripciones.reglamento', array('curso' => $curso))
-
 @if(Auth::check())
 {{ Former::actions(
             link_to_route('cursos.inscripciones.index', 'Volver', $curso->id, array('class' => 'btn btn-lg btn-link')),
@@ -88,6 +81,12 @@
    )
 }}
 @else
+{{ Former::checkbox('reglamento')
+     ->label('Reglamento')
+     ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
+     ->required()
+}}
+@include('inscripciones.reglamento', array('curso' => $curso))
 <div class="form-group">
     <label class="control-label col-lg-2 col-sm-4">Código de seguridad</label>
     <div class="col-lg-10 col-sm-8">

@@ -136,10 +136,11 @@ class CursosInscripcionesController extends BaseController {
 	 */
 	public function update($curso_id, $id)
 	{
-		$input = array_except(Input::all(), '_method');
-                $rules = inscripcion::$rules;
-                $rules['oferta_academica_id']['unique_persona'] .=', '.$id;
-                $rules['oferta_academica_id']['unique_email'] .=', '.$id;
+		$input = array_except(Input::all(), array('_method', 'reglamento'));
+	    $rules = inscripcion::$rules;
+	    $rules['oferta_academica_id']['unique_persona'] .=', '.$id;
+	    $rules['email']['unique_mail'] .=', '.$id;
+
 		$validation = Validator::make($input, $rules);
 
 		if ($validation->passes())
