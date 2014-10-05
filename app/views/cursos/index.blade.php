@@ -11,7 +11,6 @@
 				<th>Año</th>
                                 <th>Inscriptos</th>
 				<th>Inscribiendo</th>
-				<th>Vigente</th>
 				<th>Fecha Inicio</th>
 				<th>Fecha Fin</th>
 				<th>&nbsp;</th>
@@ -41,7 +40,6 @@
                                             <small><a href="{{ URL::action('cursos.inscripciones.create', $curso->id) }}">[Form]</a></small>
                                             @endif
                                         </td>
-					<td>{{ BS3::bool_to_label($curso->vigente) }}</td>
 					<td>{{ ModelHelper::dateOrNull($curso->inicio) }}</td>
 					<td>{{ ModelHelper::dateOrNull($curso->fin) }}</td>
                     <td>

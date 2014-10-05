@@ -51,12 +51,7 @@ class Curso extends Eloquent {
         {
              $this->attributes['fin'] = ModelHelper::dateOrNull($value);
         }
-        
-        public function getVigenteAttribute()
-        {
-            return ModelHelper::trueOrNull($this->attributes['vigente']);
-        }
-        
+             
         public function getPermiteInscripcionesAttribute()
         {
             return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);

@@ -12,11 +12,10 @@
 {{ Former::populate($obj) }}
 <fieldset>
 {{ Former::text('nombre')->required()->onGroupAddClass('form-group-lg') }}
-{{ Former::number('anio')->required()->value(date("Y")) }}
+{{ Former::number('anio')->required()->value(date("Y"))->help('Año en que se dicta la oferta educativa') }}
 <input type="hidden" name="permite_inscripciones" value="0"/>
-{{ Former::checkbox('permite_inscripciones')->addClass('checkbox') }}
-<input type="hidden" name="vigente" value="0"/>
-{{ Former::checkbox('vigente')->addClass('checkbox') }}
+{{ Former::checkbox('permite_inscripciones')
+	->addClass('checkbox')->help('Habilita las inscripciones a esta oferta') }}
 
 {{ Former::date('inicio')->label('Fecha inicio') }}
 {{ Former::date('fin')->label('Fecha fin') }}

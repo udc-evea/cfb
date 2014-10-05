@@ -43,7 +43,7 @@ class CursosInscripcionesController extends BaseController {
 	public function create($curso_id)
 	{
             $curso = Curso::findOrFail($curso_id);
-            if(!$curso->permite_inscripciones || !$curso->vigente)
+            if(!$curso->permite_inscripciones)
             {
                 return View::make('inscripciones.cerradas')->withCurso($curso);
             }
