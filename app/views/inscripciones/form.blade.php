@@ -67,7 +67,7 @@
     <div class="panel-heading"><strong>Para terminar...</strong></div>
     <div class="panel-body">
         {{ Former::select('como_te_enteraste')
-                ->options(['', 'TV', 'Radio', 'Diarios', 'Visita en las escuelas', 'Un amigo / familiar / vecino', 'Web institucional', 'Otro'])
+                ->options(['', 'Diarios', 'Radio', 'TV', 'Un amigo / familiar / vecino', 'Visita en las escuelas', 'Web institucional', 'Otro'])
                 ->label('¿Cómo te enteraste de esta oferta?')
                 ->required() }}
     </div>
