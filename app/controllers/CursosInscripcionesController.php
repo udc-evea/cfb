@@ -61,14 +61,15 @@ class CursosInscripcionesController extends BaseController {
             $curso    = Curso::findOrFail($curso_id);
             $input    = Input::all();
             $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field', 'reglamento']);
-            $reglas = Inscripcion::$rules;
+            $reglas   = Inscripcion::$rules;
+            $mensajes = array('validation.unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este curso.');
 
             if(!Auth::check())
             {
                 $reglas['recaptcha_response_field'] = 'required|recaptcha';
                 $reglas['reglamento'] = 'required|boolean';
             }
-            $validation = Validator::make($input, $reglas);
+            $validation = Validator::make($input, $reglas, $mensajes);
 
             if ($validation->passes())
             {
@@ -140,8 +141,9 @@ class CursosInscripcionesController extends BaseController {
 	    $rules = inscripcion::$rules;
 	    $rules['oferta_academica_id']['unique_persona'] .=', '.$id;
 	    $rules['email']['unique_mail'] .=', '.$id;
+	    $mensajes = array('unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este curso.');
 
-		$validation = Validator::make($input, $rules);
+		$validation = Validator::make($input, $rules, $mensajes);
 
 		if ($validation->passes())
 		{
