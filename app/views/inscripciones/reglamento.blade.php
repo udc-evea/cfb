@@ -6,7 +6,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Reglamento: {{ $curso->nombre }}</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body modal-fixed-height">
         {{ nl2br($curso->terminos) }}
       </div>
       <div class="modal-footer">
@@ -15,3 +15,9 @@
     </div>
   </div>
 </div>
+<style>
+  div.modal-body.modal-fixed-height {
+    overflow-y: scroll;
+    max-height: 400px;  
+  }
+</style>

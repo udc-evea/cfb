@@ -45,6 +45,3 @@
        CursosModule.init({{ $curso->id }}); 
     });
 </script>
-<style type="text/css">
-    div.lista-requisitos { margin-top: 10px; }
-</style>
