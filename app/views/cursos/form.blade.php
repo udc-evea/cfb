@@ -21,6 +21,8 @@
 {{ Former::date('fin')->label('Fecha fin') }}
 {{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
+{{ Former::textarea('mail_bienvenida')
+			->label('Mail de bienvenida')->rows(10)->help('Vacío envía un mail genérico. Use %curso%, %alumno%') }}
 
 <hr>
 {{ Former::actions(

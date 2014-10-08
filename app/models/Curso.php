@@ -64,7 +64,11 @@ class Curso extends Eloquent {
                 $this->permite_inscripciones = false;
                 $this->save();
             }    
-            
+        }
+
+        public function getVistaMail()
+        {
+            return empty($this->mail_bienvenida) ? 'emails.inscripciones.bienvenida_generico' : 'emails.inscripciones.bienvenida_curso';
         }
         
 }

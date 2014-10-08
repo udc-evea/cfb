@@ -76,7 +76,7 @@ class CursosInscripcionesController extends BaseController {
                     $insc = $this->inscripcion->create($input_db);
                     
                     try {
-                        Mail::send('inscripciones.mail_bienvenida', array('inscripcion' => $insc), function($message) use($curso, $insc) {
+                        Mail::send($curso->getVistaMail(), array('inscripcion' => $insc), function($message) use($curso, $insc) {
                             $message
                                     ->to($insc->email, $insc->nombre)
                                     ->subject('CFB-UDC: Inscripción a '.$curso->nombre);

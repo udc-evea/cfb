@@ -20,6 +20,7 @@
 				<th>Nombre</th>
 				<th>Documento</th>
 				<th>Localidad</th>
+                <th>Email</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -31,6 +32,7 @@
                         <td>{{{ $inscripcion->nombre }}}</td>
                         <td>{{{ $inscripcion->tipoydoc }}}</td>
                         <td>{{{ $inscripcion->localidad->localidad }}}</td>
+                        <td>{{{ $inscripcion->email }}}</td>
                         <td>
                             {{ link_to_route('cursos.inscripciones.edit', 'Editar', array($curso->id, $inscripcion->id), array('class' => 'btn btn-info')) }}
                             {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('cursos.inscripciones.destroy', $curso->id, $inscripcion->id))) }}
