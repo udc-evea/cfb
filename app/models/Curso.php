@@ -18,6 +18,7 @@ class Curso extends Eloquent {
         {
             return $this
                 ->hasMany('Inscripcion', 'oferta_academica_id')
+                ->with('localidad')
                 ->orderBy('apellido')
                 ->orderBy('nombre');
         }

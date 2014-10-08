@@ -28,8 +28,8 @@ class CursosInscripcionesController extends BaseController {
             $csv = (int)Request::get('csv');
             
             if($csv == 1)
-            {	//$inscripciones->lists
-                return $this->exportar("inscriptos_".$curso->nombre, $inscripciones);
+            {	
+                return $this->exportar("inscriptos_".$curso->nombre, $inscripciones, 'inscripciones.excel');
             }
             
             return View::make('inscripciones.index', compact('inscripciones'))->withCurso($curso);

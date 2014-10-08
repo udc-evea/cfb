@@ -15,11 +15,13 @@ class BaseController extends Controller {
 		}
 	}
         
-        protected function exportar($filename, $rows)
+        protected function exportar($filename, $rows, $view)
         {
-            Excel::create($filename, function($excel) use($rows) {
-                $excel->sheet('hoja1', function($sheet) use($rows) {
-                    $sheet->fromArray($rows);
+            Excel::create($filename, function($excel) use($rows, $view) {
+                $excel->sheet('hoja1', function($sheet) use($rows, $view) {
+                    $sheet->loadView($view)
+      					->with('rows', $rows);
+                    
                 }); 
             })->export('xls');
         }
