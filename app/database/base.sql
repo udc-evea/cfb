@@ -163,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `oferta_academica` (
   `terminos` text,
   `cupo_maximo` int(10) unsigned NOT NULL DEFAULT '0',
   `tiene_preinscripcion` tinyint(1) NOT NULL DEFAULT '0',
+  `mail_bienvenida` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
