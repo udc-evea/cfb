@@ -20,7 +20,7 @@ class Inscripcion extends Eloquent {
         //'titulo_obtenido' => 'text',
         'email'    => array('required', 'email', 'unique_mail' => 'unique_with:inscripcion_persona,oferta_academica_id,email'),
         'telefono'  => 'required',
-        'como_te_enteraste' => 'required'
+        'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id'
     );
     
     public function curso()
@@ -36,6 +36,16 @@ class Inscripcion extends Eloquent {
     public function localidad()
     {
         return $this->belongsTo('Localidad', 'localidad_id');
+    }
+
+    public function nivel_estudios()
+    {
+        return $this->belongsTo('NivelEstudios', 'nivel_estudios_id');
+    }
+
+    public function rel_como_te_enteraste()
+    {
+        return $this->belongsTo('InscripcionComoTeEnteraste', 'como_te_enteraste');
     }
 
     public function requisitospresentados()

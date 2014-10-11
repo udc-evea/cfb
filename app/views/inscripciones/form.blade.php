@@ -67,9 +67,9 @@
     <div class="panel-heading"><strong>Para terminar...</strong></div>
     <div class="panel-body">
         {{ Former::select('como_te_enteraste')
-                ->options(['', 'Diarios', 'Radio', 'TV', 'Un amigo / familiar / vecino', 'Visita en las escuelas', 'Web institucional', 'Otro'])
-                ->label('¿Cómo te enteraste de esta oferta?')
-                ->required() }}
+            ->fromQuery(InscripcionComoTeEnteraste::get(), 'como_te_enteraste', 'id')
+            ->label('¿Cómo te enteraste de esta oferta?')
+            ->required() }}
     </div>
 </div>
 

@@ -9,7 +9,8 @@
                 "anahkiasen/former": "dev-master",
                 "greggilbert/recaptcha": "dev-master",
                 "felixkiss/uniquewith-validator": "1.1.*",
-                "maatwebsite/excel": "1.*"
+                "maatwebsite/excel": "1.*",
+                "barryvdh/laravel-debugbar": "1.*"
 	},
 	"autoload": {
 		"classmap": [

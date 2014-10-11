@@ -23,14 +23,19 @@ class CursosInscripcionesController extends BaseController {
 	public function index($curso_id)
 	{
             $curso = Curso::findOrFail($curso_id);
-            $inscripciones = $curso->inscripciones->all();
-            
             $csv = (int)Request::get('csv');
             
             if($csv == 1)
             {	
+            	$inscripciones = Inscripcion::where('oferta_academica_id', '=', $curso->id)
+            					->with('localidad', 'rel_como_te_enteraste')
+            					->orderBy('apellido')
+            					->orderBy('nombre')
+            					->get();
+            					
                 return $this->exportar("inscriptos_".$curso->nombre, $inscripciones, 'inscripciones.excel');
             }
+            $inscripciones = $curso->inscripciones->all();
             
             return View::make('inscripciones.index', compact('inscripciones'))->withCurso($curso);
 	}
