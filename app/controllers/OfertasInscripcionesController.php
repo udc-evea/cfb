@@ -22,22 +22,34 @@ class ofertasInscripcionesController extends BaseController {
 	 */
 	public function index($oferta_id)
 	{
-            $oferta = oferta::findOrFail($oferta_id);
-            $csv = (int)Request::get('csv');
-            
-            if($csv == 1)
-            {	
-            	$inscripciones = Inscripcion::where('oferta_formativa_id', '=', $oferta->id)
-            					->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
-            					->orderBy('apellido')
-            					->orderBy('nombre')
-            					->get();
-            					
-                return $this->exportar("inscriptos_".$oferta->nombre, $inscripciones, 'inscripciones.excel');
-            }
-            $inscripciones = $oferta->inscripciones->all();
-            
+        $oferta = oferta::findOrFail($oferta_id);
+        
+        $exp = Request::get('exp');
+
+        if(!empty($exp)) {
+        	$inscripciones = Inscripcion::where('oferta_formativa_id', '=', $oferta->id)
+        					->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+        					->orderBy('apellido')
+        					->orderBy('nombre')
+        					->get();
+
+        	switch($exp) {
+	        	case parent::EXPORT_XLS:
+	        		return $this->exportarXLS("inscriptos_".$oferta->nombre, $inscripciones, 'inscripciones.excel');
+	        	break;
+
+	        	case parent::EXPORT_PDF:
+	        		return $this->exportarPDF("inscriptos_".$oferta->nombre, $inscripciones, 'inscripciones.excel');
+	        	break;
+
+	        	case parent::EXPORT_CSV:
+	        	//TODO
+	        	//break;
+	        }
+        } else {
+        	$inscripciones = $oferta->inscripciones->all();
             return View::make('inscripciones.index', compact('inscripciones'))->withoferta($oferta);
+        }
 	}
 
 	/**

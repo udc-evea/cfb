@@ -7,7 +7,7 @@
 <table>
     <tr>
         <th colspan="6">
-            Inscriptos al oferta: {{$rows[0]->oferta->nombre}}
+            Inscriptos en: {{$rows[0]->oferta->nombre}}
         </th>
     </tr>
     <tr>

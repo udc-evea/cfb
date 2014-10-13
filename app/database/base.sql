@@ -32,7 +32,7 @@ CREATE TABLE `cfb_users` (
   `remember_token` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,44 +41,43 @@ CREATE TABLE `cfb_users` (
 
 LOCK TABLES `cfb_users` WRITE;
 /*!40000 ALTER TABLE `cfb_users` DISABLE KEYS */;
-INSERT INTO `cfb_users` VALUES (2,'Administrador CFB','cfb','$2y$10$/gHcep7RVikdCDPRYPg8ZetftLpMks8vdhzwrs8zgjft3IjzEWZVy',NULL);
+INSERT INTO `cfb_users` VALUES (5,'Administrador CFB','cfb','$2y$10$da28NKnSh2ag28fAcq2wO.OfCkmiGHLAIq39qPtixDnV3PWrJX.SC',NULL);
 /*!40000 ALTER TABLE `cfb_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `inscripcion_como_te_enteraste`
+-- Table structure for table `encuesta_tipo_residencia`
 --
 
-DROP TABLE IF EXISTS `inscripcion_como_te_enteraste`;
+DROP TABLE IF EXISTS `encuesta_tipo_residencia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `inscripcion_como_te_enteraste` (
+CREATE TABLE `encuesta_tipo_residencia` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) NOT NULL,
+  `descripcion` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inscripcion_como_te_enteraste`
+-- Dumping data for table `encuesta_tipo_residencia`
 --
 
-LOCK TABLES `inscripcion_como_te_enteraste` WRITE;
-/*!40000 ALTER TABLE `inscripcion_como_te_enteraste` DISABLE KEYS */;
-INSERT INTO `inscripcion_como_te_enteraste` VALUES (1,'Diarios'),(2,'Radio'),(3,'TV'),(4,'Un amigo / familiar / vecino'),(5,'Visita en las escuelas'),(6,'Web institucional'),(7,'Otro');
-/*!40000 ALTER TABLE `inscripcion_como_te_enteraste` ENABLE KEYS */;
+LOCK TABLES `encuesta_tipo_residencia` WRITE;
+/*!40000 ALTER TABLE `encuesta_tipo_residencia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `encuesta_tipo_residencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `inscripcion_persona`
+-- Table structure for table `inscripcion_carrera`
 --
 
-DROP TABLE IF EXISTS `inscripcion_persona`;
+DROP TABLE IF EXISTS `inscripcion_carrera`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `inscripcion_persona` (
+CREATE TABLE `inscripcion_carrera` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oferta_formativa_id` int(10) unsigned NOT NULL,
+  `oferta_academica_id` int(10) unsigned NOT NULL,
   `tipo_documento_cod` char(3) DEFAULT NULL,
   `estado_inscripcion` int(10) unsigned NOT NULL DEFAULT '1',
   `documento` int(10) unsigned DEFAULT NULL,
@@ -120,35 +119,110 @@ CREATE TABLE `inscripcion_persona` (
   `como_te_enteraste` int(10) unsigned NOT NULL,
   `inscripcion_persona_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`inscripcion_persona_id`),
-  UNIQUE KEY `oferta_formativa_id_2` (`oferta_formativa_id`,`tipo_documento_cod`,`documento`),
-  UNIQUE KEY `oferta_formativa_id_3` (`oferta_formativa_id`,`email`),
+  UNIQUE KEY `oferta_academica_id_2` (`oferta_academica_id`,`tipo_documento_cod`,`documento`),
+  UNIQUE KEY `oferta_academica_id_3` (`oferta_academica_id`,`email`),
   KEY `tipo_documento_cod` (`tipo_documento_cod`),
   KEY `localidad_id` (`localidad_id`),
   KEY `documento` (`documento`),
   KEY `apellido` (`apellido`,`nombre`),
   KEY `nivel_estudios_id` (`nivel_estudios_id`),
-  KEY `oferta_formativa_id` (`oferta_formativa_id`),
+  KEY `oferta_academica_id` (`oferta_academica_id`),
   KEY `fk_inscripcion_persona_encuesta_tipo_residencia1_idx` (`domicilio_procedencia_tipo`),
   KEY `fk_inscripcion_persona_encuesta_tipo_residencia2_idx` (`domicilio_clases_tipo`),
   KEY `fk_inscripcion_persona_inscripcion_como_te_enteraste1_idx` (`como_te_enteraste`),
-  CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia1` FOREIGN KEY (`domicilio_procedencia_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia2` FOREIGN KEY (`domicilio_clases_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inscripcion_persona_oferta_formativa1` FOREIGN KEY (`oferta_formativa_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscripcion_persona_oferta_academica10` FOREIGN KEY (`oferta_academica_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `inscripcion_persona_ibfk_10` FOREIGN KEY (`tipo_documento_cod`) REFERENCES `repo_tipo_documento` (`tipo_documento`),
+  CONSTRAINT `inscripcion_persona_ibfk_20` FOREIGN KEY (`localidad_id`) REFERENCES `repo_localidad` (`id`),
+  CONSTRAINT `inscripcion_persona_ibfk_30` FOREIGN KEY (`nivel_estudios_id`) REFERENCES `repo_nivel_estudios` (`id`),
+  CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia10` FOREIGN KEY (`domicilio_procedencia_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia20` FOREIGN KEY (`domicilio_clases_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscripcion_persona_inscripcion_como_te_enteraste10` FOREIGN KEY (`como_te_enteraste`) REFERENCES `inscripcion_como_te_enteraste` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=426 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscripcion_carrera`
+--
+
+LOCK TABLES `inscripcion_carrera` WRITE;
+/*!40000 ALTER TABLE `inscripcion_carrera` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inscripcion_carrera` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inscripcion_como_te_enteraste`
+--
+
+DROP TABLE IF EXISTS `inscripcion_como_te_enteraste`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inscripcion_como_te_enteraste` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscripcion_como_te_enteraste`
+--
+
+LOCK TABLES `inscripcion_como_te_enteraste` WRITE;
+/*!40000 ALTER TABLE `inscripcion_como_te_enteraste` DISABLE KEYS */;
+INSERT INTO `inscripcion_como_te_enteraste` VALUES (1,'Diarios'),(2,'Radio'),(3,'TV'),(4,'Un amigo / familiar / vecino'),(5,'Visita en las escuelas'),(6,'Web institucional'),(7,'Otro');
+/*!40000 ALTER TABLE `inscripcion_como_te_enteraste` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inscripcion_oferta`
+--
+
+DROP TABLE IF EXISTS `inscripcion_oferta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inscripcion_oferta` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `oferta_formativa_id` int(10) unsigned NOT NULL,
+  `tipo_documento_cod` char(3) NOT NULL,
+  `estado_inscripcion` int(10) unsigned NOT NULL DEFAULT '1',
+  `documento` int(10) unsigned NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `localidad_id` int(10) unsigned NOT NULL,
+  `localidad_otra` varchar(100) DEFAULT NULL,
+  `localidad_anios_residencia` int(10) unsigned NOT NULL,
+  `nivel_estudios_id` int(10) unsigned NOT NULL,
+  `titulo_obtenido` varchar(200) DEFAULT NULL,
+  `email` varchar(80) NOT NULL,
+  `telefono` varchar(50) NOT NULL,
+  `como_te_enteraste` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `oferta_academica_id_2` (`oferta_formativa_id`,`tipo_documento_cod`,`documento`),
+  UNIQUE KEY `oferta_academica_id_3` (`oferta_formativa_id`,`email`),
+  KEY `tipo_documento_cod` (`tipo_documento_cod`),
+  KEY `localidad_id` (`localidad_id`),
+  KEY `documento` (`documento`),
+  KEY `apellido` (`apellido`,`nombre`),
+  KEY `nivel_estudios_id` (`nivel_estudios_id`),
+  KEY `oferta_academica_id` (`oferta_formativa_id`),
+  KEY `fk_inscripcion_persona_inscripcion_como_te_enteraste1_idx` (`como_te_enteraste`),
+  CONSTRAINT `fk_inscripcion_persona_oferta_academica1` FOREIGN KEY (`oferta_formativa_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `inscripcion_persona_ibfk_1` FOREIGN KEY (`tipo_documento_cod`) REFERENCES `repo_tipo_documento` (`tipo_documento`),
   CONSTRAINT `inscripcion_persona_ibfk_2` FOREIGN KEY (`localidad_id`) REFERENCES `repo_localidad` (`id`),
   CONSTRAINT `inscripcion_persona_ibfk_3` FOREIGN KEY (`nivel_estudios_id`) REFERENCES `repo_nivel_estudios` (`id`),
   CONSTRAINT `fk_inscripcion_persona_inscripcion_como_te_enteraste1` FOREIGN KEY (`como_te_enteraste`) REFERENCES `inscripcion_como_te_enteraste` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=463 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=429 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inscripcion_persona`
+-- Dumping data for table `inscripcion_oferta`
 --
 
-LOCK TABLES `inscripcion_persona` WRITE;
-/*!40000 ALTER TABLE `inscripcion_persona` DISABLE KEYS */;
-INSERT INTO `inscripcion_persona` VALUES (435,5,'DU',1,12312312,'argento','josé','M','2003-05-31',NULL,57,'',12,NULL,NULL,4,'me@example.com','011-442177425','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,4,0),(451,5,'DU',1,55464643,'Perez','Juan','M','2000-12-12',NULL,57,'',3,NULL,NULL,5,'euu@yo.com','025-1252552','aaam',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,4,0),(452,5,'DU',1,55464644,'Perez','Juan','M','2000-12-12',NULL,57,'',3,NULL,NULL,5,'euu@yoz.com','025-1252552','aaam',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,4,0),(453,5,'DU',1,55464646,'Perez','Alberto','M','2000-12-12',NULL,57,'',3,NULL,NULL,5,'euuss@yoz.com','025-1252552','aaam',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5,0),(454,5,'DU',1,33698547,'jnkj kj','kjnkj',NULL,'1980-10-05',NULL,57,'',2,NULL,NULL,4,'mamita@pepe.com','342354345','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0),(455,5,'DU',1,65765722,'d ksjdklsdfs','kbhjkj',NULL,'1980-10-10',NULL,57,'',2,NULL,NULL,4,'mpp@aaaa.com','65651','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2,0),(456,5,'DU',1,65765733,'d ksjdklsdfs','kbhjkj',NULL,'1980-10-10',NULL,13,'',2,NULL,NULL,4,'msspp@aaaa.com','65651','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0),(461,5,'DU',1,44444444,'fsbd fdgf','dfdffddf',NULL,'2000-12-09',NULL,57,'',4,NULL,NULL,4,'mppfiles@gmail.com','45345343','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,4,0),(462,5,'DU',1,76765765,'Boo','iujhiu',NULL,'2003-10-25',NULL,57,'',3,NULL,NULL,1,'ads@asd.com','123123123','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,3,0);
-/*!40000 ALTER TABLE `inscripcion_persona` ENABLE KEYS */;
+LOCK TABLES `inscripcion_oferta` WRITE;
+/*!40000 ALTER TABLE `inscripcion_oferta` DISABLE KEYS */;
+INSERT INTO `inscripcion_oferta` VALUES (427,2,'DU',1,25612323,'Argento','Jose','1980-10-24',57,'',11,2,'nada..-.','pepe@argento.com','1123333',2),(428,2,'DU',1,34453345,'sdfs','dfgdf','2000-10-03',57,'',5,4,'sdfsdf','ssds@sddsds.com','234234234',1);
+/*!40000 ALTER TABLE `inscripcion_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -167,9 +241,9 @@ CREATE TABLE `inscripcion_requisito_presentado` (
   KEY `fk_inscripcion_requisito_presentado_oferta_requisitos1_idx` (`requisito_id`),
   KEY `inscripcion_id` (`inscripcion_id`),
   KEY `requisito_id` (`requisito_id`),
-  CONSTRAINT `fk_inscripcion_requisito_presentado_inscripcion_persona1` FOREIGN KEY (`inscripcion_id`) REFERENCES `inscripcion_persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_inscripcion_requisito_presentado_inscripcion_persona1` FOREIGN KEY (`inscripcion_id`) REFERENCES `inscripcion_oferta` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_inscripcion_requisito_presentado_oferta_requisitos1` FOREIGN KEY (`requisito_id`) REFERENCES `oferta_requisitos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +252,6 @@ CREATE TABLE `inscripcion_requisito_presentado` (
 
 LOCK TABLES `inscripcion_requisito_presentado` WRITE;
 /*!40000 ALTER TABLE `inscripcion_requisito_presentado` DISABLE KEYS */;
-INSERT INTO `inscripcion_requisito_presentado` VALUES (8,435,46,'2014-09-17'),(10,435,48,'2014-09-17'),(11,435,47,'2014-09-17');
 /*!40000 ALTER TABLE `inscripcion_requisito_presentado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +274,7 @@ CREATE TABLE `oferta_formativa` (
   `tiene_preinscripcion` tinyint(1) NOT NULL DEFAULT '0',
   `mail_bienvenida` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +283,7 @@ CREATE TABLE `oferta_formativa` (
 
 LOCK TABLES `oferta_formativa` WRITE;
 /*!40000 ALTER TABLE `oferta_formativa` DISABLE KEYS */;
-INSERT INTO `oferta_formativa` VALUES (5,'Curso de prueba',2014,1,NULL,NULL,'Términos y condiciones de servicio\r\n\r\nEstos términos y condiciones de servicio (\"TOS\", por sus siglas en inglés) contienen información relevante que debe leer de manera cuidadosa. Además, Commerce le aconseja que revise nuestra Política de privacidad.\r\n\r\nLas palabras \"nosotros\", \"nuestro\" y \"Commerce\" hacen referencia a Commerce Bank, ya sea a su matriz o subsidiarias y a cualquier agente, contratista independiente o asignado que Commerce, de acuerdo a su sola discreción, pueda involucrar dentro de la disposición del Sitio. Las palabras \"usted\" y \"su\" hacen referencia a los visitantes y usuarios de este Sitio. Como referencia para el término \"Sitio\" podemos incluir cualquier sitio de Commerce o servicio de Commerce que esté asociado y al que se pueda acceder de forma directa o indirecta por medio del Sitio de Commerce o sus sitios Web relacionados.\r\n\r\nAl utilizar el Sitio, usted celebra un acuerdo legal con Commerce para atenerse a estos TOS. Si no quiere estar ligado de alguna forma a estos TOS, entonces no ingrese al Sitio. La única solución en caso que no esté satisfecho con el Sitio, o con cualquier cosa que esté a disposición en éste, es renunciar al uso del Sitio o a los servicios específicos.\r\n\r\nAlgunos servicios que están disponibles por medio del Sitio pueden contener términos y condiciones de servicio que son aún más restrictivos que estos TOS. Tanto estos TOS como los términos y condiciones de servicio que corresponden a un servicio en particular tienen validez al momento de utilizar este Sitio. En el caso que exista un conflicto entre estos TOS y los términos y condiciones de servicio más restrictivos prevalecerá aquel que sea más restrictivo.\r\n\r\nCommerce se reserva el derecho a modificar en cualquier momento los TOS o las políticas correspondientes al uso del Sitio y a notificar al cliente a través de la versión actualizada de los TOS que se describen en este Sitio. Usted tiene la responsabilidad de revisar de forma frecuente los TOS. El uso continuado del Sitio después de cualquier modificación representa su consentimiento para aquellas modificaciones.\r\n\r\nCommerce, en el momento que estime conveniente, puede discontinuar o realizar modificaciones en la información, productos o servicios que se describen aquí. Cualquier información fechada se publica sólo de acuerdo a su fecha, y Commerce no tiene la obligación o responsabilidad de actualizar o corregir aquella información. Commerce se reserva el derecho a poner término a cualquier o todo ofrecimiento que se realiza por medio del sitio Web sin requerir de una notificación previa al usuario. Asimismo, el hecho de ofrecer información, productos o servicios a través de este Sitio no constituye una solicitud por parte de Commerce para que cualquier persona utilice aquella información, productos o servicios en las jurisdicciones donde la entrega de tal información, productos o servicios está prohibida por ley.',100,0,'hoooooooola hola hola hola chango!!\r\n\r\nQué hacés tanto tiempo???\r\nNi idea de qué hacer ahora...');
+INSERT INTO `oferta_formativa` VALUES (2,'Primer Curso',2014,1,'2014-10-13','2014-10-20','blablabla',0,0,'');
 /*!40000 ALTER TABLE `oferta_formativa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,9 +300,9 @@ CREATE TABLE `oferta_requisitos` (
   `requisito` varchar(200) NOT NULL,
   `obligatorio` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `fk_oferta_requisitos_oferta_formativaa` (`oferta_id`),
-  CONSTRAINT `fk_oferta_requisitos_oferta_formativaa` FOREIGN KEY (`oferta_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+  KEY `fk_oferta_requisitos_oferta_academicaa` (`oferta_id`),
+  CONSTRAINT `fk_oferta_requisitos_oferta_academicaa` FOREIGN KEY (`oferta_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +311,7 @@ CREATE TABLE `oferta_requisitos` (
 
 LOCK TABLES `oferta_requisitos` WRITE;
 /*!40000 ALTER TABLE `oferta_requisitos` DISABLE KEYS */;
-INSERT INTO `oferta_requisitos` VALUES (46,5,'uno obligatorio',1),(47,5,'otro obligatorio',1),(48,5,'uno opcional',0),(49,5,'otro mas',0);
+INSERT INTO `oferta_requisitos` VALUES (1,2,'Fotocopia de DNI',1),(4,2,'otra',0),(5,2,'ebdfbgdfg',1),(7,2,'fff',1);
 /*!40000 ALTER TABLE `oferta_requisitos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-11 18:18:29
+-- Dump completed on 2014-10-12 21:42:54

@@ -10,7 +10,9 @@
     Total: {{ count($inscripciones) }}
     &nbsp;&nbsp;&nbsp;&nbsp;
     @if(count($inscripciones))
-    <a href='{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'csv' => 1)) }}' class='btn btn-small'><span class='glyphicon glyphicon-export'></span> Exportar</a>
+    <small>Exportar listado: </small>
+    <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xls')) }}"><i class="fa fa-file-excel-o fa-2"></i></a>&nbsp;
+    <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdf')) }}"><i class="fa fa-file-pdf-o fa-2"></i></a>
     @endif
 </h3>
 

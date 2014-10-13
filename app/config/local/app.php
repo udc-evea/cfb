@@ -48,6 +48,8 @@ return array(
                 'Greggilbert\Recaptcha\RecaptchaServiceProvider',
                 'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
                 'Maatwebsite\Excel\ExcelServiceProvider',
-'Barryvdh\Debugbar\ServiceProvider',
+                'Thujohn\Pdf\PdfServiceProvider',
+		
+		'Barryvdh\Debugbar\ServiceProvider',
 	),
 );

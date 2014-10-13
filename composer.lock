@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d40651c85a2b11ea1a84aa2ca1e305fe",
+    "hash": "1cf5b6b8299713f8929a09960588cb06",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -2185,6 +2185,49 @@
             "time": "2014-10-01 05:50:18"
         },
         {
+            "name": "thujohn/pdf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thujohn/pdf-l4.git",
+                "reference": "68b9d1d1950cc1c66e84ed9815c5dfb959b8c0ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thujohn/pdf-l4/zipball/68b9d1d1950cc1c66e84ed9815c5dfb959b8c0ec",
+                "reference": "68b9d1d1950cc1c66e84ed9815c5dfb959b8c0ec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.x",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Thujohn\\Pdf": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thujohn",
+                    "email": "jonathan.thuau@gmail.com"
+                }
+            ],
+            "description": "dompdf for Laravel 4",
+            "keywords": [
+                "dompdf",
+                "laravel",
+                "laravel4",
+                "pdf"
+            ],
+            "time": "2014-10-08 14:57:13"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "dev-master",
             "source": {
@@ -2242,7 +2285,8 @@
     "stability-flags": {
         "dollar/generators": 20,
         "anahkiasen/former": 20,
-        "greggilbert/recaptcha": 20
+        "greggilbert/recaptcha": 20,
+        "thujohn/pdf": 20
     },
     "platform": [
 

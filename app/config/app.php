@@ -126,6 +126,7 @@ return array(
                 'Greggilbert\Recaptcha\RecaptchaServiceProvider',
                 'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
                 'Maatwebsite\Excel\ExcelServiceProvider',
+                'Thujohn\Pdf\PdfServiceProvider',
 
 	),
 
@@ -197,6 +198,7 @@ return array(
                 'ModelHelper'     => 'CFB\Model\Main',
                 'Former' => 'Former\Facades\Former',
                 'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+                'PDF' => 'Thujohn\Pdf\PdfFacade',
 
 	),
 

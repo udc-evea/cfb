@@ -10,6 +10,7 @@
                 "greggilbert/recaptcha": "dev-master",
                 "felixkiss/uniquewith-validator": "1.1.*",
                 "maatwebsite/excel": "1.*",
+                "thujohn/pdf": "dev-master",
                 "barryvdh/laravel-debugbar": "1.*"
 	},
 	"autoload": {
