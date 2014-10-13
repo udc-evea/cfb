@@ -3,29 +3,30 @@
 class Inscripcion extends Eloquent {
     protected $guarded = array();
 
-    protected $table = 'inscripcion_persona';
+    protected $table = 'inscripcion_oferta';
+    protected $dates = array('fecha_nacimiento');
     public $timestamps = false;
 
     public static $rules = array(
-        'oferta_academica_id'   => array('required', 'exists:oferta_academica,id', 'unique_persona' => 'unique_with:inscripcion_persona,tipo_documento_cod,documento'),
+        'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_oferta,tipo_documento_cod,documento'),
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,tipo_documento',
         'documento' => 'required|integer|min:1000000|max:99999999',
         'apellido' => 'required',
         'nombre' => 'required',
-        'fecha_nacimiento' => 'required|before:01/01/2004',
+        'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'localidad_id' => 'required|exists:repo_localidad,id',
-        //'localidad_otra' => 'text',
+        
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
-        //'titulo_obtenido' => 'text',
-        'email'    => array('required', 'email', 'unique_mail' => 'unique_with:inscripcion_persona,oferta_academica_id,email'),
+        
+        'email'    => array('required', 'email', 'unique_mail' => 'unique_with:inscripcion_oferta,oferta_formativa_id,email'),
         'telefono'  => 'required',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id'
     );
     
-    public function curso()
+    public function oferta()
     {
-        return $this->belongsTo('Curso', 'oferta_academica_id');
+        return $this->belongsTo('Oferta', 'oferta_formativa_id');
     }
     
     public function tipo_documento()
@@ -64,7 +65,7 @@ class Inscripcion extends Eloquent {
             'documento'         => $this->documento,
             'apellido'          => $this->apellido,
             'nombre'            => $this->nombre,
-            'fecha_nacimiento'  => $this->fecha_nacimiento_text,
+            'fecha_nacimiento'  => $this->fecha_nacimiento,
             'localidad'         => $this->localidad->localidad,
             'email'             => $this->email,
             'telefono'          => $this->telefono
@@ -89,30 +90,31 @@ class Inscripcion extends Eloquent {
         return sprintf("%s %s", $this->apellido, $this->nombre);
     }
 
-    public function getFechaNacimientoTextAttribute()
+    public function getFechaNacimientoAttribute($fecha)
     {
-        return ModelHelper::getFechaFormateada($this->fecha_nacimiento);
-    }
-    
-    public function getDates()
-    {
-        return array('fecha_nacimiento');
+        return \Carbon\Carbon::parse($fecha)->format('d/m/Y');
     }
 
+    public function setFechaNacimientoAttribute($fecha)
+    {
+        $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
+    }
+    
+    
     public static function boot()
     {
         parent::boot();
 
         Inscripcion::created(function($inscripcion){
-            $inscripcion->curso->chequearDisponibilidad();
+            $inscripcion->oferta->chequearDisponibilidad();
         });
 
         Inscripcion::updated(function($inscripcion){
-            $inscripcion->curso->chequearDisponibilidad();
+            $inscripcion->oferta->chequearDisponibilidad();
         });
 
         Inscripcion::deleted(function($inscripcion){
-            $inscripcion->curso->chequearDisponibilidad();
+            $inscripcion->oferta->chequearDisponibilidad();
         });
     }
 }

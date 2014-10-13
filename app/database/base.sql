@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `inscripcion_persona`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inscripcion_persona` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `oferta_academica_id` int(10) unsigned NOT NULL,
+  `oferta_formativa_id` int(10) unsigned NOT NULL,
   `tipo_documento_cod` char(3) DEFAULT NULL,
   `estado_inscripcion` int(10) unsigned NOT NULL DEFAULT '1',
   `documento` int(10) unsigned DEFAULT NULL,
@@ -120,20 +120,20 @@ CREATE TABLE `inscripcion_persona` (
   `como_te_enteraste` int(10) unsigned NOT NULL,
   `inscripcion_persona_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`,`inscripcion_persona_id`),
-  UNIQUE KEY `oferta_academica_id_2` (`oferta_academica_id`,`tipo_documento_cod`,`documento`),
-  UNIQUE KEY `oferta_academica_id_3` (`oferta_academica_id`,`email`),
+  UNIQUE KEY `oferta_formativa_id_2` (`oferta_formativa_id`,`tipo_documento_cod`,`documento`),
+  UNIQUE KEY `oferta_formativa_id_3` (`oferta_formativa_id`,`email`),
   KEY `tipo_documento_cod` (`tipo_documento_cod`),
   KEY `localidad_id` (`localidad_id`),
   KEY `documento` (`documento`),
   KEY `apellido` (`apellido`,`nombre`),
   KEY `nivel_estudios_id` (`nivel_estudios_id`),
-  KEY `oferta_academica_id` (`oferta_academica_id`),
+  KEY `oferta_formativa_id` (`oferta_formativa_id`),
   KEY `fk_inscripcion_persona_encuesta_tipo_residencia1_idx` (`domicilio_procedencia_tipo`),
   KEY `fk_inscripcion_persona_encuesta_tipo_residencia2_idx` (`domicilio_clases_tipo`),
   KEY `fk_inscripcion_persona_inscripcion_como_te_enteraste1_idx` (`como_te_enteraste`),
   CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia1` FOREIGN KEY (`domicilio_procedencia_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_persona_encuesta_tipo_residencia2` FOREIGN KEY (`domicilio_clases_tipo`) REFERENCES `encuesta_tipo_residencia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inscripcion_persona_oferta_academica1` FOREIGN KEY (`oferta_academica_id`) REFERENCES `oferta_academica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscripcion_persona_oferta_formativa1` FOREIGN KEY (`oferta_formativa_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `inscripcion_persona_ibfk_1` FOREIGN KEY (`tipo_documento_cod`) REFERENCES `repo_tipo_documento` (`tipo_documento`),
   CONSTRAINT `inscripcion_persona_ibfk_2` FOREIGN KEY (`localidad_id`) REFERENCES `repo_localidad` (`id`),
   CONSTRAINT `inscripcion_persona_ibfk_3` FOREIGN KEY (`nivel_estudios_id`) REFERENCES `repo_nivel_estudios` (`id`),
@@ -183,13 +183,13 @@ INSERT INTO `inscripcion_requisito_presentado` VALUES (8,435,46,'2014-09-17'),(1
 UNLOCK TABLES;
 
 --
--- Table structure for table `oferta_academica`
+-- Table structure for table `oferta_formativa`
 --
 
-DROP TABLE IF EXISTS `oferta_academica`;
+DROP TABLE IF EXISTS `oferta_formativa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `oferta_academica` (
+CREATE TABLE `oferta_formativa` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `anio` year(4) NOT NULL,
@@ -205,13 +205,13 @@ CREATE TABLE `oferta_academica` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oferta_academica`
+-- Dumping data for table `oferta_formativa`
 --
 
-LOCK TABLES `oferta_academica` WRITE;
-/*!40000 ALTER TABLE `oferta_academica` DISABLE KEYS */;
-INSERT INTO `oferta_academica` VALUES (5,'Curso de prueba',2014,1,NULL,NULL,'Términos y condiciones de servicio\r\n\r\nEstos términos y condiciones de servicio (\"TOS\", por sus siglas en inglés) contienen información relevante que debe leer de manera cuidadosa. Además, Commerce le aconseja que revise nuestra Política de privacidad.\r\n\r\nLas palabras \"nosotros\", \"nuestro\" y \"Commerce\" hacen referencia a Commerce Bank, ya sea a su matriz o subsidiarias y a cualquier agente, contratista independiente o asignado que Commerce, de acuerdo a su sola discreción, pueda involucrar dentro de la disposición del Sitio. Las palabras \"usted\" y \"su\" hacen referencia a los visitantes y usuarios de este Sitio. Como referencia para el término \"Sitio\" podemos incluir cualquier sitio de Commerce o servicio de Commerce que esté asociado y al que se pueda acceder de forma directa o indirecta por medio del Sitio de Commerce o sus sitios Web relacionados.\r\n\r\nAl utilizar el Sitio, usted celebra un acuerdo legal con Commerce para atenerse a estos TOS. Si no quiere estar ligado de alguna forma a estos TOS, entonces no ingrese al Sitio. La única solución en caso que no esté satisfecho con el Sitio, o con cualquier cosa que esté a disposición en éste, es renunciar al uso del Sitio o a los servicios específicos.\r\n\r\nAlgunos servicios que están disponibles por medio del Sitio pueden contener términos y condiciones de servicio que son aún más restrictivos que estos TOS. Tanto estos TOS como los términos y condiciones de servicio que corresponden a un servicio en particular tienen validez al momento de utilizar este Sitio. En el caso que exista un conflicto entre estos TOS y los términos y condiciones de servicio más restrictivos prevalecerá aquel que sea más restrictivo.\r\n\r\nCommerce se reserva el derecho a modificar en cualquier momento los TOS o las políticas correspondientes al uso del Sitio y a notificar al cliente a través de la versión actualizada de los TOS que se describen en este Sitio. Usted tiene la responsabilidad de revisar de forma frecuente los TOS. El uso continuado del Sitio después de cualquier modificación representa su consentimiento para aquellas modificaciones.\r\n\r\nCommerce, en el momento que estime conveniente, puede discontinuar o realizar modificaciones en la información, productos o servicios que se describen aquí. Cualquier información fechada se publica sólo de acuerdo a su fecha, y Commerce no tiene la obligación o responsabilidad de actualizar o corregir aquella información. Commerce se reserva el derecho a poner término a cualquier o todo ofrecimiento que se realiza por medio del sitio Web sin requerir de una notificación previa al usuario. Asimismo, el hecho de ofrecer información, productos o servicios a través de este Sitio no constituye una solicitud por parte de Commerce para que cualquier persona utilice aquella información, productos o servicios en las jurisdicciones donde la entrega de tal información, productos o servicios está prohibida por ley.',100,0,'hoooooooola hola hola hola chango!!\r\n\r\nQué hacés tanto tiempo???\r\nNi idea de qué hacer ahora...');
-/*!40000 ALTER TABLE `oferta_academica` ENABLE KEYS */;
+LOCK TABLES `oferta_formativa` WRITE;
+/*!40000 ALTER TABLE `oferta_formativa` DISABLE KEYS */;
+INSERT INTO `oferta_formativa` VALUES (5,'Curso de prueba',2014,1,NULL,NULL,'Términos y condiciones de servicio\r\n\r\nEstos términos y condiciones de servicio (\"TOS\", por sus siglas en inglés) contienen información relevante que debe leer de manera cuidadosa. Además, Commerce le aconseja que revise nuestra Política de privacidad.\r\n\r\nLas palabras \"nosotros\", \"nuestro\" y \"Commerce\" hacen referencia a Commerce Bank, ya sea a su matriz o subsidiarias y a cualquier agente, contratista independiente o asignado que Commerce, de acuerdo a su sola discreción, pueda involucrar dentro de la disposición del Sitio. Las palabras \"usted\" y \"su\" hacen referencia a los visitantes y usuarios de este Sitio. Como referencia para el término \"Sitio\" podemos incluir cualquier sitio de Commerce o servicio de Commerce que esté asociado y al que se pueda acceder de forma directa o indirecta por medio del Sitio de Commerce o sus sitios Web relacionados.\r\n\r\nAl utilizar el Sitio, usted celebra un acuerdo legal con Commerce para atenerse a estos TOS. Si no quiere estar ligado de alguna forma a estos TOS, entonces no ingrese al Sitio. La única solución en caso que no esté satisfecho con el Sitio, o con cualquier cosa que esté a disposición en éste, es renunciar al uso del Sitio o a los servicios específicos.\r\n\r\nAlgunos servicios que están disponibles por medio del Sitio pueden contener términos y condiciones de servicio que son aún más restrictivos que estos TOS. Tanto estos TOS como los términos y condiciones de servicio que corresponden a un servicio en particular tienen validez al momento de utilizar este Sitio. En el caso que exista un conflicto entre estos TOS y los términos y condiciones de servicio más restrictivos prevalecerá aquel que sea más restrictivo.\r\n\r\nCommerce se reserva el derecho a modificar en cualquier momento los TOS o las políticas correspondientes al uso del Sitio y a notificar al cliente a través de la versión actualizada de los TOS que se describen en este Sitio. Usted tiene la responsabilidad de revisar de forma frecuente los TOS. El uso continuado del Sitio después de cualquier modificación representa su consentimiento para aquellas modificaciones.\r\n\r\nCommerce, en el momento que estime conveniente, puede discontinuar o realizar modificaciones en la información, productos o servicios que se describen aquí. Cualquier información fechada se publica sólo de acuerdo a su fecha, y Commerce no tiene la obligación o responsabilidad de actualizar o corregir aquella información. Commerce se reserva el derecho a poner término a cualquier o todo ofrecimiento que se realiza por medio del sitio Web sin requerir de una notificación previa al usuario. Asimismo, el hecho de ofrecer información, productos o servicios a través de este Sitio no constituye una solicitud por parte de Commerce para que cualquier persona utilice aquella información, productos o servicios en las jurisdicciones donde la entrega de tal información, productos o servicios está prohibida por ley.',100,0,'hoooooooola hola hola hola chango!!\r\n\r\nQué hacés tanto tiempo???\r\nNi idea de qué hacer ahora...');
+/*!40000 ALTER TABLE `oferta_formativa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -227,8 +227,8 @@ CREATE TABLE `oferta_requisitos` (
   `requisito` varchar(200) NOT NULL,
   `obligatorio` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `fk_oferta_requisitos_oferta_academicaa` (`oferta_id`),
-  CONSTRAINT `fk_oferta_requisitos_oferta_academicaa` FOREIGN KEY (`oferta_id`) REFERENCES `oferta_academica` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_oferta_requisitos_oferta_formativaa` (`oferta_id`),
+  CONSTRAINT `fk_oferta_requisitos_oferta_formativaa` FOREIGN KEY (`oferta_id`) REFERENCES `oferta_formativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

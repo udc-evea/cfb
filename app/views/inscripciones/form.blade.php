@@ -1,21 +1,21 @@
 <?php $method        = $obj != null ? 'PUT' : 'POST';?>
 <?php $route_name    = $obj != null ? 'update' : 'nueva';?>
-<?php $route_params  = $obj != null ? array($curso->id, $obj->id) : array($curso->id);?>
+<?php $route_params  = $obj != null ? array($oferta->id, $obj->id) : array($oferta->id);?>
 {{ HTML::script('js/inscripciones.js') }}
 <script>
     $(function(){
-       InscripcionesModule.init({{ $curso->id }}); 
+       InscripcionesModule.init({{ $oferta->id }}); 
     });
 </script>
 {{Former::framework('TwitterBootstrap3')}}
 {{ Former::horizontal_open()
         ->secure()
         ->method($method)
-        ->route("cursos.inscripciones.$route_name", $route_params)
+        ->route("ofertas.inscripciones.$route_name", $route_params)
         ->autocomplete("off")
 }}
 {{ Former::populate($obj) }}
-{{ Former::hidden('oferta_academica_id')->value($curso->id) }}
+{{ Former::hidden('oferta_formativa_id')->value($oferta->id) }}
 <div class="panel panel-default">
     <div class="panel-heading"><strong>¿Quién sos?</strong></div>
     <div class="panel-body">
@@ -27,7 +27,7 @@
             ->label('Tipo doc.')
             ->value(TipoDocumento::TIPODOC_DNI)->required() }}
         {{ Former::number('documento')->required() }}
-        {{ Former::date('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}
+        {{ Former::text('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}
     </div>
 </div>
 
@@ -67,15 +67,16 @@
     <div class="panel-heading"><strong>Para terminar...</strong></div>
     <div class="panel-body">
         {{ Former::select('como_te_enteraste')
-            ->fromQuery(InscripcionComoTeEnteraste::get(), 'como_te_enteraste', 'id')
+            ->fromQuery(InscripcionComoTeEnteraste::all(), 'como_te_enteraste', 'id')
+            ->value(1)->required()
             ->label('¿Cómo te enteraste de esta oferta?')
-            ->required() }}
+        }}
     </div>
 </div>
 
 @if(Auth::check())
 {{ Former::actions(
-            link_to_route('cursos.inscripciones.index', 'Volver', $curso->id, array('class' => 'btn btn-lg btn-link')),
+            link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-link')),
             Former::lg_default_reset('Restablecer'),
             Former::lg_primary_submit('Guardar')
    )
@@ -86,7 +87,7 @@
      ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
      ->required()
 }}
-@include('inscripciones.reglamento', array('curso' => $curso))
+@include('inscripciones.reglamento', array('oferta' => $oferta))
 <div class="form-group">
     <label class="control-label col-lg-2 col-sm-4">Código de seguridad</label>
     <div class="col-lg-10 col-sm-8">

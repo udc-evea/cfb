@@ -1,10 +1,10 @@
 @extends('layouts.inscripciones_publico')
-@section('title', 'Inscripción a: '.$curso->nombre.' - CFB')
+@section('title', 'Inscripción a: '.$oferta->nombre.' - CFB')
 @section('main')
 
 <div class="row">
     <div class="col-md-6">
-        <h1>Inscripción a: {{ $curso->nombre }}</h1>
+        <h1>Inscripción a: {{ $oferta->nombre }}</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -13,7 +13,7 @@
                 </ul>
         	</div>
         @endif
-        @include('inscripciones.form', array('obj' => null, 'curso' => $curso))
+        @include('inscripciones.form', array('obj' => null, 'oferta' => $oferta))
     </div>
 </div>
 @stop

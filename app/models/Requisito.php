@@ -13,7 +13,7 @@ class Requisito extends Eloquent {
 
     public function curso()
     {
-        return $this->belongsTo('Curso', 'oferta_academica_id');
+        return $this->belongsTo('Curso', 'oferta_formativa_id');
     }
         
     public function getCantRequisitosAttribute()

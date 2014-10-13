@@ -1,17 +1,17 @@
 <?php
 
-class CursosController extends BaseController {
+class OfertasController extends BaseController {
 
 	/**
-	 * Curso Repository
+	 * oferta Repository
 	 *
-	 * @var Curso
+	 * @var oferta
 	 */
-	protected $curso;
+	protected $oferta;
 
-	public function __construct(Curso $curso)
+	public function __construct(Oferta $oferta)
 	{
-		$this->curso = $curso;
+		$this->oferta = $oferta;
 	}
 
 	/**
@@ -21,9 +21,9 @@ class CursosController extends BaseController {
 	 */
 	public function index()
 	{
-		$cursos = $this->curso->all();
+		$ofertas = $this->oferta->all();
 
-		return View::make('cursos.index', compact('cursos'));
+		return View::make('ofertas.index', compact('ofertas'));
 	}
 
 	/**
@@ -33,7 +33,7 @@ class CursosController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('cursos.create');
+		return View::make('ofertas.create');
 	}
 
 	/**
@@ -44,16 +44,16 @@ class CursosController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, Curso::$rules);
+		$validation = Validator::make($input, Oferta::$rules);
 
 		if ($validation->passes())
 		{
-			$this->curso->create($input);
+			$this->oferta->create($input);
 
-			return Redirect::route('cursos.index');
+			return Redirect::route('ofertas.index');
 		}
 
-		return Redirect::route('cursos.create')
+		return Redirect::route('ofertas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'Error al guardar.');
@@ -67,7 +67,7 @@ class CursosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		return Redirect::action('CursosInscripcionesController@create', $id);
+		return Redirect::action('ofertasInscripcionesController@create', $id);
 	}
 
 	/**
@@ -78,14 +78,14 @@ class CursosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$curso = $this->curso->find($id);
+		$oferta = $this->oferta->find($id);
 
-		if (is_null($curso))
+		if (is_null($oferta))
 		{
-			return Redirect::route('cursos.index');
+			return Redirect::route('ofertas.index');
 		}
 
-		return View::make('cursos.edit', compact('curso'));
+		return View::make('ofertas.edit', compact('oferta'));
 	}
 
 	/**
@@ -97,17 +97,17 @@ class CursosController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Curso::$rules);
+		$validation = Validator::make($input, Oferta::$rules);
 
 		if ($validation->passes())
 		{
-			$curso = $this->curso->find($id);
-			$curso->update($input);
+			$oferta = $this->oferta->find($id);
+			$oferta->update($input);
 
-			return Redirect::route('cursos.index');
+			return Redirect::route('ofertas.index');
 		}
 
-		return Redirect::route('cursos.edit', $id)
+		return Redirect::route('ofertas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -121,9 +121,9 @@ class CursosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->curso->find($id)->delete();
+		$this->oferta->find($id)->delete();
 
-		return Redirect::route('cursos.index')
+		return Redirect::route('ofertas.index')
                         ->with('message', 'Se eliminó el registro correctamente.');;
 	}
 }

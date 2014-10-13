@@ -7,7 +7,7 @@ var InscripcionesModule = {
         self.initTabs();
         self.initRequisitos();
         self.initLocalidades();
-        self.initComoTeEnteraste();
+        self.initFechas();
     },
     
     initTabs: function() {
@@ -50,12 +50,11 @@ var InscripcionesModule = {
             } else {
                 $("div.otra_localidad").removeClass("hide");
             }
-            
-                
         });
     },
 
-    initComoTeEnteraste: function(){
-        $("#como_te_enteraste option:first").val("");
+    initFechas: function() {
+        $("#fecha_nacimiento").datepicker("option", "maxDate", "-14y");
+        $("#fecha_nacimiento").datepicker("option", "yearRange", "-115:-14");
     }
 };

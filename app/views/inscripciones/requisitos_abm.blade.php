@@ -36,7 +36,7 @@
     <div class="form-group form-group-lg">
         <div class="col-sm-6 col-sm-offset-2">
             <div class="input-group">
-                <a href="{{ route('cursos.index') }}" class="form-control btn btn-link btn-lg">Volver</a>
+                <a href="{{ route('ofertas.index') }}" class="form-control btn btn-link btn-lg">Volver</a>
             </div>
         </div>
     </div>

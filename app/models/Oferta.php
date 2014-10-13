@@ -1,23 +1,24 @@
 <?php
 
-class Curso extends Eloquent {
+class Oferta extends Eloquent {
 	protected $guarded = array();
         
-        protected $table = 'oferta_academica';
+        protected $table = 'oferta_formativa';
+        protected $dates = array('inicio', 'fin');
         public $timestamps = false;
 
 	public static $rules = array(
 		'nombre'        => 'required',
 		'anio'          => 'required|digits:4',
-        'inicio'        => 'date',
-        'fin'           => 'date',
+        'inicio'        => 'date_format:d/m/Y',
+        'fin'           => 'date_format:d/m/Y',
         'cupo_maximo'   => 'integer|min:0'
 	);
         
         public function inscripciones()
         {
             return $this
-                ->hasMany('Inscripcion', 'oferta_academica_id')
+                ->hasMany('Inscripcion', 'oferta_formativa_id')
                 ->with('localidad', 'rel_como_te_enteraste')
                 ->orderBy('apellido')
                 ->orderBy('nombre');
@@ -33,24 +34,24 @@ class Curso extends Eloquent {
             return $this->inscripciones->count();
         }
         
-        public function getInicioAttribute()
+        public function getInicioAttribute($fecha)
         {
-            return ModelHelper::dateOrNull($this->attributes['inicio']);
+            return \Carbon\Carbon::parse($fecha)->format('d/m/Y');
         }
         
-        public function setInicioAttribute($value)
+        public function setInicioAttribute($fecha)
         {
-             $this->attributes['inicio'] = ModelHelper::dateOrNull($value);
+             $this->attributes['inicio'] = ModelHelper::getFechaISO($fecha);
         }
         
-        public function getFinAttribute()
+        public function getFinAttribute($fecha)
         {
-            return ModelHelper::dateOrNull($this->attributes['fin']);
+            return \Carbon\Carbon::parse($fecha)->format('d/m/Y');
         }
         
-        public function setFinAttribute($value)
+        public function setFinAttribute($fecha)
         {
-             $this->attributes['fin'] = ModelHelper::dateOrNull($value);
+             $this->attributes['fin'] = ModelHelper::getFechaISO($fecha);
         }
              
         public function getPermiteInscripcionesAttribute()
@@ -60,6 +61,8 @@ class Curso extends Eloquent {
 
         public function chequearDisponibilidad()
         {
+            if(is_null($this->cupo_maximo) || $this->cupo_maximo == 0) return;
+            
             if($this->inscripciones->count() >= (int)$this->cupo_maximo)
             {
                 $this->permite_inscripciones = false;
@@ -69,7 +72,7 @@ class Curso extends Eloquent {
 
         public function getVistaMail()
         {
-            return empty($this->mail_bienvenida) ? 'emails.inscripciones.bienvenida_generico' : 'emails.inscripciones.bienvenida_curso';
+            return empty($this->mail_bienvenida) ? 'emails.inscripciones.bienvenida_generico' : 'emails.inscripciones.bienvenida_oferta';
         }
         
 }

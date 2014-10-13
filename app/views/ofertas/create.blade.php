@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Registrar nueva Oferta Educativa</h1>
+        <h1>Registrar nueva Oferta Formativa</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -16,6 +16,6 @@
     </div>
 </div>
 
-@include('cursos.form', array('obj'=>null))
+@include('ofertas.form', array('obj'=>null))
 
 @stop

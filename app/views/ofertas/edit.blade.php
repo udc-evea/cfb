@@ -1,10 +1,10 @@
 @extends('layouts.scaffold')
-@section('title', 'Curso: '.$curso->nombre.' - CFB')
+@section('title', 'Oferta: '.$oferta->nombre.' - CFB')
 @section('main')
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>{{ $curso->nombre }}</h1>
+        <h1>{{ $oferta->nombre }}</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -18,17 +18,17 @@
 
 <ul class="nav nav-tabs" role="tablist" id="tabs">
     <li class="active"><a href="#tab_datos">Datos básicos</a></li>
-    @if(isset($curso))
+    @if(isset($oferta))
     <li><a href="#tab_requisitos">Requisitos</a></li>
     @endif
 </ul>
 
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="tab_datos">
-        @include('cursos.form', array('obj'=>$curso))
+        @include('ofertas.form', array('obj'=>$oferta))
     </div>
     <div class="tab-pane fade" id="tab_requisitos">
-        @include('cursos.requisitos_abm', array('obj'=>$curso))
+        @include('ofertas.requisitos_abm', array('oferta'=>$oferta))
     </div>
 </div>
 @stop

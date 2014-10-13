@@ -1,6 +1,6 @@
 <?php
 
-class CursosInscripcionesController extends BaseController {
+class ofertasInscripcionesController extends BaseController {
 
 	/**
 	 * inscripcion Repository
@@ -9,9 +9,9 @@ class CursosInscripcionesController extends BaseController {
 	 */
 	protected $inscripcion;
 
-	public function __construct(Curso $curso, Inscripcion $inscripcion)
+	public function __construct(Oferta $oferta, Inscripcion $inscripcion)
 	{
-            $this->curso       = $curso;	
+            $this->oferta       = $oferta;	
             $this->inscripcion = $inscripcion;
 	}
 
@@ -20,24 +20,24 @@ class CursosInscripcionesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index($curso_id)
+	public function index($oferta_id)
 	{
-            $curso = Curso::findOrFail($curso_id);
+            $oferta = oferta::findOrFail($oferta_id);
             $csv = (int)Request::get('csv');
             
             if($csv == 1)
             {	
-            	$inscripciones = Inscripcion::where('oferta_academica_id', '=', $curso->id)
-            					->with('localidad', 'rel_como_te_enteraste')
+            	$inscripciones = Inscripcion::where('oferta_formativa_id', '=', $oferta->id)
+            					->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
             					->orderBy('apellido')
             					->orderBy('nombre')
             					->get();
             					
-                return $this->exportar("inscriptos_".$curso->nombre, $inscripciones, 'inscripciones.excel');
+                return $this->exportar("inscriptos_".$oferta->nombre, $inscripciones, 'inscripciones.excel');
             }
-            $inscripciones = $curso->inscripciones->all();
+            $inscripciones = $oferta->inscripciones->all();
             
-            return View::make('inscripciones.index', compact('inscripciones'))->withCurso($curso);
+            return View::make('inscripciones.index', compact('inscripciones'))->withoferta($oferta);
 	}
 
 	/**
@@ -45,15 +45,15 @@ class CursosInscripcionesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create($curso_id)
+	public function create($oferta_id)
 	{
-            $curso = Curso::findOrFail($curso_id);
-            if(!$curso->permite_inscripciones)
+            $oferta = oferta::findOrFail($oferta_id);
+            if(!$oferta->permite_inscripciones)
             {
-                return View::make('inscripciones.cerradas')->withCurso($curso);
+                return View::make('inscripciones.cerradas')->withoferta($oferta);
             }
             
-            return View::make('inscripciones.create')->withCurso($curso);
+            return View::make('inscripciones.create')->withoferta($oferta);
 	}
 
 	/**
@@ -61,13 +61,13 @@ class CursosInscripcionesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store($curso_id)
+	public function store($oferta_id)
 	{
-            $curso    = Curso::findOrFail($curso_id);
+            $oferta    = oferta::findOrFail($oferta_id);
             $input    = Input::all();
             $input_db = Input::except(['recaptcha_challenge_field','recaptcha_response_field', 'reglamento']);
             $reglas   = Inscripcion::$rules;
-            $mensajes = array('unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este curso.');
+            $mensajes = array('unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.');
 
             if(!Auth::check())
             {
@@ -81,18 +81,18 @@ class CursosInscripcionesController extends BaseController {
                     $insc = $this->inscripcion->create($input_db);
                     
                     try {
-                        Mail::send($curso->getVistaMail(), array('inscripcion' => $insc), function($message) use($curso, $insc) {
+                        Mail::send($oferta->getVistaMail(), array('inscripcion' => $insc), function($message) use($oferta, $insc) {
                             $message
                                     ->to($insc->email, $insc->nombre)
-                                    ->subject('CFB-UDC: Inscripción a '.$curso->nombre);
+                                    ->subject('CFB-UDC: Inscripción a '.$oferta->nombre);
                         });
                     } catch(Swift_TransportException $e) { Log::info("No se pudo enviar correo a ".$insc->nombre. " <".$insc->email.">"); }
                     
                     return Redirect::to('/inscripcion_ok');
             }
 
-            return Redirect::route('cursos.inscripciones.nueva', $curso_id)
-                    ->withCurso($curso)
+            return Redirect::route('ofertas.inscripciones.nueva', $oferta_id)
+                    ->withoferta($oferta)
                     ->withInput()
                     ->withErrors($validation)
                     ->with('message', 'Error al guardar.');
@@ -104,7 +104,7 @@ class CursosInscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($curso_id, $id)
+	public function show($oferta_id, $id)
 	{
 		$inscripcion = $this->inscripcion->findOrFail($id);
 
@@ -117,21 +117,21 @@ class CursosInscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($curso_id, $id)
+	public function edit($oferta_id, $id)
 	{
 		$inscripcion = $this->inscripcion->find($id);
                 
 		if (is_null($inscripcion))
 		{
-			return Redirect::route('cursos.inscripciones.index');
+			return Redirect::route('ofertas.inscripciones.index');
 		}
                 
-        $curso = $inscripcion->curso;
-        $requisitos = $curso->requisitos;
+        $oferta = $inscripcion->oferta;
+        $requisitos = $oferta->requisitos;
 
         $presentados = $inscripcion->requisitospresentados;
 
-		return View::make('inscripciones.edit', compact('inscripcion', 'curso', 'requisitos',  'presentados'));
+		return View::make('inscripciones.edit', compact('inscripcion', 'oferta', 'requisitos',  'presentados'));
 	}
 
 	/**
@@ -140,13 +140,13 @@ class CursosInscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($curso_id, $id)
+	public function update($oferta_id, $id)
 	{
 		$input = array_except(Input::all(), array('_method', 'reglamento'));
 	    $rules = inscripcion::$rules;
-	    $rules['oferta_academica_id']['unique_persona'] .=', '.$id;
+	    $rules['oferta_formativa_id']['unique_persona'] .=', '.$id;
 	    $rules['email']['unique_mail'] .=', '.$id;
-	    $mensajes = array('unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este curso.');
+	    $mensajes = array('unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.');
 
 		$validation = Validator::make($input, $rules, $mensajes);
 
@@ -155,10 +155,10 @@ class CursosInscripcionesController extends BaseController {
 			$inscripcion = $this->inscripcion->find($id);
 			$inscripcion->update($input);
 
-			return Redirect::route('cursos.inscripciones.index', array($curso_id));
+			return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
 		}
 
-		return Redirect::route('cursos.inscripciones.edit', array($curso_id, $id))
+		return Redirect::route('ofertas.inscripciones.edit', array($oferta_id, $id))
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'Ocurrieron errores al guardar.');
@@ -170,15 +170,15 @@ class CursosInscripcionesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($curso_id, $id)
+	public function destroy($oferta_id, $id)
 	{
             $this->inscripcion = $this->inscripcion->findOrFail($id);
-            $curso = $this->inscripcion->curso;
+            $oferta = $this->inscripcion->oferta;
             
             $this->inscripcion->delete();
 
-            return Redirect::route('cursos.inscripciones.index', array($curso->id))
-                    ->withCurso($curso)
+            return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
+                    ->withoferta($oferta)
                     ->with('message', 'Se eliminó el registro correctamente.');
 	}
 
@@ -187,9 +187,9 @@ class CursosInscripcionesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function presentarRequisito($curso_id, $id)
+	public function presentarRequisito($oferta_id, $id)
 	{
-            $curso    = Curso::findOrFail($curso_id);
+            $oferta    = oferta::findOrFail($oferta_id);
             $input    = Input::all();
             $reglas   = RequisitoPresentado::$rules;
             $obj = new Inscripcion;
@@ -207,14 +207,14 @@ class CursosInscripcionesController extends BaseController {
                 $requisito = new Requisito;
                 $requisito = $requisito->findOrFail($input['requisito_id']);
 
-                return View::make('requisitos.itempresentado', compact('curso', 'requerimiento', 'inscripcion', 'presentados', 'requisito'));
+                return View::make('requisitos.itempresentado', compact('oferta', 'requerimiento', 'inscripcion', 'presentados', 'requisito'));
             } else
             {
             	return Response::json(array('error' => 'Error al guardar'), 400);
             }
 	}
 
-	public function borrarRequisito($curso_id, $inscripcion_id, $requisito_id)
+	public function borrarRequisito($oferta_id, $inscripcion_id, $requisito_id)
 	{
       	$repo = new RequisitoPresentado;
 		$repo = $repo

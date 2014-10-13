@@ -37,19 +37,36 @@ class Main
     }
     
     /**
-     * Formatea una fecha en d/m/Y, o vacía (por ejemplo, para mostrar en form)
-     * @param \DateTime $fn la fecha (DateTime, Carbon)
-     * @return string la fecha formateada
+     * Convierte formatos de fecha Y-m-d => d/m/Y, o vacía.
+     * @param string $fn la fecha
+     * @return string la fecha en formato d/m/Y
      */
-    public static function getFechaFormateada(\DateTime $fn)
+    public static function getFechaFormateada($fn)
     {
-       if($fn)
-       {
-           return $fn->format("d/m/Y");
+       if(!empty($fn) && $fn != '0000-00-00') {
+           return date("d/m/Y", strtotime($fn));
+       } else {
+          return "";
        }
-       else
-       {
-          return ""; 
+    }
+
+    /**
+     * Convierte formatos de fecha d/m/Y => Y-m-d, o vacía.
+     * @param string $fn la fecha d/m/Y
+     * @return string la fecha en formato Y-m-d
+     */
+    public static function getFechaISO($fn)
+    {
+       if(!empty($fn)) {
+           $dt = \DateTime::createFromFormat('d/m/Y', $fn);
+
+           if($dt)
+            return $dt->format('Y-m-d');
+           else
+            return $fn;
+
+       } else {
+          return "";
        }
     }
     
@@ -57,7 +74,7 @@ class Main
     {
        $dia = $mes = $anio = 0;
        
-       if(!$fecha)
+       if(empty($fecha))
        {
            return null;
        }

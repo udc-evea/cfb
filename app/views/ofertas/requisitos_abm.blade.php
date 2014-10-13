@@ -1,10 +1,10 @@
-{{ HTML::script('js/cursos.js') }}
+{{ HTML::script('js/ofertas.js') }}
 
 {{ Former::horizontal_open()
         ->secure()
         ->rules(['requisito' => 'required'])
         ->method('post')
-        ->route('cursos.requisitos.store', $curso->id)
+        ->route('ofertas.requisitos.store', $oferta->id)
         ->addClass('nuevo')
         ->data_remote('true')
 }}
@@ -21,8 +21,8 @@
                 <div class="panel-body">
                    <ul class="list-unstyled requisitos">
                         <li class="nuevo hide"></li>
-                        @foreach($curso->requisitos as $item)
-                        @include('requisitos.item', array('curso' => $curso, 'req' => $item))
+                        @foreach($oferta->requisitos as $item)
+                        @include('requisitos.item', array('oferta' => $oferta, 'req' => $item))
                         @endforeach
                     </ul>
                 </div>
@@ -33,7 +33,7 @@
     <div class="form-group form-group-lg">
         <div class="col-sm-6 col-sm-offset-2">
             <div class="input-group">
-                <a href="{{ route('cursos.index') }}" class="form-control btn btn-link btn-lg">Volver</a>
+                <a href="{{ route('ofertas.index') }}" class="form-control btn btn-link btn-lg">Volver</a>
             </div>
         </div>
     </div>
@@ -42,6 +42,6 @@
 
 <script>
     $(function(){
-       CursosModule.init({{ $curso->id }}); 
+       OfertasModule.init({{ $oferta->id }}); 
     });
 </script>

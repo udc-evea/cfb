@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOfertaacademicaTable extends Migration {
+class CreateOfertaformativaTable extends Migration {
 
     /**
      * Run the migrations.

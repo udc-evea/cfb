@@ -1,4 +1,4 @@
-var CursosModule = {
+var OfertasModule = {
     init: function(oferta_id)
     {
         var self = this;

@@ -2,34 +2,10 @@
 
 class RequisitosController extends BaseController {
 
-	/**
-	 * el repositorio
-	   @var Requisito
-	 */
-	public function __contruct(Curso $curso, Requisito $requisito)
+	public function __contruct(Oferta $oferta, Requisito $requisito)
 	{
-		$this->curso = $curso;
+		$this->Oferta = $oferta;
 		$this->requisito = $requisito;
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index($curso_id)
-	{
-        return View::make('requisitos.index');
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create($curso_id)
-	{
-        return View::make('requisitos.create');
 	}
 
 	/**
@@ -37,9 +13,9 @@ class RequisitosController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store($curso_id)
+	public function store($oferta_id)
 	{
-		$curso    = Curso::findOrFail($curso_id);
+		$oferta    = Oferta::findOrFail($oferta_id);
         $input    = Input::all();
 
         $validation = Validator::make($input, Requisito::$rules);
@@ -48,41 +24,8 @@ class RequisitosController extends BaseController {
         	return Response::json(array('error' => 'Error al guardar'), 400);
         
     	$obj = new Requisito;
-    	$obj = $obj->create(array_merge($input, array('oferta_id' => $curso_id)));
-    	return View::make('requisitos.item', array('curso' => $curso, 'req' => $obj));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($curso_id, $id)
-	{
-        return View::make('requisitos.show');
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($curso_id, $id)
-	{
-        return View::make('requisitos.edit');
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($curso_id, $id)
-	{
-		//
+    	$obj = $obj->create(array_merge($input, array('oferta_id' => $oferta_id)));
+    	return View::make('requisitos.item', array('oferta' => $oferta, 'req' => $obj));
 	}
 
 	/**
@@ -91,7 +34,7 @@ class RequisitosController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($curso_id, $id)
+	public function destroy($oferta_id, $id)
 	{
 		$repo = new Requisito;
 		$repo = $repo->findOrFail($id);

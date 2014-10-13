@@ -4,6 +4,6 @@
         <meta charset="utf-8">
     </head>
     <body>
-        {{ nl2br($inscripcion->curso->mail_bienvenida) }}
+        {{ nl2br($inscripcion->oferta->mail_bienvenida) }}
     </body>
 </html>

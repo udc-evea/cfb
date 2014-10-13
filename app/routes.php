@@ -11,26 +11,26 @@
   |
  */
 
-Route::get('/cursos/{curso}/inscripcion',  array('uses' => 'CursosInscripcionesController@create', 'as' => 'cursos.inscripciones.nueva'));
-Route::post('/cursos/{curso}/inscripcion', array('uses' => 'CursosInscripcionesController@store', 'as' => 'cursos.inscripciones.nueva'));
+Route::get('/ofertas/{oferta}/inscripcion',  array('uses' => 'OfertasInscripcionesController@create', 'as' => 'ofertas.inscripciones.nueva'));
+Route::post('/ofertas/{oferta}/inscripcion', array('uses' => 'OfertasInscripcionesController@store', 'as' => 'ofertas.inscripciones.nueva'));
 
-Route::group(array('before' => 'auth.basic', 'except' => array('cursos.inscripciones.nueva')), function() {
+Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripciones.nueva')), function() {
     Route::get('/', function() {
-        return Redirect::route('cursos.index');
+        return Redirect::route('ofertas.index');
     });
 
-    Route::post('/cursos/{curso}/inscripciones/{inscripcion}/requisito', 
-      array('uses' => 'CursosInscripcionesController@presentarRequisito', 'as' => 'cursos.inscripciones.requisito_presentar')
+    Route::post('/ofertas/{oferta}/inscripciones/{inscripcion}/requisito', 
+      array('uses' => 'OfertasInscripcionesController@presentarRequisito', 'as' => 'ofertas.inscripciones.requisito_presentar')
     );
 
-    Route::delete('/cursos/{curso}/inscripciones/{inscripcion}/requisito/{requisito}', 
-      array('uses' => 'CursosInscripcionesController@borrarRequisito', 'as' => 'cursos.inscripciones.requisito_borrar')
+    Route::delete('/ofertas/{oferta}/inscripciones/{inscripcion}/requisito/{requisito}', 
+      array('uses' => 'OfertasInscripcionesController@borrarRequisito', 'as' => 'ofertas.inscripciones.requisito_borrar')
     );
 
-    Route::resource('cursos', 'CursosController');
-    Route::resource('cursos.inscripciones', 'CursosInscripcionesController');
+    Route::resource('ofertas', 'OfertasController');
+    Route::resource('ofertas.inscripciones', 'OfertasInscripcionesController');
 
-    Route::resource('cursos.requisitos', 'RequisitosController');
+    Route::resource('ofertas.requisitos', 'RequisitosController');
 
     Route::resource('tipos_documento', 'TipoDocumentosController');
     Route::resource('localidades', 'LocalidadesController');

@@ -106,7 +106,7 @@ return array(
         'anio' => 'año',
         'telefono' => 'teléfono',
         'fecha_nacimiento2' => 'Fecha Nacimiento',
-        'oferta_academica_id' => 'Curso',
+        'oferta_formativa_id' => 'Oferta Formativa',
         'tipo_documento_cod' => 'Tipo documento'
         ),
 
