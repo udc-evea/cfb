@@ -19,9 +19,9 @@
     <div class="col-lg-10 col-sm-8">
         <div class="btn-group" data-toggle="buttons">
         @foreach($tipos_oferta as $item)
-            <label class="btn btn-default @if($item->id == $obj->tipo_oferta) active @endif">
+            <label class="btn btn-default @if($obj && $item->id == $obj->tipo_oferta) active @endif">
                 <i class="fa {{ $item->icono }}"></i> 
-                <input type="radio" @if($item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
+                <input type="radio" @if($obj && $item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
             </label>
         @endforeach
         </div>
@@ -37,7 +37,7 @@
 {{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
 {{ Former::textarea('mail_bienvenida')
-			->label('Mail de bienvenida')->rows(10)->help('Vacío: envía un mail genérico.') }}
+            ->label('Mail de bienvenida')->rows(10)->help('Vacío: envía un mail genérico.') }}
 
 <hr>
 {{ Former::actions(
