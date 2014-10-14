@@ -3,7 +3,7 @@
 <?php $route_params = $obj ? array('id' => $obj->id) : array(); ?>
 
 {{Former::framework('TwitterBootstrap3')}}
-{{ Former::horizontal_open()
+{{ Former::horizontal_open_for_files()
         ->secure()
         ->rules(['nombre' => 'required'])
         ->method($method)
@@ -36,8 +36,8 @@
 {{ Former::text('fin')->label('Fecha fin')->addClass('fecha') }}
 {{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
-{{ Former::textarea('mail_bienvenida')
-            ->label('Mail de bienvenida')->rows(10)->help('Vacío: envía un mail genérico.') }}
+{{ Former::file('mail_bienvenida')
+			->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }}
 
 <hr>
 {{ Former::actions(

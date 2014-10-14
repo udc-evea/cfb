@@ -93,7 +93,7 @@ class ofertasInscripcionesController extends BaseController {
                     $insc = $this->inscripcion->create($input_db);
                     
                     try {
-                        Mail::send($oferta->getVistaMail(), array('inscripcion' => $insc), function($message) use($oferta, $insc) {
+                        Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc) {
                             $message
                                     ->to($insc->email, $insc->nombre)
                                     ->subject('CFB-UDC: Inscripción a '.$oferta->nombre);

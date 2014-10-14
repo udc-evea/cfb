@@ -27,6 +27,10 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
       array('uses' => 'OfertasInscripcionesController@borrarRequisito', 'as' => 'ofertas.inscripciones.requisito_borrar')
     );
 
+    Route::get('/ofertas/{oferta}/vermail', 
+      array('uses' => 'OfertasController@verMail', 'as' => 'ofertas.vermail')
+    );
+
     Route::resource('ofertas', 'OfertasController');
     Route::resource('ofertas.inscripciones', 'OfertasInscripcionesController');
 

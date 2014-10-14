@@ -43,6 +43,7 @@
 					<td>{{ ModelHelper::dateOrNull($oferta->inicio) }}</td>
 					<td>{{ ModelHelper::dateOrNull($oferta->fin) }}</td>
                     <td>
+                        {{ link_to_route('ofertas.vermail', 'Ver correo', array($oferta->id), array('class' => 'btn btn-default')) }}
                         {{ link_to_route('ofertas.edit', 'Editar', array($oferta->id), array('class' => 'btn btn-info')) }}
                         @if($oferta->inscriptos == 0)
                         {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $oferta->id))) }}

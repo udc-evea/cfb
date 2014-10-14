@@ -127,6 +127,7 @@ return array(
                 'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
                 'Maatwebsite\Excel\ExcelServiceProvider',
                 'Thujohn\Pdf\PdfServiceProvider',
+                'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider'
 
 	),
 

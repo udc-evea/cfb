@@ -212,7 +212,7 @@ CREATE TABLE `inscripcion_oferta` (
   CONSTRAINT `inscripcion_persona_ibfk_2` FOREIGN KEY (`localidad_id`) REFERENCES `repo_localidad` (`id`),
   CONSTRAINT `inscripcion_persona_ibfk_3` FOREIGN KEY (`nivel_estudios_id`) REFERENCES `repo_nivel_estudios` (`id`),
   CONSTRAINT `fk_inscripcion_persona_inscripcion_como_te_enteraste1` FOREIGN KEY (`como_te_enteraste`) REFERENCES `inscripcion_como_te_enteraste` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=429 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=432 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +221,7 @@ CREATE TABLE `inscripcion_oferta` (
 
 LOCK TABLES `inscripcion_oferta` WRITE;
 /*!40000 ALTER TABLE `inscripcion_oferta` DISABLE KEYS */;
-INSERT INTO `inscripcion_oferta` VALUES (427,2,'DU',1,25612323,'Argento','Jose','1980-10-24',57,'',11,2,'nada..-.','pepe@argento.com','1123333',2),(428,2,'DU',1,34453345,'sdfs','dfgdf','2000-10-03',57,'',5,4,'sdfsdf','ssds@sddsds.com','234234234',1);
+INSERT INTO `inscripcion_oferta` VALUES (428,2,'DU',1,34453345,'sdfs','dfgdf','2000-10-03',57,'',5,4,'sdfsdf','ssds@sddsds.com','234234234',1),(431,2,'DU',1,12312312,'Argento','José','1968-12-25',57,'',23,4,'','mppfiles@gmail.com','1112231312',1);
 /*!40000 ALTER TABLE `inscripcion_oferta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,12 +272,15 @@ CREATE TABLE `oferta_formativa` (
   `terminos` text,
   `cupo_maximo` int(10) unsigned NOT NULL DEFAULT '0',
   `tiene_preinscripcion` tinyint(1) NOT NULL DEFAULT '0',
-  `mail_bienvenida` text,
+  `mail_bienvenida_file_name` varchar(255) DEFAULT NULL,
+  `mail_bienvenida_file_size` int(11) DEFAULT NULL,
+  `mail_bienvenida_content_type` varchar(255) DEFAULT NULL,
+  `mail_bienvenida_updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `tipo_oferta` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_oferta_formativa_tipo_oferta_formativa1_idx` (`tipo_oferta`),
   CONSTRAINT `fk_oferta_formativa_tipo_oferta_formativa1` FOREIGN KEY (`tipo_oferta`) REFERENCES `tipo_oferta_formativa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,7 +289,7 @@ CREATE TABLE `oferta_formativa` (
 
 LOCK TABLES `oferta_formativa` WRITE;
 /*!40000 ALTER TABLE `oferta_formativa` DISABLE KEYS */;
-INSERT INTO `oferta_formativa` VALUES (2,'Primer Curso',2014,1,'2014-10-13','2014-10-20','blablabla',0,0,'',1);
+INSERT INTO `oferta_formativa` VALUES (2,'Primer Curso',2014,1,'2014-10-13','2014-10-20','blablabla',0,0,'correo.png',74169,'image/png','2014-10-14 08:04:25',1),(4,'Carreras',2014,0,NULL,NULL,'',0,0,'',NULL,NULL,NULL,2);
 /*!40000 ALTER TABLE `oferta_formativa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -479,4 +482,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-14  0:32:36
+-- Dump completed on 2014-10-14  2:18:10

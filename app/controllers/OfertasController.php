@@ -128,4 +128,21 @@ class OfertasController extends BaseController {
 		return Redirect::route('ofertas.index')
                         ->with('message', 'Se eliminó el registro correctamente.');;
 	}
+
+	/**
+	 * Muestra el correo a enviar.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function verMail($id)
+	{
+		$oferta = $this->oferta->find($id);
+
+		if (is_null($oferta)) {
+			return Redirect::route('ofertas.index');
+		}
+
+		return View::make($oferta->getVistaMail(), compact('oferta'));
+	}
 }
