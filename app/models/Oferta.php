@@ -12,7 +12,8 @@ class Oferta extends Eloquent {
 		'anio'          => 'required|digits:4',
         'inicio'        => 'date_format:d/m/Y',
         'fin'           => 'date_format:d/m/Y',
-        'cupo_maximo'   => 'integer|min:0'
+        'cupo_maximo'   => 'integer|min:0',
+        'tipo_oferta'   => 'required|exists:tipo_oferta_formativa,id',
 	);
         
         public function inscripciones()
@@ -27,6 +28,11 @@ class Oferta extends Eloquent {
         public function requisitos()
         {
             return $this->hasMany('Requisito', 'oferta_id');
+        }
+
+        public function tipo_oferta_formativa()
+        {
+            return $this->belongsTo('TipoOferta', 'tipo_oferta');
         }
         
         public function getInscriptosAttribute()

@@ -13,6 +13,21 @@
 <fieldset>
 {{ Former::text('nombre')->required()->onGroupAddClass('form-group-lg') }}
 {{ Former::number('anio')->required()->value(date("Y"))->help('Año en que se dicta la oferta formativa') }}
+
+<div class="form-group required">
+    <label class="control-label col-lg-2 col-sm-4">Tipo de Oferta</label>
+    <div class="col-lg-10 col-sm-8">
+        <div class="btn-group" data-toggle="buttons">
+        @foreach($tipos_oferta as $item)
+            <label class="btn btn-default @if($item->id == $obj->tipo_oferta) active @endif">
+                <i class="fa {{ $item->icono }}"></i> 
+                <input type="radio" @if($item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
+            </label>
+        @endforeach
+        </div>
+    </div>
+</div>
+
 <input type="hidden" name="permite_inscripciones" value="0"/>
 {{ Former::checkbox('permite_inscripciones')
 	->addClass('checkbox')->help('Habilita las inscripciones a esta oferta') }}

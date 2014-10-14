@@ -33,7 +33,9 @@ class OfertasController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('ofertas.create');
+		$tipos_oferta = TipoOferta::all();
+
+		return View::make('ofertas.create')->with(compact('tipos_oferta'));
 	}
 
 	/**
@@ -84,8 +86,8 @@ class OfertasController extends BaseController {
 		{
 			return Redirect::route('ofertas.index');
 		}
-
-		return View::make('ofertas.edit', compact('oferta'));
+		$tipos_oferta = TipoOferta::all();
+		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'));
 	}
 
 	/**
