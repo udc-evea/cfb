@@ -273,7 +273,10 @@ CREATE TABLE `oferta_formativa` (
   `cupo_maximo` int(10) unsigned NOT NULL DEFAULT '0',
   `tiene_preinscripcion` tinyint(1) NOT NULL DEFAULT '0',
   `mail_bienvenida` text,
-  PRIMARY KEY (`id`)
+  `tipo_oferta` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_oferta_formativa_tipo_oferta_formativa1_idx` (`tipo_oferta`),
+  CONSTRAINT `fk_oferta_formativa_tipo_oferta_formativa1` FOREIGN KEY (`tipo_oferta`) REFERENCES `tipo_oferta_formativa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -283,7 +286,7 @@ CREATE TABLE `oferta_formativa` (
 
 LOCK TABLES `oferta_formativa` WRITE;
 /*!40000 ALTER TABLE `oferta_formativa` DISABLE KEYS */;
-INSERT INTO `oferta_formativa` VALUES (2,'Primer Curso',2014,1,'2014-10-13','2014-10-20','blablabla',0,0,'');
+INSERT INTO `oferta_formativa` VALUES (2,'Primer Curso',2014,1,'2014-10-13','2014-10-20','blablabla',0,0,'',1);
 /*!40000 ALTER TABLE `oferta_formativa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,6 +444,31 @@ LOCK TABLES `repo_tipo_documento` WRITE;
 INSERT INTO `repo_tipo_documento` VALUES ('CI','Cédula de Identificación'),('DU','Documento Único (DNI)'),('LE','Libreta Enrolamiento'),('PA','Pasaporte');
 /*!40000 ALTER TABLE `repo_tipo_documento` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `tipo_oferta_formativa`
+--
+
+DROP TABLE IF EXISTS `tipo_oferta_formativa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_oferta_formativa` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(80) NOT NULL,
+  `icono` varchar(50) NOT NULL DEFAULT 'fa-graduation-cap',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_oferta_formativa`
+--
+
+LOCK TABLES `tipo_oferta_formativa` WRITE;
+/*!40000 ALTER TABLE `tipo_oferta_formativa` DISABLE KEYS */;
+INSERT INTO `tipo_oferta_formativa` VALUES (1,'Cursos','fa-graduation-cap'),(2,'Carreras Presenciales','fa-university');
+/*!40000 ALTER TABLE `tipo_oferta_formativa` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -451,4 +479,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-12 21:42:54
+-- Dump completed on 2014-10-14  0:32:36
