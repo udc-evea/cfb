@@ -49,6 +49,13 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code)
 {
+	$_ENV = array();
+	unset(
+		$_SERVER['DB_USER'],
+		$_SERVER['DB_PASSWORD'],
+		$_SERVER['MAIL_USER'],
+		$_SERVER['MAIL_PASS']
+	);
 	Log::error($exception);
 });
 
