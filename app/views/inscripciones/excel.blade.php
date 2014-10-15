@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-AR">
     <head>
-        <meta charset="utf-8">
+        <meta charset="iso-8859-1">
     </head>
 <body>
 <table>
