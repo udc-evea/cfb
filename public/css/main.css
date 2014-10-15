@@ -1,1 +1,5 @@
 .form-group div.checkbox input[type="checkbox"] {margin-left:0;}
+#ui-datepicker-div
+{
+    z-index: 9999 !important;
+}
