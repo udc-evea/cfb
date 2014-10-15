@@ -1,5 +1,5 @@
 <?php
 
 return array(
-		'pretend' => true,
+		//'pretend' => true,	//que mande mail igual!
 );
