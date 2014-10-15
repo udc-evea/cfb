@@ -7,8 +7,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     use EloquentTrait;
 
 	protected $guarded  = array();
-    protected $fillable = array('mail_bienvenida');
-        
+            
     protected $table = 'oferta_formativa';
     protected $dates = array('inicio', 'fin');
     public $timestamps = false;
