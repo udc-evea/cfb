@@ -46,6 +46,8 @@ class OfertasController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
+		$this->oferta->agregarReglas($input);
+
 		$validation = Validator::make($input, Oferta::$rules);
 
 		if ($validation->passes())
@@ -99,6 +101,8 @@ class OfertasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
+                $this->oferta->agregarReglas($input);
+                
 		$validation = Validator::make($input, Oferta::$rules);
 
 		if ($validation->passes())
