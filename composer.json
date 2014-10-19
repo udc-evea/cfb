@@ -1,7 +1,7 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "udc-evea/cfb",
+	"description": "CFB APP",
+	"keywords": ["cfb", "udc"],
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.3",
