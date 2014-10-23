@@ -4,7 +4,7 @@
 	"keywords": ["cfb", "udc"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.3",
+		"laravel/framework": "4.2.*",
                 "dollar/generators": "dev-master",
                 "anahkiasen/former": "dev-master",
                 "greggilbert/recaptcha": "dev-master",
@@ -12,7 +12,8 @@
                 "maatwebsite/excel": "1.*",
                 "thujohn/pdf": "dev-master",
                 "codesleeve/laravel-stapler": "1.0.*",
-                "barryvdh/laravel-debugbar": "1.*"
+                "barryvdh/laravel-debugbar": "1.*",
+		"barryvdh/laravel-ide-helper": "~1.11@dev"
 	},
 	"autoload": {
 		"classmap": [

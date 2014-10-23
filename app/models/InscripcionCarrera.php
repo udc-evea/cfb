@@ -1,15 +1,15 @@
 <?php
 
-class Inscripcion extends Eloquent {
+class InscripcionCarrera extends Eloquent {
     protected $guarded = array();
 
-    protected $table = 'inscripcion_oferta';
+    protected $table = 'inscripcion_carrera';
     protected $dates = array('fecha_nacimiento');
     public $timestamps = false;
 
     public static $rules = array(
         'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_oferta,tipo_documento_cod,documento'),
-        'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
+        'tipo_documento_cod' => 'required|exists:repo_tipo_documento,tipo_documento',
         'documento' => 'required|integer|min:1000000|max:99999999',
         'apellido' => 'required',
         'nombre' => 'required',
@@ -24,12 +24,14 @@ class Inscripcion extends Eloquent {
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id'
     );
     
-    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento'];
-    public static $mensajes = ['unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.'];
-    
     public function oferta()
     {
         return $this->belongsTo('Oferta', 'oferta_formativa_id');
+    }
+    
+    public function requisitospresentados()
+    {
+        return $this->morphMany('RequisitoPresentado', 'inscripto');
     }
     
     public function tipo_documento()
@@ -50,11 +52,6 @@ class Inscripcion extends Eloquent {
     public function rel_como_te_enteraste()
     {
         return $this->belongsTo('InscripcionComoTeEnteraste', 'como_te_enteraste');
-    }
-
-    public function requisitospresentados()
-    {
-        return $this->morphMany('RequisitoPresentado', 'inscripto');
     }
     
     public function getColumnasCSV()
@@ -102,22 +99,22 @@ class Inscripcion extends Eloquent {
     {
         $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
     }
-        
+    
     
     public static function boot()
     {
         parent::boot();
 
         Inscripcion::created(function($inscripcion){
-            $inscripcion->oferta->save();
+            $inscripcion->oferta->chequearDisponibilidad();
         });
 
         Inscripcion::updated(function($inscripcion){
-            $inscripcion->oferta->save();
+            $inscripcion->oferta->chequearDisponibilidad();
         });
 
         Inscripcion::deleted(function($inscripcion){
-            $inscripcion->oferta->save();
+            $inscripcion->oferta->chequearDisponibilidad();
         });
     }
 }

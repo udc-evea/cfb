@@ -23,7 +23,7 @@
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="tab_datos">
-        @include('inscripciones.form', array('obj' => $inscripcion))
+        @include('inscripciones.'.$oferta->view.'.form', array('obj' => $inscripcion))
     </div>
     <div class="tab-pane fade" id="tab_requisitos">
         @include('inscripciones.requisitos_abm', array('obj'=>$oferta))

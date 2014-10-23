@@ -7,13 +7,13 @@
         <h1>Inscripción a: {{ $oferta->nombre }}</h1>
 
         @if ($errors->any())
-        	<div class="alert alert-danger">
-        	    <ul>
-                    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-                </ul>
-        	</div>
+        <div class="alert alert-danger">
+            <ul>
+                {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+            </ul>
+        </div>
         @endif
-        @include('inscripciones.form', array('obj' => null, 'oferta' => $oferta))
+        @include('inscripciones.'.$oferta->view.'.form', array('obj' => null, 'oferta' => $oferta))
     </div>
 </div>
 @stop

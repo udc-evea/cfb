@@ -21,9 +21,10 @@ class OfertasController extends BaseController {
 	 */
 	public function index()
 	{
-		$ofertas = $this->oferta->all();
+		$ofertas  = Oferta::sinCarreras()->get();
+                $carreras = Oferta::carreras()->get();
 
-		return View::make('ofertas.index', compact('ofertas'));
+		return View::make('ofertas.index', compact('ofertas', 'carreras'));
 	}
 
 	/**

@@ -50,7 +50,7 @@ return array(
                 'Maatwebsite\Excel\ExcelServiceProvider',
                 'Thujohn\Pdf\PdfServiceProvider',
                 'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
-		
+                'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 	),
 );

@@ -1,65 +1,30 @@
 @extends('layouts.scaffold')
-@section('title', 'Oferta Formativa - CFB')
+@section('title', 'Ofertas Formativas - CFB')
 @section('main')
-<h1>Oferta Formativa</h1>
+<h1>Ofertas Formativas</h1>
 
-@if ($ofertas->count())
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Año</th>
-                                <th>Inscriptos</th>
-				<th>Inscribiendo</th>
-				<th>Fecha Inicio</th>
-				<th>Fecha Fin</th>
-				<th>&nbsp;</th>
-			</tr>
-		</thead>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="tabs_ofertas" role="tablist">
+    <li class="active"><a href="#tab_ofertas" role="tab" data-toggle="tab"><i class="fa fa-graduation-cap"></i> Ofertas</a></li>
+  <li><a href="#tab_carreras" role="tab" data-toggle="tab"><i class="fa fa-university"></i> Carreras</a></li>
+</ul>
 
-		<tbody>
-			@foreach ($ofertas as $oferta)
-				<tr>
-					<td>{{ $oferta->nombre }}</td>
-					<td>{{ $oferta->anio }}</td>
-                                        <td>
-                                            {{ $oferta->inscriptos }}
-                                            @if((int)$oferta->cupo_maximo > 0)
-                                             de {{$oferta->cupo_maximo}}
-                                             @if($oferta->inscriptos > $oferta->cupo_maximo)
-                                             			<span class="text-danger glyphicon glyphicon-warning-sign"></span>
-                                             @endif
-                                            @endif
-                                            @if($oferta->inscriptos > 0)
-                                            <small><a href="{{ URL::route('ofertas.inscripciones.show', $oferta->id) }}">[Ver]</a></small>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ BS3::bool_to_label($oferta->permite_inscripciones) }}
-                                            @if($oferta->permite_inscripciones)
-                                            <small><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}">[Form]</a></small>
-                                            @endif
-                                        </td>
-					<td>{{ ModelHelper::dateOrNull($oferta->inicio) }}</td>
-					<td>{{ ModelHelper::dateOrNull($oferta->fin) }}</td>
-                    <td>
-                        {{ link_to_route('ofertas.vermail', 'Ver correo', array($oferta->id), array('class' => 'btn btn-default')) }}
-                        {{ link_to_route('ofertas.edit', 'Editar', array($oferta->id), array('class' => 'btn btn-info')) }}
-                        @if($oferta->inscriptos == 0)
-                        {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $oferta->id))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                        @else
-                            {{ Former::disabled_button('Eliminar')->disabled()->title("No se puede eliminar: hay inscriptos.") }}
-                        @endif
-                    </td>
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
-@else
-	No hay ofertas formativas registradas.
-@endif
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="tab_ofertas">
+        @include('ofertas.listado', compact('ofertas'))
+    </div>
+    <div class="tab-pane" id="tab_carreras">
+        @include('ofertas.listado_carreras', compact('carreras'))
+    </div>
+</div>
 
-{{ link_to_route('ofertas.create', 'Crear nueva oferta formativa', null, array('class' => 'btn btn-primary')) }}
+<script>
+    $(function(){
+        $('#tabs_ofertas a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+</script>
 @stop
