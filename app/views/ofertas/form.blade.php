@@ -32,8 +32,8 @@
 {{ Former::checkbox('permite_inscripciones')
 	->addClass('checkbox')->help('Habilita las inscripciones a esta oferta') }}
 
-{{ Former::text('inicio')->label('Fecha inicio')->addClass('fecha')->help('Fecha de inicio de cursada') }}
-{{ Former::text('fin')->label('Fecha fin')->addClass('fecha')->help('Fecha de fin de cursada') }}
+{{ Former::text('inicio')->label('Fecha inicio')->addClass('fecha') }}
+{{ Former::text('fin')->label('Fecha fin')->addClass('fecha') }}
 {{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
 {{ Former::file('mail_bienvenida')

@@ -16,6 +16,8 @@
 }}
 {{ Former::populate($obj) }}
 {{ Former::hidden('oferta_formativa_id')->value($oferta->id) }}
+<div class="col-md-12 col-md-offset-6">
+
 <div class="panel panel-default">
     <div class="panel-heading"><strong>¿Quién sos?</strong></div>
     <div class="panel-body">
@@ -102,3 +104,4 @@
 }}
 @endif
 {{ Former::close() }}
+</div>

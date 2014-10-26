@@ -30,9 +30,9 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <div class="container-fluid">
+        <div class="container">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 @if (Session::has('message'))
                 <div class="flash alert alert-warning">
                     <p><span class="glyphicon glyphicon-warning-sign"></span> {{ Session::get('message') }}</p>
@@ -43,5 +43,13 @@
             </div>
           </div>
         </div>
+       <div class="footer">
+      <div class="container">
+      <div class="col-md-2"><a href="http://udc.edu.ar" target="_blank"><img src="http://udc.edu.ar/img/UDC-120-37-gray.png"></a></div>
+      <div class="col-md-2"><a href="http://www.chubut.gov.ar" target="_blank"><img src="http://udc.edu.ar/img/chubut-oficial-125-24-gray.png"></a></div>
+      <div class="col-md-8"> <p class="small">Creado por Universidad del Chubut. © 2014 UDC :: Derechos Reservados.<br>
+Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.</p></div>
+      </div>
+    </div>
     </body>
 </html>

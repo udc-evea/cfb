@@ -7,3 +7,5 @@ composer.phar
 .DS_Store
 Thumbs.db
 /nbproject/*
+_compareTemp
+_notes
