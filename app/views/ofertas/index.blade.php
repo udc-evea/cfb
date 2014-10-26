@@ -7,7 +7,7 @@
 <div class="row block">
 <div class="col-xs-12 col-md-12">
 <div class="col-xs-6 col-md-4">
-<img src="../cfb/img/LOGO-200x60px.png" width="150"></div>
+<img  src="{{asset('img/LOGO-200x60px.png')}}" width="150"/></div>
 <div class="col-xs-12 col-md-8"><h1><span class="titulo1">Ofertas Formativas</span></h1></div>
 </div>
 </div>

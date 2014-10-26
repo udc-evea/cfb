@@ -1,4 +1,3 @@
-.form-group div.checkbox input[type="checkbox"] {margin-left:0;}
 #ui-datepicker-div
 {
     z-index: 9999 !important;
@@ -10,8 +9,7 @@ border-bottom-color:#34495e;
 border-bottom-style:solid;
 }
 
-.titulo1{color:#2c3e50;
-}
+.titulo1{color:#2c3e50;}
 
 body {
   /* Margin para el bloque de encabezado */
@@ -19,7 +17,7 @@ body {
   /* Margin bottom para la altura del footer */
   margin-bottom: 100px;
   /* fondo */
-  background-image:url("../../cfb/img/debut_light.png");
+  background-image:url("../img/debut_light.png");
 }
 
 /* Sticky footer
