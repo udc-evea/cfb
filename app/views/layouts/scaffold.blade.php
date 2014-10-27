@@ -9,20 +9,9 @@
         <title>@yield('title', 'UDC-CFB')</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="shortcut icon" href="/favicon.png?v=2">
-        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}">
-        <link rel="stylesheet" href="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.min.css') }}">
-        {{ HTML::style('css/main.css') }}
-
-        <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
-        <script src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
-        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bootstrap-extras/bootbox.min.js') }}"></script>
-        <script src="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.min.js') }}"></script>
-
-        <script src="{{ asset('js/rails.js') }}"></script>
-        {{ HTML::script('js/main.js') }}
+        
+        @include('layouts.assets')
+        
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -32,7 +21,7 @@
         <!-- Add your site or application content here -->
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 @if (Session::has('message'))
                 <div class="flash alert alert-warning">
                     <p><span class="glyphicon glyphicon-warning-sign"></span> {{ Session::get('message') }}</p>
@@ -43,7 +32,7 @@
             </div>
           </div>
         </div>
-       <div class="footer">
+      <div class="footer">
       <div class="container">
       <div class="col-md-2"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}"></a></div>
       <div class="col-md-2"><a href="http://www.chubut.gov.ar" target="_blank"><img src="{{asset('img/chubut-oficial-125-24-gray.png')}}"></a></div>

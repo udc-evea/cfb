@@ -1,6 +1,6 @@
 <div class="form-horizontal">
     <div class="form-group form-group-sm">
-        <div class="col-sm-4 col-sm-offset-2">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                    <table class="table table-hover table-condensed">
@@ -34,7 +34,7 @@
     </div>
     <hr>
     <div class="form-group form-group-lg">
-        <div class="col-sm-6 col-sm-offset-2">
+        <div class="col-sm-6">
             <div class="input-group">
                 <a href="{{ route('ofertas.index') }}" class="form-control btn btn-link btn-lg">Volver</a>
             </div>
