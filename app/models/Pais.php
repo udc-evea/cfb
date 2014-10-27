@@ -1,17 +1,15 @@
 <?php
 
-class NivelEstudios extends Eloquent 
+class Pais extends Eloquent 
 {
-    const NIVEL_SEC_COMPLETO = 4;
     protected $guarded = array();
-    protected $table = 'repo_nivel_estudios';
-
+    protected $table = 'repo_pais';
     public static $rules = array();
     
     public function scopeSelect($query, $title = 'Seleccione')
     {
         $selectVals[''] = $title;
-        $selectVals += $this->lists('nivel_estudios', 'id');
+        $selectVals += $this->lists('nombre', 'id');
         return $selectVals;
     }
 }

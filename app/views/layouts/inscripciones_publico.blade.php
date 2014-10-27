@@ -30,7 +30,6 @@
                 <div class="flash alert alert-warning">
                     <p><span class="glyphicon glyphicon-warning-sign"></span> {{ Session::get('message') }}</p>
                 </div>
-                
                 @endif
                 
                 @yield('main')

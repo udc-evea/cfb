@@ -24,6 +24,14 @@ class InscripcionCarrera extends Eloquent {
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id'
     );
     
+    public static $enum_tipo_residencia      = array('1' => 'Casa', '2' => 'Depto.', '3' => 'Pensión', '4' => 'Residencia');
+    public static $enum_tipo_establecimiento = array('1' => 'Estatal', '2' => 'Privado');
+    public static $enum_situacion_laboral    = array('1' => 'Trabaja', '2' => 'No trabaja', '3' => 'Desocupado');
+    public static $enum_situacion_laboral_ocupacion  = array('1' => 'Trabajo temporal', '2' => 'Trabajo permanente');
+    public static $enum_situacion_laboral_horas_semana = array('1' => 'Menos de 20', '2' => 'Entre 21 y 35', '36 o más');
+    public static $enum_situacion_laboral_relacion_trabajo_carrera = array('1' => 'Total', '2' => 'Parcial', '3' => 'Ninguna');
+    public static $enum_vive = array('1' => 'SI', '2' => 'NO', '3' => 'NS/NC');
+    
     public function oferta()
     {
         return $this->belongsTo('Oferta', 'oferta_formativa_id');
