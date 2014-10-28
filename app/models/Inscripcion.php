@@ -83,6 +83,11 @@ class Inscripcion extends Eloquent {
         return $fila;
     }
     
+    public function getCorreoAttribute()
+    {
+        return $this->email;
+    }
+    
     public function getTipoydocAttribute()
     {
         return sprintf("%s %s", $this->tipo_documento, number_format($this->documento, 0, ",", "."));
@@ -101,6 +106,13 @@ class Inscripcion extends Eloquent {
     public function setFechaNacimientoAttribute($fecha)
     {
         $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
+    }
+    
+    public function agregarReglas($input)
+    {
+        //parche para validators de unique y unique_with
+        self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
+        self::$rules['email']['unique_mail'] =  sprintf("%s, %s", self::$rules['email']['unique_mail'], $this->id);
     }
         
     

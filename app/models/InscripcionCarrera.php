@@ -8,18 +8,18 @@ class InscripcionCarrera extends Eloquent {
     public $timestamps = false;
 
     public static $rules = array(
-        'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_oferta,tipo_documento_cod,documento'),
+        'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_carrera,tipo_documento_cod,documento'),
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
         'documento' => 'required|integer|min:1000000|max:99999999',
-        'apellidos' => 'required',
-        'nombres' => 'required',
+        'apellido' => 'required',
+        'nombre' => 'required',
         'sexo'   => 'required|in:M,F',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'nacionalidad_id'  => 'required|exists:nacionalidad,id',
         'localidad_id' => 'required|exists:repo_localidad,id',
         'localidad_depto' => 'required',
-        'localidad_pcia'  => 'required|exists:repo_provincia,id',
-        'localidad_pais'  => 'required|exists:repo_pais,id',
+        'localidad_pcia_id'  => 'required|exists:repo_provincia,id',
+        'localidad_pais_id'  => 'required|exists:repo_pais,id',
         
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
         'domicilio_procedencia_calle' => 'required',
@@ -27,6 +27,7 @@ class InscripcionCarrera extends Eloquent {
         'domicilio_procedencia_piso'  => 'required',
         'domicilio_procedencia_depto' => 'required',
         'domicilio_procedencia_localidad_id' => 'required|exists:repo_localidad,id',
+        'domicilio_procedencia_pcia_id'  => 'required|exists:repo_provincia,id',
         'domicilio_procedencia_cp'   => 'required',
         'domicilio_procedencia_pais_id'   => 'required|exists:repo_pais,id',
         'domicilio_procedencia_telefono_fijo'   => 'required',
@@ -40,20 +41,21 @@ class InscripcionCarrera extends Eloquent {
         'domicilio_clases_piso'  => 'required',
         'domicilio_clases_depto' => 'required',
         'domicilio_clases_localidad_id' => 'required|exists:repo_localidad,id',
+        'domicilio_clases_pcia_id'  => 'required|exists:repo_provincia,id',
         'domicilio_clases_cp'   => 'required',
         'domicilio_clases_pais_id'   => 'required|exists:repo_pais,id',
         'domicilio_clases_telefono_fijo'   => 'required',
         'domicilio_clases_telefono_celular'   => 'required',
-        'domicilio_clases_email'   => 'required|email',
+        'domicilio_clases_email'   => ['required', 'email', 'unique_mail' => 'unique_with:inscripcion_carrera,oferta_formativa_id,domicilio_clases_email'],
         'domicilio_clases_cp'   => 'required',
         'domicilio_clases_con_quien_vive_id'   => 'required|exists:con_quien_vive,id',
         
         'secundario_titulo_obtenido' => 'required',
         'secundario_anio_egreso' => 'required|digits:4',
         'secundario_nombre_colegio' => 'required',
-        'secundario_localidad_colegio' => 'required|exists:repo_localidad,id',
-        'secundario_pcia'  => 'required|exists:repo_provincia,id',
-        'secundario_pais'  => 'required|exists:repo_pais,id',
+        'secundario_localidad_id' => 'required|exists:repo_localidad,id',
+        'secundario_pcia_id'  => 'required|exists:repo_provincia,id',
+        'secundario_pais_id'  => 'required|exists:repo_pais,id',
         'secundario_tipo_establecimiento' => 'required|in:ESTATAL,PRIVADO',
         
         'situacion_laboral' => 'required|in:TRABAJA,NO TRABAJA,DESOCUPADO',
@@ -88,6 +90,7 @@ class InscripcionCarrera extends Eloquent {
     public static $enum_situacion_laboral_horas_semana = array('MENOS DE 20' => 'Menos de 20', 'ENTRE 21 Y 35' => 'Entre 21 y 35', '36 O MAS' => '36 o más');
     public static $enum_situacion_laboral_relacion_trabajo_carrera = array('TOTAL' => 'Total', 'PARCIAL' => 'Parcial', 'NINGUNA' => 'Ninguna');
     public static $enum_vive = array('SI' => 'SI', 'NO' => 'NO', 'NS/NC' => 'NS/NC');
+    public static $enum_padre_ocupacion  = array('TEMPORARIA' => 'Temporaria', 'PERMANENTE' => 'Permanente');
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento'];
     public static $mensajes = [];
@@ -148,6 +151,12 @@ class InscripcionCarrera extends Eloquent {
         return $fila;
     }
     
+    public function getCorreoAttribute()
+    {
+        return $this->domicilio_clases_email;
+    }
+        
+    
     public function getTipoydocAttribute()
     {
         return sprintf("%s %s", $this->tipo_documento, number_format($this->documento, 0, ",", "."));
@@ -166,6 +175,13 @@ class InscripcionCarrera extends Eloquent {
     public function setFechaNacimientoAttribute($fecha)
     {
         $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
+    }
+    
+    public function agregarReglas($input)
+    {
+        //parche para validators de unique y unique_with
+        self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
+        self::$rules['domicilio_clases_email']['unique_mail'] = sprintf("%s, %s", self::$rules['domicilio_clases_email']['unique_mail'], $this->id);
     }
     
     

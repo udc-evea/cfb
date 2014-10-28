@@ -18,6 +18,10 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/', function() {
         return Redirect::route('ofertas.index');
     });
+    
+    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/imprimir', 
+      array('uses' => 'OfertasInscripcionesController@imprimir', 'as' => 'ofertas.inscripciones.imprimir')
+    );
 
     Route::post('/ofertas/{oferta}/inscripciones/{inscripcion}/requisito', 
       array('uses' => 'OfertasInscripcionesController@presentarRequisito', 'as' => 'ofertas.inscripciones.requisito_presentar')

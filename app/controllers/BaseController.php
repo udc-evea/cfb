@@ -28,11 +28,18 @@ class BaseController extends Controller {
         })->export('xls');
     }
 
-	protected function exportarPDF($filename, $rows, $view)
+    protected function exportarPDF($filename, $rows, $view)
     {
         $html = View::make($view, compact('rows'));
 
         return PDF::load($html, 'A4', 'landscape')->show();
-    }    
+    }
+    
+    protected function exportarFormPDF($filename, $data, $view)
+    {
+        $html = View::make($view, $data);
+
+        return PDF::load($html, 'A4', 'portrait')->show();
+    }
 
 }

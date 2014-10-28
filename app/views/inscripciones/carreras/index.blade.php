@@ -39,7 +39,7 @@
                         <td>{{{ $inscripcion->email }}}</td>
                         <td>
                             {{ link_to_route('ofertas.inscripciones.edit', 'Editar', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-default')) }}
-                            {{ link_to_route('ofertas.inscripciones.edit', '<i class="fa fa-file-pdf-o"></i> Imprimir', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-default')) }}
+                            <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Imprimir</a>
                             {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
                                 {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                             {{ Form::close() }}

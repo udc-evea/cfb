@@ -1,24 +1,13 @@
-<?php $method        = $obj != null ? 'PUT' : 'POST';?>
-<?php $route_name    = $obj != null ? 'update' : 'nueva';?>
-<?php $route_params  = $obj != null ? array($oferta->id, $obj->id) : array($oferta->id);?>
-{{ HTML::script('js/inscripciones.js') }}
-<script>
-    $(function(){
-       InscripcionesModule.init({{ $oferta->id }}); 
-    });
-</script>
+@extends('layouts.base')
+@section('title', 'Inscripción en: '.$oferta->nombre.' - CFB')
+@section('main')
+
+<?php $check_vacio = '<span class="fa fa-check-square-o"></span>'; $check_lleno = '<span class="fa fa-square-o"></span>';?>
 <style>
     td, th {padding: 5px !important;}
 </style>
 <div class="row">
     <div class="col-md-12">
-        @if(is_null($obj))
-            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.nueva', $oferta->id], 'method' => 'POST', 'autocomplete' => 'off']) }}
-        @else
-            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.update', $oferta->id, $obj->id], 'method' => 'PUT', 'autocomplete' => 'off']) }}
-        @endif
-     
-     {{ Form::hidden('oferta_formativa_id', $oferta->id) }}   
         <table align="center" cellpadding="10" cellspacing="10" class="table-bordered" style="width: 100%;">
             <thead><tr style="text-align: center; background-color: #bdc3c7; color: #FFFFFF">
                     <td colspan="4">PLANILLA DE INSCRIPCIÓN</td>
@@ -39,14 +28,14 @@
                     <td bgcolor="#ecf0f1" style="font-weight: bold">DATOS PERSONALES </td>
                     <td>
                         <div class="col-md-12">
-                            <label>Apellidos</label> 
-                            {{ Form::text('apellido', null, ['required', 'class' => 'form-control input-sm']) }}
+                            <label>Apellidos: </label> 
+                            {{ $inscripcion->apellido }}
                         </div>
                     </td>
                     <td>
                         <div class="col-md-12">
                             <label>Nombres</label> 
-                            {{ Form::text('nombre', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ $inscripcion->nombre }}
                         </div>
                     </td>
                 </tr>
@@ -54,22 +43,39 @@
                     <td>
                         <div class="col-md-12">
                             <label>Sexo</label> 
-                            <label class="radio-inline">{{Form::radio('sexo', 'M', false, ['required'])}} M</label>
-                            <label class="radio-inline">{{Form::radio('sexo', 'F', false, ['required'])}} F</label>
+                            <label class="radio-inline">
+                                @if($inscripcion->sexo == 'M')
+                                {{ $check_lleno }}
+                                @else
+                                {{ $check_vacio }}
+                                @endif
+                                M
+                            </label>
+                            <label class="radio-inline">
+                                @if($inscripcion->sexo == 'F')
+                                {{ $check_lleno }}
+                                @else
+                                {{ $check_vacio }}
+                                @endif
+                                F
+                            </label>
                         </div>
                     </td>
                     <td> Documento: 
                         @foreach(TipoDocumento::all() as $item)
                         <label class="radio-inline">
-                            {{Form::radio('tipo_documento_cod', $item->id, false, ['required'])}} 
-                            {{ $item->descripcion }}
+                            @if($inscripcion->tipo_documento_cod == $item->id)
+                            {{ $check_lleno }} {{$item->descripcion}}
+                            @else
+                            {{ $check_vacio }} {{$item->descripcion}}
+                            @endif
                         </label>
                         @endforeach
                     </td>
                     <td colspan="2">
                         <div class="col-md-12">
                             <label>Número</label> 
-                            {{ Form::text('documento', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ $inscripcion->documento }}
                         </div>
                     </td>
                 </tr>
@@ -78,7 +84,7 @@
                         <div class="col-md-12"> <label>Nacido en </label>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Localidad</label> {{ Form::select('localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                                    <label>Localidad</label> {{ $inscripcion->localidad }}
                                 </div>
                                 <div class="col-md-2">
                                     <label>Depto.</label>  {{ Form::text('localidad_depto', null, ['class' => 'form-control input-sm']) }}
@@ -402,3 +408,4 @@
     {{Form::close()}}
     </div>
 </div>
+@stop

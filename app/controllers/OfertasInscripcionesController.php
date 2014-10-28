@@ -69,18 +69,18 @@ class OfertasInscripcionesController extends BaseController {
             try {
                 Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc) {
                     $message
-                            ->to($insc->email, $insc->nombre)
+                            ->to($insc->correo, $insc->inscripto)
                             ->subject('CFB-UDC: Inscripción a ' . $oferta->nombre);
                 });
             } catch (Swift_TransportException $e) {
-                Log::info("No se pudo enviar correo a " . $insc->nombre . " <" . $insc->email . ">");
+                Log::info("No se pudo enviar correo a " . $insc->inscripto . " <" . $insc->correo . ">");
             }
 
             return Redirect::to('/inscripcion_ok');
         }
 
         return Redirect::route('ofertas.inscripciones.nueva', $oferta_id)
-                        ->withoferta($oferta)
+                        ->withOferta($oferta)
                         ->withInput()
                         ->withErrors($validation)
                         ->with('message', 'Error al guardar.');
@@ -124,12 +124,11 @@ class OfertasInscripcionesController extends BaseController {
         }
         
         $input = array_except(Input::all(), array('_method', 'reglamento'));
-        $rules = $insc_class::$rules;
-        $rules['oferta_formativa_id']['unique_persona'] .=', ' . $id;
-        $rules['email']['unique_mail'] .=', ' . $id;
+        $inscripcion->agregarReglas($input);
+        
         $mensajes = array('unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.');
 
-        $validation = Validator::make($input, $rules, $mensajes);
+        $validation = Validator::make($input, $insc_class::$rules, $mensajes);
 
         if ($validation->passes()) {
             $inscripcion->update($input);
@@ -194,6 +193,22 @@ class OfertasInscripcionesController extends BaseController {
         $req->delete();
 
         return Response::make('', 200);
+    }
+    
+    public function imprimir($oferta_id, $id)
+    {
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::find($id);
+
+        if (is_null($inscripcion)) {
+            return Redirect::route('ofertas.inscripciones.index');
+        }
+        
+        $archivo = sprintf("inscrip_%s_%s", $inscripcion->apellido, $oferta->nombre);
+        
+        return View::make('inscripciones.carreras.form_pdf', compact('inscripcion', 'oferta'));
+        //return $this->exportarFormPDF($archivo , $inscripcion, 'inscripciones.'.$oferta->view.'.form_pdf');
     }
 
 }
