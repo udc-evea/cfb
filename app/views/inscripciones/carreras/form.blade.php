@@ -13,6 +13,7 @@
 <div class="row">
     <div class="col-md-12">
      {{ Form::model($obj, ['route' => ['ofertas.inscripciones.create', $oferta->id], 'autocomplete' => 'off']) }}
+     {{ Form::hidden('oferta_formativa_id', $oferta->id) }}   
         <table align="center" cellpadding="10" cellspacing="10" class="table-bordered" style="width: 100%;">
             <thead><tr style="text-align: center; background-color: #bdc3c7; color: #FFFFFF">
                     <td colspan="4">PLANILLA DE INSCRIPCIÓN</td>
