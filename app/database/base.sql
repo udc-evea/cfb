@@ -324,8 +324,8 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   `localidad_id` INT(10) UNSIGNED NOT NULL,
   `localidad_otra` VARCHAR(100) NULL DEFAULT NULL,
   `localidad_depto` VARCHAR(80) NOT NULL DEFAULT 'RAWSON',
-  `localidad_pcia` INT UNSIGNED NOT NULL,
-  `localidad_pais` INT UNSIGNED NOT NULL,
+  `localidad_pcia_id` INT UNSIGNED NOT NULL,
+  `localidad_pais_id` INT UNSIGNED NOT NULL,
   `domicilio_procedencia_tipo` ENUM('CASA', 'DEPTO', 'PENSION', 'RESIDENCIA') NOT NULL,
   `domicilio_procedencia_calle` VARCHAR(200) NULL,
   `domicilio_procedencia_nro` INT UNSIGNED NOT NULL DEFAULT 0,
@@ -362,22 +362,24 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   `domicilio_clases_depto` VARCHAR(5) NOT NULL DEFAULT '-',
   `domicilio_clases_localidad_otra` VARCHAR(100) NULL,
   `domicilio_clases_cp` VARCHAR(10) NOT NULL,
-  `domicilio_clases_telefono` VARCHAR(50) NOT NULL,
+  `domicilio_clases_telefono_fijo` VARCHAR(50) NOT NULL,
   `domicilio_clases_email` VARCHAR(100) NOT NULL,
   `domicilio_clases_con_quien_vive_id` INT UNSIGNED NOT NULL,
   `secundario_titulo_obtenido` VARCHAR(200) NOT NULL,
   `secundario_anio_egreso` YEAR NOT NULL,
   `secundario_nombre_colegio` VARCHAR(255) NOT NULL,
-  `secundario_localidad_colegio` INT UNSIGNED NOT NULL,
-  `secundario_localidad_colegio_otra` VARCHAR(100) NULL,
-  `secundario_pcia` INT UNSIGNED NOT NULL,
-  `secundario_pais` INT UNSIGNED NOT NULL,
+  `secundario_localidad_id` INT UNSIGNED NOT NULL,
+  `secundario_localidad_otra` VARCHAR(100) NULL,
+  `secundario_pcia_id` INT UNSIGNED NOT NULL,
+  `secundario_pais_id` INT UNSIGNED NOT NULL,
   `secundario_tipo_establecimiento` ENUM('ESTATAL', 'PRIVADO') NOT NULL,
-  `situacion_laboral_horas_semana` TINYINT(1) UNSIGNED NOT NULL,
+  `situacion_laboral_horas_semana` ENUM('MENOS DE 20', 'ENTRE 21 Y 35', '36 O MAS') NOT NULL,
   `padre_ocupacion` ENUM('PERMANENTE', 'TEMPORARIA') NOT NULL,
   `madre_ocupacion` ENUM('PERMANENTE', 'TEMPORARIA') NOT NULL,
   `situacion_laboral_rama_id` INT UNSIGNED NOT NULL,
-  `inscripcion_carrera_id` INT(10) UNSIGNED NOT NULL,
+  `domicilio_clases_telefono_celular` VARCHAR(50) NOT NULL,
+  `domicilio_procedencia_pcia_id` INT UNSIGNED NOT NULL,
+  `domicilio_clases_pcia_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `oferta_academica_id_2` (`oferta_formativa_id` ASC, `tipo_documento_cod` ASC, `documento` ASC),
   INDEX `tipo_documento_cod` (`tipo_documento_cod` ASC),
@@ -386,8 +388,8 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   INDEX `oferta_academica_id` (`oferta_formativa_id` ASC),
   INDEX `fk_inscripcion_carrera_nacionalidad1_idx` (`nacionalidad_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_localidad1_idx` (`localidad_id` ASC),
-  INDEX `fk_inscripcion_carrera_repo_provincia1_idx` (`localidad_pcia` ASC),
-  INDEX `fk_inscripcion_carrera_repo_pais1_idx` (`localidad_pais` ASC),
+  INDEX `fk_inscripcion_carrera_repo_provincia1_idx` (`localidad_pcia_id` ASC),
+  INDEX `fk_inscripcion_carrera_repo_pais1_idx` (`localidad_pais_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_localidad2_idx` (`domicilio_procedencia_localidad_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_pais2_idx` (`domicilio_procedencia_pais_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_localidad3_idx` (`domicilio_clases_localidad_id` ASC),
@@ -395,14 +397,15 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   INDEX `fk_inscripcion_carrera_categoria_ocupacional1_idx` (`situacion_laboral_categoria_ocupacional_id` ASC),
   INDEX `fk_inscripcion_carrera_categoria_ocupacional2_idx` (`padre_categoria_ocupacional_id` ASC),
   INDEX `fk_inscripcion_carrera_categoria_ocupacional3_idx` (`madre_categoria_ocupacional_id` ASC),
-  INDEX `fk_inscripcion_carrera_repo_localidad4_idx` (`secundario_localidad_colegio` ASC),
-  INDEX `fk_inscripcion_carrera_repo_provincia2_idx` (`secundario_pcia` ASC),
-  INDEX `fk_inscripcion_carrera_repo_pais4_idx` (`secundario_pais` ASC),
+  INDEX `fk_inscripcion_carrera_repo_localidad4_idx` (`secundario_localidad_id` ASC),
+  INDEX `fk_inscripcion_carrera_repo_provincia2_idx` (`secundario_pcia_id` ASC),
+  INDEX `fk_inscripcion_carrera_repo_pais4_idx` (`secundario_pais_id` ASC),
   INDEX `fk_inscripcion_carrera_con_quien_vive1_idx` (`domicilio_clases_con_quien_vive_id` ASC),
   INDEX `fk_inscripcion_carrera_rama_actividad_laboral1_idx` (`situacion_laboral_rama_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_nivel_estudios1_idx` (`padre_estudios_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_nivel_estudios2_idx` (`madre_estudios_id` ASC),
-  INDEX `fk_inscripcion_carrera_inscripcion_carrera1_idx` (`inscripcion_carrera_id` ASC),
+  INDEX `fk_inscripcion_carrera_repo_provincia3_idx` (`domicilio_procedencia_pcia_id` ASC),
+  INDEX `fk_inscripcion_carrera_repo_provincia4_idx` (`domicilio_clases_pcia_id` ASC),
   CONSTRAINT `fk_inscripcion_carrera_nacionalidad1`
     FOREIGN KEY (`nacionalidad_id`)
     REFERENCES `cfb`.`nacionalidad` (`id`)
@@ -414,12 +417,12 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_carrera_repo_provincia1`
-    FOREIGN KEY (`localidad_pcia`)
+    FOREIGN KEY (`localidad_pcia_id`)
     REFERENCES `cfb`.`repo_provincia` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_carrera_repo_pais1`
-    FOREIGN KEY (`localidad_pais`)
+    FOREIGN KEY (`localidad_pais_id`)
     REFERENCES `cfb`.`repo_pais` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -459,17 +462,17 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_carrera_repo_localidad4`
-    FOREIGN KEY (`secundario_localidad_colegio`)
+    FOREIGN KEY (`secundario_localidad_id`)
     REFERENCES `cfb`.`repo_localidad` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_carrera_repo_provincia2`
-    FOREIGN KEY (`secundario_pcia`)
+    FOREIGN KEY (`secundario_pcia_id`)
     REFERENCES `cfb`.`repo_provincia` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscripcion_carrera_repo_pais4`
-    FOREIGN KEY (`secundario_pais`)
+    FOREIGN KEY (`secundario_pais_id`)
     REFERENCES `cfb`.`repo_pais` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -503,9 +506,14 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
     REFERENCES `cfb`.`oferta_formativa` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inscripcion_carrera_inscripcion_carrera1`
-    FOREIGN KEY (`inscripcion_carrera_id`)
-    REFERENCES `cfb`.`inscripcion_carrera` (`id`)
+  CONSTRAINT `fk_inscripcion_carrera_repo_provincia3`
+    FOREIGN KEY (`domicilio_procedencia_pcia_id`)
+    REFERENCES `cfb`.`repo_provincia` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inscripcion_carrera_repo_provincia4`
+    FOREIGN KEY (`domicilio_clases_pcia_id`)
+    REFERENCES `cfb`.`repo_provincia` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
