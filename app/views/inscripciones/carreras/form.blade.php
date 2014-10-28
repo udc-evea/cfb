@@ -12,7 +12,12 @@
 </style>
 <div class="row">
     <div class="col-md-12">
-     {{ Form::model($obj, ['route' => ['ofertas.inscripciones.'.$route_name, extract($route_params)], 'method' => $method, 'autocomplete' => 'off']) }}
+        @if(is_null($obj))
+            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.nueva', $oferta->id], 'method' => 'POST', 'autocomplete' => 'off']) }}
+        @else
+            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.update', $oferta->id, $obj->id], 'method' => 'PUT', 'autocomplete' => 'off']) }}
+        @endif
+     
      {{ Form::hidden('oferta_formativa_id', $oferta->id) }}   
         <table align="center" cellpadding="10" cellspacing="10" class="table-bordered" style="width: 100%;">
             <thead><tr style="text-align: center; background-color: #bdc3c7; color: #FFFFFF">

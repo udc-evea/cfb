@@ -9,10 +9,10 @@ class InscripcionCarrera extends Eloquent {
 
     public static $rules = array(
         'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_oferta,tipo_documento_cod,documento'),
-        'tipo_documento_cod' => 'required|exists:repo_tipo_documento,tipo_documento',
+        'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
         'documento' => 'required|integer|min:1000000|max:99999999',
-        'apellido' => 'required',
-        'nombre' => 'required',
+        'apellidos' => 'required',
+        'nombres' => 'required',
         'sexo'   => 'required|in:M,F',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'nacionalidad_id'  => 'required|exists:nacionalidad,id',
@@ -49,7 +49,7 @@ class InscripcionCarrera extends Eloquent {
         'domicilio_clases_con_quien_vive_id'   => 'required|exists:con_quien_vive,id',
         
         'secundario_titulo_obtenido' => 'required',
-        'secundario_anio_egreso' => 'required|digits:4|min:1900',
+        'secundario_anio_egreso' => 'required|digits:4',
         'secundario_nombre_colegio' => 'required',
         'secundario_localidad_colegio' => 'required|exists:repo_localidad,id',
         'secundario_pcia'  => 'required|exists:repo_provincia,id',
@@ -67,14 +67,14 @@ class InscripcionCarrera extends Eloquent {
         
         'padre_apeynom' => 'required',
         'padre_vive' => 'required|in:SI,NO,NS/NC',
-        'padre_estudios_id' => 'required|exists:nivel_estudios,id',
+        'padre_estudios_id' => 'required|exists:repo_nivel_estudios,id',
         'padre_categoria_ocupacional_id' => 'required|exists:categoria_ocupacional,id',
         'padre_labor' => 'required',
         'padre_ocupacion' => 'required|in:PERMANENTE,TEMPORARIA',
         
         'madre_apeynom' => 'required',
         'madre_vive' => 'required|in:SI,NO,NS/NC',
-        'madre_estudios_id' => 'required|exists:nivel_estudios,id',
+        'madre_estudios_id' => 'required|exists:repo_nivel_estudios,id',
         'madre_categoria_ocupacional_id' => 'required|exists:categoria_ocupacional,id',
         'madre_labor' => 'required',
         'madre_ocupacion' => 'required|in:PERMANENTE,TEMPORARIA'
@@ -88,6 +88,9 @@ class InscripcionCarrera extends Eloquent {
     public static $enum_situacion_laboral_horas_semana = array('MENOS DE 20' => 'Menos de 20', 'ENTRE 21 Y 35' => 'Entre 21 y 35', '36 O MAS' => '36 o más');
     public static $enum_situacion_laboral_relacion_trabajo_carrera = array('TOTAL' => 'Total', 'PARCIAL' => 'Parcial', 'NINGUNA' => 'Ninguna');
     public static $enum_vive = array('SI' => 'SI', 'NO' => 'NO', 'NS/NC' => 'NS/NC');
+    
+    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento'];
+    public static $mensajes = [];
     
     public function oferta()
     {
