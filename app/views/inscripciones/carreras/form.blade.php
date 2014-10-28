@@ -369,7 +369,25 @@
                 </tr>
             </tbody>
         </table>
-        <hr/>
+        <br/>
+        @unless(Auth::check())
+        <table class="table-bordered" width="100%">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <div class="checkbox">
+                            <label>{{Form::checkbox('reglamento', null, null, ['required'])}} He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Código de seguridad</label></td>
+                    <td>{{ Form::captcha(array('required' => 'required')) }}</td>
+                </tr>
+            </tbody>
+        </table>
+        @include('inscripciones.reglamento', array('oferta' => $oferta))
+        @endunless
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Completar inscripción</button>
