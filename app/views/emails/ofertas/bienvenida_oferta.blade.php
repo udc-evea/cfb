@@ -10,8 +10,6 @@
                    <p><small>Si no puede ver el correo, haga click <a href="{{ asset($oferta->mail_bienvenida->url()) }}">aquí</a></small></p>
                    <a href="http://cursos.udc.edu.ar"><img src="{{ asset($oferta->mail_bienvenida->url()) }}"/></a>
                 </div>
-                @endif
-                
                 @yield('main')
             </div>
           </div>    
