@@ -109,7 +109,8 @@ class OfertasController extends BaseController {
 		if ($validation->passes())
 		{
 			$oferta = $this->oferta->find($id);
-			$oferta->update($input);
+                        $oferta->fill($input);
+			$oferta->save();
 
 			return Redirect::route('ofertas.index');
 		}
