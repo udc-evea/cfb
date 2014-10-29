@@ -76,7 +76,7 @@
 
 @if(Auth::check())
 {{ Former::actions(
-            link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-link')),
+            link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-default')),
             Former::lg_default_reset('Restablecer'),
             Former::lg_primary_submit('Guardar')
    )
@@ -95,7 +95,7 @@
     </div>
 </div>
 {{ Former::actions(
-            link_to('http://udc.edu.ar', 'Volver', array('class' => 'btn btn-lg btn-link')),
+            link_to('http://udc.edu.ar', 'Volver', array('class' => 'btn btn-lg btn-default')),
             Former::lg_default_reset('Restablecer'),
             Former::lg_primary_submit('Completar inscripción')
     )

@@ -20,11 +20,11 @@
      
      {{ Form::hidden('oferta_formativa_id', $oferta->id) }}   
         <table align="center" cellpadding="10" cellspacing="10" class="table-bordered" style="width: 100%;">
-            <thead><tr style="text-align: center; background-color: #bdc3c7; color: #FFFFFF">
+            <thead><tr style="text-align: center; background-color: #2c3e50; color: #FFFFFF; font-weight: bold;">
                     <td colspan="4">PLANILLA DE INSCRIPCIÓN</td>
                 </tr>
                 <tr>
-                    <td colspan="2" rowspan="2"><img src="{{asset('img/LOGO-horizontal-MQ-RGB-150dpi.png')}}" alt="Logo UDC" width="" height="" class="img-responsive"/></td>
+                  <td colspan="2" rowspan="2"><img src="{{asset('img/LOGO-200x60px.png')}}" alt="Logo UDC" width="" height="" class="img-responsive"/></td>
                     <td>
                         <p>AÑO INGRESO A LA UNIVERSIDAD: <strong>{{ $oferta->anio }}</strong>
                 </tr>
@@ -36,7 +36,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">DATOS PERSONALES </td>
+                    <td height="60px" bgcolor="#16a085" style="color: #FFF;">DATOS PERSONALES </td>
                     <td>
                         <div class="col-md-12">
                             <label>Apellidos</label> 
@@ -116,10 +116,10 @@
         <table class="table-bordered" width="100%">
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">DOMICILIO DE PROCEDENCIA</td>
+                    <td height="60px" bgcolor="#e67e22" style="color: #FFFFFF;">DOMICILIO DE PROCEDENCIA</td>
                     <td>Tipo de Residencia: 
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
-                        <label class="radio-inline">{{Form::radio('domicilio_procedencia_tipo', $num, false, ['required'])}} {{$item}}</label>
+                      <label class="radio-inline">{{Form::radio('domicilio_procedencia_tipo', $num, false, ['required'])}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -160,10 +160,10 @@
         <table class="table-bordered" width="100%">
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">DOMICILIO EN PERÍODO DE CLASES</td>
+                    <td height="60px" bgcolor="#d35400" style="color: #FFFFFF;">DOMICILIO EN PERÍODO DE CLASES</td>
                     <td>Tipo de Residencia:  
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
-                        <label class="radio-inline">{{Form::radio('domicilio_clases_tipo', $num, false , ['required'])}} {{$item}}</label>
+                      <label class="radio-inline">{{Form::radio('domicilio_clases_tipo', $num, false , ['required'])}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -211,7 +211,7 @@
         <table width="100%" class="table-bordered">
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">COLEGIO SECUNDARIO</td>
+                    <td height="60px" bgcolor="#9054A9" style="color:#fff;">COLEGIO SECUNDARIO</td>
                     <td> 
                         <div class="col-md-12">
                             <label>Título Obtenido</label>
@@ -264,7 +264,7 @@
         <table class="table-bordered" width="100%">
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">SITUACIÓN LABORAL</td>
+                    <td height="60px" bgcolor="#34495e" style="color:#fff;">SITUACIÓN LABORAL</td>
                     <td width="65%">
                         @foreach(InscripcionCarrera::$enum_situacion_laboral as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral', $num, false, ['required'])}} {{$item}}</label>
@@ -309,7 +309,7 @@
         <table width="100%" class="table-bordered">
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">DATOS DEL PADRE</td>
+                    <td height="60px" bgcolor="#2980b9" style="color:#fff;">DATOS DEL PADRE</td>
                     <td width="65%"> <label>Apellidos y Nombres del PADRE: </label>{{ Form::text('padre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr>
@@ -344,7 +344,7 @@
         <table width="100%" class="table-bordered">
             <tbody>
                 <tr>
-                    <td bgcolor="#ecf0f1" style="font-weight: bold">DATOS DE LA MADRE</td>
+                    <td height="60px" bgcolor="#e74c3c" style="color:#fff;">DATOS DE LA MADRE</td>
                     <td width="65%"> <label>Apellidos y Nombres de la MADRE: </label>{{ Form::text('madre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr>
@@ -380,7 +380,7 @@
         <table class="table-bordered" width="100%">
             <tbody>
                 <tr>
-                    <td colspan="2">
+                    <td bgcolor="#95a5a6" colspan="2">
                         <div class="checkbox">
                             <label>{{Form::checkbox('reglamento', 1, false, ['required'])}} He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.</label>
                         </div>
@@ -394,9 +394,14 @@
         </table>
         @include('inscripciones.reglamento', array('oferta' => $oferta))
         @endunless
+        <hr>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Completar inscripción</button>
+            <div class="col-md-2 col-md-offset-4">
+            <button type="button" class="btn btn-lg btn-default"><a href="http://udc.edu.ar"> Volver </a></button>
+            </div>
+            <div class="col-md-2">
+            <button type="submit" class="btn btn-lg btn-success">Completar inscripción</button>
+            </div>
             </div>
         </div>
     {{Form::close()}}
