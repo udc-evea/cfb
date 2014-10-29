@@ -20,7 +20,7 @@
         <div class="container">
           <div class="row block">
             <div class="col-md-12">
-              <img src="{{ asset('img/LOGO-200x60px.png') }}" width="150"/>
+              <a href="http://udc.edu.ar"><img src="{{ asset('img/LOGO-200x60px.png') }}" width="150"/></a>
             </div>
           </div>
 

@@ -49,7 +49,7 @@
 	</table>
 <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a>
 @else
-<p>Aún no hay inscriptos en este oferta.</p>
+<p>Aún no hay inscriptos en esta oferta.</p>
 <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
 @endif
 

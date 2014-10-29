@@ -17,7 +17,7 @@
 {{ Former::populate($obj) }}
 {{ Former::hidden('oferta_formativa_id')->value($oferta->id) }}
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>¿Quién sos?</strong></div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> <strong>¿Quién sos?</strong></div>
     <div class="panel-body">
         {{ Former::text('apellido')->required() }}
         {{ Former::text('nombre')->required() }}
@@ -33,7 +33,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>¿De dónde sos?</strong>
+        <span class="glyphicon glyphicon-map-marker"></span> <strong>¿De dónde sos?</strong>
     </div>
     <div class="panel-body">
     {{ Former::select('localidad_id')
@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>¿Qué estudiaste?</strong></div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-book"></span> <strong>¿Qué estudiaste?</strong></div>
     <div class="panel-body">
         {{ Former::select('nivel_estudios_id')
             ->fromQuery(NivelEstudios::all(), 'nivel_estudios', 'id')
@@ -57,14 +57,14 @@
     </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>¿Cómo te contactamos?</strong></div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-phone"></span> <strong>¿Cómo te contactamos?</strong></div>
     <div class="panel-body">
         {{ Former::email('email')->label('Correo electrónico')->required() }}
         {{ Former::text('telefono')->label('Teléfono')->required() }}
     </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>Para terminar...</strong></div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-info-sign"></span> <strong>Para terminar...</strong></div>
     <div class="panel-body">
         {{ Former::select('como_te_enteraste')
             ->fromQuery(InscripcionComoTeEnteraste::all(), 'como_te_enteraste', 'id')
@@ -74,11 +74,12 @@
     </div>
 </div>
 
+
 @if(Auth::check())
 {{ Former::actions(
             link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-default')),
-            Former::lg_default_reset('Restablecer'),
-            Former::lg_primary_submit('Guardar')
+            Former::lg_primary_reset('Restablecer'),
+            Former::lg_success_submit('Guardar')
    )
 }}
 @else
@@ -88,16 +89,18 @@
      ->required()
 }}
 @include('inscripciones.reglamento', array('oferta' => $oferta))
+
 <div class="form-group">
     <label class="control-label col-lg-2 col-sm-4">Código de seguridad</label>
     <div class="col-lg-10 col-sm-8">
         {{ Form::captcha(array('required' => 'required')) }}
     </div>
 </div>
+
 {{ Former::actions(
             link_to('http://udc.edu.ar', 'Volver', array('class' => 'btn btn-lg btn-default')),
-            Former::lg_default_reset('Restablecer'),
-            Former::lg_primary_submit('Completar inscripción')
+            Former::lg_primary_reset('Restablecer'),
+            Former::lg_success_submit('Completar inscripción')
     )
 }}
 @endif
