@@ -8,6 +8,5 @@
             </ul>
             </div>
     @endif
-    <div class="alert alert-warning"><p>Guarda: el form todavía no está listo. Están avisados.</p></div>
 @include('inscripciones.'.$oferta->view.'.form', array('obj' => null, 'oferta' => $oferta))
 @stop
