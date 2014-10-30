@@ -20,34 +20,25 @@ class InscripcionCarrera extends Eloquent {
         'localidad_depto' => 'required',
         'localidad_pcia_id'  => 'required|exists:repo_provincia,id',
         'localidad_pais_id'  => 'required|exists:repo_pais,id',
+        'telefono_fijo'   => 'required',
+        'telefono_celular'   => 'required',
+        'email'             => ['required', 'email', 'unique_mail' => 'unique_with:inscripcion_carrera,oferta_formativa_id,email'],
         
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
         'domicilio_procedencia_calle' => 'required',
         'domicilio_procedencia_nro'   => 'required',
-        'domicilio_procedencia_piso'  => 'required',
-        'domicilio_procedencia_depto' => 'required',
         'domicilio_procedencia_localidad_id' => 'required|exists:repo_localidad,id',
         'domicilio_procedencia_pcia_id'  => 'required|exists:repo_provincia,id',
         'domicilio_procedencia_cp'   => 'required',
         'domicilio_procedencia_pais_id'   => 'required|exists:repo_pais,id',
-        'domicilio_procedencia_telefono_fijo'   => 'required',
-        'domicilio_procedencia_telefono_celular'   => 'required',
-        'domicilio_procedencia_email'   => 'required|email',
-        'domicilio_procedencia_cp'   => 'required',
         
         'domicilio_clases_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
         'domicilio_clases_calle' => 'required',
         'domicilio_clases_nro'   => 'required',
-        'domicilio_clases_piso'  => 'required',
-        'domicilio_clases_depto' => 'required',
         'domicilio_clases_localidad_id' => 'required|exists:repo_localidad,id',
         'domicilio_clases_pcia_id'  => 'required|exists:repo_provincia,id',
         'domicilio_clases_cp'   => 'required',
         'domicilio_clases_pais_id'   => 'required|exists:repo_pais,id',
-        'domicilio_clases_telefono_fijo'   => 'required',
-        'domicilio_clases_telefono_celular'   => 'required',
-        'domicilio_clases_email'   => ['required', 'email', 'unique_mail' => 'unique_with:inscripcion_carrera,oferta_formativa_id,domicilio_clases_email'],
-        'domicilio_clases_cp'   => 'required',
         'domicilio_clases_con_quien_vive_id'   => 'required|exists:con_quien_vive,id',
         
         'secundario_titulo_obtenido' => 'required',
@@ -65,7 +56,6 @@ class InscripcionCarrera extends Eloquent {
         'situacion_laboral_detalle_labor' => 'required',
         'situacion_laboral_horas_semana' => 'required|in:MENOS DE 20,ENTRE 21 Y 35,36 O MAS',
         'situacion_laboral_rama_id' => 'required|exists:rama_actividad_laboral,id',
-        
         
         'padre_apeynom' => 'required',
         'padre_vive' => 'required|in:SI,NO,NS/NC',
@@ -153,7 +143,7 @@ class InscripcionCarrera extends Eloquent {
     
     public function getCorreoAttribute()
     {
-        return $this->domicilio_clases_email;
+        return $this->email;
     }
         
     
@@ -181,7 +171,7 @@ class InscripcionCarrera extends Eloquent {
     {
         //parche para validators de unique y unique_with
         self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
-        self::$rules['domicilio_clases_email']['unique_mail'] = sprintf("%s, %s", self::$rules['domicilio_clases_email']['unique_mail'], $this->id);
+        self::$rules['email']['unique_mail'] = sprintf("%s, %s", self::$rules['email']['unique_mail'], $this->id);
     }
     
     

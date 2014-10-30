@@ -101,7 +101,7 @@
                             {{ Form::text('fecha_nacimiento', null, ['id' => 'fecha_nacimiento', 'class' => 'form-control input-sm fecha', 'required']) }}
                         </div>
                     </td>
-                    <td colspan="3">Nacionalidad:  
+                    <td colspan="3">Nacionalidad:
 
                         @foreach(Nacionalidad::all() as $item)
                         <label class="radio-inline">
@@ -109,6 +109,17 @@
                             {{ $item->descripcion }}
                         </label>
                         @endforeach
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="col-sm-12"><label>Teléfono fijo</label> {{ Form::text('telefono_fijo', null, ['class' => 'form-control input-sm']) }}</div>
+                    </td>
+                    <td>
+                        <div class="col-sm-12"><label>Teléfono Celular</label> {{ Form::text('telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                    </td>
+                    <td>
+                        <div class="col-sm-12"><label>Email</label> {{ Form::email('email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                 </tr>
             </tbody>
@@ -131,8 +142,8 @@
                     <td>
                         <div class="row">
                             <div class="col-sm-1"><label>N°</label> {{ Form::text('domicilio_procedencia_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_procedencia_piso', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_procedencia_piso', null, ['class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-4"><label>Localidad</label> {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-2"><label>Cód. Postal</label> {{ Form::text('domicilio_procedencia_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
@@ -143,16 +154,7 @@
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_procedencia_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>País</label> {{ Form::select('domicilio_procedencia_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>Teléfono fijo</label> {{ Form::text('domicilio_procedencia_telefono_fijo', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="col-sm-12"><label>Teléfono Celular</label> {{ Form::text('domicilio_procedencia_telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                    </td>
-                    <td>
-                        <div class="col-sm-3"><label>Email</label> {{ Form::email('domicilio_procedencia_email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                 </tr>
             </tbody>
@@ -175,8 +177,8 @@
                     <td>
                         <div class="row">
                             <div class="col-sm-1"><label>N°</label> {{ Form::text('domicilio_clases_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_clases_piso', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_clases_piso', null, ['class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-4"><label>Localidad</label> {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-2"><label>Cód. Postal</label> {{ Form::text('domicilio_clases_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
@@ -187,16 +189,7 @@
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>País</label> {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>Teléfono fijo</label> {{ Form::text('domicilio_clases_telefono_fijo', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="col-sm-12"><label>Teléfono Celular</label> {{ Form::text('domicilio_clases_telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                    </td>
-                    <td>
-                        <div class="col-sm-3"><label>Email</label> {{ Form::text('domicilio_clases_email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                 </tr>
                 <tr>
@@ -213,50 +206,50 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#9054A9" style="color:#fff;"><span class="glyphicon glyphicon-book"></span> COLEGIO SECUNDARIO</td>
-                    <td> 
+                    <td colspan="2"> 
                         <div class="col-md-12">
                             <label>Título Obtenido</label>
                             {{ Form::text('secundario_titulo_obtenido', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label>Año de egreso</label>
                             {{ Form::text('secundario_anio_egreso', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td rowspan="2" colspan="2">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Nombre y Número del Colegio</label>
-                                {{ Form::text('secundario_nombre_colegio', null, ['required', 'class' => 'form-control input-sm']) }}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Provincia</label>
-                                {{ Form::select('secundario_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}
-                            </div>
-                            <div class="col-md-6">
-                                <label>País</label>
-                                {{ Form::select('secundario_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}
-                            </div>
+                    <td colspan="3">
+                        <div class="col-md-12">
+                            <label>Nombre y Número del Colegio</label>
+                            {{ Form::text('secundario_nombre_colegio', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
+                    <td> Tipo de Establec.:
+                        @foreach(InscripcionCarrera::$enum_tipo_establecimiento as $num => $item)
+                        <label class="radio-inline">{{Form::radio('secundario_tipo_establecimiento', $num, false, ['required'])}} {{$item}}</label>
+                        @endforeach
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <div class="col-md-12">
                             <label>Localidad</label>
                             {{ Form::select('secundario_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <td> Tipo de Establec.:
-                        @foreach(InscripcionCarrera::$enum_tipo_establecimiento as $num => $item)
-                        <label class="radio-inline">{{Form::radio('secundario_tipo_establecimiento', $num, false, ['required'])}} {{$item}}</label>
-                        @endforeach
+                    <td>
+                        <div class="col-md-12">
+                            <label>Provincia</label>
+                            {{ Form::select('secundario_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div class="col-md-6">
+                            <label>País</label>
+                            {{ Form::select('secundario_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                        </div>
                     </td>
                 </tr>
             </tbody>
