@@ -34,7 +34,7 @@ class OfertasController extends BaseController {
 	 */
 	public function create()
 	{
-		$tipos_oferta = TipoOferta::all();
+		$tipos_oferta = TipoOferta::orderBy('descripcion')->get();
 
 		return View::make('ofertas.create')->with(compact('tipos_oferta'));
 	}

@@ -8,7 +8,7 @@
     });
 </script>
 {{Former::framework('TwitterBootstrap3')}}
-{{ Former::horizontal_open()
+{{ Former::horizontal_open_for_files()
         ->secure()
         ->method($method)
         ->route("ofertas.inscripciones.$route_name", $route_params)

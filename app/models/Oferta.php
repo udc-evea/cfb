@@ -15,6 +15,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     const TIPO_OFERTA = 2;
 
     protected $guarded = array();
+    
     protected $table = 'oferta_formativa';
     protected $dates = array('inicio', 'fin');
     public $timestamps = false;
@@ -27,8 +28,16 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'tipo_oferta' => 'required|exists:tipo_oferta_formativa,id',
     );
 
-    public function __construct(array $attributes = array()) {
+    public function __construct($attributes = array()) {
         $this->hasAttachedFile('mail_bienvenida');
+        
+        Oferta::creating(function($model) {
+            $model->chequearDisponibilidad();
+        });
+
+        Oferta::updating(function($model) {
+            $model->chequearDisponibilidad();
+        });
 
         parent::__construct($attributes);
     }
@@ -186,17 +195,4 @@ class Oferta extends Eloquent implements StaplerableInterface {
             return 'Y-m-d';
         }
     }
-
-    public static function boot() {
-        parent::boot();
-
-        Oferta::creating(function($model) {
-            $model->chequearDisponibilidad();
-        });
-
-        Oferta::updating(function($model) {
-            $model->chequearDisponibilidad();
-        });
-    }
-
 }

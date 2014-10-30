@@ -1,6 +1,7 @@
 <?php $method        = $obj != null ? 'PUT' : 'POST';?>
 <?php $route_name    = $obj != null ? 'update' : 'nueva';?>
 <?php $route_params  = $obj != null ? array($oferta->id, $obj->id) : array($oferta->id);?>
+
 {{ HTML::script('js/inscripciones.js') }}
 <script>
     $(function(){

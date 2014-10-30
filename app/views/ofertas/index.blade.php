@@ -1,7 +1,6 @@
 @extends('layouts.scaffold')
 @section('title', 'Ofertas Formativas - CFB')
 @section('main')
-
 <div class="container">
 <!-- Header -->
 <div class="row block">
@@ -31,7 +30,6 @@
     </div>
 </div>
 </div>
-
 
 <script>
     $(function(){

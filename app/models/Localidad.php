@@ -25,7 +25,7 @@ class Localidad extends Eloquent {
     public function scopeSelect($query, $title = 'Seleccione')
     {
         $selectVals[''] = $title;
-        $selectVals += $this->lists('localidad', 'id');
+        $selectVals += $this->orderBy('localidad')->lists('localidad', 'id');
         return $selectVals;
     }
 }
