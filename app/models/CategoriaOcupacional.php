@@ -9,7 +9,7 @@ class CategoriaOcupacional extends Eloquent
     public function scopeSelect($query, $title = 'Seleccione')
     {
         $selectVals[''] = $title;
-        $selectVals += $this->lists('categoria', 'id');
+        $selectVals += $query->orderBy('categoria')->lists('categoria', 'id');
         return $selectVals;
     }
 }

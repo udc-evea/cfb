@@ -370,6 +370,7 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   `secundario_localidad_otra` VARCHAR(100) NULL,
   `secundario_pcia_id` INT UNSIGNED NOT NULL,
   `secundario_pais_id` INT UNSIGNED NOT NULL,
+  `secundario_pais_otro` VARCHAR(100) NULL,
   `secundario_tipo_establecimiento` ENUM('ESTATAL', 'PRIVADO') NOT NULL,
   `situacion_laboral_horas_semana` ENUM('MENOS DE 20', 'ENTRE 21 Y 35', '36 O MAS') NOT NULL,
   `padre_ocupacion` ENUM('PERMANENTE', 'TEMPORARIA') NOT NULL,
@@ -377,6 +378,9 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   `situacion_laboral_rama_id` INT UNSIGNED NOT NULL,
   `domicilio_procedencia_pcia_id` INT UNSIGNED NOT NULL,
   `domicilio_clases_pcia_id` INT UNSIGNED NOT NULL,
+  `localidad_pais_otro` VARCHAR(100) NULL,
+  `domicilio_procedencia_pais_otro` VARCHAR(100) NULL,
+  `domicilio_clases_pais_otro` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `oferta_academica_id_2` (`oferta_formativa_id` ASC, `tipo_documento_cod` ASC, `documento` ASC),
   INDEX `tipo_documento_cod` (`tipo_documento_cod` ASC),
@@ -403,6 +407,7 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   INDEX `fk_inscripcion_carrera_repo_nivel_estudios2_idx` (`madre_estudios_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_provincia3_idx` (`domicilio_procedencia_pcia_id` ASC),
   INDEX `fk_inscripcion_carrera_repo_provincia4_idx` (`domicilio_clases_pcia_id` ASC),
+  UNIQUE INDEX `fk_el_mail` (`oferta_formativa_id` ASC, `email` ASC),
   CONSTRAINT `fk_inscripcion_carrera_nacionalidad1`
     FOREIGN KEY (`nacionalidad_id`)
     REFERENCES `cfb`.`nacionalidad` (`id`)
@@ -628,6 +633,7 @@ INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Colombia');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Bolivia');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Perú');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Cuba');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (99, 'Otro');
 
 COMMIT;
 

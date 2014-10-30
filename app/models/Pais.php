@@ -9,7 +9,7 @@ class Pais extends Eloquent
     public function scopeSelect($query, $title = 'Seleccione')
     {
         $selectVals[''] = $title;
-        $selectVals += $this->lists('nombre', 'id');
+        $selectVals += $query->orderBy('nombre')->lists('nombre', 'id');
         return $selectVals;
     }
 }

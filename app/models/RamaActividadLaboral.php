@@ -9,7 +9,7 @@ class RamaActividadLaboral extends Eloquent
     public function scopeSelect($query, $title = 'Seleccione')
     {
         $selectVals[''] = $title;
-        $selectVals += $this->lists('descripcion', 'id');
+        $selectVals += $query->orderBy('descripcion')->lists('descripcion', 'id');
         return $selectVals;
     }
 }

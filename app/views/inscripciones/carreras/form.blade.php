@@ -79,7 +79,8 @@
                         <div class="col-md-12"> <label>Nacido en </label>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Localidad</label> {{ Form::select('localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                                    <label>Localidad</label> {{ Form::select('localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                    {{ Form::text('localidad_otra', null, ['class' => 'form-control input-sm otra_localidad_id hide']) }}
                                 </div>
                                 <div class="col-md-2">
                                     <label>Depto.</label>  {{ Form::text('localidad_depto', null, ['class' => 'form-control input-sm']) }}
@@ -88,7 +89,9 @@
                                     <label>Pcia.</label>  {{ Form::select('localidad_pcia_id', Provincia::select(), null, ['class' => 'form-control input-sm']) }}
                                 </div>
                                 <div class="col-md-3">
-                                    <label>País</label>  {{ Form::select('localidad_pais_id', Pais::select(), null, ['class' => 'form-control input-sm']) }}
+                                    <label>País</label> 
+                                    {{ Form::select('localidad_pais_id', Pais::select(), null, ['class' => 'form-control input-sm con_otra']) }}
+                                    {{ Form::text('localidad_pais_otro', null, ['class' => 'form-control input-sm otra_localidad_pais_id hide']) }}
                                 </div>
                             </div>
                         </div>
@@ -144,7 +147,10 @@
                             <div class="col-sm-1"><label>N°</label> {{ Form::text('domicilio_procedencia_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_procedencia_piso', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-4"><label>Localidad</label> {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-4"><label>Localidad</label> 
+                                {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::text('domicilio_procedencia_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_localidad_id hide']) }}
+                            </div>
                             <div class="col-sm-2"><label>Cód. Postal</label> {{ Form::text('domicilio_procedencia_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
                     </td>
@@ -153,7 +159,10 @@
                     <td colspan="2">
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_procedencia_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>País</label> {{ Form::select('domicilio_procedencia_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-3"><label>País</label> 
+                                {{ Form::select('domicilio_procedencia_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::text('domicilio_procedencia_pais_otro', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_pais_id hide']) }}
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -179,7 +188,10 @@
                             <div class="col-sm-1"><label>N°</label> {{ Form::text('domicilio_clases_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_clases_piso', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-4"><label>Localidad</label> {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-4"><label>Localidad</label> 
+                                {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::text('domicilio_clases_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_clases_localidad_id hide']) }}
+                            </div>
                             <div class="col-sm-2"><label>Cód. Postal</label> {{ Form::text('domicilio_clases_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
                     </td>
@@ -188,7 +200,10 @@
                     <td colspan="2">
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>País</label> {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-3"><label>País</label> 
+                                {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::text('domicilio_clases_pais_id', null, ['class' => 'form-control input-sm otra_domicilio_clases_pais_id hide']) }}
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -236,7 +251,8 @@
                     <td>
                         <div class="col-md-12">
                             <label>Localidad</label>
-                            {{ Form::select('secundario_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::select('secundario_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                            {{ Form::text('secundario_localidad_otra', null, ['class' => 'form-control input-sm otra_secundario_localidad_id hide']) }}
                         </div>
                     </td>
                     <td>
@@ -248,7 +264,8 @@
                     <td colspan="2">
                         <div class="col-md-6">
                             <label>País</label>
-                            {{ Form::select('secundario_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::select('secundario_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                            {{ Form::text('secundario_pais_otro', null, ['class' => 'form-control input-sm otra_secundario_pais_id hide']) }}
                         </div>
                     </td>
                 </tr>

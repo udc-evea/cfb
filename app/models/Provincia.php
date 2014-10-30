@@ -9,7 +9,7 @@ class Provincia extends Eloquent {
         public function scopeSelect($query, $title = 'Seleccione')
     {
         $selectVals[''] = $title;
-        $selectVals += $this->lists('provincia', 'id');
+        $selectVals += $query->orderBy('provincia')->lists('provincia', 'id');
         return $selectVals;
     }
 }

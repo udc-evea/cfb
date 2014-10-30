@@ -37,19 +37,30 @@ var InscripcionesModule = {
     },
 
     initLocalidades: function() {
-        var $loc      = $('#localidad_id');
-        var $otra     = $('<option value="99">Otra</option>');
-        var $loc_otra = $('#localidad_otra');
+        var self = this;
         
-        $otra.appendTo($loc);
-        
-        $loc.on("change", function() {
-            if($(this).val() != 99) {
-                $("div.otra_localidad").addClass("hide");
-                $loc_otra.val("");
+        $(".con_otra").each(function(i, el) {
+            var $el = $(this);
+            
+            name = $el.attr("name");
+            $la_otra = $(".otra_"+name);
+            if($el.val() != 99) {
+                $la_otra.addClass("hide");
+                $la_otra.find("input").val("");
             } else {
-                $("div.otra_localidad").removeClass("hide");
+                $la_otra.removeClass("hide");
             }
+            
+            $el.on("change", function() {
+                name = $el.attr("name");
+                $la_otra = $(".otra_"+name);
+                if($el.val() != 99) {
+                    $la_otra.addClass("hide");
+                    $la_otra.find("input").val("");
+                } else {
+                    $la_otra.removeClass("hide");
+                }
+            });
         });
     },
 

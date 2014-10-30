@@ -37,11 +37,12 @@
     </div>
     <div class="panel-body">
     {{ Former::select('localidad_id')
-                ->fromQuery(Localidad::where('id', '<>', 99)->orderBy('localidad')->get(), 'localidad', 'id')
+                ->fromQuery(Localidad::orderBy('localidad')->get(), 'localidad', 'id')
+                ->class('form-control con_otra')
                 ->value(Localidad::ID_RAWSON)
                 ->label('Localidad')
                 ->required() }}
-        {{ Former::text('localidad_otra')->label('Otra')->addGroupClass('otra_localidad hide') }}
+        {{ Former::text('localidad_otra')->label('Otra')->addGroupClass('otra_localidad_id hide') }}
         {{ Former::number('localidad_anios_residencia')->label('Años de residencia')->required() }}
     </div>
 </div>
