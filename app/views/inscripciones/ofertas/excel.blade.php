@@ -30,9 +30,9 @@
         <td>{{ $item->nombre }}</td>
         <td>{{ $item->tipo_documento }}-{{ $item->documento }}</td>
         <td>{{ $item->fecha_nacimiento }}</td>
-        <td>{{ $item->localidad }}</td>
+        <td>{{ $item->localidad->la_localidad }}</td>
         <td>{{ $item->localidad_anios_residencia }}</td>
-        <td>{{ $item->nivel_estudios }}</td>
+        <td>{{ $item->nivel_estudios->nivel_estudios }}</td>
         <td>{{ $item->titulo_obtenido }}</td>
         <td>{{ $item->email }}</td>
         <td>{{ $item->telefono }}</td>

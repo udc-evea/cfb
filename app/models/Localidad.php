@@ -2,6 +2,7 @@
 
 class Localidad extends Eloquent {
     const ID_RAWSON = 57;
+    const ID_OTRA = 99;
     
     protected $guarded = array();
 
@@ -20,6 +21,14 @@ class Localidad extends Eloquent {
     public function provincia()
     {
         return $this->belongsTo('Provincia');
+    }
+    
+    public function getLaLocalidadAttribute() 
+    {
+        if($this->id == static::ID_OTRA)
+            return sprintf("Otra (%s)", $this->localidad);
+        else
+            return $this->localidad;
     }
     
     public function scopeSelect($query, $title = 'Seleccione')

@@ -35,7 +35,7 @@
                         <td>{{{ $inscripcion->apellido }}}</td>	
                         <td>{{{ $inscripcion->nombre }}}</td>
                         <td>{{{ $inscripcion->tipoydoc }}}</td>
-                        <td>{{{ $inscripcion->localidad->localidad }}}</td>
+                        <td>{{{ $inscripcion->localidad->la_localidad }}}</td>
                         <td>{{{ $inscripcion->email }}}</td>
                         <td>
                             {{ link_to_route('ofertas.inscripciones.edit', 'Editar', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-default')) }}
