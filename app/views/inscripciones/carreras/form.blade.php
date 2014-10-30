@@ -202,7 +202,7 @@
                             <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>País</label> 
                                 {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
-                                {{ Form::text('domicilio_clases_pais_id', null, ['class' => 'form-control input-sm otra_domicilio_clases_pais_id hide']) }}
+                                {{ Form::text('domicilio_clases_pais_otro', null, ['class' => 'form-control input-sm otra_domicilio_clases_pais_id hide']) }}
                             </div>
                         </div>
                     </td>
