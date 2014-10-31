@@ -64,22 +64,20 @@
                     <td>
                         <div class="col-md-12">
                             <label>Sexo</label> 
-                            <label class="radio-inline">{{Form::radio('sexo', 'M', false, ['required'])}} M</label>
-                            <label class="radio-inline">{{Form::radio('sexo', 'F', false, ['required'])}} F</label>
+                            <label class="radio-inline">{{Form::radio('sexo', 'M', false)}} M</label>
+                            <label class="radio-inline">{{Form::radio('sexo', 'F', false)}} F</label>
                         </div>
                     </td>
                     <td> Documento: 
                         @foreach(TipoDocumento::all() as $item)
-                        <label class="radio-inline">
-                            {{Form::radio('tipo_documento_cod', $item->id, false, ['required'])}} 
-                            {{ $item->descripcion }}
-                        </label>
+                            {{Form::radio('tipo_documento_cod', $item->id, false)}}
+                            <label class="radio-inline">{{ $item->descripcion }}</label>
                         @endforeach
                     </td>
                     <td colspan="2">
                         <div class="col-md-12">
                             <label>Número</label> 
-                            {{ Form::text('documento', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::text('documento', null, ['class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                 </tr>
@@ -117,7 +115,7 @@
 
                         @foreach(Nacionalidad::all() as $item)
                         <label class="radio-inline">
-                            {{Form::radio('nacionalidad_id', $item->id, false, ['required'])}} 
+                            {{Form::radio('nacionalidad_id', $item->id, false)}} 
                             {{ $item->descripcion }}
                         </label>
                         @endforeach
@@ -143,7 +141,7 @@
                     <td height="60px" bgcolor="#e67e22" style="color: #FFFFFF;"><span class="glyphicon glyphicon-map-marker"></span> DOMICILIO DE PROCEDENCIA</td>
                     <td>Tipo de Residencia: 
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
-                      <label class="radio-inline">{{Form::radio('domicilio_procedencia_tipo', $num, false, ['required'])}} {{$item}}</label>
+                      <label class="radio-inline">{{Form::radio('domicilio_procedencia_tipo', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -187,7 +185,7 @@
                 <tr class="opcional">
                     <td colspan="2">Tipo de Residencia:  
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
-                      <label class="radio-inline">{{Form::radio('domicilio_clases_tipo', $num, false , ['required'])}} {{$item}}</label>
+                      <label class="radio-inline">{{Form::radio('domicilio_clases_tipo', $num, false )}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -222,7 +220,7 @@
                 <tr>
                     <td colspan="2"> Con quién vive: &nbsp;
                         @foreach(ConQuienVive::all() as $item)
-                        <label class="radio-inline">{{Form::radio('domicilio_clases_con_quien_vive_id', $item->id, false, ['required'])}} {{$item->descripcion}}</label>
+                        <label class="radio-inline">{{Form::radio('domicilio_clases_con_quien_vive_id', $item->id, false)}} {{$item->descripcion}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -255,7 +253,7 @@
                     </td>
                     <td> Tipo de Establec.:
                         @foreach(InscripcionCarrera::$enum_tipo_establecimiento as $num => $item)
-                        <label class="radio-inline">{{Form::radio('secundario_tipo_establecimiento', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('secundario_tipo_establecimiento', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -290,26 +288,26 @@
                     <td height="60px" bgcolor="#34495e" style="color:#fff;"><span class="glyphicon glyphicon-info-sign"></span> SITUACIÓN LABORAL</td>
                     <td width="65%">
                         @foreach(InscripcionCarrera::$enum_situacion_laboral as $num => $item)
-                        <label class="radio-inline">{{Form::radio('situacion_laboral', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('situacion_laboral', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
                 <tr class="opcional">
                     <td>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_ocupacion as $num => $item)
-                        <label class="radio-inline">{{Form::radio('situacion_laboral_ocupacion', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('situacion_laboral_ocupacion', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                     <td>Cant. de horas/semana: 
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_horas_semana as $num => $item)
-                        <label class="radio-inline">{{Form::radio('situacion_laboral_horas_semana', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('situacion_laboral_horas_semana', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="3">Relación de trabajo con la carrera: 
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_relacion_trabajo_carrera as $num => $item)
-                        <label class="radio-inline">{{Form::radio('situacion_laboral_relacion_trabajo_carrera', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('situacion_laboral_relacion_trabajo_carrera', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
@@ -338,7 +336,7 @@
                 <tr>
                     <td colspan="2">¿Vive? 
                          @foreach(InscripcionCarrera::$enum_vive as $num => $item)
-                        <label class="radio-inline">{{Form::radio('padre_vive', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('padre_vive', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td></tr>
                 <tr class="opcional depende">
@@ -350,7 +348,7 @@
                 <tr class="opcional">
                     <td>Ocupación: 
                         @foreach(InscripcionCarrera::$enum_padre_ocupacion as $num => $item)
-                        <label class="radio-inline">{{Form::radio('padre_ocupacion', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('padre_ocupacion', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                     <td>Categoría Ocupacional 
@@ -373,7 +371,7 @@
                 <tr>
                     <td colspan="2">¿Vive? 
                          @foreach(InscripcionCarrera::$enum_vive as $num => $item)
-                        <label class="radio-inline">{{Form::radio('madre_vive', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('madre_vive', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td></tr>
                 <tr class="opcional depende">
@@ -385,7 +383,7 @@
                 <tr class="opcional">
                     <td>Ocupación: 
                         @foreach(InscripcionCarrera::$enum_padre_ocupacion as $num => $item)
-                        <label class="radio-inline">{{Form::radio('madre_ocupacion', $num, false, ['required'])}} {{$item}}</label>
+                        <label class="radio-inline">{{Form::radio('madre_ocupacion', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                     <td>Categoría Ocupacional 
