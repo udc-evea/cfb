@@ -8,6 +8,15 @@
        InscripcionesModule.init({{ $oferta->id }}); 
     });
 </script>
+@if($oferta->esCarrera)
+{{ HTML::script('js/inscripciones_carreras.js') }}
+<script>
+    $(function(){
+       InscripcionesCarrerasModule.init({{ $oferta->id }}); 
+    });
+</script>
+@endif
+
 <style>
     td, th {padding: 5px !important;}
 </style>
@@ -169,17 +178,20 @@
             </tbody>
         </table>
         <br>
-        <table class="table-bordered" width="100%">
+        <table class="table-bordered domicilio_clases" width="100%">
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#d35400" style="color: #FFFFFF;"><span class="glyphicon glyphicon-map-marker"></span> DOMICILIO EN PERÍODO DE CLASES</td>
-                    <td>Tipo de Residencia:  
+                    <td><label class="checkbox-inline">{{ Form::checkbox('domicilio_clases_igual', true, false) }} Igual que el domicilio de residencia</label></td>
+                </tr>
+                <tr class="opcional">
+                    <td colspan="2">Tipo de Residencia:  
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
                       <label class="radio-inline">{{Form::radio('domicilio_clases_tipo', $num, false , ['required'])}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td>
                         <div class="col-sm-12"><label>Calle</label> {{ Form::text('domicilio_clases_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
@@ -196,7 +208,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="2">
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
@@ -272,7 +284,7 @@
             </tbody>
         </table>
         <br>
-        <table class="table-bordered" width="100%">
+        <table class="table-bordered situacion_laboral" width="100%">
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#34495e" style="color:#fff;"><span class="glyphicon glyphicon-info-sign"></span> SITUACIÓN LABORAL</td>
@@ -282,7 +294,7 @@
                         @endforeach
                     </td>
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_ocupacion as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral_ocupacion', $num, false, ['required'])}} {{$item}}</label>
@@ -294,7 +306,7 @@
                         @endforeach
                     </td>
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="3">Relación de trabajo con la carrera: 
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_relacion_trabajo_carrera as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral_relacion_trabajo_carrera', $num, false, ['required'])}} {{$item}}</label>
@@ -302,7 +314,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="opcional">
                     <td><label>Rama de la actividad económica</label>
                         {{ Form::select('situacion_laboral_rama_id', RamaActividadLaboral::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
@@ -310,14 +322,14 @@
                         {{ Form::select('situacion_laboral_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="3"><label>Detalle de la labor que realiza</label>
                         {{ Form::textarea('situacion_laboral_detalle_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
             </tbody>
         </table>
         <br>
-        <table width="100%" class="table-bordered">
+        <table width="100%" class="table-bordered datos_padre">
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#2980b9" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DEL PADRE</td>
@@ -329,13 +341,13 @@
                         <label class="radio-inline">{{Form::radio('padre_vive', $num, false, ['required'])}} {{$item}}</label>
                         @endforeach
                     </td></tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="2"><label>Estudios del PADRE</label>
                         {{ Form::select('padre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="opcional">
                     <td>Ocupación: 
                         @foreach(InscripcionCarrera::$enum_padre_ocupacion as $num => $item)
                         <label class="radio-inline">{{Form::radio('padre_ocupacion', $num, false, ['required'])}} {{$item}}</label>
@@ -344,7 +356,7 @@
                     <td>Categoría Ocupacional 
                        {{ Form::select('padre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="2"> <label>Descripción de la labor que realiza</label>
                         {{ Form::textarea('padre_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
@@ -352,7 +364,7 @@
             </tbody>
         </table>
         <br>
-        <table width="100%" class="table-bordered">
+        <table width="100%" class="table-bordered datos_madre">
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#e74c3c" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DE LA MADRE</td>
@@ -364,13 +376,13 @@
                         <label class="radio-inline">{{Form::radio('madre_vive', $num, false, ['required'])}} {{$item}}</label>
                         @endforeach
                     </td></tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="2"><label>Estudios de la MADRE</label>
                         {{ Form::select('madre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="opcional">
                     <td>Ocupación: 
                         @foreach(InscripcionCarrera::$enum_padre_ocupacion as $num => $item)
                         <label class="radio-inline">{{Form::radio('madre_ocupacion', $num, false, ['required'])}} {{$item}}</label>
@@ -379,7 +391,7 @@
                     <td>Categoría Ocupacional 
                        {{ Form::select('madre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                 </tr>
-                <tr>
+                <tr class="opcional">
                     <td colspan="2"> <label>Descripción de la labor que realiza</label>
                         {{ Form::textarea('madre_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
                     </td>

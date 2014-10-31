@@ -82,7 +82,7 @@ class InscripcionCarrera extends Eloquent {
     public static $enum_vive = array('SI' => 'SI', 'NO' => 'NO', 'NS/NC' => 'NS/NC');
     public static $enum_padre_ocupacion  = array('TEMPORARIA' => 'Temporaria', 'PERMANENTE' => 'Permanente');
     
-    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento'];
+    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'domicilio_clases_igual'];
     public static $mensajes = [];
     
     public function oferta()
