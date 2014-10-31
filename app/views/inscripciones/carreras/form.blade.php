@@ -341,7 +341,7 @@
                         <label class="radio-inline">{{Form::radio('padre_vive', $num, false, ['required'])}} {{$item}}</label>
                         @endforeach
                     </td></tr>
-                <tr class="opcional">
+                <tr class="opcional depende">
                     <td colspan="2"><label>Estudios del PADRE</label>
                         {{ Form::select('padre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
@@ -376,7 +376,7 @@
                         <label class="radio-inline">{{Form::radio('madre_vive', $num, false, ['required'])}} {{$item}}</label>
                         @endforeach
                     </td></tr>
-                <tr class="opcional">
+                <tr class="opcional depende">
                     <td colspan="2"><label>Estudios de la MADRE</label>
                         {{ Form::select('madre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
