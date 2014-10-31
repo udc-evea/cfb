@@ -129,7 +129,8 @@
                         <div class="col-sm-12"><label>Teléfono Celular</label> {{ Form::text('telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
-                        <div class="col-sm-12"><label>Email</label> {{ Form::email('email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-6"><label>Email</label> {{ Form::email('email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-6"><label>Reingrese email</label> {{ Form::email('email_confirmation', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                 </tr>
             </tbody>

@@ -22,8 +22,7 @@ class InscripcionCarrera extends Eloquent {
         'localidad_pais_id'  => 'required|exists:repo_pais,id',
         'telefono_fijo'   => 'required',
         'telefono_celular'   => 'required',
-        'email'             => ['required', 'email', 'unique_mail' => 'unique_with:inscripcion_carrera,oferta_formativa_id,email'],
-        
+        'email'             => ['required', 'email', 'confirmed', 'unique_mail' => 'unique_with:inscripcion_carrera,oferta_formativa_id,email'],
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
         'domicilio_procedencia_calle' => 'required',
         'domicilio_procedencia_nro'   => 'required',
@@ -82,7 +81,7 @@ class InscripcionCarrera extends Eloquent {
     public static $enum_vive = array('SI' => 'SI', 'NO' => 'NO', 'NS/NC' => 'NS/NC');
     public static $enum_padre_ocupacion  = array('TEMPORARIA' => 'Temporaria', 'PERMANENTE' => 'Permanente');
     
-    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'domicilio_clases_igual'];
+    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'domicilio_clases_igual', 'email_confirmation'];
     public static $mensajes = [];
     
     public function oferta()
