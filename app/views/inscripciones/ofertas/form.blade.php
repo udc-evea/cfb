@@ -8,7 +8,7 @@
     });
 </script>
 {{Former::framework('TwitterBootstrap3')}}
-{{ Former::horizontal_open_for_files()
+{{ Former::horizontal_open()
         ->secure()
         ->method($method)
         ->route("ofertas.inscripciones.$route_name", $route_params)
@@ -37,12 +37,11 @@
     </div>
     <div class="panel-body">
     {{ Former::select('localidad_id')
-                ->fromQuery(Localidad::orderBy('localidad')->get(), 'localidad', 'id')
-                ->class('form-control con_otra')
+                ->fromQuery(Localidad::where('id', '<>', 99)->orderBy('localidad')->get(), 'localidad', 'id')
                 ->value(Localidad::ID_RAWSON)
                 ->label('Localidad')
                 ->required() }}
-        {{ Former::text('localidad_otra')->label('Otra')->addGroupClass('otra_localidad_id hide') }}
+        {{ Former::text('localidad_otra')->label('Otra')->addGroupClass('otra_localidad hide') }}
         {{ Former::number('localidad_anios_residencia')->label('Años de residencia')->required() }}
     </div>
 </div>

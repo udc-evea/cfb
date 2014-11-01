@@ -29,7 +29,7 @@
         @endif
      
      {{ Form::hidden('oferta_formativa_id', $oferta->id) }}   
-        <table align="center" cellpadding="10" cellspacing="10" class="table-bordered" style="width: 100%;">
+        <table align="center" cellpadding="10" cellspacing="10" class="table-bordered" style="width: 100%; text-align: left; font-weight: bold;">
             <thead bgcolor="#FFFFFF"><tr style="text-align: center; background-color: #2c3e50; color: #FFFFFF; font-weight: bold;">
                     <td height="50px" colspan="4"><h1>PLANILLA DE INSCRIPCIÓN</h1></td>
                 </tr>
@@ -43,19 +43,22 @@
                         <p>CARRERA: <strong>{{ $oferta->nombre }}</strong></p>
                     </td>
                 </tr>
+                <tr style="text-align: center; background-color: #ecf0f1; color: #D94548; font-weight: bold;">
+                    <td height="25px" colspan="4"><span class="text-danger">Los campos con asterisco* son de carácter obligatorio</span></td>
+                </tr>
             </thead>
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#16a085" style="color: #FFF;"><span class="glyphicon glyphicon-user"></span> DATOS PERSONALES </td>
                     <td bgcolor="#FFFFFF">
                         <div class="col-md-12">
-                            <label>Apellidos</label> 
+                            <label>Apellidos <span class="text-danger"><span style="font-size: 14px">*</span>(campo obligatorio)</span></label> 
                             {{ Form::text('apellido', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td bgcolor="#FFFFFF">
                         <div class="col-md-12">
-                            <label>Nombres</label> 
+                            <label>Nombres<span class="text-danger">*</span></label> 
                             {{ Form::text('nombre', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
@@ -63,40 +66,40 @@
                 <tr bgcolor="#FFFFFF">
                     <td>
                         <div class="col-md-12">
-                            <label>Sexo</label> 
+                            <label>Sexo<span class="text-danger">*</span></label> 
                             <label class="radio-inline">{{Form::radio('sexo', 'M', false)}} M</label>
                             <label class="radio-inline">{{Form::radio('sexo', 'F', false)}} F</label>
                         </div>
                     </td>
-                    <td> Documento: 
+                    <td> Documento:<span class="text-danger">*</span>
                         @foreach(TipoDocumento::all() as $item)
                             {{Form::radio('tipo_documento_cod', $item->id, false)}}
-                            <label class="radio-inline">{{ $item->descripcion }}</label>
+                      <label class="radio-inline">{{ $item->descripcion }}</label>
                         @endforeach
-                    </td>
+                  </td>
                     <td colspan="2">
                         <div class="col-md-12">
-                            <label>Número</label> 
+                            <label>Número<span class="text-danger">*</span></label> 
                             {{ Form::text('documento', null, ['class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                 </tr>
                 <tr bgcolor="#FFFFFF">
                     <td colspan="4">
-                        <div class="col-md-12"> <label>Nacido en </label>
+                        <div class="col-md-12"> <label>Nacido en</label>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Localidad</label> {{ Form::select('localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                    <label>Localidad<span class="text-danger">*</span></label> {{ Form::select('localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                     {{ Form::text('localidad_otra', null, ['class' => 'form-control input-sm otra_localidad_id hide']) }}
                                 </div>
                                 <div class="col-md-2">
-                                    <label>Depto.</label>  {{ Form::text('localidad_depto', null, ['class' => 'form-control input-sm']) }}
+                                    <label>Depto.<span class="text-danger">*</span></label>  {{ Form::text('localidad_depto', null, ['class' => 'form-control input-sm']) }}
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Pcia.</label>  {{ Form::select('localidad_pcia_id', Provincia::select(), null, ['class' => 'form-control input-sm']) }}
+                                    <label>Pcia.<span class="text-danger">*</span></label>  {{ Form::select('localidad_pcia_id', Provincia::select(), null, ['class' => 'form-control input-sm']) }}
                                 </div>
                                 <div class="col-md-3">
-                                    <label>País</label> 
+                                    <label>País<span class="text-danger">*</span></label> 
                                     {{ Form::select('localidad_pais_id', Pais::select(), null, ['class' => 'form-control input-sm con_otra']) }}
                                     {{ Form::text('localidad_pais_otro', null, ['class' => 'form-control input-sm otra_localidad_pais_id hide']) }}
                                 </div>
@@ -107,11 +110,11 @@
                 <tr>
                     <td>
                         <div class="col-md-12">
-                            <label>Fecha de Nac.</label>
+                            <label>Fecha de Nac.<span class="text-danger">*</span></label>
                             {{ Form::text('fecha_nacimiento', null, ['id' => 'fecha_nacimiento', 'class' => 'form-control input-sm fecha', 'required']) }}
                         </div>
                     </td>
-                    <td colspan="3">Nacionalidad:
+                    <td colspan="3">Nacionalidad:<span class="text-danger">*</span>
 
                         @foreach(Nacionalidad::all() as $item)
                         <label class="radio-inline">
@@ -126,11 +129,11 @@
                         <div class="col-sm-12"><label>Teléfono fijo</label> {{ Form::text('telefono_fijo', null, ['class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
-                        <div class="col-sm-12"><label>Teléfono Celular</label> {{ Form::text('telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Teléfono Celular<span class="text-danger">*</span></label> {{ Form::text('telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
-                        <div class="col-sm-6"><label>Email</label> {{ Form::email('email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                        <div class="col-sm-6"><label>Reingrese email</label> {{ Form::email('email_confirmation', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-6"><label>Email<span class="text-danger">*</span></label> {{ Form::email('email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-6"><label>Reingrese email<span class="text-danger">*</span></label> {{ Form::email('email_confirmation', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                 </tr>
             </tbody>
@@ -140,7 +143,7 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#e67e22" style="color: #FFFFFF;"><span class="glyphicon glyphicon-map-marker"></span> DOMICILIO DE PROCEDENCIA</td>
-                    <td>Tipo de Residencia: 
+                    <td style="font-weight: bold">Tipo de Residencia: <span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
                       <label class="radio-inline">{{Form::radio('domicilio_procedencia_tipo', $num, false)}} {{$item}}</label>
                         @endforeach
@@ -148,26 +151,26 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="col-sm-12"><label>Calle</label> {{ Form::text('domicilio_procedencia_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Calle<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-1"><label>N°</label> {{ Form::text('domicilio_procedencia_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_procedencia_piso', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-4"><label>Localidad</label> 
+                            <div class="col-sm-4"><label>Localidad<span class="text-danger">*</span></label> 
                                 {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_procedencia_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_localidad_id hide']) }}
                             </div>
-                            <div class="col-sm-2"><label>Cód. Postal</label> {{ Form::text('domicilio_procedencia_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-2"><label>Cód. Postal<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <div class="row">
-                            <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_procedencia_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>País</label> 
+                            <div class="col-sm-3"><label>Provincia<span class="text-danger">*</span></label> {{ Form::select('domicilio_procedencia_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-3"><label>País<span class="text-danger">*</span></label> 
                                 {{ Form::select('domicilio_procedencia_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_procedencia_pais_otro', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_pais_id hide']) }}
                             </div>
@@ -184,7 +187,7 @@
                     <td><label class="checkbox-inline">{{ Form::checkbox('domicilio_clases_igual', true, false) }} Igual que el domicilio de residencia</label></td>
                 </tr>
                 <tr class="opcional">
-                    <td colspan="2">Tipo de Residencia:  
+                    <td colspan="2" style="font-weight: bold">Tipo de Residencia: <span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_tipo_residencia as $num => $item)
                       <label class="radio-inline">{{Form::radio('domicilio_clases_tipo', $num, false )}} {{$item}}</label>
                         @endforeach
@@ -192,26 +195,26 @@
                 </tr>
                 <tr class="opcional">
                     <td>
-                        <div class="col-sm-12"><label>Calle</label> {{ Form::text('domicilio_clases_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Calle<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-1"><label>N°</label> {{ Form::text('domicilio_clases_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_clases_piso', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-4"><label>Localidad</label> 
+                            <div class="col-sm-4"><label>Localidad<span class="text-danger">*</span></label> 
                                 {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_clases_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_clases_localidad_id hide']) }}
                             </div>
-                            <div class="col-sm-2"><label>Cód. Postal</label> {{ Form::text('domicilio_clases_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-2"><label>Cód. Postal<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                         </div>
                     </td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="2">
                         <div class="row">
-                            <div class="col-sm-3"><label>Provincia</label> {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>País</label> 
+                            <div class="col-sm-3"><label>Provincia<span class="text-danger">*</span></label> {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-3"><label>País<span class="text-danger">*</span></label> 
                                 {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_clases_pais_otro', null, ['class' => 'form-control input-sm otra_domicilio_clases_pais_id hide']) }}
                             </div>
@@ -219,7 +222,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> Con quién vive: &nbsp;
+                    <td colspan="2"> Con quién vive: &nbsp; <span class="text-danger">*</span>
                         @foreach(ConQuienVive::all() as $item)
                         <label class="radio-inline">{{Form::radio('domicilio_clases_con_quien_vive_id', $item->id, false)}} {{$item->descripcion}}</label>
                         @endforeach
@@ -234,13 +237,13 @@
                     <td height="60px" bgcolor="#9054A9" style="color:#fff;"><span class="glyphicon glyphicon-book"></span> COLEGIO SECUNDARIO</td>
                     <td colspan="2"> 
                         <div class="col-md-12">
-                            <label>Título Obtenido</label>
+                            <label>Título Obtenido<span class="text-danger">*</span></label>
                             {{ Form::text('secundario_titulo_obtenido', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td>
                         <div class="col-md-4">
-                            <label>Año de egreso</label>
+                            <label>Año de egreso<span class="text-danger">*</span></label>
                             {{ Form::text('secundario_anio_egreso', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
@@ -248,11 +251,11 @@
                 <tr>
                     <td colspan="3">
                         <div class="col-md-12">
-                            <label>Nombre y Número del Colegio</label>
+                            <label>Nombre y Número del Colegio<span class="text-danger">*</span></label>
                             {{ Form::text('secundario_nombre_colegio', null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
-                    <td> Tipo de Establec.:
+                    <td style="font-weight: bold"> Tipo de Establec.:<span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_tipo_establecimiento as $num => $item)
                         <label class="radio-inline">{{Form::radio('secundario_tipo_establecimiento', $num, false)}} {{$item}}</label>
                         @endforeach
@@ -261,20 +264,20 @@
                 <tr>
                     <td>
                         <div class="col-md-12">
-                            <label>Localidad</label>
+                            <label>Localidad<span class="text-danger">*</span></label>
                             {{ Form::select('secundario_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                             {{ Form::text('secundario_localidad_otra', null, ['class' => 'form-control input-sm otra_secundario_localidad_id hide']) }}
                         </div>
                     </td>
                     <td>
                         <div class="col-md-12">
-                            <label>Provincia</label>
+                            <label>Provincia<span class="text-danger">*</span></label>
                             {{ Form::select('secundario_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td colspan="2">
                         <div class="col-md-6">
-                            <label>País</label>
+                            <label>País<span class="text-danger">*</span></label>
                             {{ Form::select('secundario_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                             {{ Form::text('secundario_pais_otro', null, ['class' => 'form-control input-sm otra_secundario_pais_id hide']) }}
                         </div>
@@ -287,26 +290,26 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#34495e" style="color:#fff;"><span class="glyphicon glyphicon-info-sign"></span> SITUACIÓN LABORAL</td>
-                    <td width="65%">
+                    <td width="65%"><span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
                 <tr class="opcional">
-                    <td>
+                    <td style="font-weight: bold"><span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_ocupacion as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral_ocupacion', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
-                    <td>Cant. de horas/semana: 
+                    <td style="font-weight: bold">Cant. de horas/semana: <span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_horas_semana as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral_horas_semana', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                 </tr>
                 <tr class="opcional">
-                    <td colspan="3">Relación de trabajo con la carrera: 
+                    <td colspan="3">Relación de trabajo con la carrera: <span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral_relacion_trabajo_carrera as $num => $item)
                         <label class="radio-inline">{{Form::radio('situacion_laboral_relacion_trabajo_carrera', $num, false)}} {{$item}}</label>
                         @endforeach
@@ -314,15 +317,15 @@
                 </tr>
 
                 <tr class="opcional">
-                    <td><label>Rama de la actividad económica</label>
+                    <td><label>Rama de la actividad económica<span class="text-danger">*</span></label>
                         {{ Form::select('situacion_laboral_rama_id', RamaActividadLaboral::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
-                    <td> <label>Categoría Ocupacional</label>
+                    <td> <label>Categoría Ocupacional<span class="text-danger">*</span></label>
                         {{ Form::select('situacion_laboral_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
                 <tr class="opcional">
-                    <td colspan="3"><label>Detalle de la labor que realiza</label>
+                    <td colspan="3"><label>Detalle de la labor que realiza<span class="text-danger">*</span></label>
                         {{ Form::textarea('situacion_laboral_detalle_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
             </tbody>
@@ -332,31 +335,31 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#2980b9" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DEL PADRE</td>
-                    <td width="65%"> <label>Apellidos y Nombres del PADRE: </label>{{ Form::text('padre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
+                    <td width="65%"> <label>Apellidos y Nombres del PADRE: <span class="text-danger">*</span></label>{{ Form::text('padre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">¿Vive? 
+                    <td colspan="2">¿Vive? <span class="text-danger">*</span>
                          @foreach(InscripcionCarrera::$enum_vive as $num => $item)
                         <label class="radio-inline">{{Form::radio('padre_vive', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td></tr>
                 <tr class="opcional depende">
-                    <td colspan="2"><label>Estudios del PADRE</label>
+                    <td colspan="2"><label>Estudios del PADRE<span class="text-danger small">*</span></label>
                         {{ Form::select('padre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
 
                 <tr class="opcional">
-                    <td>Ocupación: 
+                    <td style="font-weight: bold">Ocupación:<span class="text-danger">*</span> 
                         @foreach(InscripcionCarrera::$enum_padre_ocupacion as $num => $item)
                         <label class="radio-inline">{{Form::radio('padre_ocupacion', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
                     <td>Categoría Ocupacional 
-                       {{ Form::select('padre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                       {{ Form::select('padre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr class="opcional">
-                    <td colspan="2"> <label>Descripción de la labor que realiza</label>
+                    <td colspan="2"> <label>Descripción de la labor que realiza<span class="text-danger">*</span></label>
                         {{ Form::textarea('padre_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
                 </tr>
@@ -367,31 +370,31 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#e74c3c" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DE LA MADRE</td>
-                    <td width="65%"> <label>Apellidos y Nombres de la MADRE: </label>{{ Form::text('madre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
+                    <td width="65%"> <label>Apellidos y Nombres de la MADRE:<span class="text-danger">*</span> </label>{{ Form::text('madre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">¿Vive? 
+                    <td colspan="2">¿Vive? <span class="text-danger">*</span>
                          @foreach(InscripcionCarrera::$enum_vive as $num => $item)
                         <label class="radio-inline">{{Form::radio('madre_vive', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td></tr>
                 <tr class="opcional depende">
-                    <td colspan="2"><label>Estudios de la MADRE</label>
+                    <td colspan="2"><label>Estudios de la MADRE<span class="text-danger">*</span></label>
                         {{ Form::select('madre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
 
                 <tr class="opcional">
-                    <td>Ocupación: 
+                    <td style="font-weight: bold">Ocupación: <span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_padre_ocupacion as $num => $item)
                         <label class="radio-inline">{{Form::radio('madre_ocupacion', $num, false)}} {{$item}}</label>
                         @endforeach
                     </td>
-                    <td>Categoría Ocupacional 
+                    <td style="font-weight: bold">Categoría Ocupacional <span class="text-danger">*</span>
                        {{ Form::select('madre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
                 </tr>
                 <tr class="opcional">
-                    <td colspan="2"> <label>Descripción de la labor que realiza</label>
+                    <td colspan="2"> <label>Detalle de la labor que realiza<span class="text-danger">*</span></label>
                         {{ Form::textarea('madre_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
                 </tr>
@@ -404,7 +407,7 @@
                 <tr>
                     <td align="center">
                         <div class="checkbox">
-                            <label><p class="lead">{{Form::checkbox('reglamento', 1, false, ['required'])}} He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.</p></label>
+                            <label><p class="lead">{{Form::checkbox('reglamento', 1, false, ['required'])}} He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.<span class="text-danger">*</span></p></label>
                         </div>
                     </td>
              
@@ -421,10 +424,10 @@
             
             <button type="reset" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-refresh"></span> Restablecer </button>
             
-            <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Completar inscripción</button>
+            <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Enviar inscripción</button>
             
-            </div> 
-        </div>
+      </div> 
+  </div>
     {{Form::close()}}
     </div>
 </div>
