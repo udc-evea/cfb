@@ -157,7 +157,7 @@
                         <div class="row">
                             <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_procedencia_piso', null, ['class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-4"><label>Localidad<span class="text-danger">*</span></label> 
                                 {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_procedencia_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_localidad_id hide']) }}
@@ -201,7 +201,7 @@
                         <div class="row">
                             <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_clases_piso', null, ['class' => 'form-control input-sm']) }}</div>
-                            <div class="col-sm-3"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-4"><label>Localidad<span class="text-danger">*</span></label> 
                                 {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_clases_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_clases_localidad_id hide']) }}
