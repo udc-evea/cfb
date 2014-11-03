@@ -5,6 +5,7 @@ var InscripcionesCarrerasModule = {
         self.oferta_id = oferta_id;
         
         self.initIDs();
+        self.initTooltips();
         self.initDomicilioProcedencia();
         self.initSituacionLaboral();
         self.initDatosPadre();
@@ -23,6 +24,10 @@ var InscripcionesCarrerasModule = {
           
         $(this).attr("id", $(this).attr('name')+'_'+value);
       });
+    },
+    
+    initTooltips: function() {
+      $(".tooltip-derecha").tooltip();  
     },
     
     initDomicilioProcedencia: function() {

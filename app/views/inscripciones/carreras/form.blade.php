@@ -93,7 +93,9 @@
                                     {{ Form::text('localidad_otra', null, ['class' => 'form-control input-sm otra_localidad_id hide']) }}
                                 </div>
                                 <div class="col-md-2">
-                                    <label>Depto.<span class="text-danger">*</span></label>  {{ Form::text('localidad_depto', null, ['class' => 'form-control input-sm']) }}
+                                    <label>Depto./Estado 
+                                        <span data-toggle="tooltip" data-placement="right" title="Departamento provincial, estado o división administrativa" class="glyphicon glyphicon-question-sign tooltip-derecha"></span> 
+                                        <span class="text-danger">*</span></label>  {{ Form::text('localidad_depto', null, ['class' => 'form-control input-sm']) }}
                                 </div>
                                 <div class="col-md-3">
                                     <label>Pcia.<span class="text-danger">*</span></label>
