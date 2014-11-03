@@ -68,6 +68,10 @@ var InscripcionesModule = {
         });
     },
     
+    initPaises: function() {
+        
+    },
+    
     initFechas: function() {
         $("#fecha_nacimiento").datepicker("option", "maxDate", "-14y");
         $("#fecha_nacimiento").datepicker("option", "yearRange", "-115:-14");
