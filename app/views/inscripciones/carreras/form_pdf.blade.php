@@ -7,7 +7,7 @@
 $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
 
 <style>
-    td, th {padding: 3px !important;}
+    td, th {padding: 2px !important;}
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -183,7 +183,7 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#d35400" style="color: #FFFFFF;"><span class="glyphicon glyphicon-map-marker"></span> DOMICILIO EN PERÍODO DE CLASES</td>
-                    <td><label class="checkbox-inline">{{ Form::checkbox('domicilio_clases_igual', true, false) }} Igual que el domicilio de residencia</label></td>
+                    <td></td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="2" style="font-weight: bold">Tipo de Residencia: <span class="text-danger">*</span>
