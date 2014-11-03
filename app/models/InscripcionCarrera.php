@@ -82,7 +82,7 @@ class InscripcionCarrera extends Eloquent {
     public static $enum_padre_ocupacion  = array('TEMPORARIA' => 'Temporaria', 'PERMANENTE' => 'Permanente');
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'domicilio_clases_igual', 'email_confirmation'];
-    public static $mensajes = [];
+    public static $mensajes = ['unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.'];
     
     public function oferta()
     {
@@ -103,43 +103,152 @@ class InscripcionCarrera extends Eloquent {
     {
         return $this->belongsTo('Localidad', 'localidad_id');
     }
-
-    public function nivel_estudios()
+    
+    public function localidadDomicilioProcedencia()
     {
-        return $this->belongsTo('NivelEstudios', 'nivel_estudios_id');
-    }
-
-    public function rel_como_te_enteraste()
-    {
-        return $this->belongsTo('InscripcionComoTeEnteraste', 'como_te_enteraste');
+        return $this->belongsTo('Localidad', 'domicilio_procedencia_localidad_id');
     }
     
-    public function getColumnasCSV()
+    public function localidadDomicilioClases()
     {
-        return [ 'documento', 'apellido', 'nombre', 'fecha_nacimiento', 'localidad', 'email', 'telefono' ];
+        return $this->belongsTo('Localidad', 'domicilio_clases_localidad_id');
     }
     
-    public function toCSV()
+    public function localidadEstablecimiento()
     {
-        $data = [
-            'documento'         => $this->documento,
-            'apellido'          => $this->apellido,
-            'nombre'            => $this->nombre,
-            'fecha_nacimiento'  => $this->fecha_nacimiento,
-            'localidad'         => $this->localidad->localidad,
-            'email'             => $this->email,
-            'telefono'          => $this->telefono
-        ];
-        
-        $ftemp = fopen('php://temp', 'r+');
-        fputcsv($ftemp, $data, ',', "'");
-        rewind($ftemp);
-        $fila = fread($ftemp, 1048576);
-        fclose($ftemp);
-        
-        return $fila;
+        return $this->belongsTo('Localidad', 'secundario_localidad_id');
     }
     
+    public function provincia()
+    {
+        return $this->belongsTo('Provincia', 'localidad_pcia_id');
+    }
+    
+    public function provinciaDomicilioProcedencia()
+    {
+        return $this->belongsTo('Provincia', 'domicilio_procedencia_pcia_id');
+    }
+    
+    public function provinciaDomicilioClases()
+    {
+        return $this->belongsTo('Provincia', 'domicilio_clases_pcia_id');
+    }
+    
+    public function provinciaEstablecimiento()
+    {
+        return $this->belongsTo('Provincia', 'secundario_pcia_id');
+    }
+    
+    public function pais()
+    {
+        return $this->belongsTo('Pais', 'localidad_pais_id');
+    }
+    
+    public function paisDomicilioProcedencia()
+    {
+        return $this->belongsTo('Pais', 'domicilio_procedencia_pais_id');
+    }
+    
+    public function paisDomicilioClases()
+    {
+        return $this->belongsTo('Pais', 'domicilio_clases_pais_id');
+    }
+    
+    public function paisEstablecimiento()
+    {
+        return $this->belongsTo('Pais', 'secundario_pais_id');
+    }
+    
+    public function getLaLocalidadAttribute()
+    {
+        return  ($this->localidad_id != Localidad::ID_OTRA) ? $this->localidad->localidad : $this->localidad_otra;
+    }
+    
+    public function getLaLocalidadDomicilioProcedenciaAttribute()
+    {
+        return  ($this->domicilio_procedencia_localidad_id != Localidad::ID_OTRA) ? $this->localidadDomicilioProcedencia->localidad : $this->domicilio_procedencia_localidad_otra;
+    }
+    
+    public function getLaLocalidadDomicilioClasesAttribute()
+    {
+        return  ($this->domicilio_clases_localidad_id != Localidad::ID_OTRA) ? $this->localidadDomicilioClases->localidad : $this->domicilio_clases_localidad_otra;
+    }
+    
+    public function getLaLocalidadEstablecimientoAttribute()
+    {
+        return  ($this->secundario_localidad_id != Localidad::ID_OTRA) ? $this->localidadEstablecimiento->localidad : $this->secundario_localidad_otra;
+    }
+    
+    public function getLaPciaAttribute()
+    {
+        return  ($this->localidad_pcia_id != Provincia::ID_OTRA) ? $this->provincia->provincia : $this->localidad_pcia_otra;
+    }
+    
+    public function getLaPciaDomicilioProcedenciaAttribute()
+    {
+        return  ($this->domicilio_procedencia_pcia_id != Provincia::ID_OTRA) ? $this->provinciaDomicilioProcedencia->provincia : $this->domicilio_procedencia_pcia_otra;
+    }
+    
+    public function getLaPciaDomicilioClasesAttribute()
+    {
+        return  ($this->domicilio_clases_pcia_id != Provincia::ID_OTRA) ? $this->provinciaDomicilioClases->provincia : $this->domicilio_clases_pcia_otra;
+    }
+    
+    public function getLaPciaEstablecimientoAttribute()
+    {
+        return  ($this->secundario_pcia_id != Provincia::ID_OTRA) ? $this->provinciaEstablecimiento->provincia : $this->secundario_pcia_otra;
+    }
+    
+    public function getElPaisAttribute()
+    {
+        return  ($this->localidad_pais_id != Pais::ID_OTRO) ? $this->pais->nombre : $this->localidad_pais_otro;
+    }
+    
+    public function getElPaisDomicilioProcedenciaAttribute()
+    {
+        return  ($this->domicilio_procedencia_pais_id != Pais::ID_OTRO) ? $this->paisDomicilioProcedencia->nombre : $this->domicilio_procedencia_pais_otro;
+    }
+    
+    public function getElPaisDomicilioClasesAttribute()
+    {
+        return  ($this->domicilio_clases_pais_id != Pais::ID_OTRO) ? $this->paisDomicilioClases->nombre : $this->domicilio_clases_pais_otro;
+    }
+    
+    public function getElPaisEstablecimientoAttribute()
+    {
+        return  ($this->secundario_pais_id != Pais::ID_OTRO) ? $this->paisEstablecimiento->nombre : $this->secundario_pais_otro;
+    }
+    
+    public function ramaActividad()
+    {
+        return $this->belongsTo('RamaActividadLaboral', 'situacion_laboral_rama_id');
+    }
+    
+    public function categoriaOcupacional()
+    {
+        return $this->belongsTo('CategoriaOcupacional', 'situacion_laboral_categoria_ocupacional_id');
+    }
+    
+    public function padreCategoriaOcupacional()
+    {
+        return $this->belongsTo('CategoriaOcupacional', 'padre_categoria_ocupacional_id');
+    }
+    
+    public function madreCategoriaOcupacional()
+    {
+        return $this->belongsTo('CategoriaOcupacional', 'madre_categoria_ocupacional_id');
+    }
+    
+    public function padreEstudios()
+    {
+        return $this->belongsTo('NivelEstudios', 'padre_estudios_id');
+    }
+    
+    public function madreEstudios()
+    {
+        return $this->belongsTo('NivelEstudios', 'madre_estudios_id');
+    }
+       
     public function getCorreoAttribute()
     {
         return $this->email;

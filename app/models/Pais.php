@@ -2,6 +2,8 @@
 
 class Pais extends Eloquent 
 {
+    const ID_OTRO = 99;
+    
     protected $guarded = array();
     protected $table = 'repo_pais';
     public static $rules = array();

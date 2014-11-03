@@ -425,9 +425,7 @@
             <button type="reset" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-refresh"></span> Restablecer </button>
             
             <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Enviar inscripción</button>
-            
       </div> 
   </div>
     {{Form::close()}}
-    </div>
 </div>

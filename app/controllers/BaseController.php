@@ -34,12 +34,4 @@ class BaseController extends Controller {
 
         return PDF::load($html, 'A4', 'landscape')->show();
     }
-    
-    protected function exportarFormPDF($filename, $data, $view)
-    {
-        $html = View::make($view, $data);
-
-        return PDF::load($html, 'A4', 'portrait')->show();
-    }
-
 }

@@ -1,6 +1,8 @@
 <?php
 
 class Provincia extends Eloquent {
+        const ID_OTRA = 99;
+        
 	protected $guarded = array();
 
 	public static $rules = array();
