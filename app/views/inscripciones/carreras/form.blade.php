@@ -430,11 +430,14 @@
         @endunless
         <hr>
         <div class="row col-md-offset-4">
+            @if(Auth::check())
+            <?php $url = route('ofertas.inscripciones.index', $oferta->id);?>
+            @else
+            <?php $url = "javascript:history.back()";?>
+            @endif
             
-            <button type="button" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-chevron-left"></span><a href="http://udc.edu.ar" class="muted"> Volver </a></button>
-            
+            <a href="{{ $url }}" type="button" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-chevron-left"></span> Volver </a>
             <button type="reset" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-refresh"></span> Restablecer </button>
-            
             <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Enviar inscripción</button>
       </div> 
   </div>
