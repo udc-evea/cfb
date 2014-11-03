@@ -2,11 +2,15 @@ var InscripcionesModule = {
     init: function(oferta_id)
     {
         var self = this;
+        self.ID_OTRA = 99;
+        self.ID_PAIS_ARGENTINA = 1;
+        
         self.oferta_id = oferta_id;
         
         self.initTabs();
         self.initRequisitos();
         self.initLocalidades();
+        self.initPaises();
         self.initFechas();
     },
     
@@ -43,8 +47,8 @@ var InscripcionesModule = {
             var $el = $(this);
             
             name = $el.attr("name");
-            $la_otra = $(".otra_"+name);
-            if($el.val() != 99) {
+            $la_otra = $(".otra_" + name);
+            if($el.val() != self.ID_OTRA) {
                 $la_otra.addClass("hide");
                 $la_otra.find("input").val("");
             } else {
@@ -54,7 +58,7 @@ var InscripcionesModule = {
             $el.on("change", function() {
                 name = $el.attr("name");
                 $la_otra = $(".otra_"+name);
-                if($el.val() != 99) {
+                if($el.val() != self.ID_OTRA) {
                     $la_otra.addClass("hide");
                     $la_otra.find("input").val("");
                 } else {
@@ -63,7 +67,7 @@ var InscripcionesModule = {
             });
         });
     },
-
+    
     initFechas: function() {
         $("#fecha_nacimiento").datepicker("option", "maxDate", "-14y");
         $("#fecha_nacimiento").datepicker("option", "yearRange", "-115:-14");
