@@ -280,7 +280,8 @@
                     <td>
                         <div class="col-md-12">
                             <label>Provincia<span class="text-danger">*</span></label>
-                            {{ Form::select('secundario_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::select('secundario_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                            {{ Form::text('secundario_pcia_otra', null, ['class' => 'form-control input-sm otra_secundario_pcia_id hide']) }}
                         </div>
                     </td>
                     <td colspan="2">

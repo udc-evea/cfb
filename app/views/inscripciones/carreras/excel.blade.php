@@ -16,13 +16,9 @@
         <th>Documento</th>
         <th>Fecha nac.</th>
         <th>Localidad</th>
-        <th>Años resid.</th>
-        <th>Nivel estudios</th>
-        <th>Título</th>
         <th>Email</th>
-        <th>Teléfono</th>
-        <th>Cómo te enteraste</th>
-
+        <th>Teléfono fijo</th>
+        <th>Teléfono celular</th>
 
 @foreach($rows as $item)
     <tr>
@@ -30,13 +26,10 @@
         <td>{{ $item->nombre }}</td>
         <td>{{ $item->tipo_documento }}-{{ $item->documento }}</td>
         <td>{{ $item->fecha_nacimiento }}</td>
-        <td>{{ $item->localidad }}</td>
-        <td>{{ $item->localidad_anios_residencia }}</td>
-        <td>{{ $item->nivel_estudios }}</td>
-        <td>{{ $item->titulo_obtenido }}</td>
+        <td>{{ $item->localidad->localidad }}</td>
         <td>{{ $item->email }}</td>
-        <td>{{ $item->telefono }}</td>
-        <td>{{ $item->rel_como_te_enteraste }}</td>
+        <td>{{ $item->telefono_fijo }}</td>
+        <td>{{ $item->telefono_celular }}</td>
     </tr>
 @endforeach
 </table>
