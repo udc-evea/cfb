@@ -53,13 +53,13 @@
                     <td bgcolor="#FFFFFF">
                         <div class="col-md-12">
                             <label>Apellidos <span class="text-danger"><span style="font-size: 14px">*</span>(campo obligatorio)</span></label> 
-                            {{ Form::text('apellido', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::text('apellido', null, ['class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td bgcolor="#FFFFFF">
                         <div class="col-md-12">
                             <label>Nombres<span class="text-danger">*</span></label> 
-                            {{ Form::text('nombre', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::text('nombre', null, ['class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                 </tr>
@@ -89,7 +89,7 @@
                         <div class="col-md-12"> <label>Nacido en</label>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Localidad<span class="text-danger">*</span></label> {{ Form::select('localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                    <label>Localidad<span class="text-danger">*</span></label> {{ Form::select('localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                                     {{ Form::text('localidad_otra', null, ['class' => 'form-control input-sm otra_localidad_id hide']) }}
                                 </div>
                                 <div class="col-md-2">
@@ -115,7 +115,7 @@
                     <td>
                         <div class="col-md-12">
                             <label>Fecha de Nac.<span class="text-danger">*</span></label>
-                            {{ Form::text('fecha_nacimiento', null, ['id' => 'fecha_nacimiento', 'class' => 'form-control input-sm fecha', 'required']) }}
+                            {{ Form::text('fecha_nacimiento', null, ['id' => 'fecha_nacimiento', 'class' => 'form-control input-sm fecha', ]) }}
                         </div>
                     </td>
                     <td colspan="3">Nacionalidad:<span class="text-danger">*</span>
@@ -133,11 +133,11 @@
                         <div class="col-sm-12"><label>Teléfono fijo</label> {{ Form::text('telefono_fijo', null, ['class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
-                        <div class="col-sm-12"><label>Teléfono Celular<span class="text-danger">*</span></label> {{ Form::text('telefono_celular', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Teléfono Celular<span class="text-danger">*</span></label> {{ Form::text('telefono_celular', null, [ 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
-                        <div class="col-sm-6"><label>Email<span class="text-danger">*</span></label> {{ Form::email('email', null, ['required', 'class' => 'form-control input-sm']) }}</div>
-                        <div class="col-sm-6"><label>Reingrese email<span class="text-danger">*</span></label> {{ Form::email('email_confirmation', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-6"><label>Email<span class="text-danger">*</span></label> {{ Form::email('email', null, [ 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-6"><label>Reingrese email<span class="text-danger">*</span></label> {{ Form::email('email_confirmation', null, [ 'class' => 'form-control input-sm']) }}</div>
                     </td>
                 </tr>
             </tbody>
@@ -155,18 +155,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="col-sm-12"><label>Calle<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Calle<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_calle', null, [ 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_nro', null, [ 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_procedencia_piso', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Depto</label> {{ Form::text('domicilio_procedencia_depto', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-4"><label>Localidad<span class="text-danger">*</span></label> 
-                                {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::select('domicilio_procedencia_localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_procedencia_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_localidad_id hide']) }}
                             </div>
-                            <div class="col-sm-2"><label>Cód. Postal<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-2"><label>Cód. Postal<span class="text-danger">*</span></label> {{ Form::text('domicilio_procedencia_cp', null, [ 'class' => 'form-control input-sm']) }}</div>
                         </div>
                     </td>
                 </tr>
@@ -174,11 +174,11 @@
                     <td colspan="2">
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia<span class="text-danger">*</span></label>
-                                {{ Form::select('domicilio_procedencia_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm  con_otra']) }}
+                                {{ Form::select('domicilio_procedencia_pcia_id', Provincia::select(), null, [ 'class' => 'form-control input-sm  con_otra']) }}
                                 {{ Form::text('domicilio_procedencia_pcia_otra', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_pcia_id hide']) }}
                             </div>
                             <div class="col-sm-3"><label>País<span class="text-danger">*</span></label> 
-                                {{ Form::select('domicilio_procedencia_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::select('domicilio_procedencia_pais_id', Pais::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_procedencia_pais_otro', null, ['class' => 'form-control input-sm otra_domicilio_procedencia_pais_id hide']) }}
                             </div>
                         </div>
@@ -202,18 +202,18 @@
                 </tr>
                 <tr class="opcional">
                     <td>
-                        <div class="col-sm-12"><label>Calle<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_calle', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Calle<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_calle', null, [ 'class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
                         <div class="row">
-                            <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_nro', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-1"><label>N°<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_nro', null, [ 'class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Piso</label> {{ Form::text('domicilio_clases_piso', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-1"><label>Depto</label> {{ Form::text('domicilio_clases_depto', null, ['class' => 'form-control input-sm']) }}</div>
                             <div class="col-sm-4"><label>Localidad<span class="text-danger">*</span></label> 
-                                {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::select('domicilio_clases_localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_clases_localidad_otra', null, ['class' => 'form-control input-sm otra_domicilio_clases_localidad_id hide']) }}
                             </div>
-                            <div class="col-sm-2"><label>Cód. Postal<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_cp', null, ['required', 'class' => 'form-control input-sm']) }}</div>
+                            <div class="col-sm-2"><label>Cód. Postal<span class="text-danger">*</span></label> {{ Form::text('domicilio_clases_cp', null, [ 'class' => 'form-control input-sm']) }}</div>
                         </div>
                     </td>
                 </tr>
@@ -221,11 +221,11 @@
                     <td colspan="2">
                         <div class="row">
                             <div class="col-sm-3"><label>Provincia<span class="text-danger">*</span></label> 
-                                {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm  con_otra']) }}
+                                {{ Form::select('domicilio_clases_pcia_id', Provincia::select(), null, [ 'class' => 'form-control input-sm  con_otra']) }}
                                 {{ Form::text('domicilio_clases_pcia_otra', null, ['class' => 'form-control input-sm otra_domicilio_clases_pcia_id hide']) }}
                             </div>
                             <div class="col-sm-3"><label>País<span class="text-danger">*</span></label> 
-                                {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                                {{ Form::select('domicilio_clases_pais_id', Pais::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                                 {{ Form::text('domicilio_clases_pais_otro', null, ['class' => 'form-control input-sm otra_domicilio_clases_pais_id hide']) }}
                             </div>
                         </div>
@@ -248,13 +248,13 @@
                     <td colspan="2"> 
                         <div class="col-md-12">
                             <label>Título Obtenido<span class="text-danger">*</span></label>
-                            {{ Form::text('secundario_titulo_obtenido', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::text('secundario_titulo_obtenido', null, [ 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td>
                         <div class="col-md-4">
                             <label>Año de egreso<span class="text-danger">*</span></label>
-                            {{ Form::text('secundario_anio_egreso', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::text('secundario_anio_egreso', null, [ 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                 </tr>
@@ -262,7 +262,7 @@
                     <td colspan="3">
                         <div class="col-md-12">
                             <label>Nombre y Número del Colegio<span class="text-danger">*</span></label>
-                            {{ Form::text('secundario_nombre_colegio', null, ['required', 'class' => 'form-control input-sm']) }}
+                            {{ Form::text('secundario_nombre_colegio', null, [ 'class' => 'form-control input-sm']) }}
                         </div>
                     </td>
                     <td style="font-weight: bold"> Tipo de Establec.:<span class="text-danger">*</span>
@@ -275,21 +275,21 @@
                     <td>
                         <div class="col-md-12">
                             <label>Localidad<span class="text-danger">*</span></label>
-                            {{ Form::select('secundario_localidad_id', Localidad::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                            {{ Form::select('secundario_localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                             {{ Form::text('secundario_localidad_otra', null, ['class' => 'form-control input-sm otra_secundario_localidad_id hide']) }}
                         </div>
                     </td>
                     <td>
                         <div class="col-md-12">
                             <label>Provincia<span class="text-danger">*</span></label>
-                            {{ Form::select('secundario_pcia_id', Provincia::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                            {{ Form::select('secundario_pcia_id', Provincia::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                             {{ Form::text('secundario_pcia_otra', null, ['class' => 'form-control input-sm otra_secundario_pcia_id hide']) }}
                         </div>
                     </td>
                     <td colspan="2">
                         <div class="col-md-6">
                             <label>País<span class="text-danger">*</span></label>
-                            {{ Form::select('secundario_pais_id', Pais::select(), null, ['required', 'class' => 'form-control input-sm con_otra']) }}
+                            {{ Form::select('secundario_pais_id', Pais::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
                             {{ Form::text('secundario_pais_otro', null, ['class' => 'form-control input-sm otra_secundario_pais_id hide']) }}
                         </div>
                     </td>
@@ -329,15 +329,15 @@
 
                 <tr class="opcional">
                     <td><label>Rama de la actividad económica<span class="text-danger">*</span></label>
-                        {{ Form::select('situacion_laboral_rama_id', RamaActividadLaboral::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                        {{ Form::select('situacion_laboral_rama_id', RamaActividadLaboral::select(), null, [ 'class' => 'form-control input-sm']) }}
                     </td>
                     <td> <label>Categoría Ocupacional<span class="text-danger">*</span></label>
-                        {{ Form::select('situacion_laboral_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                        {{ Form::select('situacion_laboral_categoria_ocupacional_id', CategoriaOcupacional::select(), null, [ 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="3"><label>Detalle de la labor que realiza<span class="text-danger">*</span></label>
-                        {{ Form::textarea('situacion_laboral_detalle_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
+                        {{ Form::textarea('situacion_laboral_detalle_labor', null, [ 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
             </tbody>
         </table>
@@ -346,7 +346,7 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#2980b9" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DEL PADRE</td>
-                    <td width="65%"> <label>Apellidos y Nombres del PADRE: <span class="text-danger">*</span></label>{{ Form::text('padre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
+                    <td width="65%"> <label>Apellidos y Nombres del PADRE: <span class="text-danger">*</span></label>{{ Form::text('padre_apeynom', null, [ 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr>
                     <td colspan="2">¿Vive? <span class="text-danger">*</span>
@@ -356,7 +356,7 @@
                     </td></tr>
                 <tr class="opcional depende">
                     <td colspan="2"><label>Estudios del PADRE<span class="text-danger small">*</span></label>
-                        {{ Form::select('padre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                        {{ Form::select('padre_estudios_id', NivelEstudios::select(), null, [ 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
 
@@ -367,11 +367,11 @@
                         @endforeach
                     </td>
                     <td>Categoría Ocupacional 
-                       {{ Form::select('padre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}</td>
+                       {{ Form::select('padre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, [ 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="2"> <label>Descripción de la labor que realiza<span class="text-danger">*</span></label>
-                        {{ Form::textarea('padre_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
+                        {{ Form::textarea('padre_labor', null, [ 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
                 </tr>
             </tbody>
@@ -381,7 +381,7 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#e74c3c" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DE LA MADRE</td>
-                    <td width="65%"> <label>Apellidos y Nombres de la MADRE:<span class="text-danger">*</span> </label>{{ Form::text('madre_apeynom', null, ['required', 'class' => 'form-control input-sm']) }}</td>
+                    <td width="65%"> <label>Apellidos y Nombres de la MADRE:<span class="text-danger">*</span> </label>{{ Form::text('madre_apeynom', null, [ 'class' => 'form-control input-sm']) }}</td>
                 </tr>
                 <tr>
                     <td colspan="2">¿Vive? <span class="text-danger">*</span>
@@ -391,7 +391,7 @@
                     </td></tr>
                 <tr class="opcional depende">
                     <td colspan="2"><label>Estudios de la MADRE<span class="text-danger">*</span></label>
-                        {{ Form::select('madre_estudios_id', NivelEstudios::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                        {{ Form::select('madre_estudios_id', NivelEstudios::select(), null, [ 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
 
@@ -402,11 +402,11 @@
                         @endforeach
                     </td>
                     <td style="font-weight: bold">Categoría Ocupacional <span class="text-danger">*</span>
-                       {{ Form::select('madre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, ['required', 'class' => 'form-control input-sm']) }}
+                       {{ Form::select('madre_categoria_ocupacional_id', CategoriaOcupacional::select(), null, [ 'class' => 'form-control input-sm']) }}
                 </tr>
                 <tr class="opcional">
                     <td colspan="2"> <label>Detalle de la labor que realiza<span class="text-danger">*</span></label>
-                        {{ Form::textarea('madre_labor', null, ['required', 'class' => 'form-control', 'rows' => '2']) }}
+                        {{ Form::textarea('madre_labor', null, [ 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
                 </tr>
             </tbody>

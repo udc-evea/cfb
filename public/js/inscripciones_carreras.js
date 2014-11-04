@@ -58,6 +58,7 @@ var InscripcionesCarrerasModule = {
         $('#situacion_laboral_TRABAJA, #situacion_laboral_DESOCUPADO').click(function(){
             //habilito los controles
             $filas.find("input[type=radio], textarea").prop("disabled", null);
+            $filas.find("textarea").prop("required", "required");
             //muestro las filas de la table
             $filas.show(0.5);
         });
@@ -66,6 +67,7 @@ var InscripcionesCarrerasModule = {
             //deshabilito y limpio los controles
             $filas.find("input[type=radio]").prop("checked", null);
             $filas.find("input[type=radio], textarea").prop("disabled", "disabled");
+            $filas.find("textarea").prop("required", null);
             //limpio los controles
             $filas.find("select, textarea").val("");
             //oculto las filas de la table
@@ -78,6 +80,7 @@ var InscripcionesCarrerasModule = {
             var $filas = $("table.datos_padre tr.opcional");
             //habilito los controles
             $filas.find("input[type=radio], textarea").prop("disabled", null);
+            $filas.find("textarea").prop("required", "required");
             //muestro las filas de la table
             $filas.show(0.5);
         });
@@ -86,7 +89,7 @@ var InscripcionesCarrerasModule = {
             var $filas = $("table.datos_padre tr.opcional");
             //deshabilito y limpio los controles
             $filas.find("input[type=radio]").prop("checked", null);
-            $filas.find("input[type=radio], textarea").prop("disabled", "disabled");
+            $filas.find("textarea").prop("required", null).prop("disabled", "disabled");
             //limpio los controles
             
             if($(this).prop("id") === 'padre_vive_NO') {
@@ -105,6 +108,7 @@ var InscripcionesCarrerasModule = {
             var $filas = $("table.datos_madre tr.opcional");
             //habilito los controles
             $filas.find("input[type=radio], textarea").prop("disabled", null);
+            $filas.find("textarea").prop("required", "required");
             //muestro las filas de la table
             $filas.show(0.5);
         });
@@ -113,7 +117,7 @@ var InscripcionesCarrerasModule = {
             var $filas = $("table.datos_madre tr.opcional");
             //deshabilito y limpio los controles
             $filas.find("input[type=radio]").prop("checked", null);
-            $filas.find("input[type=radio], textarea").prop("disabled", "disabled");
+            $filas.find("textarea").prop("required", null).prop("disabled", "disabled");
             //limpio los controles
             
             if($(this).prop("id") === 'madre_vive_NO') {
