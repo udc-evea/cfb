@@ -73,8 +73,8 @@
                     </td>
                     <td> Documento:<span class="text-danger">*</span>
                         @foreach(TipoDocumento::all() as $item)
-                            {{Form::radio('tipo_documento_cod', $item->id, false)}}
-                      <label class="radio-inline">{{ $item->descripcion }}</label>
+                            
+                            <label>{{ $item->descripcion }} {{Form::radio('tipo_documento_cod', $item->id, false)}}</label>&nbsp;&nbsp;&nbsp;
                         @endforeach
                   </td>
                     <td colspan="2">
