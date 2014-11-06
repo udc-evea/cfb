@@ -70,7 +70,9 @@
             ->fromQuery(InscripcionComoTeEnteraste::all(), 'como_te_enteraste', 'id')
             ->value(1)->required()
             ->label('¿Cómo te enteraste de esta oferta?')
+            ->addClass('con_otra')
         }}
+        {{ Former::text('como_te_enteraste_otra')->label("&nbsp;")->addClass('otra_como_te_enteraste hide') }}
     </div>
 </div>
 

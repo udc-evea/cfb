@@ -108,11 +108,25 @@ class Inscripcion extends Eloquent {
         $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
     }
     
-    public function agregarReglas($input)
+    public function validarNuevo($input)
+    {
+        if (!Auth::check()) {
+            self::$rules['recaptcha_response_field'] = 'required|recaptcha';
+            self::$rules['reglamento'] = 'required|boolean';
+        }
+        
+        $v = Validator::make($input, self::$rules, self::$mensajes);
+        
+        return $v;
+    }
+
+    public function validarExistente($input)
     {
         //parche para validators de unique y unique_with
         self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
         self::$rules['email']['unique_mail'] =  sprintf("%s, %s", self::$rules['email']['unique_mail'], $this->id);
+        
+        return $this->validarNuevo($input);
     }
         
     
