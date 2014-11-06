@@ -8,9 +8,9 @@ class InscripcionCarrera extends Eloquent {
     public $timestamps = false;
     
     public static $rules = array(
-        'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_carrera,tipo_documento_cod,documento'),
+        'oferta_formativa_id'   => 'required|exists:oferta_formativa,id',
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
-        'documento' => 'required|integer|min:1000000|max:99999999',
+        'documento' => 'required|integer|min:1000000|max:99999999|unique_with:inscripcion_carrera,oferta_formativa_id,tipo_documento_cod,documento',
         'apellido' => 'required',
         'nombre' => 'required',
         'sexo'   => 'required|in:M,F',
@@ -22,7 +22,7 @@ class InscripcionCarrera extends Eloquent {
         'localidad_pais_id'  => 'required|exists:repo_pais,id',
         'telefono_fijo'   => 'required|integer',
         'telefono_celular'   => 'required',
-        'email'             => ['required', 'email', 'confirmed', 'unique_mail' => 'unique_with:inscripcion_carrera,oferta_formativa_id,email'],
+        'email'             => 'required|email|confirmed|unique_with:inscripcion_carrera,oferta_formativa_id,email',
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
         'domicilio_procedencia_calle' => 'required',
         'domicilio_procedencia_nro'   => 'required|integer',
@@ -81,7 +81,9 @@ class InscripcionCarrera extends Eloquent {
     public static $enum_padre_ocupacion  = array('TEMPORARIA' => 'Temporaria', 'PERMANENTE' => 'Permanente');
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'domicilio_clases_igual', 'email_confirmation'];
-    public static $mensajes = ['unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.'];
+    public static $mensajes = [
+        'unique_with' => 'El valor ingresado en :attribute ya corresponde al de un inscripto en este oferta.'
+    ];
     
     public function oferta()
     {
@@ -272,7 +274,27 @@ class InscripcionCarrera extends Eloquent {
     {
         $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
     }
-    
+
+    public function setSituacionLaboralCategoriaOcupacionalIdAttribute($value)
+    {
+        $this->attributes['situacion_laboral_categoria_ocupacional_id'] = strlen($value) ?: null;
+    }
+
+    public function setPadreCategoriaOcupacionalIdAttribute($value)
+    {
+        $this->attributes['padre_categoria_ocupacional_id'] = strlen($value) ?: null;
+    }
+
+    public function setMadreCategoriaOcupacionalIdAttribute($value)
+    {
+        $this->attributes['madre_categoria_ocupacional_id'] = strlen($value) ?: null;
+    }
+
+    public function setSituacionLaboralRamaIdAttribute($value)
+    {
+        $this->attributes['situacion_laboral_rama_id'] = strlen($value) ?: null;
+    }
+
     public function validarNuevo($input)
     {
         if (!Auth::check()) {
