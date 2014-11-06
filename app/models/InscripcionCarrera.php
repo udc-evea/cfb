@@ -6,7 +6,7 @@ class InscripcionCarrera extends Eloquent {
     protected $table = 'inscripcion_carrera';
     protected $dates = array('fecha_nacimiento');
     public $timestamps = false;
-
+    
     public static $rules = array(
         'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_carrera,tipo_documento_cod,documento'),
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
@@ -49,27 +49,26 @@ class InscripcionCarrera extends Eloquent {
         'secundario_tipo_establecimiento' => 'required|in:ESTATAL,PRIVADO',
         
         'situacion_laboral' => 'required|in:TRABAJA,NO TRABAJA,DESOCUPADO',
-        'situacion_laboral_ocupacion' => 'required|in:TEMPORAL,PERMANENTE',
-        'situacion_laboral_relacion_trabajo_carrera' => 'required|in:TOTAL,PARCIAL,NINGUNA',
-        'situacion_laboral_categoria_ocupacional_id' => 'required|exists:categoria_ocupacional,id',
-        'situacion_laboral_detalle_labor' => 'required',
-        'situacion_laboral_horas_semana' => 'required|in:MENOS DE 20,ENTRE 21 Y 35,36 O MAS',
-        'situacion_laboral_rama_id' => 'required|exists:rama_actividad_laboral,id',
-        
+        'situacion_laboral_ocupacion' => 'in:TEMPORAL,PERMANENTE',
+        'situacion_laboral_relacion_trabajo_carrera' => 'in:TOTAL,PARCIAL,NINGUNA',
+        'situacion_laboral_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
+        //'situacion_laboral_detalle_labor' => 'sometimes|required',
+        'situacion_laboral_horas_semana' => 'in:MENOS DE 20,ENTRE 21 Y 35,36 O MAS',
+        'situacion_laboral_rama_id' => 'exists:rama_actividad_laboral,id',
+
         'padre_apeynom' => 'required',
-        'padre_vive' => 'required|in:SI,NO,NS/NC',
-        'padre_estudios_id' => 'required|exists:repo_nivel_estudios,id',
-        'padre_categoria_ocupacional_id' => 'required|exists:categoria_ocupacional,id',
-        'padre_labor' => 'required',
-        'padre_ocupacion' => 'required|in:PERMANENTE,TEMPORARIA',
+        'padre_vive' => 'in:SI,NO,NS/NC',
+        'padre_estudios_id' => 'exists:repo_nivel_estudios,id',
+        'padre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
+        //'padre_labor' => 'sometimes|required',
+        'padre_ocupacion' => 'in:PERMANENTE,TEMPORARIA',
         
         'madre_apeynom' => 'required',
         'madre_vive' => 'required|in:SI,NO,NS/NC',
-        'madre_estudios_id' => 'required|exists:repo_nivel_estudios,id',
-        'madre_categoria_ocupacional_id' => 'required|exists:categoria_ocupacional,id',
-        'madre_labor' => 'required',
-        'madre_ocupacion' => 'required|in:PERMANENTE,TEMPORARIA'
-        
+        'madre_estudios_id' => 'exists:repo_nivel_estudios,id',
+        'madre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
+        //'madre_labor' => 'sometimes|required',
+        'madre_ocupacion' => 'in:PERMANENTE,TEMPORARIA'
     );
     
     public static $enum_tipo_residencia      = array('CASA' => 'Casa', 'DEPTO' => 'Depto.', 'PENSION' => 'Pensión', 'RESIDENCIA' => 'Residencia');
@@ -253,7 +252,6 @@ class InscripcionCarrera extends Eloquent {
     {
         return $this->email;
     }
-        
     
     public function getTipoydocAttribute()
     {
@@ -275,11 +273,59 @@ class InscripcionCarrera extends Eloquent {
         $this->attributes['fecha_nacimiento'] = ModelHelper::getFechaISO($fecha);
     }
     
-    public function agregarReglas($input)
+    public function validarNuevo($input)
+    {
+        if (!Auth::check()) {
+            self::$rules['recaptcha_response_field'] = 'required|recaptcha';
+            self::$rules['reglamento'] = 'required|boolean';
+        }
+        
+        $v = Validator::make($input, self::$rules, self::$mensajes);
+        
+        $v->sometimes([
+            'situacion_laboral_ocupacion',
+            'situacion_laboral_relacion_trabajo_carrera',
+            'situacion_laboral_categoria_ocupacional_id',
+            'situacion_laboral_detalle_labor',
+            'situacion_laboral_horas_semana',
+            'situacion_laboral_rama_id'], 'required', function($input) {
+                    return in_array($input->situacion_laboral, ['TRABAJA', 'DESOCUPADO']);
+        });
+
+        $v->sometimes([
+            'padre_estudios_id',
+            'padre_categoria_ocupacional_id',
+            'padre_labor',
+            'padre_ocupacion'], 'required', function($input) {
+                return $input->padre_vive == 'SI';
+        });
+        
+        $v->sometimes('padre_estudios_id', 'required', function($input) {
+            return $input->padre_vive == 'NS/NC';
+        });
+        
+        $v->sometimes([
+            'madre_estudios_id',
+            'madre_categoria_ocupacional_id',
+            'madre_labor',
+            'madre_ocupacion'], 'required', function($input) {
+                return $input->madre_vive == 'SI';
+        });
+        
+        $v->sometimes('madre_estudios_id', 'required', function($input) {
+            return $input->madre_vive == 'NS/NC';
+        });
+                
+        return $v;
+    }
+    
+    public function validarExistente($input)
     {
         //parche para validators de unique y unique_with
         self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
         self::$rules['email']['unique_mail'] = sprintf("%s, %s", self::$rules['email']['unique_mail'], $this->id);
+        
+        return $this->validarNuevo($input);
     }
     
     

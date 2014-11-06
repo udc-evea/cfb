@@ -53,7 +53,7 @@ class OfertasController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->oferta->create($input);
+                    $this->oferta->create($input);
 
 			return Redirect::route('ofertas.index');
 		}

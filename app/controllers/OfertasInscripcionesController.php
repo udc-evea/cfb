@@ -53,15 +53,8 @@ class OfertasInscripcionesController extends BaseController {
         
         $input = Input::all();
         $input_db = Input::except($inscripto::$rules_virtual);
-        $reglas = $inscripto::$rules;
-        $mensajes = $inscripto::$mensajes;
-
-        if (!Auth::check()) {
-            $reglas['recaptcha_response_field'] = 'required|recaptcha';
-            $reglas['reglamento'] = 'required|boolean';
-        }
         
-        $validation = Validator::make($input, $reglas, $mensajes);
+        $validation = $inscripto->validarNuevo($input);
 
         if ($validation->passes()) {
             $insc = $inscripto->create($input_db);
@@ -125,12 +118,8 @@ class OfertasInscripcionesController extends BaseController {
         
         $input = Input::all();
         $input_db = Input::except($inscripcion::$rules_virtual);
-        $reglas = $inscripcion::$rules;
-        $mensajes = $inscripcion::$mensajes;
-        
-        $inscripcion->agregarReglas($input);
-        
-        $validation = Validator::make($input, $insc_class::$rules, $mensajes);
+                
+        $validation = $inscripcion->validarExistente($input);
 
         if ($validation->passes()) {
             $inscripcion->update($input_db);
