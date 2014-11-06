@@ -9,7 +9,7 @@
                 <span class="lead">Inscripción completa</span><span class="glyphicon glyphicon-ok"></span>
                 ¡Gracias! <br><hr>
                 <p>En breve recibirá un correo con los pasos para ingresar.</p>
-                <button type="button" class="btn btn-default"><a href="http://udc.edu.ar">Portal UDC</a></button><span class="glyphicon glyphicon-chevron-right"></span></blockquote>
+                <a href="http://udc.edu.ar" class="btn btn-default">Portal UDC</a> <span class="glyphicon glyphicon-chevron-right"></span></blockquote>
         </div>
     </div>
 </div>
