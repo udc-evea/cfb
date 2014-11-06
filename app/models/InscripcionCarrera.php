@@ -315,7 +315,48 @@ class InscripcionCarrera extends Eloquent {
         $v->sometimes('madre_estudios_id', 'required', function($input) {
             return $input->madre_vive == 'NS/NC';
         });
-                
+        
+        //------------------------------------
+        $v->sometimes('localidad_otra', 'required', function($input){
+            return $input->localidad_id == Localidad::ID_OTRA;
+        });
+        $v->sometimes('localidad_pcia_otra', 'required', function($input){
+            return $input->localidad_pcia_id == Provincia::ID_OTRA;
+        });
+        $v->sometimes('localidad_pais_otro', 'required', function($input){
+            return $input->localidad_pais_id == Pais::ID_OTRO;
+        });
+        //------------------------------------
+        $v->sometimes('domicilio_procedencia_localidad_otra', 'required', function($input){
+            return $input->domicilio_procedencia_localidad_id == Localidad::ID_OTRA;
+        });
+        $v->sometimes('domicilio_procedencia_pcia_otra', 'required', function($input){
+            return $input->domicilio_procedencia_pcia_id == Provincia::ID_OTRA;
+        });
+        $v->sometimes('domicilio_procedencia_pais_otro', 'required', function($input){
+            return $input->domicilio_procedencia_pais_id == Pais::ID_OTRO;
+        });
+        //------------------------------------
+        $v->sometimes('domicilio_clases_localidad_otra', 'required', function($input){
+            return $input->domicilio_clases_localidad_id == Localidad::ID_OTRA;
+        });
+        $v->sometimes('domicilio_clases_pcia_otra', 'required', function($input){
+            return $input->domicilio_clases_pcia_id == Provincia::ID_OTRA;
+        });
+        $v->sometimes('domicilio_clases_pais_otro', 'required', function($input){
+            return $input->domicilio_clases_pais_id == Pais::ID_OTRO;
+        });
+        //------------------------------------
+        $v->sometimes('secundario_localidad_otra', 'required', function($input){
+            return $input->secundario_localidad_id == Localidad::ID_OTRA;
+        });
+        $v->sometimes('secundario_pcia_otra', 'required', function($input){
+            return $input->secundario_pcia_id == Provincia::ID_OTRA;
+        });
+        $v->sometimes('secundario_pais_otro', 'required', function($input){
+            return $input->secundario_pais_id == Pais::ID_OTRO;
+        });
+        
         return $v;
     }
     

@@ -117,6 +117,10 @@ class Inscripcion extends Eloquent {
         
         $v = Validator::make($input, self::$rules, self::$mensajes);
         
+        $v->sometimes('como_te_enteraste_otra', 'required', function($input){
+            return $input->como_te_enteraste == InscripcionComoTeEnteraste::ID_OTRA;
+        });
+        
         return $v;
     }
 
