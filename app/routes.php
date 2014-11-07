@@ -19,6 +19,12 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
         return Redirect::route('ofertas.index');
     });
     
+    Route::get('/logout', function () {
+        Auth::logout();
+        
+        return Redirect::to(preg_replace("/:\/\//", "://log-me-out:fake-pwd@", url('/')));
+    });
+    
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/imprimir', 
       array('uses' => 'OfertasInscripcionesController@imprimir', 'as' => 'ofertas.inscripciones.imprimir')
     );
