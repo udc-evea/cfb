@@ -51,12 +51,13 @@ class OfertasInscripcionesController extends BaseController {
         $oferta = Oferta::findOrFail($oferta_id);
         $inscripto = $oferta->inscripcionModel;
         
-        $input = Input::all();
+        $input = array_filter(Input::all(), 'strlen');
         $input_db = Input::except($inscripto::$rules_virtual);
-        
+
         $validation = $inscripto->validarNuevo($input);
 
         if ($validation->passes()) {
+            
             $insc = $inscripto->create($input_db);
 
             try {
@@ -71,7 +72,7 @@ class OfertasInscripcionesController extends BaseController {
 
             return Redirect::to('/inscripcion_ok');
         }
-
+        //dd($validation);
         return Redirect::route('ofertas.inscripciones.nueva', $oferta_id)
                         ->withOferta($oferta)
                         ->withInput()
