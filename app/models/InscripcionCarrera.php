@@ -279,6 +279,11 @@ class InscripcionCarrera extends Eloquent {
     {
         $this->attributes['situacion_laboral_categoria_ocupacional_id'] = strlen($value) ?: null;
     }
+    
+    public function setPadreEstudiosIdAttribute($value)
+    {
+        $this->attributes['padre_estudios_id'] = strlen($value) ?: null;
+    }
 
     public function setPadreCategoriaOcupacionalIdAttribute($value)
     {
@@ -288,6 +293,11 @@ class InscripcionCarrera extends Eloquent {
     public function setMadreCategoriaOcupacionalIdAttribute($value)
     {
         $this->attributes['madre_categoria_ocupacional_id'] = strlen($value) ?: null;
+    }
+    
+    public function setMadreEstudiosIdAttribute($value)
+    {
+        $this->attributes['madre_estudios_id'] = strlen($value) ?: null;
     }
 
     public function setSituacionLaboralRamaIdAttribute($value)
@@ -323,7 +333,7 @@ class InscripcionCarrera extends Eloquent {
         });
         
         $v->sometimes('padre_estudios_id', 'required', function($input) {
-            return $input->padre_vive == 'NS/NC';
+            return $input->padre_vive == 'NO';
         });
         
         $v->sometimes([
@@ -335,7 +345,7 @@ class InscripcionCarrera extends Eloquent {
         });
         
         $v->sometimes('madre_estudios_id', 'required', function($input) {
-            return $input->madre_vive == 'NS/NC';
+            return $input->madre_vive == 'NO';
         });
         
         //------------------------------------
