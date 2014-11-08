@@ -1,12 +1,16 @@
 var InscripcionesCarrerasModule = {
     init: function(oferta_id)
     {
+        self.ID_OTRA = 99;
+        self.ID_ARGENTINA = 1;
+        
         var self = this;
         self.oferta_id = oferta_id;
         
         self.initIDs();
         self.initTooltips();
         self.initDomicilioProcedencia();
+        self.initPaises();
         self.initSituacionLaboral();
         self.initDatosPadre();
         self.initDatosMadre();
@@ -60,6 +64,38 @@ var InscripcionesCarrerasModule = {
         });
         
         $('#domicilio_clases_igual_1').trigger("change");
+    },
+    
+    initPaises: function() {
+        var self = this;
+        return;
+        $('.pais').on('change', function() {
+            var $pais = $(this);
+            var $pcia = $this.closest(".ubicacion_geo").find("provincia");
+            var $loc  = $this.closest(".ubicacion_geo").find("localidad");
+            
+            if($pais.val() != self.ID_ARGENTINA && $pais.val() !== '') {
+                $pcia.val(self.ID_OTRA);
+                $loc.val(self.ID_OTRA);
+            } else {
+                $pcia.val("");
+                $loc.val("");
+            }
+        });
+        
+        $('.provincia').on('change', function() {
+            var $pcia = $(this);
+            var $pais = $this.closest(".ubicacion_geo").find("pais");
+            var $loc  = $this.closest(".ubicacion_geo").find("localidad");
+            
+            if($pcia.val() != self.ID_CHUBUT && $pcia.val() !== '') {
+                $pais.val(self.ID_OTRA);
+                $loc.val(self.ID_OTRA);
+            } else {
+                $pcia.val("");
+                $loc.val("");
+            }
+        });
     },
 
     initSituacionLaboral: function() {

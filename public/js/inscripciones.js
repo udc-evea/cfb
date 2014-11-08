@@ -3,7 +3,6 @@ var InscripcionesModule = {
     {
         var self = this;
         self.ID_OTRA = 99;
-        self.ID_PAIS_ARGENTINA = 1;
         self.MINIMO_ESTUDIOS_TITULO = 5;
         
         self.oferta_id = oferta_id;
@@ -11,7 +10,6 @@ var InscripcionesModule = {
         self.initTabs();
         self.initRequisitos();
         self.initLocalidades();
-        self.initPaises();
         self.initFechas();
         self.initNivelEstudios();
     },
@@ -49,29 +47,23 @@ var InscripcionesModule = {
             var $el = $(this);
             
             name = $el.attr("name");
-            $la_otra = $(".otra_" + name);
+            $la_otra = $(".otra_"+name);
             if($el.val() != self.ID_OTRA) {
-                $la_otra.addClass("hide");
-                $la_otra.find("input").val("");
+                $la_otra.addClass("hide").val("");
             } else {
-                $la_otra.removeClass("hide");
+                $la_otra.removeClass("hide"); //sin focus
             }
-            
+                        
             $el.on("change", function() {
                 name = $el.attr("name");
                 $la_otra = $(".otra_"+name);
                 if($el.val() != self.ID_OTRA) {
-                    $la_otra.addClass("hide");
-                    $la_otra.find("input").val("");
+                    $la_otra.addClass("hide").val("");
                 } else {
-                    $la_otra.removeClass("hide");
+                    $la_otra.removeClass("hide").focus();
                 }
             });
         });
-    },
-    
-    initPaises: function() {
-        
     },
     
     initFechas: function() {
@@ -92,12 +84,10 @@ var InscripcionesModule = {
                 $titulo_input.val("");
             } else {
                 $titulo.show();
+                $titulo_input.focus();
             }
         });
-        
+
         $nivel.trigger("change");
-        
-        
-        
     }
 };
