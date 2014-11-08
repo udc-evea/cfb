@@ -161,10 +161,13 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_oferta` (
     ON UPDATE NO ACTION,
   CONSTRAINT `inscripcion_persona_ibfk_2`
     FOREIGN KEY (`localidad_id`)
-    REFERENCES `cfb`.`repo_localidad` (`id`),
+    REFERENCES `cfb`.`repo_localidad` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
   CONSTRAINT `inscripcion_persona_ibfk_3`
     FOREIGN KEY (`nivel_estudios_id`)
-    REFERENCES `cfb`.`repo_nivel_estudios` (`id`),
+    REFERENCES `cfb`.`repo_nivel_estudios` (`id`)
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_inscripcion_persona_inscripcion_como_te_enteraste1`
     FOREIGN KEY (`como_te_enteraste`)
     REFERENCES `cfb`.`inscripcion_como_te_enteraste` (`id`)
@@ -497,12 +500,12 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
     FOREIGN KEY (`padre_estudios_id`)
     REFERENCES `cfb`.`repo_nivel_estudios` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_inscripcion_carrera_repo_nivel_estudios2`
     FOREIGN KEY (`madre_estudios_id`)
     REFERENCES `cfb`.`repo_nivel_estudios` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_inscripcion_carrera_repo_tipo_documento1`
     FOREIGN KEY (`tipo_documento_cod`)
     REFERENCES `cfb`.`repo_tipo_documento` (`id`)
@@ -588,15 +591,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cfb`;
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Sin estudios');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'NS/NC');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Primario incompleto');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Primario completo');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Secundario incompleto');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Secundario completo');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Terciario');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Universitario incompleto');
-INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (NULL, 'Universitario completo');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (1, 'Sin estudios');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (2, 'NS/NC');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (3, 'Primario incompleto');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (4, 'Primario completo');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (5, 'Secundario incompleto');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (6, 'Secundario completo');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (7, 'Terciario');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (8, 'Universitario incompleto');
+INSERT INTO `cfb`.`repo_nivel_estudios` (`id`, `nivel_estudios`) VALUES (9, 'Universitario completo');
 
 COMMIT;
 

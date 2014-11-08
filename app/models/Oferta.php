@@ -20,8 +20,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
     protected $dates = array('inicio', 'fin');
     public $timestamps = false;
     public static $rules = array(
-        'nombre' => 'required',
-        'anio' => 'required|digits:4',
+        'nombre' => 'required|2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'anio' => 'required|integer',
         'inicio' => 'date_format:d/m/Y',
         'fin' => 'date_format:d/m/Y',
         'cupo_maximo' => 'integer|min:0',

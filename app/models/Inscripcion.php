@@ -6,22 +6,25 @@ class Inscripcion extends Eloquent {
     protected $table = 'inscripcion_oferta';
     protected $dates = array('fecha_nacimiento');
     public $timestamps = false;
+    public static $edad_minima = 13;
+    public static $edad_maxima = 99;
 
     public static $rules = array(
-        'oferta_formativa_id'   => array('required', 'exists:oferta_formativa,id', 'unique_persona' => 'unique_with:inscripcion_oferta,tipo_documento_cod,documento'),
+        'oferta_formativa_id'   => 'required|exists:oferta_formativa,id',
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
-        'documento' => 'required|integer|min:1000000|max:99999999',
-        'apellido' => 'required',
-        'nombre' => 'required',
+        'documento' => 'required|integer|between:1000000,99999999|unique_with:inscripcion_oferta,tipo_documento_cod,documento',
+        'apellido' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'localidad_id' => 'required|exists:repo_localidad,id',
         
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
         
-        'email'    => array('required', 'email', 'unique_mail' => 'unique_with:inscripcion_oferta,oferta_formativa_id,email'),
-        'telefono'  => 'required',
-        'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id'
+        'email'    => 'required|email|unique_with:inscripcion_oferta,oferta_formativa_id,email',
+        'telefono'  => 'required|integer|min:4000000',
+        'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
+        'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/'
     );
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento'];
@@ -115,21 +118,43 @@ class Inscripcion extends Eloquent {
             self::$rules['reglamento'] = 'required|boolean';
         }
         
+        //los mas viejos
+        $dt = new Carbon\Carbon();
+        $before = $dt->subYears(self::$edad_minima)->format('d/m/Y');
+        self::$rules['fecha_nacimiento'] .= '|before:' . $before;
+
+        //los mas jovenes
+        $dt = new Carbon\Carbon();
+        $after = $dt->subYears(self::$edad_maxima)->format('d/m/Y');
+        self::$rules['fecha_nacimiento'] .= '|after:' . $after;
+        
+        //valido
         $v = Validator::make($input, self::$rules, self::$mensajes);
         
+        //años de residencia < años de fecha de nacimiento
+        $iso = ModelHelper::getFechaISO($input['fecha_nacimiento']);
+        $fn = new Carbon\Carbon($iso);
+        $dt = new Carbon\Carbon();
+        
+        $anios = $dt->year - $fn->year;
+                
+        $v->sometimes('localidad_anios_residencia', 'max:'.$anios, function(){
+            return true;    //sometimes?
+        });
+
         $v->sometimes('como_te_enteraste_otra', 'required', function($input){
             return $input->como_te_enteraste == InscripcionComoTeEnteraste::ID_OTRA;
         });
-        
+
         return $v;
     }
 
     public function validarExistente($input)
     {
         //parche para validators de unique y unique_with
-        self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
-        self::$rules['email']['unique_mail'] =  sprintf("%s, %s", self::$rules['email']['unique_mail'], $this->id);
-        
+        self::$rules['documento'] = sprintf("%s,%s", self::$rules['documento'], $this->id);
+        self::$rules['email'] = sprintf("%s,%s", self::$rules['email'], $this->id);
+
         return $this->validarNuevo($input);
     }
         

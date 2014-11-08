@@ -53,7 +53,7 @@
             ->value(NivelEstudios::NIVEL_SEC_COMPLETO)->required()
             ->label('Nivel de estudios')
         }}
-        {{ Former::text('titulo_obtenido')->label('Título obtenido') }}
+        {{ Former::text('titulo_obtenido')->label('Título obtenido/En curso')->addGroupClass('titulo') }}
     </div>
 </div>
 <div class="panel panel-default">

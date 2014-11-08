@@ -6,71 +6,79 @@ class InscripcionCarrera extends Eloquent {
     protected $table = 'inscripcion_carrera';
     protected $dates = array('fecha_nacimiento');
     public $timestamps = false;
-    
+
+    public static $edad_minima = 16;
+    public static $edad_maxima = 99;
+    public static $anios_egreso_secundario = 80;
+
     public static $rules = array(
         'oferta_formativa_id'   => 'required|exists:oferta_formativa,id',
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
-        'documento' => 'required|integer|min:1000000|max:99999999|unique_with:inscripcion_carrera,oferta_formativa_id,tipo_documento_cod,documento',
-        'apellido' => 'required',
-        'nombre' => 'required',
+        'documento' => 'required|integer|between:1000000,99999999|unique_with:inscripcion_carrera,oferta_formativa_id,tipo_documento_cod,documento',
+        'apellido' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'sexo'   => 'required|in:M,F',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'nacionalidad_id'  => 'required|exists:nacionalidad,id',
         'localidad_id' => 'required|exists:repo_localidad,id',
-        'localidad_depto' => 'required',
+        'localidad_depto' => 'required|between:2,50',
         'localidad_pcia_id'  => 'required|exists:repo_provincia,id',
         'localidad_pais_id'  => 'required|exists:repo_pais,id',
-        'telefono_fijo'   => 'required|integer',
-        'telefono_celular'   => 'required',
+        'telefono_fijo'   => 'required|integer|min:4000000',
+        'telefono_celular'   => 'required|integer|min:150000000',
         'email'             => 'required|email|confirmed|unique_with:inscripcion_carrera,oferta_formativa_id,email',
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
-        'domicilio_procedencia_calle' => 'required',
-        'domicilio_procedencia_nro'   => 'required|integer',
+        'domicilio_procedencia_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'domicilio_procedencia_nro'   => 'required|integer|min:0',
+        'domicilio_procedencia_piso'  => 'integer|min:0',
+        'domicilio_procedencia_depto' => 'alpha|size:1',
         'domicilio_procedencia_localidad_id' => 'required|exists:repo_localidad,id',
         'domicilio_procedencia_pcia_id'  => 'required|exists:repo_provincia,id',
-        'domicilio_procedencia_cp'   => 'required|integer',
+        'domicilio_procedencia_cp'   => 'required|integer|min:0',
         'domicilio_procedencia_pais_id'   => 'required|exists:repo_pais,id',
-        
+
         'domicilio_clases_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
-        'domicilio_clases_calle' => 'required',
-        'domicilio_clases_nro'   => 'required|integer',
+        'domicilio_clases_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'domicilio_clases_nro'   => 'required|integer|min:0',
+        'domicilio_clases_piso'  => 'integer|min:0',
+        'domicilio_clases_depto' => 'alpha|size:1',
         'domicilio_clases_localidad_id' => 'required|exists:repo_localidad,id',
         'domicilio_clases_pcia_id'  => 'required|exists:repo_provincia,id',
-        'domicilio_clases_cp'   => 'required|integer',
+        'domicilio_clases_cp'   => 'required|integer|min:0',
         'domicilio_clases_pais_id'   => 'required|exists:repo_pais,id',
         'domicilio_clases_con_quien_vive_id'   => 'required|exists:con_quien_vive,id',
-        
-        'secundario_titulo_obtenido' => 'required',
-        'secundario_anio_egreso' => 'required|digits:4',
-        'secundario_nombre_colegio' => 'required',
+
+        'secundario_titulo_obtenido' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚ]+$/',
+        'secundario_anio_egreso' => 'required|integer',
+        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'secundario_localidad_id' => 'required|exists:repo_localidad,id',
         'secundario_pcia_id'  => 'required|exists:repo_provincia,id',
         'secundario_pais_id'  => 'required|exists:repo_pais,id',
         'secundario_tipo_establecimiento' => 'required|in:ESTATAL,PRIVADO',
-        
+
         'situacion_laboral' => 'required|in:TRABAJA,NO TRABAJA,DESOCUPADO',
         'situacion_laboral_ocupacion' => 'in:TEMPORAL,PERMANENTE',
         'situacion_laboral_relacion_trabajo_carrera' => 'in:TOTAL,PARCIAL,NINGUNA',
         'situacion_laboral_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        //'situacion_laboral_detalle_labor' => 'sometimes|required',
+        'situacion_laboral_detalle_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'situacion_laboral_horas_semana' => 'in:MENOS DE 20,ENTRE 21 Y 35,36 O MAS',
         'situacion_laboral_rama_id' => 'exists:rama_actividad_laboral,id',
 
-        'padre_apeynom' => 'required',
+        'padre_apeynom' => 'required|between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'padre_vive' => 'in:SI,NO,NS/NC',
         'padre_estudios_id' => 'exists:repo_nivel_estudios,id',
         'padre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        //'padre_labor' => 'sometimes|required',
+        'padre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'padre_ocupacion' => 'in:PERMANENTE,TEMPORARIA',
-        
-        'madre_apeynom' => 'required',
+
+        'madre_apeynom' => 'required|between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'madre_vive' => 'required|in:SI,NO,NS/NC',
         'madre_estudios_id' => 'exists:repo_nivel_estudios,id',
         'madre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        //'madre_labor' => 'sometimes|required',
+        'madre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'madre_ocupacion' => 'in:PERMANENTE,TEMPORARIA'
     );
-    
+
     public static $enum_tipo_residencia      = array('CASA' => 'Casa', 'DEPTO' => 'Depto.', 'PENSION' => 'Pensión', 'RESIDENCIA' => 'Residencia');
     public static $enum_tipo_establecimiento = array('ESTATAL' => 'Estatal', 'PRIVADO' => 'Privado');
     public static $enum_situacion_laboral    = array('TRABAJA' => 'Trabaja', 'NO TRABAJA' => 'No trabaja', 'DESOCUPADO' => 'Desocupado');
@@ -82,7 +90,8 @@ class InscripcionCarrera extends Eloquent {
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'domicilio_clases_igual', 'email_confirmation'];
     public static $mensajes = [
-        'unique_with' => 'El valor ingresado en :attribute ya corresponde al de un inscripto en este oferta.'
+        'unique_with' => 'El valor ingresado en :attribute ya corresponde al de un inscripto en este oferta.',
+        'secundario_anio_egreso.between' => 'Secundario: el año de egreso debe ser entre :min y :max.'
     ];
     
     public function oferta()
@@ -282,38 +291,54 @@ class InscripcionCarrera extends Eloquent {
     
     public function setPadreEstudiosIdAttribute($value)
     {
-        $this->attributes['padre_estudios_id'] = strlen($value) ?: null;
+        $this->attributes['padre_estudios_id'] = strlen($value) ? $value : null;
     }
 
     public function setPadreCategoriaOcupacionalIdAttribute($value)
     {
-        $this->attributes['padre_categoria_ocupacional_id'] = strlen($value) ?: null;
+        $this->attributes['padre_categoria_ocupacional_id'] = strlen($value) ? $value: null;
     }
 
     public function setMadreCategoriaOcupacionalIdAttribute($value)
     {
-        $this->attributes['madre_categoria_ocupacional_id'] = strlen($value) ?: null;
+        $this->attributes['madre_categoria_ocupacional_id'] = strlen($value) ? $value : null;
     }
     
     public function setMadreEstudiosIdAttribute($value)
     {
-        $this->attributes['madre_estudios_id'] = strlen($value) ?: null;
+        $this->attributes['madre_estudios_id'] = strlen($value) ? $value : null;
     }
 
     public function setSituacionLaboralRamaIdAttribute($value)
     {
-        $this->attributes['situacion_laboral_rama_id'] = strlen($value) ?: null;
+        $this->attributes['situacion_laboral_rama_id'] = strlen($value) ? $value : null;
     }
 
     public function validarNuevo($input)
     {
+        //reglas para el acceso publico
         if (!Auth::check()) {
             self::$rules['recaptcha_response_field'] = 'required|recaptcha';
             self::$rules['reglamento'] = 'required|boolean';
         }
+
+        //los mas jovenes
+        $dt = new Carbon\Carbon();
+        $before = $dt->subYears(self::$edad_minima)->format('d/m/Y');
+        self::$rules['fecha_nacimiento'] .= '|before:' . $before;
+
+        //los mas viejos
+        $dt = new Carbon\Carbon();
+        $after = $dt->subYears(self::$edad_maxima)->format('d/m/Y');
+        self::$rules['fecha_nacimiento'] .= '|after:' . $after;
         
+        //año de egreso del secundario: actual o hasta 80 años antes
+        $actual   = (int)date("Y");
+        $anterior = $actual - self::$anios_egreso_secundario; 
+        self::$rules['secundario_anio_egreso'] .= "|between:$anterior,$actual";
+
         $v = Validator::make($input, self::$rules, self::$mensajes);
-        
+
         $v->sometimes([
             'situacion_laboral_ocupacion',
             'situacion_laboral_relacion_trabajo_carrera',
@@ -395,8 +420,8 @@ class InscripcionCarrera extends Eloquent {
     public function validarExistente($input)
     {
         //parche para validators de unique y unique_with
-        self::$rules['oferta_formativa_id']['unique_persona'] = sprintf("%s, %s", self::$rules['oferta_formativa_id']['unique_persona'], $this->id);
-        self::$rules['email']['unique_mail'] = sprintf("%s, %s", self::$rules['email']['unique_mail'], $this->id);
+        self::$rules['documento'] = sprintf("%s,%s", self::$rules['documento'], $this->id);
+        self::$rules['email'] = sprintf("%s,%s", self::$rules['email'], $this->id);
         
         return $this->validarNuevo($input);
     }

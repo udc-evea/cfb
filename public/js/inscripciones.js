@@ -4,6 +4,7 @@ var InscripcionesModule = {
         var self = this;
         self.ID_OTRA = 99;
         self.ID_PAIS_ARGENTINA = 1;
+        self.MINIMO_ESTUDIOS_TITULO = 5;
         
         self.oferta_id = oferta_id;
         
@@ -12,6 +13,7 @@ var InscripcionesModule = {
         self.initLocalidades();
         self.initPaises();
         self.initFechas();
+        self.initNivelEstudios();
     },
     
     initTabs: function() {
@@ -75,5 +77,27 @@ var InscripcionesModule = {
     initFechas: function() {
         $("#fecha_nacimiento").datepicker("option", "maxDate", "-14y");
         $("#fecha_nacimiento").datepicker("option", "yearRange", "-115:-14");
+    },
+    
+    initNivelEstudios: function() {
+        var self = this;
+        
+        var $nivel = $("#nivel_estudios_id");
+        var $titulo = $(".form-group.titulo");
+        var $titulo_input = $("#titulo_obtenido");
+        
+        $nivel.on("change", function(){
+            if($nivel.val() < self.MINIMO_ESTUDIOS_TITULO) {
+                $titulo.hide();
+                $titulo_input.val("");
+            } else {
+                $titulo.show();
+            }
+        });
+        
+        $nivel.trigger("change");
+        
+        
+        
     }
 };
