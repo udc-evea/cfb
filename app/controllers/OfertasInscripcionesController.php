@@ -51,7 +51,8 @@ class OfertasInscripcionesController extends BaseController {
         $oferta = Oferta::findOrFail($oferta_id);
         $inscripto = $oferta->inscripcionModel;
         
-        $input = array_filter(Input::all(), 'strlen');
+        $input = Input::all();
+        
         $input_db = Input::except($inscripto::$rules_virtual);
 
         $validation = $inscripto->validarNuevo($input);
@@ -118,6 +119,7 @@ class OfertasInscripcionesController extends BaseController {
         }
         
         $input = Input::all();
+
         $input_db = Input::except($inscripcion::$rules_virtual);
                 
         $validation = $inscripcion->validarExistente($input);
