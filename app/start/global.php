@@ -57,7 +57,20 @@ App::error(function(Exception $exception, $code)
 		$_SERVER['MAIL_PASS']
 	);
 	Log::error($exception);
+        
+        if(!App::isLocal()) {
+            return Response::view('errors.500', array(), 500);
+        }
 });
+
+App::missing(function(){
+   
+    if(!App::isLocal()) {
+        return Response::view('errors.404', array(), 404);
+    }
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +85,7 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+	return Response::make("Sitio bajo mantenimiento", 503);
 });
 
 /*
