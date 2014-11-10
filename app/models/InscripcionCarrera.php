@@ -48,9 +48,9 @@ class InscripcionCarrera extends Eloquent {
         'domicilio_clases_pais_id'   => 'required|exists:repo_pais,id',
         'domicilio_clases_con_quien_vive_id'   => 'required|exists:con_quien_vive,id',
 
-        'secundario_titulo_obtenido' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚ]+$/',
+        'secundario_titulo_obtenido' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚ0-9]+$/',
         'secundario_anio_egreso' => 'required|integer',
-        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
         'secundario_localidad_id' => 'required|exists:repo_localidad,id',
         'secundario_pcia_id'  => 'required|exists:repo_provincia,id',
         'secundario_pais_id'  => 'required|exists:repo_pais,id',
@@ -60,7 +60,7 @@ class InscripcionCarrera extends Eloquent {
         'situacion_laboral_ocupacion' => 'in:TEMPORAL,PERMANENTE',
         'situacion_laboral_relacion_trabajo_carrera' => 'in:TOTAL,PARCIAL,NINGUNA',
         'situacion_laboral_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        'situacion_laboral_detalle_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'situacion_laboral_detalle_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
         'situacion_laboral_horas_semana' => 'in:MENOS DE 20,ENTRE 21 Y 35,36 O MAS',
         'situacion_laboral_rama_id' => 'exists:rama_actividad_laboral,id',
 
@@ -75,7 +75,7 @@ class InscripcionCarrera extends Eloquent {
         'madre_vive' => 'required|in:SI,NO,NS/NC',
         'madre_estudios_id' => 'exists:repo_nivel_estudios,id',
         'madre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        'madre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'madre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
         'madre_ocupacion' => 'in:PERMANENTE,TEMPORARIA'
     );
 

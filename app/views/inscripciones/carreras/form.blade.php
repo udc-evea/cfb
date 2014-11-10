@@ -231,7 +231,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> Con quién vive: &nbsp; <span class="text-danger">*</span>
+                    <td colspan="2"> <strong>Con quién vive: &nbsp; <span class="text-danger">*</span></strong>
                         @foreach(ConQuienVive::all() as $item)
                         <label class="radio-inline">{{Form::radio('domicilio_clases_con_quien_vive_id', $item->id, false)}} {{$item->descripcion}}</label>
                         @endforeach
