@@ -378,7 +378,11 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
                     </td></tr>
                 <tr class="opcional depende">
                     <td colspan="2"><label>Estudios del PADRE: <span class="text-danger small">*</span></label>
+                        @if($inscripcion->padreEstudios)
                         {{ $inscripcion->padreEstudios->nivel_estudios }}
+                        @else
+                        -
+                        @endif
                     </td>
                 </tr>
 
@@ -393,7 +397,12 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
                         @endforeach
                     </td>
                     <td>Categoría Ocupacional: 
-                        {{ $inscripcion->padreCategoriaOcupacional->categoria }}</td>
+                        @if($inscripcion->padreCategoriaOcupacional)
+                        {{ $inscripcion->padreCategoriaOcupacional->categoria }}
+                        @else
+                        -
+                        @endif
+                    </td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="2"> <label>Descripción de la labor que realiza: <span class="text-danger">*</span></label>
@@ -421,7 +430,11 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
                     </td></tr>
                 <tr class="opcional depende">
                     <td colspan="2"><label>Estudios de la MADRE: <span class="text-danger">*</span></label>
+                        @if($inscripcion->madreEstudios)
                         {{ $inscripcion->madreEstudios->nivel_estudios }}
+                        @else
+                        -
+                        @endif
                     </td>
                 </tr>
 
@@ -436,7 +449,11 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
                         @endforeach
                     </td>
                     <td style="font-weight: bold">Categoría Ocupacional: <span class="text-danger">*</span>
+                        @if($inscripcion->madreCategoriaOcupacional)
                         {{ $inscripcion->madreCategoriaOcupacional->categoria }}
+                         @else
+                        -
+                        @endif
                 </tr>
                 <tr class="opcional">
                     <td colspan="2"> <label>Detalle de la labor que realiza: <span class="text-danger">*</span></label>
