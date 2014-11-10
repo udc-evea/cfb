@@ -34,8 +34,10 @@ class OfertasInscripcionesController extends BaseController {
      * @return Response
      */
     public function create($oferta_id) {
-        $oferta = Oferta::findOrFail($oferta_id);
-        if (!$oferta->permite_inscripciones) {
+        $oferta = Oferta::find($oferta_id);
+        if (!$oferta) {
+            return View::make('errors.oferta_inexistente');
+        } elseif(!$oferta->permite_inscripciones) {
             return View::make('inscripciones.cerradas')->withoferta($oferta);
         }
 

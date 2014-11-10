@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array(gethostname(), 'devCMS110244'),
+	'local' => array('HP-ProBook-mppfiles', 'devCMS110244'),
 
 ));
 
