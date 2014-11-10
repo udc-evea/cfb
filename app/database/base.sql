@@ -582,6 +582,19 @@ INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTe
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Gaiman', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Puerto Madryn', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (99, 'Otra', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Comodoro Rivadavia', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Las Plumas', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Paso de Indios', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Esquel', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Dique F. Ameghino', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Sarmiento', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Rada Tilly', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Dolavon', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'El Maitén', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Gobernador Costa', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Lago Puelo', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Playa Unión', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Río Mayo', NULL, NULL, NULL, NULL);
 
 COMMIT;
 
@@ -609,11 +622,30 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cfb`;
-INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Chubut');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (1, 'Chubut');
 INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Santa Cruz');
 INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Córdoba');
 INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Buenos Aires');
 INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (99, 'Otra');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Tierra del Fuego');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Río Negro');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'La Pampa');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Corrientes');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Entre Ríos');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Misiones');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Neuquén');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Mendoza');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'San Luis');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'San Juan');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'La Rioja');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Tucumán');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Catamarca');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Jujuy');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Salta');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Formosa');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Santiago del Estero');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Santa Fe');
+INSERT INTO `cfb`.`repo_provincia` (`id`, `provincia`) VALUES (NULL, 'Chaco');
 
 COMMIT;
 
@@ -636,13 +668,22 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cfb`;
-INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Argentina');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (1, 'Argentina');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Chile');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Colombia');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Bolivia');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Perú');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Cuba');
 INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (99, 'Otro');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Paraguay');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Uruguay');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'España');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Francia');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Alemania');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Italia');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Portugal');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'México');
+INSERT INTO `cfb`.`repo_pais` (`id`, `nombre`) VALUES (NULL, 'Estados Unidos');
 
 COMMIT;
 

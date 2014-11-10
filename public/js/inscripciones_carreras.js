@@ -1,10 +1,12 @@
 var InscripcionesCarrerasModule = {
     init: function(oferta_id)
     {
-        self.ID_OTRA = 99;
+        var self = this;
+        
+        self.ID_OTRA      = 99;
+        self.ID_CHUBUT    = 1;
         self.ID_ARGENTINA = 1;
         
-        var self = this;
         self.oferta_id = oferta_id;
         
         self.initIDs();
@@ -67,35 +69,44 @@ var InscripcionesCarrerasModule = {
     },
     
     initPaises: function() {
-        var self = this;
-        return;
-        $('.pais').on('change', function() {
-            var $pais = $(this);
-            var $pcia = $this.closest(".ubicacion_geo").find("provincia");
-            var $loc  = $this.closest(".ubicacion_geo").find("localidad");
-            
-            if($pais.val() != self.ID_ARGENTINA && $pais.val() !== '') {
-                $pcia.val(self.ID_OTRA);
-                $loc.val(self.ID_OTRA);
-            } else {
-                $pcia.val("");
-                $loc.val("");
-            }
-        });
-        
-        $('.provincia').on('change', function() {
-            var $pcia = $(this);
-            var $pais = $this.closest(".ubicacion_geo").find("pais");
-            var $loc  = $this.closest(".ubicacion_geo").find("localidad");
-            
-            if($pcia.val() != self.ID_CHUBUT && $pcia.val() !== '') {
-                $pais.val(self.ID_OTRA);
-                $loc.val(self.ID_OTRA);
-            } else {
-                $pcia.val("");
-                $loc.val("");
-            }
-        });
+//        var self = this;
+//
+//        $('.pais').on('change', function() {
+//            var $this = $(this);
+//            var $pais = $this;
+//            var $pcia = $("#"+$this.data("pcia"));
+//            
+//            if($pais.val() === self.ID_ARGENTINA) { //argentina?
+//                if($pcia.val() === self.ID_OTRA) $pcia.val(""); $pcia.trigger("change"); //...le saco el "otra"
+//            } else if($pais.val() !== '') { //extranjero?
+//                $pcia.val(self.ID_OTRA);    //: 'otra'
+//            }
+//        });
+//        
+//        $('.provincia').on('change', function() {
+//            var $this = $(this);
+//            var $pcia = $this;
+//            var $pais = $("#"+$this.data("pais"));
+//            var $loc = $("#"+$this.data("loc"));
+//            
+//            if($pcia.val() === self.ID_CHUBUT) {    //chubut?
+//                $pais.val(self.ID_ARGENTINA);       //...argentina
+//            } else if($pcia.val() == self.ID_OTRA) {    //otra pcia?
+//                $pais.val(self.ID_OTRA);                //...otro pais
+//            }
+//        });
+//        
+//        $('.localidad').on('change', function() {
+//            var $this = $(this);
+//            var $pcia = $("#"+$this.data("pcia"));
+//            var $pais = $("#"+$pcia.data("pais"));
+//            var $loc  = $this;
+//            
+//            if($loc.val() !== '' && $loc.val() !== self.ID_OTRA) {    //loc. de chubut?
+//                $pcia.val(self.ID_CHUBUT);          //...chubut
+//                $pais.val(self.ID_ARGENTINA);       //...y argentina
+//            }
+//        });
     },
 
     initSituacionLaboral: function() {

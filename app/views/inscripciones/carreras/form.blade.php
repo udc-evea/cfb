@@ -88,7 +88,7 @@
                         <div class="col-md-12"> <label>Nacido en</label>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Localidad<span class="text-danger">*</span></label> {{ Form::select('localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra']) }}
+                                    <label>Localidad<span class="text-danger">*</span></label> {{ Form::select('localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra localidad', 'data-pcia' => 'localidad_pcia_id']) }}
                                     {{ Form::text('localidad_otra', null, ['class' => 'form-control input-sm otra_localidad_id hide']) }}
                                 </div>
                                 <div class="col-md-2">
@@ -98,12 +98,12 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Pcia.<span class="text-danger">*</span></label>
-                                    {{ Form::select('localidad_pcia_id', Provincia::select(), null, ['class' => 'form-control input-sm con_otra']) }}
+                                    {{ Form::select('localidad_pcia_id', Provincia::select(), null, ['class' => 'form-control input-sm con_otra provincia', 'data-pais' => 'localidad_pais_id']) }}
                                     {{ Form::text('localidad_pcia_otra', null, ['class' => 'form-control input-sm otra_localidad_pcia_id hide']) }}
                                 </div>
                                 <div class="col-md-3">
                                     <label>País<span class="text-danger">*</span></label> 
-                                    {{ Form::select('localidad_pais_id', Pais::select(), null, ['class' => 'form-control input-sm con_otra']) }}
+                                    {{ Form::select('localidad_pais_id', Pais::select(), null, ['class' => 'form-control input-sm con_otra pais', 'data-pcia' => 'localidad_pcia_id']) }}
                                     {{ Form::text('localidad_pais_otro', null, ['class' => 'form-control input-sm otra_localidad_pais_id hide']) }}
                                 </div>
                             </div>
