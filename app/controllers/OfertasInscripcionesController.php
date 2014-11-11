@@ -67,7 +67,7 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc) {
                     $message
                             ->to($insc->correo, $insc->inscripto)
-                            ->subject('CFB-UDC: Inscripción a ' . $oferta->nombre);
+                            ->subject('UDC:: Recibimos tu inscripción a ' . $oferta->nombre);
                 });
             } catch (Swift_TransportException $e) {
                 Log::info("No se pudo enviar correo a " . $insc->inscripto . " <" . $insc->correo . ">");
