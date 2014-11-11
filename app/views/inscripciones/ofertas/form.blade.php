@@ -37,7 +37,7 @@
     </div>
     <div class="panel-body">
     {{ Former::select('localidad_id')
-                ->fromQuery(Localidad::where('id', '<>', 99)->orderBy('localidad')->get(), 'localidad', 'id')
+                ->fromQuery(Localidad::orderBy('localidad')->get(), 'localidad', 'id')
                 ->value(Localidad::ID_RAWSON)
                 ->label('Localidad')
                 ->required() }}
