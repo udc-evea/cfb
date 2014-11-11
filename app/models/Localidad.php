@@ -1,7 +1,7 @@
 <?php
 
 class Localidad extends Eloquent {
-    const ID_RAWSON = 57;
+    const ID_RAWSON = 1;
     const ID_OTRA = 99;
     
     protected $guarded = array();
