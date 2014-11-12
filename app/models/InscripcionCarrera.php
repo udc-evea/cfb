@@ -28,7 +28,7 @@ class InscripcionCarrera extends Eloquent {
         'telefono_celular'   => 'required|integer|min:150000000',
         'email'             => 'required|email|confirmed|unique_with:inscripcion_carrera,oferta_formativa_id,email',
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
-        'domicilio_procedencia_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'domicilio_procedencia_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.]+$/',
         'domicilio_procedencia_nro'   => 'required|integer|min:0',
         'domicilio_procedencia_piso'  => 'integer|min:0',
         'domicilio_procedencia_depto' => 'alpha|size:1',
@@ -38,7 +38,7 @@ class InscripcionCarrera extends Eloquent {
         'domicilio_procedencia_pais_id'   => 'required|exists:repo_pais,id',
 
         'domicilio_clases_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
-        'domicilio_clases_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'domicilio_clases_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.]+$/',
         'domicilio_clases_nro'   => 'required|integer|min:0',
         'domicilio_clases_piso'  => 'integer|min:0',
         'domicilio_clases_depto' => 'alpha|size:1',
@@ -48,9 +48,9 @@ class InscripcionCarrera extends Eloquent {
         'domicilio_clases_pais_id'   => 'required|exists:repo_pais,id',
         'domicilio_clases_con_quien_vive_id'   => 'required|exists:con_quien_vive,id',
 
-        'secundario_titulo_obtenido' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚ0-9]+$/',
+        'secundario_titulo_obtenido' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚ0-9\.]+$/',
         'secundario_anio_egreso' => 'required|integer',
-        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.]+$/',
         'secundario_localidad_id' => 'required|exists:repo_localidad,id',
         'secundario_pcia_id'  => 'required|exists:repo_provincia,id',
         'secundario_pais_id'  => 'required|exists:repo_pais,id',
@@ -60,7 +60,7 @@ class InscripcionCarrera extends Eloquent {
         'situacion_laboral_ocupacion' => 'in:TEMPORAL,PERMANENTE',
         'situacion_laboral_relacion_trabajo_carrera' => 'in:TOTAL,PARCIAL,NINGUNA',
         'situacion_laboral_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        'situacion_laboral_detalle_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'situacion_laboral_detalle_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.\,]+$/',
         'situacion_laboral_horas_semana' => 'in:MENOS DE 20,ENTRE 21 Y 35,36 O MAS',
         'situacion_laboral_rama_id' => 'exists:rama_actividad_laboral,id',
 
@@ -68,14 +68,14 @@ class InscripcionCarrera extends Eloquent {
         'padre_vive' => 'in:SI,NO,NS/NC',
         'padre_estudios_id' => 'exists:repo_nivel_estudios,id',
         'padre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        'padre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'padre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.\,]+$/',
         'padre_ocupacion' => 'in:PERMANENTE,TEMPORARIA',
 
         'madre_apeynom' => 'required|between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'madre_vive' => 'required|in:SI,NO,NS/NC',
         'madre_estudios_id' => 'exists:repo_nivel_estudios,id',
         'madre_categoria_ocupacional_id' => 'exists:categoria_ocupacional,id',
-        'madre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9]+$/',
+        'madre_labor' => 'between:3,1000|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.\,]+$/',
         'madre_ocupacion' => 'in:PERMANENTE,TEMPORARIA'
     );
 
