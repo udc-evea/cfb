@@ -56,8 +56,8 @@ var MainModule = {
         $( "input.fecha" ).datepicker({
                 dateFormat: "dd/mm/yy", 
                 changeMonth: true,
-                changeYear: true,
-        }); 
+                changeYear: true
+        });
     }
 };
 

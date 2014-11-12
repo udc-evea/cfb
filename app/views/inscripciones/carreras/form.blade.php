@@ -23,9 +23,9 @@
 <div class="row">
     <div class="col-md-12">
         @if(is_null($obj))
-            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.nueva', $oferta->id], 'method' => 'POST', 'autocomplete' => 'off']) }}
+            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.nueva', $oferta->id], 'method' => 'POST', 'autocomplete' => 'off', 'id' => 'form_inscripcion']) }}
         @else
-            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.update', $oferta->id, $obj->id], 'method' => 'PUT', 'autocomplete' => 'off']) }}
+            {{ Form::model($obj, ['route' => ['ofertas.inscripciones.update', $oferta->id, $obj->id], 'method' => 'PUT', 'autocomplete' => 'off', 'id' => 'form_inscripcion']) }}
         @endif
      
      {{ Form::hidden('oferta_formativa_id', $oferta->id) }}   
@@ -438,7 +438,7 @@
             <a href="{{ $url }}" type="button" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-chevron-left"></span> Volver </a>
             <button type="reset" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-refresh"></span> Restablecer </button>
             <button type="submit" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-send"></span> Enviar inscripción</button>
-      </div> 
-  </div>
+        </div> 
     {{Form::close()}}
+    </div>
 </div>

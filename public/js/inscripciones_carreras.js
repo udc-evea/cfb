@@ -20,7 +20,7 @@ var InscripcionesCarrerasModule = {
     
     initIDs: function() {
         //a cada control le pongo como id su name (a la sf)
-        $('input[type=text], input[type=submit], input[type=radio], input[type=checkbox], select, textarea').each(function(){
+        $('form#form_inscripcion').find('input[type=text], input[type=submit], input[type=radio], input[type=checkbox], select, textarea').each(function(){
           $(this).prop("id", $(this).prop('name'));
         });
 
