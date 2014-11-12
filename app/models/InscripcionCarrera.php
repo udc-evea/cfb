@@ -14,7 +14,7 @@ class InscripcionCarrera extends Eloquent {
     public static $rules = array(
         'oferta_formativa_id'   => 'required|exists:oferta_formativa,id',
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
-        'documento' => 'required|integer|between:1000000,99999999|unique_with:inscripcion_carrera,oferta_formativa_id,tipo_documento_cod,documento',
+        'documento' => 'required|integer|between:1000000,9999999999|unique_with:inscripcion_carrera,oferta_formativa_id,tipo_documento_cod,documento',
         'apellido' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'sexo'   => 'required|in:M,F',
