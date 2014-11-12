@@ -32,11 +32,13 @@ class Oferta extends Eloquent implements StaplerableInterface {
         $this->hasAttachedFile('mail_bienvenida');
         
         Oferta::creating(function($model) {
-            $model->chequearDisponibilidad();
+            $model->chequearDisponibilidad();           //revisa siempre
         });
 
         Oferta::updating(function($model) {
-            $model->chequearDisponibilidad();
+            if($model->haCambiadoValor('inicio') || $model->haCambiadoValor('fin')) {
+                $model->chequearDisponibilidad();   //solo revisa al modificar las fechas
+            }
         });
 
         parent::__construct($attributes);
@@ -132,10 +134,13 @@ class Oferta extends Eloquent implements StaplerableInterface {
         return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);
     }
 
-    public function chequearDisponibilidad() {
-        if ($this->cupoSuficiente() && $this->fechasEnTermino() && !$this->permite_inscripciones) {
+    public function chequearDisponibilidad() 
+    {
+        if($this->haCambiadoValor('permite_inscripciones'))  return; //forzado, no chequeo nada.
+        
+        if ($this->cupoSuficiente() && $this->fechasEnTermino()) {
             $this->permite_inscripciones = true;
-        } elseif (($this->cupoExcedido() || $this->fechasFueraDeTermino()) && $this->permite_inscripciones) {
+        } elseif (($this->cupoExcedido() || $this->fechasFueraDeTermino())) {
             $this->permite_inscripciones = false;
         }
     }
@@ -177,6 +182,10 @@ class Oferta extends Eloquent implements StaplerableInterface {
         } else {
             return self::RES_FECHA_EN_CURSO;
         }
+    }
+    
+    public function haCambiadoValor($attr) {
+        return array_key_exists($attr, $this->getDirty());
     }
 
     public function getVistaMail() {
