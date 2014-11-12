@@ -112,21 +112,17 @@ var InscripcionesCarrerasModule = {
     initSituacionLaboral: function() {
         var $filas = $("table.situacion_laboral tr.opcional");
 
-        $('#situacion_laboral_TRABAJA, #situacion_laboral_DESOCUPADO').change(function() {
+        $('#situacion_laboral_TRABAJA').change(function() {
             if($(this).is(":checked")) {
-                //habilito los controles
-                $filas.find("input[type=radio], textarea").prop("disabled", null);
                 //muestro las filas de la table
                 $filas.show(0.5);
             }
         });
 
-        $('#situacion_laboral_NO_TRABAJA').change(function() {
+        $('#situacion_laboral_NO_TRABAJA, #situacion_laboral_DESOCUPADO').change(function() {
             if($(this).is(":checked")) {
-                //deshabilito y limpio los controles
-                $filas.find("input[type=radio]").prop("checked", null);
-                $filas.find("input[type=radio], textarea").prop("disabled", "disabled");
                 //limpio los controles
+                $filas.find("input[type=radio]").prop("checked", null);
                 $filas.find("select, textarea").val("");
                 //oculto las filas de la table
                 $filas.hide(0.5);

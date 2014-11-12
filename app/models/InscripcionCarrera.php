@@ -346,7 +346,7 @@ class InscripcionCarrera extends Eloquent {
             'situacion_laboral_detalle_labor',
             'situacion_laboral_horas_semana',
             'situacion_laboral_rama_id'], 'required', function($input) {
-                    return in_array($input->situacion_laboral, ['TRABAJA', 'DESOCUPADO']);
+                    return in_array($input->situacion_laboral, ['TRABAJA']);
         });
 
         $v->sometimes([
