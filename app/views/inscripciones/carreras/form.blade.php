@@ -259,9 +259,15 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <div class="col-md-12">
-                            <label>Nombre y Número del Colegio<span class="text-danger">*</span></label>
-                            {{ Form::text('secundario_nombre_colegio', null, [ 'class' => 'form-control input-sm']) }}
+                        <div class="row">
+                            <div class="col-md-9">
+                                <label>Nombre del Colegio<span class="text-danger">*</span></label>
+                                {{ Form::text('secundario_nombre_colegio', null, [ 'class' => 'form-control input-sm']) }} 
+                            </div>
+                            <div class="col-md-2">
+                                <label>N°</label>
+                                {{ Form::text('secundario_numero_colegio', null, [ 'class' => 'form-control input-sm']) }}  
+                            </div>
                         </div>
                     </td>
                     <td style="font-weight: bold"> Tipo de Establec.:<span class="text-danger">*</span>

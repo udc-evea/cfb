@@ -50,7 +50,8 @@ class InscripcionCarrera extends Eloquent {
 
         'secundario_titulo_obtenido' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚ0-9\.]+$/',
         'secundario_anio_egreso' => 'required|integer',
-        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.]+$/',
+        'secundario_nombre_colegio' => 'required|between:3,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',
+        'secundario_numero_colegio' => 'integer',
         'secundario_localidad_id' => 'required|exists:repo_localidad,id',
         'secundario_pcia_id'  => 'required|exists:repo_provincia,id',
         'secundario_pais_id'  => 'required|exists:repo_pais,id',
