@@ -21,13 +21,13 @@ class Inscripcion extends Eloquent {
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
         
-        'email'    => 'required|email|unique_with:inscripcion_oferta,oferta_formativa_id,email',
+        'email'    => 'required|email|confirmed|unique_with:inscripcion_oferta,oferta_formativa_id,email',
         'telefono'  => 'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/'
     );
     
-    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento'];
+    public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'email_confirmation'];
     public static $mensajes = ['unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.'];
     
     public function oferta()
