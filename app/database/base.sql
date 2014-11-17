@@ -382,6 +382,7 @@ CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_carrera` (
   `secundario_titulo_obtenido` VARCHAR(200) NOT NULL,
   `secundario_anio_egreso` YEAR NOT NULL,
   `secundario_nombre_colegio` VARCHAR(255) NOT NULL,
+  `secundario_numero_colegio` INT UNSIGNED NULL DEFAULT NULL,
   `secundario_localidad_id` INT UNSIGNED NOT NULL,
   `secundario_localidad_otra` VARCHAR(100) NULL,
   `secundario_pcia_id` INT UNSIGNED NOT NULL,
@@ -545,7 +546,7 @@ INSERT INTO `cfb`.`inscripcion_como_te_enteraste` (`id`, `descripcion`) VALUES (
 INSERT INTO `cfb`.`inscripcion_como_te_enteraste` (`id`, `descripcion`) VALUES (NULL, 'TV');
 INSERT INTO `cfb`.`inscripcion_como_te_enteraste` (`id`, `descripcion`) VALUES (NULL, 'Visita en las escuelas');
 INSERT INTO `cfb`.`inscripcion_como_te_enteraste` (`id`, `descripcion`) VALUES (NULL, 'Web institucional');
-INSERT INTO `cfb`.`inscripcion_como_te_enteraste` (`id`, `descripcion`) VALUES (NULL, 'Otro');
+INSERT INTO `cfb`.`inscripcion_como_te_enteraste` (`id`, `descripcion`) VALUES (99, 'Otro');
 
 COMMIT;
 
@@ -577,7 +578,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cfb`;
-INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Rawson', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (1, 'Rawson', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Trelew', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Gaiman', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Puerto Madryn', NULL, NULL, NULL, NULL);
@@ -595,6 +596,7 @@ INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTe
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Lago Puelo', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Playa Unión', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Río Mayo', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, '28 de Julio', NULL, NULL, NULL, NULL);
 
 COMMIT;
 
