@@ -55,4 +55,3 @@
 @else
 No hay ofertas registradas.
 @endif
-{{ link_to_route('ofertas.create', 'Crear nueva', null, array('class' => 'btn btn-primary')) }}

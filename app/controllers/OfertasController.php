@@ -35,6 +35,9 @@ class OfertasController extends BaseController {
 	public function create()
 	{
 		$tipos_oferta = TipoOferta::orderBy('descripcion')->get();
+                if(!Session::get('errors')) {
+                    Session::set('tab_activa', Input::get('tab_activa', 'ofertas'));
+                }
 
 		return View::make('ofertas.create')->with(compact('tipos_oferta'));
 	}
@@ -53,9 +56,12 @@ class OfertasController extends BaseController {
 
 		if ($validation->passes())
 		{
-                    $this->oferta->create($input);
+                    $this->oferta = $this->oferta->create($input);
 
-			return Redirect::route('ofertas.index');
+                    $tab = ($this->oferta->esCarrera) ? 'carreras' : 'ofertas';
+                    Session::set('tab_activa', $tab);
+
+                    return Redirect::route('ofertas.index');
 		}
 
 		return Redirect::route('ofertas.create')
@@ -89,6 +95,9 @@ class OfertasController extends BaseController {
 		{
 			return Redirect::route('ofertas.index');
 		}
+                $tab = ($this->oferta->esCarrera) ? 'carreras' : 'ofertas';
+                Session::set('tab_activa', $tab);
+                
 		$tipos_oferta = TipoOferta::all();
 		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'));
 	}
@@ -111,8 +120,11 @@ class OfertasController extends BaseController {
 			$oferta = $this->oferta->find($id);
                         $oferta->fill($input);
 			$oferta->save();
-
-			return Redirect::route('ofertas.index');
+                        
+                        $tab = ($oferta->esCarrera) ? 'carreras' : 'ofertas';
+                        Session::set('tab_activa', $tab);
+			
+                        return Redirect::route('ofertas.index');
 		}
 
 		return Redirect::route('ofertas.edit', $id)
@@ -129,10 +141,20 @@ class OfertasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->oferta->find($id)->delete();
-
+		$this->oferta = $this->oferta->find($id);
+                
+                if(!$this->oferta) {
+                    return Redirect::route('ofertas.index')
+                        ->with('message', 'No se pudo encontrar la oferta especificada');
+                }
+                
+                $tab = ($this->oferta->esCarrera) ? 'carreras' : 'ofertas';
+                Session::set('tab_activa', $tab);
+                
+                $this->oferta->delete();
+                
 		return Redirect::route('ofertas.index')
-                        ->with('message', 'Se eliminó el registro correctamente.');;
+                        ->with('message', 'Se eliminó el registro correctamente.');
 	}
 
 	/**

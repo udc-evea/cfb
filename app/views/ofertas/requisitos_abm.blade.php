@@ -1,3 +1,5 @@
+<?php $index_params = $oferta->esCarrera ? ['tab' => 2] : [];?>
+
 {{ HTML::script('js/ofertas.js') }}
 
 {{ Former::horizontal_open()
@@ -33,7 +35,7 @@
     <div class="form-group form-group-lg">
         <div class="col-sm-6 col-sm-offset-2">
             <div class="input-group">
-                <a href="{{ route('ofertas.index') }}" class="form-control btn btn-link btn-lg">Volver</a>
+                <a href="{{ route('ofertas.index', $index_params) }}" class="form-control btn btn-link btn-lg">Volver</a>
             </div>
         </div>
     </div>
