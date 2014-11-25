@@ -235,9 +235,19 @@ class InscripcionCarrera extends Eloquent {
         return $this->belongsTo('RamaActividadLaboral', 'situacion_laboral_rama_id');
     }
     
+    public function getLaRamaActividadAttribute()
+    {
+        return $this->ramaActividad ? $this->ramaActividad->descripcion : '-';
+    }
+    
     public function categoriaOcupacional()
     {
         return $this->belongsTo('CategoriaOcupacional', 'situacion_laboral_categoria_ocupacional_id');
+    }
+    
+    public function getLaCategoriaOcupacional()
+    {
+        return $this->categoriaOcupacional ? $this->categoriaOcupacional->categoria : '-';
     }
     
     public function padreCategoriaOcupacional()

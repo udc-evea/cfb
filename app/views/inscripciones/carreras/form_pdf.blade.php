@@ -347,10 +347,10 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
 
                 <tr class="opcional">
                     <td><label>Rama de la actividad económica: <span class="text-danger">*</span></label>
-                        {{ $inscripcion->ramaActividad->descripcion }}
+                        {{ $inscripcion->laRamaActividad }}
                     </td>
                     <td> <label>Categoría Ocupacional: <span class="text-danger">*</span></label>
-                        {{ $inscripcion->categoriaOcupacional->categoria }}
+                        {{ $inscripcion->laCategoriaOcupacional }}
                     </td>
                 </tr>
                 <tr class="opcional">
