@@ -129,7 +129,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="col-sm-12"><label>Teléfono fijo</label> {{ Form::text('telefono_fijo', null, ['class' => 'form-control input-sm']) }}</div>
+                        <div class="col-sm-12"><label>Teléfono fijo<span class="text-danger">*</span></label> {{ Form::text('telefono_fijo', null, ['class' => 'form-control input-sm']) }}</div>
                     </td>
                     <td>
                         <div class="col-sm-12"><label>Teléfono Celular<span class="text-danger">*</span></label> {{ Form::text('telefono_celular', null, [ 'class' => 'form-control input-sm']) }}</div>
