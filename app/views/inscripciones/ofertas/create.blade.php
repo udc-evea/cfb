@@ -1,5 +1,5 @@
 @extends('layouts.inscripciones_publico')
-@section('title', 'Inscripción a: '.$oferta->nombre.' - CFB')
+@section('title', 'Inscripción a: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
 
 <div class="row">

@@ -14,7 +14,7 @@
         <p>En breve nos pondremos en contacto contigo.</p>
         <p>Atentamente,</p>
         <p>&nbsp;</p>
-        <p>Centro de Formación Bimodal</p>
+        <p>Universidad del Chubut</p>
         <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2014 UDC :: Derechos Reservados.<br>
 Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.</p>
       </body>

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>@yield('title', 'UDC-CFB')</title>
+        <title>@yield('title', 'Inscripciones - Universidad del Chubut')</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         @include('layouts.assets')
     </head>

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>UDC :: CFB</title>
+        <title>Error - Universidad del Chubut</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" href="/favicon.png?v=2">
         <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}" media="all">

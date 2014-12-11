@@ -1,5 +1,5 @@
 @extends('layouts.scaffold')
-@section('title', 'Oferta: '.$oferta->nombre.' - CFB')
+@section('title', 'Oferta: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
 
 <div class="row">

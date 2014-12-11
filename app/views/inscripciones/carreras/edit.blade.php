@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Inscripción de: '.$inscripcion->inscripto.' en: '.$oferta->nombre.' - CFB')
+@section('title', 'Inscripción de: '.$inscripcion->inscripto.' en: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
 <div class="row">
     <div class="col-md-10 col-md-offset-2">

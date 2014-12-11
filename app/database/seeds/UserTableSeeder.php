@@ -7,7 +7,7 @@ class UserTableSeeder extends Seeder
 	{
 		DB::table('cfb_users')->delete();
 		User::create(array(
-			'nombre'     => 'Administrador CFB',
+			'nombre'     => 'Administrador inscripciones',
 			'username'   => 'cfb',
 			//'email'    => 'chris@scotch.io',
 			'password'   => Hash::make('cfb'),

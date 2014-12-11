@@ -1,5 +1,5 @@
 @extends('layouts.layout_form')
-@section('title', 'Inscripción en: '.$oferta->nombre.' - CFB')
+@section('title', 'Inscripción en: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
 <link rel="stylesheet" href="{{asset('css/form_print.css')}}" media="print">
 

@@ -1,6 +1,6 @@
 <?php $tab_activa = Session::get('tab_activa', 'ofertas');?>
 @extends('layouts.scaffold')
-@section('title', 'Ofertas Formativas - CFB')
+@section('title', 'Ofertas Formativas - Universidad del Chubut')
 @section('main')
 <div class="container">
 <!-- Header -->

@@ -1,6 +1,6 @@
-## Centro de Formación Bimodal
+## Inscripciones UDC
 
-Proyecto para el CFB de la Universidad del Chubut, hecho con [Laravel](http://laravel.com).
+Gestor de inscripciones de la Universidad del Chubut, hecho con [Laravel](http://laravel.com).
 
 ### Instalación
 

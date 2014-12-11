@@ -1,5 +1,5 @@
 @extends('layouts.scaffold')
-@section('title', 'Inscripción de: '.$inscripcion->inscripto.' en: '.$oferta->nombre.' - CFB')
+@section('title', 'Inscripción de: '.$inscripcion->inscripto.' en: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
 
 <div class="row">
