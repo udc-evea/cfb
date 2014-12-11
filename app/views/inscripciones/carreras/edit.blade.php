@@ -3,7 +3,7 @@
 @section('main')
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>{{ $inscripcion->inscripto }} en: {{ $inscripcion->oferta->nombre }}</h1>
+        <h1>{{ $inscripcion->inscripto }} - {{ $inscripcion->oferta->nombre }}</h1>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
