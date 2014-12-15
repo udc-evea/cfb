@@ -442,15 +442,15 @@ class InscripcionCarrera extends Eloquent {
     {
         parent::boot();
 
-        Inscripcion::created(function($inscripcion){
+        InscripcionCarrera::created(function($inscripcion){
             $inscripcion->oferta->chequearDisponibilidad();
         });
 
-        Inscripcion::updated(function($inscripcion){
+        InscripcionCarrera::updated(function($inscripcion){
             $inscripcion->oferta->chequearDisponibilidad();
         });
 
-        Inscripcion::deleted(function($inscripcion){
+        InscripcionCarrera::deleted(function($inscripcion){
             $inscripcion->oferta->chequearDisponibilidad();
         });
     }

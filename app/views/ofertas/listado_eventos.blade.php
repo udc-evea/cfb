@@ -1,4 +1,4 @@
-@if ($carreras->count())
+@if ($eventos->count())
 <table class="table table-striped">
     <thead>
         <tr>
@@ -13,7 +13,7 @@
     </thead>
 
     <tbody>
-        @foreach ($carreras as $item)
+        @foreach ($eventos as $item)
         <tr>
             <td>{{ $item->nombre }}</td>
             <td>{{ $item->anio }}</td>

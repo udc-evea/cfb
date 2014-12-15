@@ -12,7 +12,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
     const RES_FECHA_YA_TERMINO = 1;
     const RES_FECHA_EN_CURSO = 0;
     const TIPO_CARRERA = 1;
-    const TIPO_OFERTA = 2;
+    const TIPO_CURSO = 2;
+    const TIPO_EVENTO = 3;
 
     protected $guarded = array();
     
@@ -76,7 +77,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function getViewAttribute() {
         switch ($this->tipo_oferta) {
             case self::TIPO_CARRERA: return 'carreras';
-            case self::TIPO_OFERTA: return 'ofertas';
+            case self::TIPO_CURSO: return 'ofertas';
         }
     }
 
@@ -85,12 +86,12 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
 
     public function getEsOfertaAttribute() {
-        return $this->tipo_oferta == self::TIPO_OFERTA;
+        return $this->tipo_oferta == self::TIPO_CURSO;
     }
 
-    public function scopeSinCarreras($query) {
+    public function scopeCursos($query) {
         return $query
-                        ->where('tipo_oferta', '=', self::TIPO_OFERTA)
+                        ->where('tipo_oferta', '=', self::TIPO_CURSO)
                         ->orderBy('anio', 'desc')
                         ->orderBy('nombre');
     }
@@ -98,6 +99,13 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function scopeCarreras($query) {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_CARRERA)
+                        ->orderBy('anio', 'desc')
+                        ->orderBy('nombre');
+    }
+    
+    public function scopeEventos($query) {
+        return $query
+                        ->where('tipo_oferta', '=', self::TIPO_EVENTO)
                         ->orderBy('anio', 'desc')
                         ->orderBy('nombre');
     }

@@ -53,5 +53,5 @@
     </tbody>
 </table>
 @else
-No hay ofertas registradas.
+<div class="alert alert-info">Sin resultados.</div>
 @endif

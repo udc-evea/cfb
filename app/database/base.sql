@@ -108,6 +108,50 @@ COMMENT = 'Localidades de Argentina';
 
 
 -- -----------------------------------------------------
+-- Table `cfb`.`inscripcion_evento`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cfb`.`inscripcion_evento` ;
+
+CREATE TABLE IF NOT EXISTS `cfb`.`inscripcion_evento` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `oferta_formativa_id` INT(10) UNSIGNED NOT NULL,
+  `tipo_documento_cod` CHAR(3) NOT NULL,
+  `estado_inscripcion` INT(10) UNSIGNED NOT NULL DEFAULT '1',
+  `documento` INT(10) UNSIGNED NOT NULL,
+  `apellido` VARCHAR(100) NOT NULL,
+  `nombre` VARCHAR(100) NOT NULL,
+  `fecha_nacimiento` DATE NOT NULL,
+  `localidad_id` INT(10) UNSIGNED NOT NULL,
+  `localidad_otra` VARCHAR(100) NULL DEFAULT NULL,
+  `email` VARCHAR(80) NOT NULL,
+  `telefono` VARCHAR(50) NOT NULL,
+  `como_te_enteraste` INT(10) UNSIGNED NOT NULL,
+  `como_te_enteraste_otra` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_inscripcion_evento_oferta_formativa1_idx` (`oferta_formativa_id` ASC),
+  INDEX `fk_inscripcion_evento_inscripcion_como_te_enteraste1_idx` (`como_te_enteraste` ASC),
+  INDEX `fk_inscripcion_evento_repo_localidad1_idx` (`localidad_id` ASC),
+  CONSTRAINT `fk_inscripcion_evento_oferta_formativa1`
+    FOREIGN KEY (`oferta_formativa_id`)
+    REFERENCES `cfb`.`oferta_formativa` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_inscripcion_evento_inscripcion_como_te_enteraste1`
+    FOREIGN KEY (`como_te_enteraste`)
+    REFERENCES `cfb`.`inscripcion_como_te_enteraste` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_inscripcion_evento_repo_localidad1`
+    FOREIGN KEY (`localidad_id`)
+    REFERENCES `cfb`.`repo_localidad` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_swedish_ci;
+
+
+-- -----------------------------------------------------
 -- Table `cfb`.`repo_nivel_estudios`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cfb`.`repo_nivel_estudios` ;
@@ -558,6 +602,7 @@ START TRANSACTION;
 USE `cfb`;
 INSERT INTO `cfb`.`tipo_oferta_formativa` (`id`, `descripcion`, `icono`) VALUES (NULL, 'Carrera Presencial', 'fa-university');
 INSERT INTO `cfb`.`tipo_oferta_formativa` (`id`, `descripcion`, `icono`) VALUES (NULL, 'Curso/Taller', 'fa-graduation-cap');
+INSERT INTO `cfb`.`tipo_oferta_formativa` (`id`, `descripcion`, `icono`) VALUES (NULL, 'Evento', 'fa-calendar');
 
 COMMIT;
 
@@ -597,6 +642,7 @@ INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTe
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Playa Unión', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Río Mayo', NULL, NULL, NULL, NULL);
 INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, '28 de Julio', NULL, NULL, NULL, NULL);
+INSERT INTO `cfb`.`repo_localidad` (`id`, `localidad`, `codigoPostal`, `codigoTelArea`, `latitud`, `longitud`) VALUES (NULL, 'Trevelin', NULL, NULL, NULL, NULL);
 
 COMMIT;
 
