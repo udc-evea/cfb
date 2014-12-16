@@ -10,7 +10,7 @@
         	<div class="alert alert-danger">
         	    <ul>
                     {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-                    </ul>
+                </ul>
         	</div>
         @endif
     </div>
@@ -29,4 +29,7 @@
         @include('inscripciones.requisitos_abm', array('obj'=>$oferta))
     </div>
 </div>
+@stop
+
+
 @stop

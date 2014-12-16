@@ -3,15 +3,14 @@
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
-                   <table class="table table-hover table-condensed">
-                       <thead>
-                           <tr>
-                               <th>Requisito</th>
-                               <th>Fecha</th>
-                               
-                           </tr>
-                       </thead>
-                       <tbody>
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Requisito</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             @foreach($requisitos as $requisito)
                             <tr>
                                 <td>
@@ -24,10 +23,10 @@
                                 <td class="area_requisito">
                                     @include('requisitos.itempresentado')
                                 </td>
-                           </tr>
+                            </tr>
                             @endforeach
-                       </tbody>
-                   </table>
+                        </tbody>
+                    </table>
                 </div>
             </div> 
         </div>
@@ -41,6 +40,3 @@
         </div>
     </div>
 </div>
-<style type="text/css">
-    div.lista-requisitos { margin-top: 10px; }
-</style>

@@ -48,8 +48,10 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function getInscripcionModelClassAttribute() {
         if ($this->esCarrera) {
             return 'InscripcionCarrera';
-        } else {
+        } elseif($this->esOferta) {
             return 'Inscripcion';
+        } elseif($this->esEvento) {
+            return 'InscripcionEvento';
         }
     }
 
@@ -65,20 +67,34 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->with('localidad')
                             ->orderBy('apellido')
                             ->orderBy('nombre');
-        } else {
+        } elseif($this->esOferta) {
             return $this
                             ->hasMany('Inscripcion', 'oferta_formativa_id')
                             ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+            
+        } elseif($this->esEvento) {
+            return $this
+                            ->hasMany('InscripcionEvento', 'oferta_formativa_id')
+                            ->with('localidad', 'rel_como_te_enteraste')
                             ->orderBy('apellido')
                             ->orderBy('nombre');
         }
     }
 
     public function getViewAttribute() {
-        switch ($this->tipo_oferta) {
-            case self::TIPO_CARRERA: return 'carreras';
-            case self::TIPO_CURSO: return 'ofertas';
+        if ($this->esCarrera) {
+            return 'carreras';
+        } elseif($this->esOferta) {
+            return 'ofertas';
+        } elseif($this->esEvento) {
+            return 'eventos';
         }
+    }
+    
+    public function getTabAttribute() {
+        return $this->view;
     }
 
     public function getEsCarreraAttribute() {
@@ -87,6 +103,10 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function getEsOfertaAttribute() {
         return $this->tipo_oferta == self::TIPO_CURSO;
+    }
+    
+    public function getEsEventoAttribute() {
+        return $this->tipo_oferta == self::TIPO_EVENTO;
     }
 
     public function scopeCursos($query) {

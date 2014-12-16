@@ -1,6 +1,6 @@
 <?php
 
-class Inscripcion extends Eloquent {
+class InscripcionEvento extends Eloquent {
     protected $guarded = array();
 
     protected $table = 'inscripcion_evento';

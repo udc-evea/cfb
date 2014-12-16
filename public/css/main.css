@@ -43,3 +43,10 @@ html {
     border-top-color:#e67e22;
     border-top-style:solid;
 }
+
+/* ABM Presentación de Requisitos: botones de ancho fijo */
+td.area_requisito .btn {width: 70px}
+
+ul.requisitos li span {display: inline-block; width: 80px;}
+ul.requisitos li:hover {background-color: #fdf59a;}
+#tabs {margin-bottom: 15px;}

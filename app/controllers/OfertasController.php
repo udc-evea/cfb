@@ -59,8 +59,7 @@ class OfertasController extends BaseController {
 		{
                     $this->oferta = $this->oferta->create($input);
 
-                    $tab = ($this->oferta->esCarrera) ? 'carreras' : 'ofertas';
-                    Session::set('tab_activa', $tab);
+                    Session::set('tab_activa', $this->oferta->tab);
 
                     return Redirect::route('ofertas.index');
 		}
@@ -96,8 +95,8 @@ class OfertasController extends BaseController {
 		{
 			return Redirect::route('ofertas.index');
 		}
-                $tab = ($this->oferta->esCarrera) ? 'carreras' : 'ofertas';
-                Session::set('tab_activa', $tab);
+                
+                Session::set('tab_activa', $oferta->tab);
                 
 		$tipos_oferta = TipoOferta::all();
 		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'));
@@ -122,8 +121,7 @@ class OfertasController extends BaseController {
                         $oferta->fill($input);
 			$oferta->save();
                         
-                        $tab = ($oferta->esCarrera) ? 'carreras' : 'ofertas';
-                        Session::set('tab_activa', $tab);
+                        Session::set('tab_activa', $oferta->tab);
 			
                         return Redirect::route('ofertas.index');
 		}
@@ -142,17 +140,16 @@ class OfertasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->oferta = $this->oferta->find($id);
+		$oferta = $this->oferta->find($id);
                 
-                if(!$this->oferta) {
+                if(!$oferta) {
                     return Redirect::route('ofertas.index')
                         ->with('message', 'No se pudo encontrar la oferta especificada');
                 }
                 
-                $tab = ($this->oferta->esCarrera) ? 'carreras' : 'ofertas';
-                Session::set('tab_activa', $tab);
+                Session::set('tab_activa', $oferta->tab);
                 
-                $this->oferta->delete();
+                $oferta->delete();
                 
 		return Redirect::route('ofertas.index')
                         ->with('message', 'Se eliminó el registro correctamente.');
