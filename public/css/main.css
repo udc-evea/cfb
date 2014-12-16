@@ -47,6 +47,6 @@ html {
 /* ABM Presentación de Requisitos: botones de ancho fijo */
 td.area_requisito .btn {width: 70px}
 
-ul.requisitos li span {display: inline-block; width: 80px;}
+ul.requisitos li span {display: inline-block; width: 250px;}
 ul.requisitos li:hover {background-color: #fdf59a;}
 #tabs {margin-bottom: 15px;}
