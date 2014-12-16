@@ -12,22 +12,20 @@ class InscripcionEvento extends Eloquent {
     public static $rules = array(
         'oferta_formativa_id'   => 'required|exists:oferta_formativa,id',
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
-        'documento' => 'required|integer|between:1000000,999999999|unique_with:inscripcion_oferta,tipo_documento_cod,documento',
+        'documento' => 'required|integer|between:1000000,999999999|unique_with:inscripcion_evento,tipo_documento_cod,documento',
         'apellido' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'localidad_id' => 'required|exists:repo_localidad,id',
-        
-        'localidad_anios_residencia'    => 'required|integer|min:1',
-        
-        'email'    => 'required|email|confirmed|unique_with:inscripcion_oferta,oferta_formativa_id,email',
+       
+        'email'    => 'required|email|confirmed|unique_with:inscripcion_evento,oferta_formativa_id,email',
         'telefono'  => 'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/'
     );
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'email_confirmation'];
-    public static $mensajes = ['unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.'];
+    public static $mensajes = ['unique_with' => 'Los datos ingresados ya se corresponden con un inscripto en esta oferta.'];
     
     public function oferta()
     {

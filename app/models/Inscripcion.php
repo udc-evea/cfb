@@ -28,7 +28,7 @@ class Inscripcion extends Eloquent {
     );
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'email_confirmation'];
-    public static $mensajes = ['unique_with' => 'El e-mail ingresado ya corresponde a un inscripto en este oferta.'];
+    public static $mensajes = ['unique_with' => 'Los datos ingresados ya se corresponden con un inscripto en esta oferta.'];
     
     public function oferta()
     {

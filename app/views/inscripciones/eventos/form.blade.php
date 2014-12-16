@@ -43,7 +43,6 @@
                 ->addClass('con_otra')
                 ->required() }}
     {{ Former::text('localidad_otra')->label('Otra')->addGroupClass('otra_localidad_id hide') }}
-    {{ Former::number('localidad_anios_residencia')->label('Años de residencia')->required() }}
     </div>
 </div>
 <div class="panel panel-default">
