@@ -160,17 +160,17 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function getPermiteInscripcionesAttribute() {
         return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);
-    }
+    }        
 
     public function chequearDisponibilidad() 
     {
         if($this->haCambiadoValor('permite_inscripciones'))  return; //forzado, no chequeo nada.
-        
-        if ($this->cupoSuficiente() && $this->fechasEnTermino()) {
-            $this->permite_inscripciones = true;
-        } elseif (($this->cupoExcedido() || $this->fechasFueraDeTermino())) {
-            $this->permite_inscripciones = false;
-        }
+                                
+            if ($this->cupoSuficiente() && $this->fechasEnTermino()) {
+                $this->permite_inscripciones = true;
+            } elseif (($this->cupoExcedido() || $this->fechasFueraDeTermino())) {
+                $this->permite_inscripciones = false;
+            }                    
     }
 
     public function cupoExcedido() {
@@ -188,7 +188,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
 
     public function fechasEnTermino() {
-        return in_array($this->chequearFechas(), [self::RES_FECHA_EN_CURSO, self::RES_FECHA_TODAVIA_NO_EMPEZO]);
+        //return in_array($this->chequearFechas(), [self::RES_FECHA_EN_CURSO, self::RES_FECHA_TODAVIA_NO_EMPEZO]); //linea original
+        return in_array($this->chequearFechas(), [self::RES_FECHA_EN_CURSO]);
     }
 
     public function fechasFueraDeTermino() {
@@ -231,5 +232,45 @@ class Oferta extends Eloquent implements StaplerableInterface {
         } elseif (strpos($fecha, '-') !== FALSE) {
             return 'Y-m-d';
         }
+    }
+    
+    //agrego el primer campo: Tiene_que_presentar_mas_documentacion?
+    public function getPresentarMasDocAttribute() {
+        return ModelHelper::trueOrNull($this->attributes['presentar_mas_doc']);
+    }        
+    
+    //Cambio estado de la inscripcion de "abierta" a "cerrada"
+    public function setCerrarOferta() {
+        
+        //me fijo en las fecha de inscripcion, y si es necesario cierro las inscripciones
+        /*$f1 = $this->inferirFormatoFecha($this->inicio);
+        $fi = Carbon::createFromFormat($f1, $this->inicio);
+
+        $f2 = $this->inferirFormatoFecha($this->fin);
+        $ff = Carbon::createFromFormat($f2, $this->fin);
+        $hoy = new Carbon();
+
+        if ($hoy < $fi) {
+            $this->permite_inscripciones = FALSE;
+        } elseif ($ff < $hoy) {
+            $this->permite_inscripciones = FALSE;
+        } else {
+            $this->permite_inscripciones = TRUE;
+        }*/
+        
+        //me fijo en la cantidad de inscriptos, y si es necesario cierro las inscripciones
+        /*if ($this->cupoExcedido()){
+            $this->permite_inscripciones = FALSE;
+        }else{
+            $this->permite_inscripciones = TRUE;
+        }*/
+        
+        if($this->fechasEnTermino() && $this->cupoSuficiente()){
+            $this->permite_inscripciones = TRUE;
+        }else{
+            $this->permite_inscripciones = FALSE;
+        }
+        //guardo los cambios
+        $this->save();
     }
 }

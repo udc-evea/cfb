@@ -30,7 +30,7 @@
 
 <input type="hidden" name="permite_inscripciones" value="0"/>
 {{ Former::checkbox('permite_inscripciones')
-	->addClass('checkbox')->help('Habilita las inscripciones a esta oferta') }}
+	->addClass('checkbox')->help('Habilita las inscripciones a esta oferta')}}
 
 {{ Former::text('inicio')->label('Fecha inicio')->addClass('fecha') }}
 {{ Former::text('fin')->label('Fecha fin')->addClass('fecha') }}
@@ -38,6 +38,13 @@
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
 {{ Former::file('mail_bienvenida')
 			->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }}
+                        
+<!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
+<input type="hidden" name="presentar_mas_doc" value="0"/>
+{{ Former::checkbox('presentar_mas_doc')
+        ->label('Debe presentar documentación extra?')
+	->addClass('checkbox')->help('Checkear si es que para esta Oferta el inscripto debe presentar documentación extra a la solicitada en el formulario de inscripción.') }}
+{{ Former::textarea('doc_a_presentar')->label('Documentación Extra')->rows(8) }}
 
 <hr>
 {{ Former::actions(

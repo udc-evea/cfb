@@ -8,7 +8,7 @@
             <th>Inscribiendo</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
-            <th>&nbsp;</th>
+            <th>Acciones&nbsp;</th>
         </tr>
     </thead>
 

@@ -11,6 +11,13 @@
     </div>
         <h2>¡Inscripción completa!</h2>
         <p>Enhorabuena, has completado la inscripción a: <strong>{{ $oferta->nombre }}.</strong></p>
+        @if($oferta->PresentarMasDoc)
+        <p><strong>Recordar que para esta oferta debe presentar la siguiente documentación:</strong><br>
+            <ul>
+                <li>{{ $oferta->doc_a_presentar }}</li>
+            </ul>
+        </p>
+        @endif
         <p>En breve nos pondremos en contacto contigo.</p>
         <p>Atentamente,</p>
         <p>&nbsp;</p>

@@ -416,6 +416,24 @@
                 </tr>
             </tbody>
         </table>
+        <br>
+        <!-- Agrego la tabla dónde se especifica si esta oferta conlleva documentación adicional a enciar o no -->
+        @if($oferta->PresentarMasDoc)
+        <table width="100%" class="table-bordered" style="border: red 4px solid">
+            <tbody bgcolor="#FFFFFF">
+                <tr>
+                    <td height="60px" bgcolor="#000" style="color:#FFF;"><span class="glyphicon glyphicon-list-alt"></span> PRESENTAR DOCUMENTACIÓN EXTRA</td>
+                    <td width="65%"><strong> Para esta oferta es necesario enviar la documentación detallada a continuación</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2">                        
+                        <div><label>IMPORTANTE: </label> {{ $oferta->doc_a_presentar }}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @endif
+        <!-- Fin la tabla dónde se especifica si esta oferta conlleva documentación adicional a enciar o no -->
         <br/>
         @unless(Auth::check())
         <table class="table-bordered" width="100%">

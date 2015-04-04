@@ -11,7 +11,7 @@ class OfertasController extends BaseController {
 
 	public function __construct(Oferta $oferta)
 	{
-		$this->oferta = $oferta;
+		$this->oferta = $oferta;                
 	}
 
 	/**
@@ -24,7 +24,17 @@ class OfertasController extends BaseController {
 		$ofertas  = Oferta::cursos()->get();
                 $carreras = Oferta::carreras()->get();
                 $eventos  = Oferta::eventos()->get();
-
+                
+                foreach ($ofertas as $of) {
+                    $of->setCerrarOferta();
+                }
+                foreach ($carreras as $ca) {
+                    $ca->setCerrarOferta();
+                }
+                foreach ($eventos as $ev) {
+                    $ev->setCerrarOferta();
+                }
+                
 		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'));
 	}
 

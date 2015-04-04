@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('HP-ProBook-mppfiles', 'devCMS110244'),
+	'local' => array('nico-PC', 'devCMS110244'),
 
 ));
 
