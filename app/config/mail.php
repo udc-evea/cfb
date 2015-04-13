@@ -54,7 +54,8 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => $_ENV['MAIL_FROM_ADDRESS'], 'name' => $_ENV['MAIL_FROM_NAME']),
+	//'from' => array('address' => $_ENV['MAIL_FROM_ADDRESS'], 'name' => $_ENV['MAIL_FROM_NAME']),
+        'from' => array('address' => 'inscripciones@udc.edu.ar', 'name' => 'Inscripciones UDC'),
 
 	/*
 	|--------------------------------------------------------------------------
