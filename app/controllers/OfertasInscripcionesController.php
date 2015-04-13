@@ -11,8 +11,8 @@ class OfertasInscripcionesController extends BaseController {
         $oferta = Oferta::findOrFail($oferta_id);
 
         $exp = Request::get('exp');
-        $inscripciones = $oferta->inscripciones->all();
-        
+        $inscripciones = $oferta->inscripciones->all(); //linea original
+                
         if (!empty($exp)) {
             switch ($exp) {
                 case parent::EXPORT_XLS:
@@ -206,5 +206,64 @@ class OfertasInscripcionesController extends BaseController {
         return View::make('inscripciones.carreras.form_pdf', compact('inscripcion', 'oferta'));
         //return $this->exportarFormPDF($archivo , compact('inscripcion', 'oferta'), 'inscripciones.'.$oferta->view.'.form_pdf');
     }
+    
+    public function cambiarEstado($oferta_id, $id) {
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+               
+        if($inscripcion->getEsInscripto()){
+            $inscripcion->setEstadoInscripcion(0);
+            $inscripcion->vaciarCorreoInstitucional();
+            $inscripcion->save();
+        }else{            
+            $inscripcion->setEstadoInscripcion(1);
+            $inscripcion->crearCorreoInstitucional();
+            $inscripcion->save();
+        }
+        
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
+    
+    public function enviarMailInstitucional($oferta_id, $id){
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+        
+        
+        //########################################################################
+        //$oferta = Oferta::findOrFail($oferta_id);
+        //$inscripto = $oferta->inscripcionModel;
+        
+        //$input = Input::all();
+        
+        //$input_db = Input::except($inscripto::$rules_virtual);
 
+        //$validation = $inscripto->validarNuevo($input);
+
+        //if ($validation->passes()) {
+            
+            //$insc = $inscripto->create($input_db);        
+
+            try {
+                Mail::send('emails.ofertas.notificacion_correo_udc', compact('inscripcion'), function($message) use($inscripcion){
+                    $message
+                            ->to($inscripcion->email, $inscripcion->apellido.','.$inscripcion->nombre)
+                            ->subject('Correo Institucional creado');
+                });
+            } catch (Swift_TransportException $e) {
+                Log::info("No se pudo enviar correo a " . $inscripcion->apellido.','.$inscripcion->nombre." <" . $inscripcion->email.">");
+            }
+
+            //return Redirect::to('/ofertas');
+        //}
+        
+                
+            // incremento la cantidad de veces que se notifico al inscripto
+            $inscripcion->seEnvioNotificacion();
+            
+            return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
 }

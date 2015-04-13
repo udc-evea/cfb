@@ -25,13 +25,13 @@ class OfertasController extends BaseController {
                 $carreras = Oferta::carreras()->get();
                 $eventos  = Oferta::eventos()->get();
                 
-                foreach ($ofertas as $of) {
+                foreach ($ofertas as $of) { //agrgado por nico
                     $of->setCerrarOferta();
                 }
-                foreach ($carreras as $ca) {
+                foreach ($carreras as $ca) { //agrgado por nico
                     $ca->setCerrarOferta();
                 }
-                foreach ($eventos as $ev) {
+                foreach ($eventos as $ev) { //agrgado por nico
                     $ev->setCerrarOferta();
                 }
                 

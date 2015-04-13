@@ -80,7 +80,8 @@ return array(
 	|
 	*/
 
-	'username' => $_ENV['MAIL_USER'],
+	//'username' => $_ENV['MAIL_USER'],
+        'username' => 'inscripciones@udc.edu.ar',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +94,8 @@ return array(
 	|
 	*/
 
-	'password' => $_ENV['MAIL_PASS'],
+	//'password' => $_ENV['MAIL_PASS'],
+        'password' => 'cfbinscripciones',
 
 	/*
 	|--------------------------------------------------------------------------

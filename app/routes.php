@@ -28,6 +28,16 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/imprimir', 
       array('uses' => 'OfertasInscripcionesController@imprimir', 'as' => 'ofertas.inscripciones.imprimir')
     );
+    
+    //agregue esta ruta para cambiar el estado de la inscripcion
+    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/cambiar', 
+      array('uses' => 'OfertasInscripcionesController@cambiarEstado', 'as' => 'ofertas.inscripciones.cambiarEstado')
+    );
+    
+    //agregue esta ruta para enviar los mails institucionales a los inscriptos
+    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/notificar', 
+      array('uses' => 'OfertasInscripcionesController@enviarMailInstitucional', 'as' => 'ofertas.inscripciones.enviarMailInstitucional')
+    );
 
     Route::post('/ofertas/{oferta}/inscripciones/{inscripcion}/requisito', 
       array('uses' => 'OfertasInscripcionesController@presentarRequisito', 'as' => 'ofertas.inscripciones.requisito_presentar')

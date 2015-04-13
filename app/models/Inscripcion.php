@@ -13,15 +13,16 @@ class Inscripcion extends Eloquent {
         'oferta_formativa_id'   => 'required|exists:oferta_formativa,id',
         'tipo_documento_cod' => 'required|exists:repo_tipo_documento,id',
         'documento' => 'required|integer|between:1000000,999999999|unique_with:inscripcion_oferta,tipo_documento_cod,documento',
+        'estado_inscripcion' => 'integer',
         'apellido' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
-        'localidad_id' => 'required|exists:repo_localidad,id',
-        
+        'localidad_id' => 'required|exists:repo_localidad,id',        
         'localidad_anios_residencia'    => 'required|integer|min:1',
-        'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',
-        
+        'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',        
         'email'    => 'required|email|confirmed|unique_with:inscripcion_oferta,oferta_formativa_id,email',
+        'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'cant_notificaciones'  => 'integer|min:0',
         'telefono'  => 'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/'
@@ -174,5 +175,79 @@ class Inscripcion extends Eloquent {
         Inscripcion::deleted(function($inscripcion){
             $inscripcion->oferta->save();
         });
+    }
+    
+    public function getEsInscripto(){
+        return ($this->estado_inscripcion == 1);
+    }
+    
+    public function getEstadoInscripcion(){
+        return $this->estado_inscripcion;
+    }
+    
+    public function setEstadoInscripcion($valor){
+        if ($valor == 0 || $valor == 1){
+            $this->attributes['estado_inscripcion'] = $valor;
+        }
+    }
+    
+    public function inicialesDeNombres($nombres){
+        //defino una variable donde se almacenarán las iniciales de los nombres
+        $iniciales = "";        
+        //paso a minuscula los nombres del preinscripto
+        $nomMinuscula = strtolower($nombres);
+        //separo el/los nombre/s del preinscripto
+        $nom = explode(" ",$nomMinuscula);
+        //defino una variable para recorrer el array de nombres
+        $i = 0;
+        //obtengo el tamaño del arreglo de nombres
+        $cant = count($nom);
+        //recorro el arreglo de nombres extrayendo las iniciales
+        while ($i <= $cant-1) {
+            $iniciales .= substr($nom[$i], 0, 1);
+            $i++;
+        }
+        //devuelvo solo las iniciales de los nombres del preinscripto
+        return $iniciales;
+    }
+    
+    public function apellidosCompletos($apellidos){        
+        //paso a minuscula los apellidos del preinscripto
+        $apeMinuscula = strtolower($apellidos);
+        //junto el/los apellidos/s del preinscripto
+        $ape = str_replace(' ','',$apeMinuscula);        
+        //$ape = preg_replace('[\s+]','', $apeMinuscula);
+        //devuelvo solo los apellido de los preinscriptos
+        return $ape;
+    }
+    
+    public function crearCorreoInstitucional(){
+        //tomo el/los nombre/s del preinscripto
+        $nom = $this->attributes['nombre'];
+        //tomo el/los apellido/s del preinscripto
+        $ape = $this->attributes['apellido'];
+        //defino el dominio que tendrá cada mail creado
+        $dominio = "@udc.edu.ar";
+        
+        $nom = $this->inicialesDeNombres($nom);
+        $ape = $this->apellidosCompletos($ape);
+        
+        $correo_institucional = $nom.$ape.$dominio;        
+        $this->attributes['email_institucional'] = $correo_institucional;
+        $this->save();
+    }
+    
+    public function vaciarCorreoInstitucional(){        
+        $this->attributes['email_institucional'] = "";
+        $this->save();
+    }
+    
+    public function getCantNotificaciones(){
+        return $this->attributes['cant_notificaciones'];
+    }
+    
+    public function seEnvioNotificacion(){
+        $this->attributes['cant_notificaciones']++;
+        $this->save();
     }
 }

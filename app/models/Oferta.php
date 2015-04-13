@@ -241,30 +241,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     
     //Cambio estado de la inscripcion de "abierta" a "cerrada"
     public function setCerrarOferta() {
-        
-        //me fijo en las fecha de inscripcion, y si es necesario cierro las inscripciones
-        /*$f1 = $this->inferirFormatoFecha($this->inicio);
-        $fi = Carbon::createFromFormat($f1, $this->inicio);
-
-        $f2 = $this->inferirFormatoFecha($this->fin);
-        $ff = Carbon::createFromFormat($f2, $this->fin);
-        $hoy = new Carbon();
-
-        if ($hoy < $fi) {
-            $this->permite_inscripciones = FALSE;
-        } elseif ($ff < $hoy) {
-            $this->permite_inscripciones = FALSE;
-        } else {
-            $this->permite_inscripciones = TRUE;
-        }*/
-        
-        //me fijo en la cantidad de inscriptos, y si es necesario cierro las inscripciones
-        /*if ($this->cupoExcedido()){
-            $this->permite_inscripciones = FALSE;
-        }else{
-            $this->permite_inscripciones = TRUE;
-        }*/
-        
+                
         if($this->fechasEnTermino() && $this->cupoSuficiente()){
             $this->permite_inscripciones = TRUE;
         }else{
