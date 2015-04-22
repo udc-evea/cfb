@@ -82,6 +82,60 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->orderBy('nombre');
         }
     }
+    
+    // agregado por nico - devuelve los inscriptos de cada oferta
+    public function preinscriptosOferta() {
+        if ($this->esCarrera) {
+            return $this
+                            ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
+                            ->with('localidad')
+                            ->where('estado_inscripcion','LIKE',0)
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+        } elseif($this->esOferta) {
+            return $this
+                            ->hasMany('Inscripcion', 'oferta_formativa_id')
+                            ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                            ->where('estado_inscripcion','LIKE',0)
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+            
+        } elseif($this->esEvento) {
+            return $this
+                            ->hasMany('InscripcionEvento', 'oferta_formativa_id')
+                            ->with('localidad', 'rel_como_te_enteraste')
+                            ->where('estado_inscripcion','LIKE',0)
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de cada oferta
+    public function inscriptosOferta() {
+        if ($this->esCarrera) {
+            return $this
+                            ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
+                            ->with('localidad')
+                            ->where('estado_inscripcion','LIKE',1)
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+        } elseif($this->esOferta) {
+            return $this
+                            ->hasMany('Inscripcion', 'oferta_formativa_id')
+                            ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                            ->where('estado_inscripcion','LIKE',1)
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+            
+        } elseif($this->esEvento) {
+            return $this
+                            ->hasMany('InscripcionEvento', 'oferta_formativa_id')
+                            ->with('localidad', 'rel_como_te_enteraste')
+                            ->where('estado_inscripcion','LIKE',1)
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+        }
+    }
 
     public function getViewAttribute() {
         if ($this->esCarrera) {

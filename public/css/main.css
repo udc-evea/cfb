@@ -50,3 +50,25 @@ td.area_requisito .btn {width: 70px}
 ul.requisitos li span {display: inline-block; width: 250px;}
 ul.requisitos li:hover {background-color: #fdf59a;}
 #tabs {margin-bottom: 15px;}
+
+
+/*  Estilo de Tabla de exportaciones de pre-inscriptos / inscriptos  */
+.tablaExportar{
+    border: solid black 1px;
+}
+.tablaExportar td{
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid black 1px;
+}
+
+/*  Estilo de tabla de los excel y pdf que se descargan o muestran por pantalla */
+.tablaExcel{
+    border: solid black 1px;
+}
+.tablaExcel tr th{
+    border: solid black 1px;
+}
+.tablaExcel tr td{
+    border: solid black 1px;
+}

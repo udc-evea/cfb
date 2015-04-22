@@ -1,8 +1,12 @@
 <?php
 
 class BaseController extends Controller {
-	const EXPORT_XLS = 'xls';
-	const EXPORT_PDF = 'pdf';
+	const EXPORT_XLSP = 'xlsp';
+        const EXPORT_XLSI = 'xlsi';
+	const EXPORT_PDFP = 'pdfp';
+        const EXPORT_PDFI = 'pdfi';
+        const EXPORT_CVSP = 'cvsp';
+        const EXPORT_CVSI = 'cvsi';
 
 	/**
 	 * Setup the layout used by the controller.

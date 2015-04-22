@@ -35,7 +35,11 @@ class OfertasController extends BaseController {
                     $ev->setCerrarOferta();
                 }
                 
-		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'));
+                //agegado por nico
+                $userId = Auth::user()->id;
+                $userPerfil = Auth::user()->perfil;
+                
+		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))->with('userId',$userId)->with('userPerfil',$userPerfil);
 	}
 
 	/**
@@ -66,10 +70,18 @@ class OfertasController extends BaseController {
 		$validation = Validator::make($input, Oferta::$rules);
 
 		if ($validation->passes())
-		{
+		{                                        
                     $this->oferta = $this->oferta->create($input);
 
                     Session::set('tab_activa', $this->oferta->tab);
+                    
+                    //agregado por nico
+                    //Busco el usuario actual en la BD y obtengo el ID
+                    $userId = Auth::user()->id;
+                    //agrego el ID dle usuario en el campo user_id_creador de la oferta
+                    $this->oferta->user_id_creador = $userId;                    
+                    //guardo los cambios antes de redirigir
+                    $this->oferta->save();
 
                     return Redirect::route('ofertas.index');
 		}

@@ -6,12 +6,12 @@
     <!-- Header -->
     <div class="row block">
         <div class="col-xs-12 col-md-12">
-            <div class="col-xs-6 col-md-4">
-                <img  src="{{asset('img/LOGO-200x60px.png')}}" width="150"/></div>
+            <div class="col-xs-6 col-md-4"><img  src="{{asset('img/LOGO-200x60px.png')}}" width="150"/></div>
             <div class="col-xs-12 col-md-8"><h1><span class="titulo1">Ofertas Formativas</span></h1></div>
+            <h3>UsuarioId: {{ $userId }} ({{ $userPerfil }})</h3>
         </div>
     </div>
-
+    
     <!-- Nav tabs -->
     <div class="row">
         <div class="col-xs-12 col-md-12">
@@ -22,21 +22,28 @@
             </ul>
         </div>
     </div>
+    
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane active" id="tab_ofertas">
             @include('ofertas.listado', compact('ofertas'))
-            {{ link_to_route('ofertas.create', 'Crear nueva Oferta', ['tab_activa' => 'ofertas'], array('class' => 'btn btn-primary')) }}
+            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                {{ link_to_route('ofertas.create', 'Crear nueva Oferta', ['tab_activa' => 'ofertas'], array('class' => 'btn btn-primary')) }}
+            @endif
         </div>
         <div class="tab-pane" id="tab_carreras">
             @include('ofertas.listado_carreras', compact('carreras'))
-            {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
+            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
+                @endif
         </div>
         <div class="tab-pane" id="tab_eventos">
             @include('ofertas.listado_eventos', compact('eventos'))
-            {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
+            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
+            @endif
         </div>
-    </div>
+    </div>    
 </div>
 
 <script>
