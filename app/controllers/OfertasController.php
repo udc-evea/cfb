@@ -38,8 +38,9 @@ class OfertasController extends BaseController {
                 //agegado por nico
                 $userId = Auth::user()->id;
                 $userPerfil = Auth::user()->perfil;
+                $userName = Auth::user()->nombreyapellido;
                 
-		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))->with('userId',$userId)->with('userPerfil',$userPerfil);
+		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))->with('userId',$userId)->with('userPerfil',$userPerfil)->with('userName',$userName);
 	}
 
 	/**
@@ -192,5 +193,5 @@ class OfertasController extends BaseController {
 		}
 
 		return View::make($oferta->getVistaMail(), compact('oferta'));
-	}
+	}                
 }

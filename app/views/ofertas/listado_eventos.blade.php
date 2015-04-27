@@ -4,6 +4,7 @@
         <tr>
             <th>Nombre</th>
             <th>Año</th>
+            <th>Creador</th>
             <th>Pre-Inscriptos</th>
             <th>Inscribiendo</th>
             <th>Fecha Inicio</th>
@@ -17,6 +18,7 @@
         <tr>
             <td>{{ $item->nombre }}</td>
             <td>{{ $item->anio }}</td>
+            <td>{{ $item->creador->nombreyapellido }}</td>
             <td>
                 {{ $item->inscriptos }}
                 @if((int)$item->cupo_maximo > 0)

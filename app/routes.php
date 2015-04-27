@@ -22,7 +22,8 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/logout', function () {
         Auth::logout();
         
-        return Redirect::to(preg_replace("/:\/\//", "://log-me-out:fake-pwd@", url('/')));
+        //return Redirect::to(preg_replace("/:\/\//", "://log-me-out:fake-pwd@", url('/')));
+        return Redirect::route('ofertas.index');
     });
     
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/imprimir', 
@@ -48,9 +49,9 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     );
 
     Route::get('/ofertas/{oferta}/vermail', 
-      array('uses' => 'OfertasController@verMail', 'as' => 'ofertas.vermail')
+      array('uses' => 'OfertasController@verMail', 'as' => 'ofertas.vermail')            
     );
-
+    
     Route::resource('ofertas', 'OfertasController');
     Route::resource('ofertas.inscripciones', 'OfertasInscripcionesController');
 
@@ -63,3 +64,5 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
 Route::get('/inscripcion_ok', function() {
     return View::make('inscripciones.ok');
 });
+
+//rutas para ver los usuarios

@@ -304,4 +304,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
         //guardo los cambios
         $this->save();
     }
+    
+    public function Creador(){
+        return $this->belongsTo('User', 'user_id_creador');
+    }
 }

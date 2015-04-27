@@ -40,6 +40,7 @@
 	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
+                    <th>Nro.</th>
                     <th>Apellido</th>
                     <th>Nombre</th>
                     @if($perfil != "Colaborador")
@@ -56,8 +57,10 @@
                 </tr>
             </thead>
             <tbody>
-                   @foreach ($inscripciones as $inscripcion)
+                   <?php $i = 1; ?>
+                   @foreach ($inscripciones as $inscripcion)                   
                     <tr>
+                        <td>{{ $i }}</td>
                         <td>{{{ $inscripcion->apellido }}}</td>	
                         <td>{{{ $inscripcion->nombre }}}</td>
                         @if($perfil != "Colaborador")
@@ -96,6 +99,7 @@
                             @endif
                         </td>
                     </tr>
+                    <?php $i++;?>
 		@endforeach
 		</tbody>
 	</table>

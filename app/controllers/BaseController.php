@@ -25,15 +25,15 @@ class BaseController extends Controller {
     {
         Excel::create($filename, function($excel) use($rows, $view) {
             $excel->sheet('hoja1', function($sheet) use($rows, $view) {
-                $sheet->loadView($view)
-  					->with('rows', $rows);
+                $sheet->loadView($view)                        
+                        ->with('rows', $rows);
                 
             }); 
         })->export('xls');
     }
 
     protected function exportarPDF($filename, $rows, $view)
-    {
+    {        
         $html = View::make($view, compact('rows'));
 
         return PDF::load($html, 'A4', 'landscape')->show();
