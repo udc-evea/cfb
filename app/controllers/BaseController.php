@@ -27,7 +27,6 @@ class BaseController extends Controller {
             $excel->sheet('hoja1', function($sheet) use($rows, $view) {
                 $sheet->loadView($view)                        
                         ->with('rows', $rows);
-                
             }); 
         })->export('xls');
     }

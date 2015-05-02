@@ -8,7 +8,11 @@
         <div class="col-xs-12 col-md-12">
             <div class="col-xs-6 col-md-4"><img  src="{{asset('img/LOGO-200x60px.png')}}" width="150"/></div>
             <div class="col-xs-12 col-md-8"><h1><span class="titulo1">Ofertas Formativas</span></h1></div>
-            <h3>Usuario: {{ $userName }}  <a href="#" title="Salir"><i class="glyphicon glyphicon-open"></i></a></h3>
+            <h3>Usuario: {{ $userName }}  
+                {{ link_to_action('HomeController@salir', '', null,array('class'=>'glyphicon glyphicon-open', 'title'=>'Salir')) }}
+                <!-- <a href="#" title="Salir"><i class="glyphicon glyphicon-open"></i></a> -->
+            </h3>
+            <p>{{ link_to_action('HomeController@bienvenido', ' Inicio', null,array('class'=>'btn btn-sm btn-primary glyphicon glyphicon-chevron-left', 'title'=>'Volver al Inicio')) }}</p>
         </div>
     </div>
     

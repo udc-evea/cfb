@@ -188,7 +188,7 @@ class InscripcionEvento extends Eloquent {
         //defino una variable donde se almacenarán las iniciales de los nombres
         $iniciales = "";        
         //paso a minuscula los nombres del preinscripto
-        $nomMinuscula = strtolower($nombres);
+        $nomMinuscula = strtolower($this->sanear_string($nombres));
         //separo el/los nombre/s del preinscripto
         $nom = explode(" ",$nomMinuscula);
         //defino una variable para recorrer el array de nombres
@@ -206,7 +206,7 @@ class InscripcionEvento extends Eloquent {
     
     public function apellidosCompletos($apellidos){        
         //paso a minuscula los apellidos del preinscripto
-        $apeMinuscula = strtolower($apellidos);
+        $apeMinuscula = strtolower($this->sanear_string($apellidos));
         //junto el/los apellidos/s del preinscripto
         $ape = str_replace(' ','',$apeMinuscula);        
         //$ape = preg_replace('[\s+]','', $apeMinuscula);
@@ -216,16 +216,20 @@ class InscripcionEvento extends Eloquent {
     
     public function crearCorreoInstitucional(){
         //tomo el/los nombre/s del preinscripto
-        $nom = $this->attributes['nombre'];
+        $nom0 = $this->attributes['nombre'];
         //tomo el/los apellido/s del preinscripto
-        $ape = $this->attributes['apellido'];
+        $ape0 = $this->attributes['apellido'];
         //defino el dominio que tendrá cada mail creado
         $dominio = "@udc.edu.ar";
         
-        $nom = $this->inicialesDeNombres($nom);
-        $ape = $this->apellidosCompletos($ape);
+        $nom = $this->inicialesDeNombres($nom0);
+        $nom1 = $this->sanear_string($nom);
         
-        $correo_institucional = $nom.$ape.$dominio;        
+        $ape = $this->apellidosCompletos($ape0);
+        $ape1 = $this->sanear_string($ape);
+        
+        
+        $correo_institucional = $nom1.$ape1.$dominio;        
         $this->attributes['email_institucional'] = $correo_institucional;
         $this->save();
     }
@@ -243,5 +247,62 @@ class InscripcionEvento extends Eloquent {
         $this->attributes['cant_notificaciones']++;
         $this->save();
     }
+    
+    public function sanear_string($string){
         
+        $string = trim($string);
+
+        $string = str_replace(
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+            $string
+        );
+
+        $string = str_replace(
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+            $string
+        );
+
+        $string = str_replace(
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('n', 'N', 'c', 'C'),
+            $string
+        );
+
+        //Esta parte se encarga de eliminar cualquier caracter extraño
+        $string = str_replace(
+            array("\\", "¨", "º", "-", "~",
+                 "#", "@", "|", "!", "\"",
+                 "·", "$", "%", "&", "/",
+                 "(", ")", "?", "'", "¡",
+                 "¿", "[", "^", "`", "]",
+                 "+", "}", "{", "¨", "´",
+                 ">", "< ", ";", ",", ":",
+                 ".", " "),
+            '',
+            $string
+        );
+
+
+        return $string;
+    }
 }

@@ -15,16 +15,18 @@ Route::get('/ofertas/{oferta}/inscripcion',  array('uses' => 'OfertasInscripcion
 Route::post('/ofertas/{oferta}/inscripcion', array('uses' => 'OfertasInscripcionesController@store', 'as' => 'ofertas.inscripciones.nueva'));
 
 Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripciones.nueva')), function() {
-    Route::get('/', function() {
-        return Redirect::route('ofertas.index');
-    });
+    /*Route::get('/', function() {
+        return Redirect::route('ofertas.index');        
+    });*/
     
-    Route::get('/logout', function () {
-        Auth::logout();
+   
+    Route::get('/salir', array('uses' => 'HomeController@salir'));        
         
+    //Route::get('/logout', function () {
+    //    Auth::logout();
         //return Redirect::to(preg_replace("/:\/\//", "://log-me-out:fake-pwd@", url('/')));
-        return Redirect::route('ofertas.index');
-    });
+    //    return Redirect::route('ofertas.index');
+    //});
     
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/imprimir', 
       array('uses' => 'OfertasInscripcionesController@imprimir', 'as' => 'ofertas.inscripciones.imprimir')
@@ -59,10 +61,18 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
 
     Route::resource('tipos_documento', 'TipoDocumentosController');
     Route::resource('localidades', 'LocalidadesController');
+    
+    Route::get('/inscripcion_ok', function() {
+        return View::make('inscripciones.ok');
+    });
+    
+    //rutas para ver los usuarios
+    Route::resource('usuarios', 'UsuariosController');
+    Route::get('/logout', array('uses' => 'HomeController@logout'));
+    
 });
 
-Route::get('/inscripcion_ok', function() {
-    return View::make('inscripciones.ok');
-});
+ Route::get('/', array('uses' => 'HomeController@bienvenido'));
+ Route::get('/loguin', array('uses' => 'HomeController@loguin'));
 
-//rutas para ver los usuarios
+

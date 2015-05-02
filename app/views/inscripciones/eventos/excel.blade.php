@@ -2,6 +2,7 @@
 <html lang="es-AR">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}" media="all">
     </head>
 <body>
 @if(count($rows)>0)

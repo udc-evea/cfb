@@ -306,6 +306,6 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
     
     public function Creador(){
-        return $this->belongsTo('User', 'user_id_creador');
+        return $this->belongsTo('Usuario', 'user_id_creador');
     }
 }
