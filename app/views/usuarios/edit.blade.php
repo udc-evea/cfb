@@ -35,7 +35,7 @@
         <div class="form-group">
             {{ Form::label('password', 'Clave:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
-              {{ Form::password('password', Input::old('password') ,array('class'=>'form-control', 'placeholder'=>'Clave de usuario')) }}
+              {{ Form::password('password', null ,array('class'=>'form-control', 'placeholder'=>'Clave de usuario')) }}
             </div>
         </div>
 

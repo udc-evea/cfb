@@ -31,14 +31,25 @@ class HomeController extends BaseController {
 	{		                
             Auth::logout();
             Session::flush();
-            $mje = "Sistema de Inscripciones";
-            return View::make('inicio.inicio', array('mje'=>$mje));
+            
+            return View::make('inicio.inicio');
 	}
         
         public function loguin()
-	{
-            $mje = "Paguina de LOGUIN";
-            return View::make('inicio.loguin', array('mje'=>$mje));
+	{            
+            return View::make('inicio.loguin');
+	}
+        
+        public function acceso()
+	{                        
+            $credentials = [
+                'username' => Input::get('username'),
+                'password' => Input::get('password')
+            ];            
+            if(Auth::attempt($credentials)){
+                return View::make('inicio.inicio');
+            }                      
+            return View::make('inicio.loguin');                            
 	}
         
         public function logout()

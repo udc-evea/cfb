@@ -74,5 +74,6 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
 
  Route::get('/', array('uses' => 'HomeController@bienvenido'));
  Route::get('/loguin', array('uses' => 'HomeController@loguin'));
+ Route::post('/loguin', array('uses' => 'HomeController@acceso'));
 
 

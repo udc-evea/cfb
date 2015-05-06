@@ -186,9 +186,11 @@ class InscripcionEvento extends Eloquent {
     
     public function inicialesDeNombres($nombres){
         //defino una variable donde se almacenarán las iniciales de los nombres
-        $iniciales = "";        
+        $iniciales = "";
+        //reemplazo todos los caracteres especiales en los nombres
+        $nombres = $this->sanear_string($nombres);
         //paso a minuscula los nombres del preinscripto
-        $nomMinuscula = strtolower($this->sanear_string($nombres));
+        $nomMinuscula = strtolower($nombres);        
         //separo el/los nombre/s del preinscripto
         $nom = explode(" ",$nomMinuscula);
         //defino una variable para recorrer el array de nombres
@@ -297,7 +299,7 @@ class InscripcionEvento extends Eloquent {
                  "¿", "[", "^", "`", "]",
                  "+", "}", "{", "¨", "´",
                  ">", "< ", ";", ",", ":",
-                 ".", " "),
+                 "."),
             '',
             $string
         );
