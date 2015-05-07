@@ -4,9 +4,8 @@ class BaseController extends Controller {
 	const EXPORT_XLSP = 'xlsp';
         const EXPORT_XLSI = 'xlsi';
 	const EXPORT_PDFP = 'pdfp';
-        const EXPORT_PDFI = 'pdfi';
-        const EXPORT_CVSP = 'cvsp';
-        const EXPORT_CVSI = 'cvsi';
+        const EXPORT_PDFI = 'pdfi';        
+        const EXPORT_CSV = 'csv';
 
 	/**
 	 * Setup the layout used by the controller.
@@ -29,6 +28,16 @@ class BaseController extends Controller {
                         ->with('rows', $rows);
             }); 
         })->export('xls');
+    }
+    
+    protected function exportarCSV($fname, $rowss, $vieww)
+    {
+        Excel::create($fname, function($excel) use($rowss, $vieww) {
+            $excel->sheet('hoja1', function($sheet) use($rowss, $vieww) {
+                $sheet->loadView($vieww)
+                        ->with('rows', $rowss);
+            }); 
+        })->export('csv');
     }
 
     protected function exportarPDF($filename, $rows, $view)

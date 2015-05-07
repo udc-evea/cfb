@@ -46,7 +46,7 @@
             <td>
             @if(($userPerfil == "Administrador")||($item->user_id_creador == $userId))
                 {{ link_to_route('ofertas.vermail', '', array($item->id), array('class' => 'btn btn-default glyphicon glyphicon-envelope', 'title'=>'Ver Mail personalizado')) }}
-                {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos de la Oferta')) }}
+                {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-info glyphicon glyphicon-pencil', 'title'=>'Editar datos de la Oferta')) }}
                 @if($item->inscriptos == 0)
                     {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $item->id))) }}
                     {{ Form::submit('Borrar', array('class' => 'btn btn-danger')) }}

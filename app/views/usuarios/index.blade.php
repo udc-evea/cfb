@@ -4,8 +4,12 @@
 
 <h1>Lista de Usuarios</h1>
 
-<p>{{ link_to_action('HomeController@bienvenido', ' Inicio', null,array('class'=>'btn btn-sm btn-primary glyphicon glyphicon-chevron-left', 'title'=>'Volver al Inicio')); }}
-<a href="{{ route('usuarios.create') }}" class="btn btn-sm btn-primary" title="Nuevo Usuario"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario</a></p>
+<div class="row block">
+    <div align="center">
+        <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
+        <a href="{{ route('usuarios.create') }}" class="btn btn-primary" title="Nuevo Usuario"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario</a></p>
+    </div>
+</div>
 @if ($usuarios->count())
 	<table class="table table-striped">
 		<thead>
@@ -26,10 +30,10 @@
                         <td>{{{ $usu->perfil }}}</td>
                         @if($perfil == 'Administrador')
                         <td>
+                            {{ link_to_route('usuarios.edit', ' ', array($usu->id), array('class' => 'btn btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del usuario')) }}
                             {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('usuarios.destroy', $usu->id))) }}
-                                {{ Form::submit('Borrar', array('class' => 'btn btn-danger')) }}
+                                {{ Form::submit('Borrar', array('class' => 'btn btn-danger','title'=>'Eliminar los datos del usuario')) }}
                             {{ Form::close() }}
-                            {{ link_to_route('usuarios.edit', 'Editar', array($usu->id), array('class' => 'btn btn-info')) }}
                         </td>
                         @endif
                     </tr>

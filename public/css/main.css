@@ -72,3 +72,10 @@ ul.requisitos li:hover {background-color: #fdf59a;}
 .tablaExcel tr td{
     border: solid black 1px;
 }
+
+/* Estilo para el formulario de Loguin */
+.formLogin{
+    border: solid black 1px;
+    margin-left: 30%;
+    padding: 50px;
+}

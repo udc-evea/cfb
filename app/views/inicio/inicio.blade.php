@@ -43,17 +43,17 @@
 <body>
 	<div class="welcome">		
                 <a href="http://udc.edu.ar" title="Portal Universidad del Chubut" target="_target"><img src="{{ asset('img/LOGO-horizontal-MQ-RGB-150dpi.png') }}" width="250"/></a>
-                <h1>Sistema de Inscripciones</h1>
+                <h1><strong>Sistema de Inscripciones</strong></h1>
 	</div>
         @if(Auth::check())
         <div class="listadoOpciones">
-            <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-default" title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>
-            <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-default" title="Ver todas las Ofertas"><i class="glyphicon glyphicon-user"></i> Todos los usuarios</a></p>
-            <p>{{ link_to_action('HomeController@salir', ' Salir', null,array('class'=>'btn btn-lg btn-default glyphicon glyphicon-chevron-left', 'title'=>'Salir del sistema')); }}</p>
+            <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-info" title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>
+            <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-danger" title="Ver todas las Usuarios"><i class="glyphicon glyphicon-user"></i> Todos los usuarios</a></p>
+            <p><a href="{{action('HomeController@salir')}}" class="btn btn-lg btn-warning" title="Salir del Sistema de Inscripciones"><i class="glyphicon glyphicon-off"></i> Salir</a></p>
         </div>
         @else
         <div>
-            <p>{{ link_to_action('HomeController@loguin', ' Ingresar', null,array('class'=>'btn btn-lg btn-default', 'title'=>'Ingresar al sistema de Incripciones')) }}</p>
+            <p><a href="{{action('HomeController@login')}}" class="btn btn-lg btn-success" title="Entrar al Sistema de Inscripciones"><i class="glyphicon glyphicon-repeat"></i> Ingresar</a></p>
         </div>
         @endif
 </body>

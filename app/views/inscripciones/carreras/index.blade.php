@@ -24,8 +24,7 @@
             <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfp')) }}" title="Exportar listado de Pre-inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a></td>
             <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" title="Exportar listado de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a></td>
             @if($perfil == "Administrador")
-                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'cvsp')) }}" title="Exportar listado de Pre-Inscriptos a CVS"><i class="fa fa-file-text-o"></i></a></td>
-                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'cvsi')) }}" title="Exportar listado de Inscriptos a CVS"><i class="fa fa-file-text-o"></i></a></td>
+                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" title="Exportar listado de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a></td>
             @endif
         </tr>
     </table>

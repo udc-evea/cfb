@@ -21,10 +21,8 @@ class HomeController extends BaseController {
 	}
         
         public function bienvenido()
-	{		
-                //return View::make('inicio.inicio');
-                $mje = "Sistema de Inscripciones";
-                return View::make('inicio.inicio', array('mje'=>$mje));
+	{		               
+                return View::make('inicio.inicio');
 	}
 
         public function salir()
@@ -35,9 +33,9 @@ class HomeController extends BaseController {
             return View::make('inicio.inicio');
 	}
         
-        public function loguin()
+        public function login()
 	{            
-            return View::make('inicio.loguin');
+            return View::make('inicio.login');
 	}
         
         public function acceso()
@@ -49,12 +47,11 @@ class HomeController extends BaseController {
             if(Auth::attempt($credentials)){
                 return View::make('inicio.inicio');
             }                      
-            return View::make('inicio.loguin');                            
+            return View::make('inicio.login')->withInput();
 	}
         
         public function logout()
-	{                
-            $mje = "Sistema de Inscripciones";
-            return View::make('inicio.inicio', array('mje'=>$mje));
+	{                            
+            return View::make('inicio.inicio');
 	}
 }

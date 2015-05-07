@@ -40,14 +40,10 @@ class OfertasInscripcionesController extends BaseController {
                     //traigo solos los inscriptos para exportar a pdf
                     $inscripciones = $oferta->inscriptosOferta->all();
                     return $this->exportarPDF($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel');
-                case parent::EXPORT_CVSP:
-                    //traigo solos los preinscriptos para exportar a cvs
-                    $inscripciones = $oferta->preinscriptosOferta->all();
-                    return $this->exportarXLS($oferta->nombre."_preinscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.cvs');
-                case parent::EXPORT_CVSI:
+                case parent::EXPORT_CSV:
                     //traigo solos los inscriptos para exportar a cvs
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarPDF($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel');
+                    return $this->exportarCSV($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.csv');
             }
         } else {
             return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
