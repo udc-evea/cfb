@@ -26,8 +26,9 @@ class BaseController extends Controller {
             $excel->sheet('hoja1', function($sheet) use($rows, $view) {
                 $sheet->loadView($view)                        
                         ->with('rows', $rows);
+                //$sheet->setAllBorders('thin');
             }); 
-        })->export('xls');
+        },"UTF-8")->export('xls');
     }
     
     protected function exportarCSV($fname, $rowss, $vieww)
