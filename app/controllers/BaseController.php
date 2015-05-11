@@ -28,7 +28,7 @@ class BaseController extends Controller {
                         ->with('rows', $rows);
                 //$sheet->setAllBorders('thin');
             }); 
-        },"UTF-8")->export('xls');
+        })->export('xls');
     }
     
     protected function exportarCSV($fname, $rowss, $vieww)
