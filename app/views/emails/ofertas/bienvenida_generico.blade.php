@@ -9,20 +9,18 @@
               <img src="{{ asset('img/LOGO-200x60px.png') }}" width="150"/>
             </div>
     </div>
-        <h2>¡Inscripción completa!</h2>
-        <p>Enhorabuena, has completado la inscripción a: <strong>{{ $oferta->nombre }}.</strong></p>
+        <h2>¡Preinscripción Exitosa!</h2>
+        <p>Bienvenido, has completado la preinscripción a: <strong>{{ $oferta->nombre }}.</strong></p>
         @if($oferta->PresentarMasDoc)
-        <p><strong>Recordar que para esta oferta debe presentar la siguiente documentación:</strong><br>
             <ul>
                 <li>{{ $oferta->doc_a_presentar }}</li>
             </ul>
-        </p>
         @endif
-        <p>En breve nos pondremos en contacto contigo.</p>
+        <p>En breve nos pondremos en contacto.</p>
         <p>Atentamente,</p>
         <p>&nbsp;</p>
         <p>Universidad del Chubut</p>
-        <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2014 UDC :: Derechos Reservados.<br>
-Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.</p>
+        <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2015 UDC :: Derechos Reservados.<br>
+Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.<br>Tel.: (0280) 448-1866 / 448-1846.</p>
       </body>
 </html>
