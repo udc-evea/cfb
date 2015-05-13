@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Inscripción en: '.$oferta->nombre.' - Universidad del Chubut')
+@section('title', 'Preinscripción en: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
     @if ($errors->any())
             <div class="alert alert-danger">

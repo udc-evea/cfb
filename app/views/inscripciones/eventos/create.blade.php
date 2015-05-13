@@ -1,10 +1,10 @@
 @extends('layouts.inscripciones_publico')
-@section('title', 'Inscripción a: '.$oferta->nombre.' - Universidad del Chubut')
+@section('title', 'Preinscripción a: '.$oferta->nombre.' - Universidad del Chubut')
 @section('main')
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <h1>Inscripción a: {{ $oferta->nombre }}</h1>
+        <h1>Preinscripción a: <strong>{{ $oferta->nombre }}</strong></h1>
 
         @if ($errors->any())
         <div class="alert alert-danger">
