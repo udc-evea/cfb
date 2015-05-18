@@ -30,7 +30,7 @@ class HomeController extends BaseController {
             Auth::logout();
             Session::flush();
             
-            return View::make('inicio.inicio');
+            return Redirect::to('/');
 	}
         
         public function login()
@@ -45,9 +45,9 @@ class HomeController extends BaseController {
                 'password' => Input::get('password')
             ];            
             if(Auth::attempt($credentials)){
-                return View::make('inicio.inicio');
+                return Redirect::to('/');
             }                      
-            return View::make('inicio.login')->withInput();
+            return View::make('inicio.login')->withErrors($credentials);
 	}
         
         public function logout()

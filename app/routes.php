@@ -14,12 +14,8 @@
 Route::get('/ofertas/{oferta}/inscripcion',  array('uses' => 'OfertasInscripcionesController@create', 'as' => 'ofertas.inscripciones.nueva'));
 Route::post('/ofertas/{oferta}/inscripcion', array('uses' => 'OfertasInscripcionesController@store', 'as' => 'ofertas.inscripciones.nueva'));
 
-Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripciones.nueva')), function() {
-    /*Route::get('/', function() {
-        return Redirect::route('ofertas.index');        
-    });*/
-    
-   
+Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripciones.nueva')), function() {    
+       
     Route::get('/salir', array('uses' => 'HomeController@salir'));            
     
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/imprimir', 

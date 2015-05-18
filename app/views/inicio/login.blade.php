@@ -13,7 +13,13 @@
         <br><br>
         <div class="well" align="center">
             <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-lg btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a></p>
-        </div>        
+        </div>
+        @if ($errors->any())
+        <div class="alert alert-danger" align="center">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <p>Ha ocurrido un error. Revise el USUARIO y/o CLAVE e intente ingresar nuevamente.</p>
+        </div>
+        @endif
         <div class="formLogin col-lg-5 well">
             {{ Form::open(array('action' => 'HomeController@login')); }}
             <fieldset>

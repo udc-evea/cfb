@@ -79,7 +79,7 @@ class OfertasController extends BaseController {
                     //agregado por nico
                     //Busco el usuario actual en la BD y obtengo el ID
                     $userId = Auth::user()->id;
-                    //agrego el ID dle usuario en el campo user_id_creador de la oferta
+                    //agrego el ID del usuario en el campo user_id_creador de la oferta
                     $this->oferta->user_id_creador = $userId;                    
                     //guardo los cambios antes de redirigir
                     $this->oferta->save();

@@ -43,15 +43,17 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			//return Redirect::guest('login');
+                        return Redirect::to('/login');
 		}
 	}
 });
 
 
-Route::filter('auth.basic', function()
-{
-	return Auth::basic('username');
+Route::filter('auth.basic', function(){
+	//return Auth::basic('username');
+    if (Auth::guest())
+        return Redirect::to('/login')->with('mensaje','¡Debes iniciar sesión para ver esa página!.');    
 });
 
 /*

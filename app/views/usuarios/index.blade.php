@@ -17,8 +17,8 @@
                         <th>Nombre y Apellido</th>
                         <th>Usuario</th>
                         <th>Perfil</th>
-                        @if($perfil == 'Administrador')
-                            <th>Acciones</th>
+                        @if($perfil == 'Administrador')                            
+                                <th>Acciones</th>
                         @endif
                     </tr>
 		</thead>
@@ -29,12 +29,16 @@
 			<td>{{{ $usu->username }}}</td>
                         <td>{{{ $usu->perfil }}}</td>
                         @if($perfil == 'Administrador')
-                        <td>
-                            {{ link_to_route('usuarios.edit', ' ', array($usu->id), array('class' => 'btn btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del usuario')) }}
-                            {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('usuarios.destroy', $usu->id))) }}
-                                {{ Form::submit('Borrar', array('class' => 'btn btn-danger','title'=>'Eliminar los datos del usuario')) }}
-                            {{ Form::close() }}
-                        </td>
+                            @if( $user != $usu->username)
+                            <td>
+                                {{ link_to_route('usuarios.edit', ' ', array($usu->id), array('class' => 'btn btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del usuario')) }}
+                                {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('usuarios.destroy', $usu->id))) }}
+                                    {{ Form::submit('Borrar', array('class' => 'btn btn-danger','title'=>'Eliminar los datos del usuario')) }}
+                                {{ Form::close() }}
+                            </td>
+                            @else
+                            <td>Inhabilitado</td>
+                            @endif
                         @endif
                     </tr>
                     @endforeach

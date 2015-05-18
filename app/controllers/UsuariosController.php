@@ -23,11 +23,12 @@ class UsuariosController extends BaseController {
 	{
                 //agegado por nico
                 $userId = Auth::user()->id;
+                $user = Auth::user()->username;
                 $userPerfil = Auth::user()->perfil;
                 $userName = Auth::user()->nombreyapellido;
 		$usuarios = $this->usuario->all();
 
-		return View::make('usuarios.index', compact('usuarios'))->with('perfil',$userPerfil);
+		return View::make('usuarios.index', compact('usuarios'))->with('perfil',$userPerfil)->with('user',$user);
 	}
 
 	/**
