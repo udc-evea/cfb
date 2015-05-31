@@ -25,7 +25,8 @@ class Inscripcion extends Eloquent {
         'cant_notificaciones'  => 'integer|min:0',
         'telefono'  => 'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
-        'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/'
+        'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/',
+        'comision_nro' => 'integer|min:0'
     );
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'email_confirmation'];
@@ -311,8 +312,6 @@ class Inscripcion extends Eloquent {
             '',
             $string
         );
-
-
         return $string;
     }
     
@@ -322,5 +321,33 @@ class Inscripcion extends Eloquent {
     
     public function setNombreAttribute($nombre){
         $this->attributes['nombre'] = ucwords(strtolower($nombre));
+    }
+    
+    public function getComisionNro(){
+        return $this->comision_nro;
+    }
+    
+    public function setComisionNro($nro){
+        return $this->comision_nro = $nro;
+    }
+    
+    public function sumarComisionNro(){
+        return $this->setComisionNro($this->getComisionNro()+1);
+    }
+    
+    public function restarComisionNro(){
+        if($this->getComisionNro() > 0){
+            return $this->setComisionNro($this->getComisionNro()-1);
+        }else{
+            return $this->setComisionNro(0);
+        }        
+    }
+    
+    public function getRequisitosCompletos(){
+        return $this->presento_requisitos;
+    }
+    
+    public function setRequisitosCompletos($estado){
+        return $this->presento_requisitos = $estado;
     }
 }

@@ -177,8 +177,8 @@ class OfertasInscripcionesController extends BaseController {
                         ->withoferta($oferta)
                         ->with('message', 'Se eliminó el registro correctamente.');
     }
-
-    /**
+        
+        /**
      * Guarda la presentación de un requisito en la inscripción
      *
      * @return Response
@@ -238,13 +238,59 @@ class OfertasInscripcionesController extends BaseController {
         if($inscripcion->getEsInscripto()){
             $inscripcion->setEstadoInscripcion(0);
             $inscripcion->vaciarCorreoInstitucional();
+            $inscripcion->setComisionNro(0);
             $inscripcion->save();
-        }else{            
+        }else{
             $inscripcion->setEstadoInscripcion(1);
             $inscripcion->crearCorreoInstitucional();
             $inscripcion->save();
         }
         
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
+    
+    public function cambiarEstadoDeRequisitos($oferta_id, $id) {
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+               
+        if($inscripcion->getRequisitosCompletos()){            
+            $inscripcion->setRequisitosCompletos(FALSE);
+        }else{
+            $inscripcion->setRequisitosCompletos(TRUE);
+        }
+        $inscripcion->save();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
+    
+    public function sumarComision($oferta_id, $id) {
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+        
+        if($inscripcion->getEsInscripto()){
+            $inscripcion->sumarComisionNro();
+        }else{
+            $inscripcion->setComisionNro(0);
+        }
+        $inscripcion->save();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
+    
+    public function restarComision($oferta_id, $id) {
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+               
+        if($inscripcion->getEsInscripto()){
+            $inscripcion->restarComisionNro();
+        }else{
+            $inscripcion->setComisionNro(0);
+        }
+        $inscripcion->save();        
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }
     

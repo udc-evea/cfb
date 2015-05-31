@@ -55,7 +55,7 @@
               {{ link_to_route('usuarios.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
             </div>
         </div>
-</fieldset>
 {{ Form::close() }}
+</fieldset>
 
 @stop
