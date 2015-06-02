@@ -17,10 +17,10 @@
 {{ Former::populate($obj) }}
 {{ Former::hidden('oferta_formativa_id')->value($oferta->id) }}
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> <strong>¿Quién sos?</strong></div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> <strong>Datos Personales</strong></div>
     <div class="panel-body">
-        {{ Former::text('apellido')->required() }}
-        {{ Former::text('nombre')->required() }}
+        {{ Former::text('apellido')->required()->placeholder('Como figura en tu D.N.I.')->label('Apellido/s')}}
+        {{ Former::text('nombre')->required()->placeholder('Como figura en tu D.N.I.')->label('Nombre/s')}}
 
         {{ Former::select('tipo_documento_cod')
             ->fromQuery(TipoDocumento::orderBy('descripcion')->get(), 'descripcion', 'tipo_documento')
@@ -33,7 +33,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-map-marker"></span> <strong>¿De dónde sos?</strong>
+        <span class="glyphicon glyphicon-map-marker"></span> <strong>Lugar de Residencia</strong>
     </div>
     <div class="panel-body">
     {{ Former::select('localidad_id')
@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="glyphicon glyphicon-phone"></span> <strong>¿Cómo te contactamos?</strong></div>
+    <div class="panel-heading"><span class="glyphicon glyphicon-phone"></span> <strong>Información de Contacto</strong></div>
     <div class="panel-body">
         {{ Former::email('email')->label('Correo electrónico')->required() }}
         {{ Former::email('email_confirmation')->label('Reingrese correo')->required() }}

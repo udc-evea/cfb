@@ -308,10 +308,10 @@ class InscripcionEvento extends Eloquent {
     }
     
     public function setApellidoAttribute($apellido){
-        $this->attributes['apellido'] = ucwords(strtolower($apellido));
+        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_string($apellido)));
     }
     
     public function setNombreAttribute($nombre){
-        $this->attributes['nombre'] = ucwords(strtolower($nombre));
+        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_string($nombre)));
     }
 }
