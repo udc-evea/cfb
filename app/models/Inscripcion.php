@@ -315,12 +315,68 @@ class Inscripcion extends Eloquent {
         return $string;
     }
     
+    public function sanear_apellidos_y_nombres($string){
+        
+        //$string = trim($string);
+
+        $string = str_replace(
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('á', 'á', 'á', 'á', 'á', 'á', 'á', 'á', 'á'),
+            $string
+        );
+
+        $string = str_replace(
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('é', 'é', 'é', 'é', 'é', 'é', 'é', 'é'),
+            $string
+        );
+
+        $string = str_replace(
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('í', 'í', 'í', 'í', 'í', 'í', 'í', 'í'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('ó', 'ó', 'ó', 'ó', 'ó', 'ó', 'ó', 'ó'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('ñ', 'ñ', 'c', 'C'),
+            $string
+        );
+
+        //Esta parte se encarga de eliminar cualquier caracter extraño
+        $string = str_replace(
+            array("\\", "¨", "º", "-", "~",
+                 "#", "@", "|", "!", "\"",
+                 "·", "$", "%", "&", "/",
+                 "(", ")", "?", "'", "¡",
+                 "¿", "[", "^", "`", "]",
+                 "+", "}", "{", "¨", "´",
+                 ">", "< ", ";", ",", ":",
+                 "."),
+            '',
+            $string
+        );
+        return $string;
+    }
+    
     public function setApellidoAttribute($apellido){
-        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_string($apellido)));
+        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($apellido)));
     }
     
     public function setNombreAttribute($nombre){
-        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_string($nombre)));
+        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($nombre)));
     }
     
     public function getComisionNro(){
@@ -349,5 +405,45 @@ class Inscripcion extends Eloquent {
     
     public function setRequisitosCompletos($estado){
         return $this->presento_requisitos = $estado;
+    }
+    
+    public function getColoresSegunEstados(){
+        $bkgcolor = '#F5A9F2'; //alumnos no confirmados = rosado
+        $color = 'black';
+        if($this->getRequisitosCompletos()){
+            $bkgcolor = '#E6E6E6'; //alumnos que presentaron los requisitos = gris_claro
+        }else{
+            $color = 'red'; //alumnos que NO presentaron requisitos = rojo
+        }
+        if($this->getEsInscripto()){
+            $bkgcolor = '#F7F2E0'; //alumnos confirmados sin requisitos = crema
+            if($this->getComisionNro() > 0){
+                switch ($this->getComisionNro()){
+                    case 1: $bkgcolor="#E0F8F7"; //comision 1 = celeste
+                            break;
+                    case 2: $bkgcolor="#E0F8E0"; //comision 2 = verde_claro
+                            break;
+                    case 3: $bkgcolor="#ECCEF5"; //comision 3 = lila_claro
+                            break;
+                    case 4: $bkgcolor="#F3E2A9"; //comision 4 = marron_claro
+                            break;
+                    case 5: $bkgcolor="#F2F5A9"; //comision 5 = amarillo_claro
+                            break;
+                    case 6: $bkgcolor="#A9E2F3"; //comision 6 = celeste_mas_oscuro
+                            break;
+                    case 7: $bkgcolor="#01DFA5"; //comision 7 = verde_mas_oscuro
+                            break;
+                    case 8: $bkgcolor="#F7FE2E"; //comision 8 = amarillo_mas_oscuro
+                            break;
+                    case 9: $bkgcolor="#DF7401"; //comision 9 = marron_mas_oscuro
+                            break;
+                    default: $bkgcolor="#A901DB"; //comision 10 = lila_mas_oscuro
+                }
+            }
+        }
+        $arreglo = array();
+        $arreglo[0] = $color;
+        $arreglo[1] = $bkgcolor;
+        return $arreglo;
     }
 }

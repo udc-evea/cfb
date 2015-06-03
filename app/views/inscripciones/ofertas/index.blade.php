@@ -65,7 +65,7 @@
 @if (count($inscripciones))
 <fieldset>
     <div></div>
-	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
+	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
                     <th>Nro.</th>
@@ -89,21 +89,11 @@
                    <?php $i = 1; ?>
                    @foreach ($inscripciones as $inscripcion)                   
                    <?php
-                        $style = '';
-                        if($inscripcion->getRequisitosCompletos()){
-                            if($inscripcion->getEsInscripto()){
-                                $style = 'class="success"';
-                            }else{
-                                $style = 'class="warning"';
-                            }
-                        }elseif($inscripcion->getEsInscripto()){
-                            if($inscripcion->getEsInscripto()){
-                                $style = 'class="danger"';
-                            }
-                        }
-
+                        $arreglo = $inscripcion->getColoresSegunEstados();
+                        $color=$arreglo[0];
+                        $bkgcolor=$arreglo[1];
                    ?>                   
-                    <tr <?php echo $style ?>>
+                    <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
                         <td>{{ $i }}</td>
                         <td><p>{{ $inscripcion->apellido }},</p><p>{{ $inscripcion->nombre }}</p>
                         </td>
@@ -133,11 +123,19 @@
                                 @endif
                             </td>
                             <td>@if ($inscripcion->getEsInscripto())
+                                  @if($inscripcion->getComisionNro() < 10)
                                     {{ link_to_route('ofertas.inscripciones.sumarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-plus','title'=>'Sumar el nro. de la comisión.')) }}
+                                  @endif
                                 @endif
-                                <strong>{{ $inscripcion->getComisionNro() }}</strong>
+                                @if($inscripcion->getComisionNro() != 0)
+                                    <strong>Com. {{ $inscripcion->getComisionNro() }}</strong>
+                                @else
+                                    <strong>Sin Com.</strong>
+                                @endif
                                 @if ($inscripcion->getEsInscripto())
+                                  @if($inscripcion->getComisionNro() > 0)
                                     {{ link_to_route('ofertas.inscripciones.restarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-minus','title'=>'Bajar el nro. de la comisión.')) }}
+                                  @endif
                                 @endif
                             </td>
                             <td>
