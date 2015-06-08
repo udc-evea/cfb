@@ -136,7 +136,150 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->orderBy('nombre');
         }
     }
+    
+    // agregado por nico - devuelve los inscriptos que no tienen comision asignada
+    public function inscriptosSinComision() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',0)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 1
+    public function inscriptosComision01() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',1)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 2
+    public function inscriptosComision02() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',2)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 3
+    public function inscriptosComision03() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',3)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
 
+    // agregado por nico - devuelve los inscriptos de la comision 4
+    public function inscriptosComision04() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',4)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 5
+    public function inscriptosComision05() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',5)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 6
+    public function inscriptosComision06() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',6)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 7
+    public function inscriptosComision07() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',7)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 8
+    public function inscriptosComision08() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',8)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 9
+    public function inscriptosComision09() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',9)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
+    // agregado por nico - devuelve los inscriptos de la comision 10
+    public function inscriptosComision10() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('comision_nro','LIKE',10)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
     public function getViewAttribute() {
         if ($this->esCarrera) {
             return 'carreras';

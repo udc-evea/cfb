@@ -594,11 +594,67 @@ class InscripcionCarrera extends Eloquent {
         return $string;
     }
     
+    public function sanear_apellidos_y_nombres($string){
+        
+        //$string = trim($string);
+
+        $string = str_replace(
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('á', 'á', 'á', 'á', 'á', 'á', 'á', 'á', 'á'),
+            $string
+        );
+
+        $string = str_replace(
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('é', 'é', 'é', 'é', 'é', 'é', 'é', 'é'),
+            $string
+        );
+
+        $string = str_replace(
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('í', 'í', 'í', 'í', 'í', 'í', 'í', 'í'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('ó', 'ó', 'ó', 'ó', 'ó', 'ó', 'ó', 'ó'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú'),
+            $string
+        );
+
+        $string = str_replace(
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('ñ', 'ñ', 'c', 'C'),
+            $string
+        );
+
+        //Esta parte se encarga de eliminar cualquier caracter extraño
+        $string = str_replace(
+            array("\\", "¨", "º", "-", "~",
+                 "#", "@", "|", "!", "\"",
+                 "·", "$", "%", "&", "/",
+                 "(", ")", "?", "'", "¡",
+                 "¿", "[", "^", "`", "]",
+                 "+", "}", "{", "¨", "´",
+                 ">", "< ", ";", ",", ":",
+                 "."),
+            '',
+            $string
+        );
+        return $string;
+    }
+    
     public function setApellidoAttribute($apellido){
-        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_string($apellido)));
+        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($apellido)));
     }
     
     public function setNombreAttribute($nombre){
-        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_string($nombre)));
+        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($nombre)));
     }
 }

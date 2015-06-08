@@ -66,9 +66,7 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
 
     Route::resource('tipos_documento', 'TipoDocumentosController');
     Route::resource('localidades', 'LocalidadesController');
-    
-    
-    
+            
     //rutas para ver los usuarios
     Route::resource('usuarios', 'UsuariosController');
     Route::get('/logout', array('uses' => 'HomeController@logout'));

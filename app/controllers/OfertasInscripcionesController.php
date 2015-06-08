@@ -14,7 +14,7 @@ class OfertasInscripcionesController extends BaseController {
         $exp = Request::get('exp');
         
         //traigo todos (pre-inscriptos e inscriptos) para ver en la vista
-        $inscripciones = $oferta->inscripciones->all();
+        //$inscripciones = $oferta->inscripciones->all(); --> descomentar esta linea        
         
         //Busco el usuario actual en la BD
         $userName = Auth::user()->username;
@@ -22,7 +22,62 @@ class OfertasInscripcionesController extends BaseController {
         $perfil = Auth::user()->perfil;
         $userId = Auth::user()->id;
 
-        if (!empty($exp)) {
+      if($oferta->getEsOfertaAttribute()){
+          
+        $preinscripciones = $oferta->preinscriptosOferta->all();
+        $inscripciones = $oferta->inscriptosOferta->all();
+        $inscripSinCom = $oferta->inscriptosSinComision->all();
+        $inscripCom01 = $oferta->inscriptosComision01->all();
+        $inscripCom02 = $oferta->inscriptosComision02->all();
+        $inscripCom03 = $oferta->inscriptosComision03->all();
+        $inscripCom04 = $oferta->inscriptosComision04->all();
+        $inscripCom05 = $oferta->inscriptosComision05->all();
+        $inscripCom06 = $oferta->inscriptosComision06->all();
+        $inscripCom07 = $oferta->inscriptosComision07->all();
+        $inscripCom08 = $oferta->inscriptosComision08->all();
+        $inscripCom09 = $oferta->inscriptosComision09->all();
+        $inscripCom10 = $oferta->inscriptosComision10->all();
+        
+        if(count($inscripSinCom)>0){
+            $comisiones[0]=$inscripSinCom;
+        }
+        if(count($inscripCom01)>0){
+            $comisiones[1]=$inscripCom01;                            
+        }
+        if(count($inscripCom02)>0){
+            $comisiones[2]=$inscripCom02;
+        }
+        if(count($inscripCom03)>0){
+            $comisiones[3]=$inscripCom03;
+        }
+        if(count($inscripCom04)>0){
+            $comisiones[4]=$inscripCom04;
+        }
+        if(count($inscripCom05)>0){
+            $comisiones[5]=$inscripCom05;
+        }
+        if(count($inscripCom06)>0){
+            $comisiones[6]=$inscripCom06;
+        }
+        if(count($inscripCom07)>0){
+            $comisiones[7]=$inscripCom07;
+        }
+        if(count($inscripCom08)>0){
+            $comisiones[8]=$inscripCom08;
+        }
+        if(count($inscripCom09)>0){
+            $comisiones[9]=$inscripCom09;
+        }
+        if(count($inscripCom10)>0){
+            $comisiones[10]=$inscripCom10;
+        }
+        //return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
+        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
+        
+      }else{
+          $inscripciones = $oferta->inscripciones->all();
+          
+          if (!empty($exp)) {
             switch ($exp) {
                 case parent::EXPORT_XLSP:
                     //traigo solos los preinscriptos para exportar a excel
@@ -46,9 +101,11 @@ class OfertasInscripcionesController extends BaseController {
                     return $this->exportarCSV($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.csv');
             }
         } else {
-            return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
+          return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
         }
+      }
     }
+    
     
     /**
      * Show the form for creating a new resource.
