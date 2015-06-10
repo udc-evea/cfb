@@ -9,12 +9,13 @@
             <thead>
                 <tr>
                     <th>Nro.</th>
-                    <th>Apellidos y Nombres</th>                    
+                    <th>Apellidos</th>
+                    <th>Nombres</th>
                     @if($perfil != "Colaborador")
                         <!-- <th>Documento</th> -->
                     @endif
                     <!-- <th>Localidad</th> -->
-                    <th>Datos Personales</th>
+                    <th>Documento</th>
                     @if($perfil != "Colaborador")
                         <th>Email UDC</th>
                         <th>Requisitos</th>
@@ -35,17 +36,13 @@
                    ?>                   
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
                         <td>{{ $i }}</td>
-                        <td><p>{{ $inscripcion->apellido }},</p><p>{{ $inscripcion->nombre }}</p>
-                        </td>
+                        <td>{{ $inscripcion->apellido }}</td>
+                        <td>{{ $inscripcion->nombre }}</td>
                         @if($perfil != "Colaborador")
                             <!-- <td>{{ $inscripcion->tipoydoc }}</td> -->
                         @endif
                         <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
-                        <td>
-                            <p><strong>D.N.I.:</strong> {{ $inscripcion->tipoydoc }}</p>
-                            <p><strong>e-mail:</strong> {{ $inscripcion->email }}</p>
-                            <p><strong>Loc.:</strong> {{ $inscripcion->localidad->la_localidad }}</p>
-                        </td>
+                        <td>{{ $inscripcion->tipoydoc }}</td>
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->email_institucional }}}</td>
                             <td>

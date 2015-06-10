@@ -32,7 +32,7 @@
     <h2>
         <strong>Pre-Inscriptos</strong> -->
         <!-- <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a></small> -->
-    <!-- </h2>
+    <!-- </h2> -->
         @if(count($inscripciones))
         <table class="tablaExportar">
             <tr>
@@ -54,7 +54,7 @@
             </tr>
         </table>
         @endif
-        <br><br> -->
+        <br><br>
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     <hr>
     <?php //var_dump($comisiones); ?>
@@ -129,11 +129,10 @@
                 <?php endforeach;?>
             <?php endif;?>
         </div>
-</div>
-
-<!-- <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a> -->
-<div id="fondo">
-    <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
+    <!-- <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a> -->
+    <div id="fondo">
+        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
+    </div>
 </div>
 
 
