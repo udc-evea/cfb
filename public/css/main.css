@@ -64,7 +64,7 @@ ul.requisitos li:hover {background-color: #fdf59a;}
 
 /*  Estilo de tabla de los excel y pdf que se descargan o muestran por pantalla */
 .tablaExcel{
-    border: solid black 1px;
+    border: solid black 0px;
 }
 .tablaExcel tr th{
     border: solid black 1px;

@@ -372,11 +372,15 @@ class Inscripcion extends Eloquent {
     }
     
     public function setApellidoAttribute($apellido){
-        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($apellido)));
+        $aux = strtolower($apellido);
+        $aux = $this->sanear_apellidos_y_nombres($aux);
+        $this->attributes['apellido'] = ucwords($aux);
     }
     
     public function setNombreAttribute($nombre){
-        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($nombre)));
+        $aux = strtolower($nombre);
+        $aux = $this->sanear_apellidos_y_nombres($aux);
+        $this->attributes['nombre'] = ucwords($aux);
     }
     
     public function getComisionNro(){

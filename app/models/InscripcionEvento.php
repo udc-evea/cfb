@@ -337,7 +337,7 @@ class InscripcionEvento extends Eloquent {
 
         $string = str_replace(
             array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-            array('ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú'),
+            array('ú', 'ú', 'ü', 'ú', 'ú', 'ú', 'ú', 'ü'),
             $string
         );
 
@@ -364,10 +364,14 @@ class InscripcionEvento extends Eloquent {
     }
     
     public function setApellidoAttribute($apellido){
-        $this->attributes['apellido'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($apellido)));
+        $aux = strtolower($apellido);
+        $aux = $this->sanear_apellidos_y_nombres($aux);
+        $this->attributes['apellido'] = ucwords($aux);
     }
     
     public function setNombreAttribute($nombre){
-        $this->attributes['nombre'] = ucwords(strtolower($this->sanear_apellidos_y_nombres($nombre)));
+        $aux = strtolower($nombre);
+        $aux = $this->sanear_apellidos_y_nombres($aux);
+        $this->attributes['nombre'] = ucwords($aux);
     }
 }

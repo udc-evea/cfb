@@ -27,13 +27,16 @@
     <a href="#arriba" title="Ir arriba"><i class="glyphicon glyphicon-chevron-up"></i></a>
 </div>
 <div id="arriba" class="container">
-    <h1>Oferta: <strong>"{{ $oferta->nombre }}"</strong></h1>
+    <div class="alert alert-info" align="center">
+        <h1>Oferta: <strong>"{{ $oferta->nombre }}"</strong></h1>
+    </div>
     <!-- <h2>Usuario: {{ $nomyape }} - {{ $userName }} ({{ $perfil }})</h2>
     <h2>
         <strong>Pre-Inscriptos</strong> -->
         <!-- <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a></small> -->
     <!-- </h2> -->
-        @if(count($inscripciones))
+     @if(count($inscripciones))
+     <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
         <table class="tablaExportar">
             <tr>
                 <td rowspan="2"><strong>Exportar listado</strong></td>
@@ -53,8 +56,8 @@
                 @endif
             </tr>
         </table>
-        @endif
-        <br><br>
+     </div>
+     @endif        
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     <hr>
     <?php //var_dump($comisiones); ?>

@@ -8,7 +8,7 @@
 @if(count($rows)>0)
     <table class="tablaExcel">
         <tr>
-            <th colspan="6">
+            <th colspan="15">
                 Anotados en: {{$rows[0]->oferta->nombre}}
             </th>
         </tr>
@@ -17,14 +17,17 @@
             <th>Apellido</th>
             <th>Nombre</th>
             <th>Documento</th>
+            <th>Inscripto</th>
+            <th>Pres. Req.</th>
+            <th>Emails</th>
+            <th>Teléfono</th>
             <th>Fecha nac.</th>
             <th>Localidad</th>
             <th>Años resid.</th>
             <th>Nivel estudios</th>
             <th>Título</th>
-            <th>Email</th>
-            <th>Teléfono</th>
             <th>Cómo te enteraste</th>
+            <th>Comisión Nro.</th>
         </tr>
     <?php $i=1;?>
     @foreach($rows as $item)
@@ -33,14 +36,42 @@
             <td>{{ $item->apellido }}</td>
             <td>{{ $item->nombre }}</td>
             <td>{{ $item->documento }}</td>
+            <td>                
+                @if($item->getEsInscripto())
+                    <p>Si</p>
+                @else
+                    <p>No</p>
+                @endif
+            </td>
+            <td>                
+                @if($item->getRequisitosCompletos())
+                    <p>Si</p>
+                @else
+                    <p>No</p>
+                @endif
+            </td>
+            <td>
+                <p>{{ $item->email }}</p>
+                @if($item->getEsInscripto())
+                    <p>{{ $item->email_institucional }}</p>
+                @endif
+            </td>
+            <td>{{ $item->telefono }}</td>
             <td>{{ $item->fecha_nacimiento }}</td>
             <td>{{ $item->localidad->la_localidad }}</td>
             <td>{{ $item->localidad_anios_residencia }}</td>
             <td>{{ $item->nivel_estudios->nivel_estudios }}</td>
             <td>{{ $item->titulo_obtenido }}</td>
-            <td>{{ $item->email }}</td>
-            <td>{{ $item->telefono }}</td>
             <td>{{ $item->rel_como_te_enteraste }}</td>
+            @if($item->getEsInscripto())
+                @if($item->getComisionNro() == 0)
+                    <td>Sin Comision</td>
+                @else
+                    <td>Comision nro {{ $item->getComisionNro() }}</td>
+                @endif
+            @else
+                <td>No Corresponde</td>
+            @endif
         </tr>
         <?php $i++;?>
     @endforeach

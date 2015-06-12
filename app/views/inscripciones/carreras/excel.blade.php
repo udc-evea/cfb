@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es-AR">
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" href="{{ asset('css/main.css') }}" media="all">
     </head>
 <body>
 @if(count($rows)>0)
     <table class="tablaExcel">
         <tr>
-            <th colspan="6">
+            <th colspan="9">
                 Anotados en: {{$rows[0]->oferta->nombre}}
             </th>
         </tr>

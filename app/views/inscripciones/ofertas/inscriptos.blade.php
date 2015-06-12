@@ -10,7 +10,7 @@
                 <tr>
                     <th>Nro.</th>
                     <th>Apellidos</th>
-                    <th>Nombres</th>
+                    <th>Nombres</th>                    
                     @if($perfil != "Colaborador")
                         <!-- <th>Documento</th> -->
                     @endif
@@ -44,7 +44,7 @@
                         <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                         <td>{{ $inscripcion->tipoydoc }}</td>
                         @if($perfil != "Colaborador")
-                            <td>{{{ $inscripcion->email_institucional }}}</td>
+                            <td>{{ $inscripcion->email_institucional }}</td>
                             <td>
                                 @if ($inscripcion->getRequisitosCompletos())
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}

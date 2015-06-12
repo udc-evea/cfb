@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-AR">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
 <body>
 @if(count($rows)>0)
