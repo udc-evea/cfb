@@ -13,13 +13,6 @@
                 </div>
                 @yield('main')
             </div>
-          </div>    
-            
-            
-        
+          </div>                                
     </body>
-</html>    
-            
-        
-    </body>
-</html>
+</html>            

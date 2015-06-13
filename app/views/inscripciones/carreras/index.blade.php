@@ -1,41 +1,66 @@
 @extends('layouts.scaffold')
-
 @section('main')
 
-<h1>Oferta: <strong>"{{ $oferta->nombre }}"</strong></h1>
-<h2>Usuario: {{ $nomyape }} - {{ $userName }} ({{ $perfil }})</h2>
-<h2>
-    <strong>Pre-Inscriptos</strong>
-    <!-- <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a></small> -->
-</h2>
+<style type="text/css">
+  #divIrAbajo{
+      position: fixed;
+      right: 5px;;
+      width: 80px;
+      bottom: 100px;
+      text-align: center;      
+  }
+  #divIrAbajo a{
+      text-decoration: none;
+      color: white;
+      background-color: black;
+      padding: 7px;
+      border: 1px solid graytext;
+  }
+  #divIrAbajo i{
+      size: 20px;
+  }
+</style>
+
+<div id="divIrAbajo">
+    <a href="#fondo" title="Ir abajo"><i class="glyphicon glyphicon-chevron-down"></i></a>
+    <a href="#arriba" title="Ir arriba"><i class="glyphicon glyphicon-chevron-up"></i></a>
+</div>
+<div id="arriba" class="container">
+    <div class="alert alert-info" align="center">
+        <h1>Oferta: <strong>"{{ $oferta->nombre }}"</strong></h1>
+    </div>
+
     @if(count($inscripciones))
-    <table class="tablaExportar">
-        <tr>
-            <td rowspan="2"><strong>Exportar listado</strong></td>
-            <td colspan="2"><strong>Excel</strong></td>
-            <td colspan="2"><strong>PDF</strong></td>
-            @if($perfil == "Administrador")
-                <td colspan="2"><strong>CVS</strong></td>
-            @endif
-        </tr>
-        <tr>
-            <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsp')) }}" title="Exportar listado de Pre-Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a></td>
-            <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsi')) }}" title="Exportar listado de Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a></td>
-            <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfp')) }}" title="Exportar listado de Pre-inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a></td>
-            <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" title="Exportar listado de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a></td>
-            @if($perfil == "Administrador")
-                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" title="Exportar listado de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a></td>
-            @endif
-        </tr>
-    </table>
+    <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
+        <table class="tablaExportar">
+            <tr>
+                <td rowspan="2"><strong>Exportar listado</strong></td>
+                <td colspan="2"><strong>Excel</strong></td>
+                <td colspan="2"><strong>PDF</strong></td>
+                @if($perfil == "Administrador")
+                    <td><strong>CSV</strong></td>
+                @endif
+            </tr>
+            <tr>
+                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsp')) }}" title="Exportar listado de todos los Pre-Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a></td>
+                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsi')) }}" title="Exportar listado solo de Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a></td>
+                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfp')) }}" title="Exportar listado de todos los Pre-inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a></td>
+                <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" title="Exportar listado solo de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a></td>
+                @if($perfil == "Administrador")
+                    <td><a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" title="Exportar listado solo de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a></td>
+                @endif
+            </tr>
+        </table>
+     </div>
     @endif
-    <br><br>
-<h4>
-    @if(count($inscripciones))
-        Total: {{ count($inscripciones) }}
-    @endif
-</h4>
-@if (count($inscripciones))
+    <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+    <hr>
+    <h4>
+        @if(count($inscripciones))
+            Total: {{ count($inscripciones) }}
+        @endif
+    </h4>
+    @if (count($inscripciones))
 	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -102,12 +127,13 @@
                 @endforeach
 		</tbody>
 	</table>
-<!-- <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a> -->
-<a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}">Volver</a>
-@else
-<br>
-<h2>Aún no hay inscriptos en esta oferta.</h2>
-<p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
-@endif
-
+        @else
+        <br>
+        <h2>Aún no hay inscriptos en esta oferta.</h2>
+        <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
+    @endif
+    <div id="fondo">
+        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
+    </div>
+</div>
 @stop

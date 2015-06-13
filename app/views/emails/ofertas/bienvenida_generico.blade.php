@@ -10,7 +10,7 @@
             </div>
     </div>
         <h2>¡Preinscripción Exitosa!</h2>
-        <p>Bienvenido, has completado la preinscripción a: <strong>{{ $oferta->nombre }}.</strong></p>
+        <p>Bienvenido\a, has completado la preinscripción a: <strong>{{ $oferta->nombre }}.</strong></p>
         @if($oferta->PresentarMasDoc)
             <ul>
                 <li>{{ $oferta->doc_a_presentar }}</li>

@@ -137,6 +137,4 @@
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
     </div>
 </div>
-
-
 @stop

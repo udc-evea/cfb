@@ -46,7 +46,7 @@
 @else
     <table class="tablaExcel">
         <tr>
-            <th colspan="6">
+            <th colspan="8">
                 No hay datos para mostrar
             </th>
         </tr>

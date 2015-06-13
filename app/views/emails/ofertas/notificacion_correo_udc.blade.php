@@ -2,14 +2,14 @@
 <html lang="es-AR">
     <head>
         <meta charset="utf-8">
-       </head>
+    </head>
     <body>
-    <div class="row">
+        <div class="row">
             <div class="col-md-12">
-              <img src="{{ asset('img/LOGO-200x60px.png') }}" width="150"/>
+                <img src="{{ asset('img/LOGO-200x60px.png') }}" width="150"/>
             </div>
-    </div>
-        <h2>Estimado {{ $inscripcion->nombre }} {{ $inscripcion->apellido }}, bienvenido a la 
+        </div>
+        <h2>Estimado\a {{ $inscripcion->nombre }} {{ $inscripcion->apellido }}, bienvenido a la 
             <strong>Universidad del Chubut</strong>
         </h2>        
         <p>Informamos que se ha creado su Correo Institucional necesario para el 

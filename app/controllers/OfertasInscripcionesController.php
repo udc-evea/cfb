@@ -101,8 +101,8 @@ class OfertasInscripcionesController extends BaseController {
         return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
         
       }else{          
-          $inscripciones = $oferta->preinscriptosOferta->all();
-          return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
+          $inscripciones = $oferta->inscripciones->all();
+          return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
       }
     }
     
@@ -295,7 +295,9 @@ class OfertasInscripcionesController extends BaseController {
         if($inscripcion->getEsInscripto()){
             $inscripcion->setEstadoInscripcion(0);
             $inscripcion->vaciarCorreoInstitucional();
-            $inscripcion->setComisionNro(0);
+            if($oferta->getEsOfertaAttribute()){
+                $inscripcion->setComisionNro(0);
+            }            
             $inscripcion->save();
         }else{
             $inscripcion->setEstadoInscripcion(1);
