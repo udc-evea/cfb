@@ -25,33 +25,41 @@ class OfertasInscripcionesController extends BaseController {
         $preinscripciones = $oferta->preinscriptosOferta->all();
         $inscripciones = $oferta->inscriptosOferta->all();
         
-        if (!empty($exp)) {
+      if($oferta->getEsOfertaAttribute()){
+         $tipoOferta = "Oferta";
+      }elseif($oferta->getEsCarreraAttribute()){
+         $tipoOferta = "Carrera";
+      }else{
+         $tipoOferta = "Evento";
+      }
+        
+      if (!empty($exp)) {
             switch ($exp) {
                 case parent::EXPORT_XLSP:
                     //traigo solos los preinscriptos para exportar a excel
                     $inscripciones = $oferta->preinscriptosOferta->all();
-                    return $this->exportarXLS($oferta->nombre."_preinscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel');
+                    return $this->exportarXLS($oferta->nombre."_preinscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_XLSI:
                     //traigo solos los inscriptos para exportar a excel
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarXLS($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel');
+                    return $this->exportarXLS($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFP:
                     //traigo solos los preinscriptos para exportar a pdf
                     $inscripciones = $oferta->preinscriptosOferta->all();
-                    return $this->exportarPDF($oferta->nombre."_preinscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel');
+                    return $this->exportarPDF($oferta->nombre."_preinscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFI:
                     //traigo solos los inscriptos para exportar a pdf
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarPDF($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel');
+                    return $this->exportarPDF($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_CSV:
                     //traigo solos los inscriptos para exportar a cvs
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarCSV($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.csv');
+                    return $this->exportarCSV($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.csv')->with('tipoOferta',$tipoOferta);
             }
-        }
+      }
 
       if($oferta->getEsOfertaAttribute()){
-                  
+                
         $inscripSinCom = $oferta->inscriptosSinComision->all();
         $inscripCom01 = $oferta->inscriptosComision01->all();
         $inscripCom02 = $oferta->inscriptosComision02->all();
@@ -98,11 +106,10 @@ class OfertasInscripcionesController extends BaseController {
             $comisiones[10]=$inscripCom10;
         }
         //return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
-        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
-        
-      }else{          
+        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil)->with('tipoOferta',$tipoOferta);
+      }else{                    
           $inscripciones = $oferta->inscripciones->all();
-          return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
+          return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil)->with('tipoOferta',$tipoOferta);
       }
     }
     
@@ -113,6 +120,21 @@ class OfertasInscripcionesController extends BaseController {
      * @return Response
      */
     public function create($oferta_id) {
+        
+        $ofertas  = Oferta::cursos()->get();
+        $carreras = Oferta::carreras()->get();
+        $eventos  = Oferta::eventos()->get();
+                
+        foreach ($ofertas as $of) { //agregado por nico
+            $of->setCerrarOferta();
+        }
+        foreach ($carreras as $ca) { //agregado por nico
+            $ca->setCerrarOferta();
+        }
+        foreach ($eventos as $ev) { //agregado por nico
+            $ev->setCerrarOferta();
+        }        
+        
         $oferta = Oferta::find($oferta_id);
         if (!$oferta) {
             return View::make('errors.oferta_inexistente');

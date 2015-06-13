@@ -27,7 +27,7 @@
 </div>
 <div id="arriba" class="container">
     <div class="alert alert-info" align="center">
-        <h1>Oferta: <strong>"{{ $oferta->nombre }}"</strong></h1>
+        <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
     </div>
 
     @if(count($inscripciones))

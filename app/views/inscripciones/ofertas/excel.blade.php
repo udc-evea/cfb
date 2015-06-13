@@ -9,7 +9,7 @@
     <table class="tablaExcel">
         <tr>
             <th colspan="15">
-                Anotados en: {{$rows[0]->oferta->nombre}}
+                Anotados en Oferta: {{$rows[0]->oferta->nombre}}
             </th>
         </tr>
         <tr>
