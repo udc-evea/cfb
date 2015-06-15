@@ -305,11 +305,11 @@ $check_vacio = '<span class="fa fa-square-o"></span>'; ?>
                     <td height="60px" bgcolor="#34495e" style="color:#fff;"><span class="glyphicon glyphicon-info-sign"></span> SITUACIÓN LABORAL</td>
                     <td width="65%"><span class="text-danger">*</span>
                         @foreach(InscripcionCarrera::$enum_situacion_laboral as $num => $item)
-                        @if($inscripcion->situacion_laboral == $num)
-                        {{ $check_lleno }} {{$item}}
-                        @else
-                        {{ $check_vacio }} {{$item}}
-                        @endif
+                            @if($inscripcion->situacion_laboral == $num)
+                                {{ $check_lleno }} {{$item}}
+                            @else
+                                {{ $check_vacio }} {{$item}}
+                            @endif
                         @endforeach
                     </td>
                 </tr>

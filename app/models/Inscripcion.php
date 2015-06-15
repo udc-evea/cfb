@@ -345,7 +345,7 @@ class Inscripcion extends Eloquent {
 
         $string = str_replace(
             array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-            array('ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú'),
+            array('ú', 'ú', 'ü', 'ú', 'ú', 'ú', 'ú', 'ü'),
             $string
         );
 
@@ -380,7 +380,7 @@ class Inscripcion extends Eloquent {
     public function setNombreAttribute($nombre){
         $aux = strtolower($nombre);
         $aux = $this->sanear_apellidos_y_nombres($aux);
-        $this->attributes['nombre'] = ucwords($aux);
+        $this->attributes['nombre'] = ucwords($aux);        
     }
     
     public function getComisionNro(){
@@ -425,9 +425,9 @@ class Inscripcion extends Eloquent {
                 switch ($this->getComisionNro()){
                     case 1: $bkgcolor="#E0F8F7"; //comision 1 = celeste
                             break;
-                    case 2: $bkgcolor="#E0F8E0"; //comision 2 = verde_claro
+                    case 2: $bkgcolor="#01DFA5"; //comision 2 = verde_mas_oscuro
                             break;
-                    case 3: $bkgcolor="#ECCEF5"; //comision 3 = lila_claro
+                    case 3: $bkgcolor="#F7FE2E"; //comision 8 = amarillo_mas_oscuro
                             break;
                     case 4: $bkgcolor="#F3E2A9"; //comision 4 = marron_claro
                             break;
@@ -435,9 +435,9 @@ class Inscripcion extends Eloquent {
                             break;
                     case 6: $bkgcolor="#A9E2F3"; //comision 6 = celeste_mas_oscuro
                             break;
-                    case 7: $bkgcolor="#01DFA5"; //comision 7 = verde_mas_oscuro
+                    case 7: $bkgcolor="grey"; //comision 7 = verde_mas_oscuro
                             break;
-                    case 8: $bkgcolor="#F7FE2E"; //comision 8 = amarillo_mas_oscuro
+                    case 8: $bkgcolor="#F3E2A9"; //comision 4 = marron_claro
                             break;
                     case 9: $bkgcolor="#DF7401"; //comision 9 = marron_mas_oscuro
                             break;

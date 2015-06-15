@@ -248,9 +248,9 @@ class InscripcionCarrera extends Eloquent {
         return $this->belongsTo('CategoriaOcupacional', 'situacion_laboral_categoria_ocupacional_id');
     }
     
-    public function getLaCategoriaOcupacional()
+    public function getLaCategoriaOcupacionalAttribute()
     {
-        return $this->categoriaOcupacional ? $this->categoriaOcupacional->categoria : '-';
+        return $this->categoriaOcupacional ? $this->categoriaOcupacional->categoria : '-';        
     }
     
     public function padreCategoriaOcupacional()
@@ -624,7 +624,7 @@ class InscripcionCarrera extends Eloquent {
 
         $string = str_replace(
             array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-            array('ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú', 'ú'),
+            array('ú', 'ú', 'ü', 'ú', 'ú', 'ú', 'ú', 'ü'),
             $string
         );
 
@@ -653,12 +653,12 @@ class InscripcionCarrera extends Eloquent {
     public function setApellidoAttribute($apellido){
         $aux = strtolower($apellido);
         $aux = $this->sanear_apellidos_y_nombres($aux);
-        $this->attributes['apellido'] = ucwords($aux);
+        $this->attributes['apellido'] = ucwords($aux);        
     }
     
     public function setNombreAttribute($nombre){
         $aux = strtolower($nombre);
         $aux = $this->sanear_apellidos_y_nombres($aux);
-        $this->attributes['nombre'] = ucwords($aux);
+        $this->attributes['nombre'] = ucwords($aux);        
     }
 }
