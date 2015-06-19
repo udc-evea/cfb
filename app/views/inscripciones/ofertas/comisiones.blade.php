@@ -16,6 +16,7 @@
                     @endif
                     <!-- <th>Localidad</th> -->
                     <th>Documento</th>
+                    <th>Email</th>
                     @if($perfil != "Colaborador")
                         <th>Email UDC</th>
                         <!-- <th>Requisitos</th>
@@ -43,6 +44,7 @@
                         @endif
                         <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                         <td>{{ $inscripcion->tipoydoc }}</td>
+                        <td>{{ $inscripcion->email }}</td>
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->email_institucional }}}</td>
                             <!-- <td>

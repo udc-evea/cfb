@@ -8,7 +8,7 @@
 @if(count($rows)>0)
     <table class="tablaExcel">
         <tr>
-            <th colspan="11">
+            <th colspan="12">
                 Anotados en Evento: {{ $rows[0]->oferta->nombre }}
             </th>
         </tr>
@@ -22,6 +22,7 @@
             <th>Años resid.</th>
             <th>Título</th>
             <th>Email</th>
+            <th>Email UDC</th>
             <th>Teléfono</th>
             <th>Cómo te enteraste</th>
         </tr>
@@ -37,6 +38,7 @@
             <td>{{ $item->localidad_anios_residencia }}</td>
             <td>{{ $item->titulo_obtenido }}</td>
             <td>{{ $item->email }}</td>
+            <td>{{ $item->email_institucional }}</td>
             <td>{{ $item->telefono }}</td>
             <td>{{ $item->rel_como_te_enteraste }}</td>
         </tr>

@@ -8,7 +8,7 @@
 @if(count($rows)>0)
     <table class="tablaExcel">
         <tr>
-            <th colspan="15">
+            <th colspan="16">
                 Anotados en Oferta: {{$rows[0]->oferta->nombre}}
             </th>
         </tr>
@@ -19,7 +19,8 @@
             <th>Documento</th>
             <th>Inscripto</th>
             <th>Pres. Req.</th>
-            <th>Emails</th>
+            <th>Email</th>
+            <th>Email UDC</th>
             <th>Teléfono</th>
             <th>Fecha nac.</th>
             <th>Localidad</th>
@@ -50,12 +51,8 @@
                     <p>No</p>
                 @endif
             </td>
-            <td>
-                <p>{{ $item->email }}</p>
-                @if($item->getEsInscripto())
-                    <p>{{ $item->email_institucional }}</p>
-                @endif
-            </td>
+            <td>{{ $item->email }}</td>
+            <td>{{ $item->email_institucional }}</td>
             <td>{{ $item->telefono }}</td>
             <td>{{ $item->fecha_nacimiento }}</td>
             <td>{{ $item->localidad->la_localidad }}</td>

@@ -43,7 +43,7 @@
 <body>
 	<div class="welcome">		
                 <a href="http://udc.edu.ar" title="Portal Universidad del Chubut" target="_target"><img src="{{ asset('img/LOGO-horizontal-MQ-RGB-150dpi.png') }}" width="250"/></a>
-                <h1><strong>Sistema de Inscripciones</strong></h1>
+                <h1><strong>Sistema de Inscripciones On Line</strong></h1>
 	</div>
         @if(Auth::check())
         <div class="listadoOpciones">

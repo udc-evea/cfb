@@ -48,7 +48,7 @@
 
 <hr>
 {{ Former::actions(
-            link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-link')),
+            link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-success')),
             Former::lg_default_reset('Restablecer'),
             Former::lg_primary_submit('Guardar')
     )

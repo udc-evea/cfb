@@ -1,15 +1,23 @@
 <?php $tab_activa = Session::get('tab_activa', 'ofertas'); ?>
 @extends('layouts.scaffold')
-@section('title', 'Ofertas Formativas - Universidad del Chubut')
+@section('title', 'Inscripciones On Line - Universidad del Chubut')
 @section('main')
 <div class="container">
     <!-- Header -->
     <div class="row block">
-        <div class="col-xs-12 col-md-12">
-            <div class="col-xs-6 col-md-4"><img  src="{{asset('img/LOGO-200x60px.png')}}" width="150"/></div>
-            <div class="col-xs-12 col-md-8"><h1><span class="titulo1">Ofertas Formativas</span></h1></div>
-            <h3>Usuario: {{ $userName }}</h3>
-            <div align="center">
+        <div style="text-align: center;">
+            <div style="float: left">
+                <img  src="{{asset('img/LOGO-200x60px.png')}}" width="150"/>
+            </div>
+            <div style="margin: 0% 32% 0% 33%">
+                    <h1 style="width: 400px; border: solid white 4px; background-color: black; color: white; border-radius: 15px; padding: 10px">
+                        <span class="titulo1">Inscripciones On Line</span>
+                    </h1>
+            </div>
+            <div>
+                <h3>Usuario: {{ $userName }}</h3>
+            </div>
+            <div align="left">
                 <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a></p>
             </div>
         </div>
