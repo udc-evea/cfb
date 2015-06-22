@@ -22,9 +22,7 @@
         <h2>¡Preinscripción Exitosa!</h2>
         <p>Bienvenido\a, has completado la preinscripción <?php echo $tipoOferta ?>: <strong>{{ $oferta->nombre }}.</strong></p>
         @if($oferta->PresentarMasDoc)
-            <ul>
-                <li>{{ $oferta->doc_a_presentar }}</li>
-            </ul>
+            {{ $oferta->doc_a_presentar }}
         @endif
         <p>En breve nos pondremos en contacto.</p>
         <p>Atentamente,</p>

@@ -27,6 +27,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'fin' => 'date_format:d/m/Y',
         'cupo_maximo' => 'integer|min:0',
         'tipo_oferta' => 'required|exists:tipo_oferta_formativa,id',
+        'doc_a_presentar' => 'between:2,2000',
+        'url_imagen_mail' => 'between:2,100',
     );
 
     public function __construct($attributes = array()) {

@@ -36,8 +36,12 @@
 {{ Former::text('fin')->label('Fecha fin')->addClass('fecha') }}
 {{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
-{{ Former::file('mail_bienvenida')
-			->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }}
+
+{{ Former::file('mail_bienvenida')->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }}
+
+<!-- Agrego el campo nuevo: url_imagen_mail -->
+<input type="hidden" name="url_imagen_mail"/>
+{{ Former::text('url_imagen_mail')->label('URL de la imagen')->rows(3)->help('URL a la que apuntara la imagen.') }}
                         
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
 <input type="hidden" name="presentar_mas_doc" value="0"/>
