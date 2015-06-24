@@ -29,8 +29,6 @@ class UsuariosController extends BaseController {
 		$usuarios = $this->usuario->all();
                 
                 if($userPerfil != 'Administrador'){
-                    //return Redirect::route('inicio.inicio')
-		    //->with('message', 'No tiene privilegios para ver esa sección!. Consulte con su administrador.');
                     return Redirect::action('HomeController@bienvenido')
                             ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
                 }else{
@@ -45,7 +43,12 @@ class UsuariosController extends BaseController {
 	 */
 	public function create()
 	{
+            if(Auth::user()->perfil == 'Administrador'){
 		return View::make('usuarios.create');
+            }else{
+                return Redirect::action('HomeController@bienvenido')
+                            ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
+            }
 	}
 
 	/**
@@ -110,14 +113,17 @@ class UsuariosController extends BaseController {
 	 */
 	public function edit($id)
 	{
+            if(Auth::user()->perfil == 'Administrador'){
 		$usuario = $this->usuario->find($id);
-
 		if (is_null($usuario))
 		{
 			return Redirect::route('usuarios.index');
 		}
-
 		return View::make('usuarios.edit', compact('usuario'));
+            }else{
+                return Redirect::action('HomeController@bienvenido')
+                            ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
+            }
 	}
 
 	/**
@@ -174,9 +180,14 @@ class UsuariosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+            if(Auth::user()->perfil == 'Administrador'){
 		$this->usuario->find($id)->delete();
-
 		return Redirect::route('usuarios.index');
+            }else{
+                return Redirect::action('HomeController@bienvenido')
+                            ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
+            }
+            
 	}
 
 }
