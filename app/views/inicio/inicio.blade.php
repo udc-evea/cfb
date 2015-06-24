@@ -44,11 +44,13 @@
 	<div class="welcome">		
                 <a href="http://udc.edu.ar" title="Portal Universidad del Chubut" target="_target"><img src="{{ asset('img/LOGO-horizontal-MQ-RGB-150dpi.png') }}" width="250"/></a>
                 <h1><strong>Sistema de Inscripciones On Line</strong></h1>
-	</div>
+	</div>        
         @if(Auth::check())
         <div class="listadoOpciones">
             <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-info" title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>
-            <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-danger" title="Ver todas las Usuarios"><i class="glyphicon glyphicon-user"></i> Todos los usuarios</a></p>
+            @if(Auth::user()->perfil == 'Administrador')
+                <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-danger" title="Ver todas las Usuarios"><i class="glyphicon glyphicon-user"></i> Todos los usuarios</a></p>
+            @endif
             <p><a href="{{action('HomeController@salir')}}" class="btn btn-lg btn-warning" title="Salir del Sistema de Inscripciones"><i class="glyphicon glyphicon-off"></i> Salir</a></p>
         </div>
         @else

@@ -17,7 +17,7 @@
                         <th>Nombre y Apellido</th>
                         <th>Usuario</th>
                         <th>Perfil</th>
-                        @if($perfil == 'Administrador')                            
+                        @if($perfil == 'Administrador')
                                 <th>Acciones</th>
                         @endif
                     </tr>
@@ -45,7 +45,7 @@
 		</tbody>
 	</table>
 @else
-	There are no usuarios
+	No hay Usuarios!
 @endif
 
 @stop

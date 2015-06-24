@@ -27,8 +27,15 @@ class UsuariosController extends BaseController {
                 $userPerfil = Auth::user()->perfil;
                 $userName = Auth::user()->nombreyapellido;
 		$usuarios = $this->usuario->all();
-
-		return View::make('usuarios.index', compact('usuarios'))->with('perfil',$userPerfil)->with('user',$user);
+                
+                if($userPerfil != 'Administrador'){
+                    //return Redirect::route('inicio.inicio')
+		    //->with('message', 'No tiene privilegios para ver esa sección!. Consulte con su administrador.');
+                    return Redirect::action('HomeController@bienvenido')
+                            ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
+                }else{
+                    return View::make('usuarios.index', compact('usuarios'))->with('perfil',$userPerfil)->with('user',$user);
+                }
 	}
 
 	/**
