@@ -291,11 +291,12 @@ class InscripcionEvento extends Eloquent {
         );
 
         //Esta parte se encarga de eliminar cualquier caracter extraño
+        // quito el apóstrofe para apellidos tipo "D'alessandro" - "'",
         $string = str_replace(
             array("\\", "¨", "º", "-", "~",
                  "#", "@", "|", "!", "\"",
                  "·", "$", "%", "&", "/",
-                 "(", ")", "?", "'", "¡",
+                 "(", ")", "?", "¡",
                  "¿", "[", "^", "`", "]",
                  "+", "}", "{", "¨", "´",
                  ">", "< ", ";", ",", ":",
@@ -303,7 +304,6 @@ class InscripcionEvento extends Eloquent {
             '',
             $string
         );
-
         return $string;
     }
     
@@ -348,11 +348,12 @@ class InscripcionEvento extends Eloquent {
         );
 
         //Esta parte se encarga de eliminar cualquier caracter extraño
+        // quito el apóstrofe para apellidos tipo "D'alessandro" - "'",
         $string = str_replace(
             array("\\", "¨", "º", "-", "~",
                  "#", "@", "|", "!", "\"",
                  "·", "$", "%", "&", "/",
-                 "(", ")", "?", "'", "¡",
+                 "(", ")", "?", "¡",
                  "¿", "[", "^", "`", "]",
                  "+", "}", "{", "¨", "´",
                  ">", "< ", ";", ",", ":",

@@ -88,7 +88,8 @@
                         <div class="col-md-12"> <label>Nacido en</label>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label>Localidad<span class="text-danger">*</span></label> {{ Form::select('localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra localidad', 'data-pcia' => 'localidad_pcia_id']) }}
+                                    <label>Localidad<span class="text-danger">*</span></label> 
+                                    {{ Form::select('localidad_id', Localidad::select(), null, [ 'class' => 'form-control input-sm con_otra localidad', 'data-pcia' => 'localidad_pcia_id']) }}
                                     {{ Form::text('localidad_otra', null, ['class' => 'form-control input-sm otra_localidad_id hide']) }}
                                 </div>
                                 <div class="col-md-2">
