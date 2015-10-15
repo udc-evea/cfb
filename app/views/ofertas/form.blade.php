@@ -1,6 +1,9 @@
 <?php $method = $obj ? 'PATCH' : 'POST'; ?>
 <?php $route_name = $obj ? 'ofertas.update' : 'ofertas.store'; ?>
 <?php $route_params = $obj ? array('id' => $obj->id) : array(); ?>
+<style>
+    #mail_bienvenida { width:0; height:0; } 
+</style>
 
 {{Former::framework('TwitterBootstrap3')}}
 {{ Former::horizontal_open_for_files()
@@ -37,8 +40,24 @@
 {{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
 {{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
 
-{{ Former::file('mail_bienvenida')->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }}
 
+    <div class="form-group">
+        <label for="mail_bienvenida_file_name" class="control-label col-lg-2 col-sm-4">Archivo de Imágen Seleccinado:</label>
+        <div class="col-lg-7 col-sm-8">
+            <input class="form-control" id="mail_bienvenida_file_name" type="text" name="mail_bienvenida_file_name" value="{{$oferta->mail_bienvenida_file_name}}" >
+            <span class="help-block">Para dejar sin imágen el mail solo debe borrar el texto de arriba.</span>
+        </div>
+        <div class="col-lg-3 col-sm-8">            
+            <!-- <input class="btn btn-default" id="mail_bienvenida" type="file" name="mail_bienvenida" value="Cambiar/Cargar imágen"> -->
+            
+            <input type='file' id='mail_bienvenida' name='mail_bienvenida' />
+            <button id='btn-upload' class="btn btn-primary">Cargar/Cambiar imágen</button>
+            
+        </div>
+    </div>
+    <!-- {{ Former::text('mail_bienvenida_file_name')->label('Archivo de imágen seleccionado:') }} 
+    {{ Former::file('mail_bienvenida')->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }} -->
+    
 <!-- Agrego el campo nuevo: url_imagen_mail -->
 <input type="hidden" name="url_imagen_mail"/>
 {{ Former::text('url_imagen_mail')->label('URL de la imagen')->rows(3)->help('URL a la que apuntara la imagen.') }}
@@ -59,3 +78,11 @@
 }}
 </fieldset>
 {{ Former::close() }}
+<script>
+    $(function(){
+        $('#btn-upload').click(function(e){
+            e.preventDefault();
+            $('#mail_bienvenida').click();}
+        );
+    });
+</script>
