@@ -2,8 +2,32 @@
 <?php $route_name = $obj ? 'ofertas.update' : 'ofertas.store'; ?>
 <?php $route_params = $obj ? array('id' => $obj->id) : array(); ?>
 <style>
-    #mail_bienvenida { width:0; height:0; } 
+    #mail_bienvenida { width:0px; height:0px; }    
+    
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        background: red;
+        cursor: inherit;
+        display: block;
+      }
+      input[readonly] {
+        background-color: white !important;
+        cursor: text !important;
+      }
 </style>
+
 
 {{Former::framework('TwitterBootstrap3')}}
 {{ Former::horizontal_open_for_files()
@@ -43,16 +67,21 @@
 
     <div class="form-group">
         <label for="mail_bienvenida_file_name" class="control-label col-lg-2 col-sm-4">Archivo de Imágen Seleccinado:</label>
-        <div class="col-lg-7 col-sm-8">
+        <div class="col-lg-5 col-sm-8">
             <input class="form-control" id="mail_bienvenida_file_name" type="text" name="mail_bienvenida_file_name" value="{{$oferta->mail_bienvenida_file_name}}" >
-            <span class="help-block">Para dejar sin imágen el mail solo debe borrar el texto de arriba.</span>
+            <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
         </div>
-        <div class="col-lg-3 col-sm-8">            
-            <!-- <input class="btn btn-default" id="mail_bienvenida" type="file" name="mail_bienvenida" value="Cambiar/Cargar imágen"> -->
+        <div class="col-lg-5 col-sm-8">            
             
-            <input type='file' id='mail_bienvenida' name='mail_bienvenida' />
-            <button id='btn-upload' class="btn btn-primary">Cargar/Cambiar imágen</button>
-            
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Cargar<input type="file" id="mail_bienvenida" name="mail_bienvenida">                        
+                    </span>
+                </span>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
         </div>
     </div>
     <!-- {{ Former::text('mail_bienvenida_file_name')->label('Archivo de imágen seleccionado:') }} 
@@ -82,7 +111,29 @@
     $(function(){
         $('#btn-upload').click(function(e){
             e.preventDefault();
-            $('#mail_bienvenida').click();}
-        );
+            $('#mail_bienvenida').click();
+        });
     });
+    
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      });
+
+      $(document).ready( function() {
+          $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+
+              var input = $(this).parents('.input-group').find(':text'),
+                  log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+              if( input.length ) {
+                  input.val(log);
+              } else {
+                  if( log ) alert(log);
+              }
+
+          });
+      });
 </script>
