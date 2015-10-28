@@ -68,7 +68,11 @@
     <div class="form-group">
         <label for="mail_bienvenida_file_name" class="control-label col-lg-2 col-sm-4">Archivo de Imágen Seleccinado:</label>
         <div class="col-lg-5 col-sm-8">
-            <input class="form-control" id="mail_bienvenida_file_name" type="text" name="mail_bienvenida_file_name" value="{{$oferta->mail_bienvenida_file_name}}" >
+            <?php if($newForm): ?>
+                <input class="form-control" id="mail_bienvenida_file_name" type="text" name="mail_bienvenida_file_name" placeholder="Sin Imágen">
+            <?php else: ?>
+                <input class="form-control" id="mail_bienvenida_file_name" type="text" name="mail_bienvenida_file_name" value="<?php echo $oferta->mail_bienvenida_file_name?>">
+            <?php endif;?>
             <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
         </div>
         <div class="col-lg-5 col-sm-8">            
@@ -99,12 +103,21 @@
 {{ Former::textarea('doc_a_presentar')->label('Documentación Extra')->rows(8) }}
 
 <hr>
+<?php if($newForm): ?>
 {{ Former::actions(
             link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-success')),
             Former::lg_default_reset('Restablecer'),
-            Former::lg_primary_submit('Guardar')
+            Former::lg_primary_submit('Crear')
     )
 }}
+<?php else: ?>
+{{ Former::actions(
+            link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-success')),
+            Former::lg_default_reset('Restablecer'),
+            Former::lg_primary_submit('Guardar Cambios')
+    )
+}}
+<?php endif; ?>
 </fieldset>
 {{ Former::close() }}
 <script>

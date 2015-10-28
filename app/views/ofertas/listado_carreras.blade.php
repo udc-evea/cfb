@@ -26,12 +26,10 @@
                     @if($item->inscriptos > $item->cupo_maximo)
                         <span class="text-danger glyphicon glyphicon-warning-sign"></span>
                     @endif
+                @endif              
+                @if($item->inscriptos > 0)
+                    <small><a href="{{ URL::route('ofertas.inscripciones.show', $item->id) }}">[Ver]</a></small>
                 @endif
-                
-                    @if($item->inscriptos > 0)
-                        <small><a href="{{ URL::route('ofertas.inscripciones.show', $item->id) }}">[Ver]</a></small>
-                    @endif
-                
             </td>
             <td>
                 {{ BS3::bool_to_label($item->permite_inscripciones) }}

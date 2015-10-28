@@ -3,9 +3,11 @@
 @section('main')
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-2">
-        <h1>{{ $oferta->nombre }}</h1>
-
+    <div class="col-md-10 col-md-offset-1">
+        <div align="center">
+            <h1><b>{{ $oferta->nombre }}</b></h1>
+        </div>
+        <hr>
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -29,10 +31,12 @@
     <div class="span12">
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade active in" id="tab_datos">
-                @include('ofertas.form', array('obj'=>$oferta))
+                <div class="col-md-10 col-md-offset-1" style="background-color: #E0F3AC; border-radius: 5px; padding: 20px">
+                    @include('ofertas.form', array('obj'=>$oferta,'newForm'=>False))
+                </div>
             </div>
             <div class="tab-pane fade" id="tab_requisitos">
-                @include('ofertas.requisitos_abm', array('oferta'=>$oferta))
+                @include('ofertas.requisitos_abm', array('oferta'=>$oferta,'newForm'=>False))
             </div>
         </div>
     </div>
