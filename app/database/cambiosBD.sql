@@ -34,5 +34,5 @@ COMMENT 'Campo para almacenar si el alumno aprobó o no' ;
 -- la versión de la modificación actual, para poder ir comprobando si falta actualizar 
 -- la base o no.
 -- la sintaxis es:
-CREATE TABLE version_bd (versión varchar(10));
-INSERT INTO `cfb`.`version_bd` (`versión`) VALUES ('3.0.2');
+CREATE TABLE version_bd (version varchar(10));
+INSERT INTO `cfb`.`version_bd` (`version`) VALUES ('3.0.2');
