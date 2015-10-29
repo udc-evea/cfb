@@ -14,15 +14,25 @@ class HomeController extends BaseController {
 	|	Route::get('/', 'HomeController@showWelcome');
 	|
 	*/
+           
+       protected $inicio;
 
-	public function showWelcome()
+
+       public function showWelcome()
 	{
 		return View::make('hello');
 	}
         
+        public function __construct(Inicio $inicio)
+	{
+		$this->inicio = $inicio;
+	}
+        
         public function bienvenido()
-	{		               
-                return View::make('inicio.inicio');
+	{
+            $Inicio = Inicio::first();
+            $versionDB = $Inicio->getVersionDB();
+            return View::make('inicio.inicio')->with('verDB',$versionDB);
 	}
 
         public function salir()

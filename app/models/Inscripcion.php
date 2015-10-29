@@ -26,7 +26,8 @@ class Inscripcion extends Eloquent {
         'telefono'  => 'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/',
-        'comision_nro' => 'integer|min:0'
+        'comision_nro' => 'integer|min:0',
+        'aprobado' => 'integer'
     );
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'email_confirmation'];
@@ -411,6 +412,20 @@ class Inscripcion extends Eloquent {
     
     public function setRequisitosCompletos($estado){
         return $this->presento_requisitos = $estado;
+    }
+    
+    public function getEsAprobado(){
+        return ($this->aprobado == 1);
+    }
+    
+    public function getAprobado(){
+        return $this->aprobado;
+    }
+    
+    public function setAprobado($valor){
+        if ($valor == 0 || $valor == 1){
+            $this->attributes['aprobado'] = $valor;
+        }
     }
     
     public function getColoresSegunEstados(){

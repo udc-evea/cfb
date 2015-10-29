@@ -41,10 +41,16 @@
 	</style>
 </head>
 <body>
-	<div class="welcome">		
+	<div class="welcome" align="center">		
                 <a href="http://udc.edu.ar" title="Portal Universidad del Chubut" target="_target"><img src="{{ asset('img/LOGO-horizontal-MQ-RGB-150dpi.png') }}" width="250"/></a>
-                <h1><strong>Sistema de Inscripciones On Line</strong></h1>
-	</div>        
+                <div>
+                    <h1 style="width: 400px; border: solid white 4px; background-color: black; color: white; border-radius: 15px; padding: 10px">
+                        <span class="titulo1">Inscripciones On Line</span>
+                        <div><small>código v.3.1.1  |  base v.<?php echo $verDB ?></small></div>
+                    </h1>                    
+                </div> 
+	</div>
+        <br><br><br>
         @if(Auth::check())
         <div class="listadoOpciones">
             <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-info" title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>

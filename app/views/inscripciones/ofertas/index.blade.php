@@ -104,6 +104,9 @@
                             <?php endforeach;?>
                         <?php endif;?>
                     <?php endif;?>
+                    <?php if(!(empty($aprobados))):?>
+                        <li><a title="Solo los Aprobados a la Oferta." href="#tab_aprobados" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-thumbs-up"></i> Aprobados <span class="badge"><?php echo sizeof($aprobados); ?></span></a></li>
+                    <?php endif;?>
                 </ul>
             </div>
         </div>
@@ -131,6 +134,9 @@
                     <?php endforeach;?>
                 <?php endforeach;?>
             <?php endif;?>
+            <div class="tab-pane" id="tab_aprobados">
+                @include('inscripciones.ofertas.aprobados', compact('aprobados'))
+            </div>
         </div>
     <!-- <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a> -->
     <div id="fondo">

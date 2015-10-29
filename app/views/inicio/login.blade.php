@@ -45,7 +45,7 @@
                 </div>
                 {{ Form::close() }}
             </fieldset>
-        </div>        
+        </div>
     </body>
 </html>
 @stop

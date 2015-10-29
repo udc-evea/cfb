@@ -282,6 +282,19 @@ class Oferta extends Eloquent implements StaplerableInterface {
         }
     }
     
+    // agregado por nico - devuelve todos los Aprobados de la Oferta
+    public function aprobados() {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('aprobado','LIKE',1)
+                    ->orderBy('apellido')
+                    ->orderBy('nombre');            
+        }
+    }
+    
     public function getViewAttribute() {
         if ($this->esCarrera) {
             return 'carreras';

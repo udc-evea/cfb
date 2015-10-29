@@ -105,8 +105,12 @@ class OfertasInscripcionesController extends BaseController {
         if(count($inscripCom10)>0){
             $comisiones[10]=$inscripCom10;
         }
+        
+        //Obtengo el listado de Aprobados de la Oferta
+        $aprobados = $oferta->aprobados->all();
+        
         //return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
-        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil)->with('tipoOferta',$tipoOferta);
+        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil)->with('tipoOferta',$tipoOferta)->with('aprobados',$aprobados);
       }else{                    
           $inscripciones = $oferta->inscripciones->all();
           return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil)->with('tipoOferta',$tipoOferta);
@@ -327,6 +331,21 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->save();
         }
         
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
+    
+    public function cambiarAprobado($oferta_id, $id) {
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+               
+        if($inscripcion->getEsAprobado()){
+            $inscripcion->setAprobado(0);
+        }else{
+            $inscripcion->setAprobado(1);            
+        }
+        $inscripcion->save();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }
     

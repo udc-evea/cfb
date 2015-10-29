@@ -22,6 +22,7 @@
                         <!-- <th>Requisitos</th>
                         <th>Inscripto</th> -->
                         <th>Comision Nro.</th>
+                        <th>Aprobó?</th>
                         <!-- <th>Notificado/a</th> -->
                     @endif
                     <!-- <th>Acciones</th> -->
@@ -76,6 +77,13 @@
                                     {{ link_to_route('ofertas.inscripciones.sumarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-plus','title'=>'Sumar el nro. de la comisión.')) }}
                                   @endif
                                 @endif 
+                            </td>
+                            <td>
+                                @if ($inscripcion->getEsAprobado())
+                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
+                                @else
+                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
+                                @endif
                             </td>
                             <!-- <td>
                                 @if ($inscripcion->getEsInscripto())
