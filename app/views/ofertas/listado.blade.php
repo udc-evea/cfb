@@ -4,7 +4,6 @@
         <tr>
             <th>Nombre</th>
             <th>Año</th>
-            <th>Creador</th>
             <th>Pre-Inscriptos</th>
             <th>Inscribiendo</th>
             <th>Fecha Inicio</th>
@@ -16,9 +15,8 @@
     <tbody>
         @foreach ($ofertas as $oferta)
         <tr>
-            <td>{{ $oferta->nombre }}</td>
+            <td title="Creador: {{ $oferta->creador->nombreyapellido }}">{{ $oferta->nombre }}</td>
             <td>{{ $oferta->anio }}</td>
-            <td>{{ $oferta->creador->nombreyapellido }}</td>
             <td>
                 {{ $oferta->inscriptos }}
                 @if((int)$oferta->cupo_maximo > 0)

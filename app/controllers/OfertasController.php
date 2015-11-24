@@ -32,7 +32,8 @@ class OfertasController extends BaseController {
                     $ca->setCerrarOferta();
                 }
                 foreach ($eventos as $ev) { //agrgado por nico
-                    $ev->setCerrarOferta();
+                    //$ev->setCerrarOferta();
+                    $ev->setCerrarEvento();
                 }
                 
                 //agegado por nico

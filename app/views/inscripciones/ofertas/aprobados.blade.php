@@ -58,3 +58,8 @@
 <h2>Aún no hay inscriptos en esta oferta.</h2>
 <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
 @endif
+<script>
+    function CargarAnterior(){
+        window.history.go(-1);
+    }
+</script>

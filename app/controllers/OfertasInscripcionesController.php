@@ -136,7 +136,7 @@ class OfertasInscripcionesController extends BaseController {
             $ca->setCerrarOferta();
         }
         foreach ($eventos as $ev) { //agregado por nico
-            $ev->setCerrarOferta();
+            $ev->setCerrarEvento();
         }        
         
         $oferta = Oferta::find($oferta_id);

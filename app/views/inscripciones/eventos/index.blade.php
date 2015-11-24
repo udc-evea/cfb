@@ -30,7 +30,7 @@
         <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
     </div>
 
-    @if(count($inscripciones))
+    @if(count($inscripciones))        
     <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
         <table class="tablaExportar">
             <tr>
@@ -55,13 +55,21 @@
     @endif
     <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     <hr>
-    <h4>
-        @if(count($inscripciones))
-            Total: {{ count($inscripciones) }}
-        @endif
-    </h4>
+    <?php 
+        $colorInscriptos = "#A9F5D0";
+        $colorListaDeEspera = "#F5D0A9";
+    ?>    
+        <div id='contenedor'>
+            @if(count($inscripciones))
+                <div style="display:inline;width: 40%;">
+                    <h3><p style="float: left">Total: {{ count($inscripciones) }}</p></h3>
+                    <p style="padding: 3px;border: 1px solid black; float: left;margin-left: 20px;background-color: <?php echo $colorInscriptos ?>"> Preinscriptos</p>
+                    <p style="padding: 3px;border: 1px solid black; float: left;margin-left: 20px;background-color: <?php echo $colorListaDeEspera ?>">En lista de Espera</p>
+                </div>
+            @endif
+        </div>
     @if (count($inscripciones))
-	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
+	<table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
                     <th>Nro.</th>
@@ -83,10 +91,16 @@
             <tbody>
                 <?php $i = 1; ?>
                 @foreach ($inscripciones as $inscripcion)
+                    <?php if($i <= $oferta->cupo_maximo){
+                              $colorBackground = 'style="background-color: '.$colorInscriptos.' !important"';
+                          }else{
+                              $colorBackground = 'style="background-color: '.$colorListaDeEspera.' !important"';
+                          }
+                    ?>
                     <tr>
-                        <td>{{ $i }}</td>
+                        <td <?php echo $colorBackground ?>>{{ $i }}</td>
                         <td>{{{ $inscripcion->apellido }}}</td>
-                        <td>{{{ $inscripcion->nombre }}}</td>
+                        <td>{{ $inscripcion->nombre }}</td>
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->tipoydoc }}}</td>
                         @endif
@@ -122,18 +136,19 @@
                                 {{ Form::close() }}
                             @endif
                         </td>
-                    </tr>
+                    </tr>                  
                     <?php $i++;?>
 		@endforeach
 		</tbody>
 	</table>
+        <br>
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>
         <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
     @endif
     <div id="fondo">
-        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
+        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     </div>
 </div>
 @stop

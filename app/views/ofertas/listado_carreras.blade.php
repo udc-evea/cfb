@@ -2,9 +2,8 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Nombre</th>
+            <th>Carrera Nombre</th>
             <th>Año</th>
-            <th>Creador</th>
             <th>Pre-Inscriptos</th>
             <th>Inscribiendo</th>
             <th>Fecha Inicio</th>
@@ -16,9 +15,8 @@
     <tbody>
         @foreach ($carreras as $item)
         <tr>
-            <td>{{ $item->nombre }}</td>
+            <td title="Creador: {{ $item->creador->nombreyapellido }}">{{ $item->nombre }}</td>
             <td>{{ $item->anio }}</td>
-            <td>{{ $item->creador->nombreyapellido }}</td>
             <td>
                 {{ $item->inscriptos }}
                 @if((int)$item->cupo_maximo > 0)

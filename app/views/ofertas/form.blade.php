@@ -120,7 +120,7 @@
 <?php endif; ?>
 </fieldset>
 {{ Former::close() }}
-<script>
+<script>    
     $(function(){
         $('#btn-upload').click(function(e){
             e.preventDefault();
@@ -148,5 +148,5 @@
               }
 
           });
-      });
+      });          
 </script>

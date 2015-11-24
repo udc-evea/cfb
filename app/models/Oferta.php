@@ -80,8 +80,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
             return $this
                             ->hasMany('InscripcionEvento', 'oferta_formativa_id')
                             ->with('localidad', 'rel_como_te_enteraste')
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre');
+                            ->orderBy('id');
         }
     }
     
@@ -430,7 +431,20 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
 
     public function getVistaMail() {
-        return empty($this->mail_bienvenida_file_name) ? 'emails.ofertas.bienvenida_generico' : 'emails.ofertas.bienvenida_oferta';
+        //compruebo si se ha pasado el cupo maximo (esto solo sucede en Eventos)
+        if(($this->count() > $this->cupo_maximo)&&($this->cupo_maximo != 0)){
+            //si es así, envío mail dónde se aclara la lista de espera
+            return 'emails.ofertas.bienvenida_evento_cupo_exedido';
+        //Si no se exedió el cupo (Ofertas y Carreras)
+        }elseif(empty($this->mail_bienvenida_file_name)){
+            //si no se cargo una imagen personalizada, envío el mail genérico
+            return 'emails.ofertas.bienvenida_generico';
+        }else{
+            //y si se cargo imagen del mail, envío la imagen
+            return 'emails.ofertas.bienvenida_oferta';
+        }
+        // linea de abajo es la original (de martin pentucci)
+        //return empty($this->mail_bienvenida_file_name) ? 'emails.ofertas.bienvenida_generico' : 'emails.ofertas.bienvenida_oferta';
     }
 
     public function agregarReglas($input) {
@@ -463,6 +477,19 @@ class Oferta extends Eloquent implements StaplerableInterface {
         $this->save();
     }
     
+    //Cambio estado de la inscripcion de "abierta" a "cerrada" solo para Eventos
+    public function setCerrarEvento() {
+                
+        if($this->fechasEnTermino()){
+            $this->permite_inscripciones = TRUE;
+        }else{
+            $this->permite_inscripciones = FALSE;
+        }
+        //guardo los cambios
+        $this->save();
+    }
+    
+    //Comprueba si el usuario actual es el creador de una oferta
     public function Creador(){
         return $this->belongsTo('Usuario', 'user_id_creador');
     }

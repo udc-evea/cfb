@@ -144,3 +144,13 @@
     </div>
 </div>
 @stop
+<script>
+    $(function () {
+        $('#tabs_opciones a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+
+        $("#tabs_opciones a[href=#tab_{{$tab_activa}}]").tab('show');
+    });
+</script>
