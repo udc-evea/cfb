@@ -45,7 +45,7 @@
                 <a href="http://udc.edu.ar" title="Portal Universidad del Chubut" target="_target"><img src="{{ asset('img/LOGO-horizontal-MQ-RGB-150dpi.png') }}" width="250"/></a>
                 <div>
                     <h1 style="width: 400px; border: solid white 4px; background-color: black; color: white; border-radius: 15px; padding: 10px">
-                        <span class="titulo1">Inscripciones On Line</span>
+                        <span class="titulo1">Inscripciones On Line (nico)</span>
                         <div><small>código v.3.1.1 | base v.<?php //echo $verDB ?></small></div>
                     </h1>                    
                 </div> 
