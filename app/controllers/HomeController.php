@@ -32,7 +32,7 @@ class HomeController extends BaseController {
 	{
             $Inicio = Inicio::first();
             $versionDB = $Inicio->getVersionDB();
-            //$versionDB = "HolaNico";
+            $versionDB = "HolaBD";
             return View::make('inicio.inicio')->with('verDB',$versionDB);
 	}
 
