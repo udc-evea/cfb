@@ -1,9 +1,9 @@
 @extends('layouts.scaffold')
 
 @section('main')
-
-<h1>Lista de Usuarios</h1>
-
+<div align="center">
+    <h1 style="background-color: black;border: solid 2px white; color: white;padding: 10px;border-radius: 5px;">Lista de Usuarios</h1>
+</div>
 <div class="row block">
     <div align="center">
         <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
@@ -37,13 +37,19 @@
                                 {{ Form::close() }}
                             </td>
                             @else
-                            <td>Inhabilitado</td>
+                            <td title="Solo otro Administrador puede editar sus datos!">Inhabilitado</td>
                             @endif
                         @endif
                     </tr>
                     @endforeach
 		</tbody>
 	</table>
+<div class="row block">
+    <div align="center">
+        <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
+        <a href="{{ route('usuarios.create') }}" class="btn btn-primary" title="Nuevo Usuario"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario</a></p>
+    </div>
+</div>
 @else
 	No hay Usuarios!
 @endif
