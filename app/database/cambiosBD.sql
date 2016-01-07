@@ -28,6 +28,7 @@ ADD `aprobado` TINYINT
 NOT NULL DEFAULT '0' 
 COMMENT 'Campo para almacenar si el alumno aprobó o no' ;
 
+
 /* ######  2015/10/29  ####################### */
 --         VERSION 3.0.2
 -- creo la tabla "version_bd" con el campo "version" para ir almacenando en este
@@ -36,3 +37,11 @@ COMMENT 'Campo para almacenar si el alumno aprobó o no' ;
 -- la sintaxis es:
 CREATE TABLE version_bd (version varchar(10));
 INSERT INTO `cfb`.`version_bd` (`version`) VALUES ('3.0.2');
+
+
+/* ######  2016/01/07  ####################### */
+--         VERSION 3.0.3
+-- agrego en la tabla "oferta_formativa" los campos USER_ID_MODIF y FECHA_MODIF
+-- la sintaxis es:
+ALTER TABLE `oferta_formativa` ADD `user_id_modif` INT NOT NULL COMMENT 'ID del usuario que realizó la ultima modificación a la oferta' ;
+ALTER TABLE `oferta_formativa` ADD `fecha_modif` DATE NOT NULL COMMENT 'Fecha de la última modificación realizada a la oferta' ;

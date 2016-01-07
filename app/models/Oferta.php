@@ -29,6 +29,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'tipo_oferta' => 'required|exists:tipo_oferta_formativa,id',
         'doc_a_presentar' => 'between:2,2000',
         'url_imagen_mail' => 'between:2,100',
+        'fecha_modif' => 'date_format:d/m/Y',
     );
 
     public function __construct($attributes = array()) {
@@ -492,5 +493,14 @@ class Oferta extends Eloquent implements StaplerableInterface {
     //Comprueba si el usuario actual es el creador de una oferta
     public function Creador(){
         return $this->belongsTo('Usuario', 'user_id_creador');
+    }
+    
+    public function getFechaModifAttribute($fecha) {
+        return Carbon::parse($fecha)->format('d/m/Y');
+    }
+    
+    //Usuario que realizo la ultima modificacion a la oferta
+    public function UltimaModificacion(){
+        return $this->belongsTo('Usuario', 'user_id_modif');
     }
 }

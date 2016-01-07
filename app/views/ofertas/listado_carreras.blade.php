@@ -9,6 +9,7 @@
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Acciones</th>
+            <th>Ultima Modif.</th>
         </tr>
     </thead>
 
@@ -41,19 +42,20 @@
             <td>{{ ModelHelper::dateOrNull($item->fin) }}</td>
             <td>
             @if(($userPerfil == "Administrador")||($item->user_id_creador == $userId))
-                {{ link_to_route('ofertas.vermail', '', array($item->id), array('class' => 'btn btn-default glyphicon glyphicon-envelope', 'title'=>'Ver Mail personalizado')) }}
-                {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-info glyphicon glyphicon-pencil', 'title'=>'Editar datos de la Oferta')) }}
+                {{ link_to_route('ofertas.vermail', '', array($item->id), array('class' => 'btn btn-xs btn-default glyphicon glyphicon-envelope', 'title'=>'Ver Mail personalizado')) }}
+                {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil', 'title'=>'Editar datos de la Oferta')) }}
                 @if($item->inscriptos == 0)
                     {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $item->id))) }}
-                    {{ Form::submit('Borrar', array('class' => 'btn btn-danger')) }}
+                    {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger')) }}
                     {{ Form::close() }}
                 @else
-                    {{ Former::disabled_button('Borrar')->disabled()->title("No se puede eliminar: hay inscriptos.") }}
+                    {{ Former::disabled_button('Borrar')->disabled()->title("No se puede eliminar: hay inscriptos.")->class('btn btn-xs') }}
                 @endif
             @else
                 <small>No tiene permisos para esta oferta</small>
             @endif
             </td>
+            <td>{{ $item->ultimaModificacion->nombreyapellido }} ({{ ($item->fecha_modif) }})</td>
         </tr>
         @endforeach
     </tbody>

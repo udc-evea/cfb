@@ -81,7 +81,10 @@ class OfertasController extends BaseController {
                     //Busco el usuario actual en la BD y obtengo el ID
                     $userId = Auth::user()->id;
                     //agrego el ID del usuario en el campo user_id_creador de la oferta
-                    $this->oferta->user_id_creador = $userId;                    
+                    $this->oferta->user_id_creador = $userId;
+                    //agrego los datos de la modificación
+                    $this->oferta->user_id_modif = $userId;
+                    $this->oferta->fecha_modif = date('Y-m-d');
                     //guardo los cambios antes de redirigir
                     $this->oferta->save();
 
@@ -121,7 +124,7 @@ class OfertasController extends BaseController {
 		}
                 
                 Session::set('tab_activa', $oferta->tab);
-                
+                                                
 		$tipos_oferta = TipoOferta::all();
 		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'));
 	}
@@ -143,6 +146,13 @@ class OfertasController extends BaseController {
 		{
 			$oferta = $this->oferta->find($id);
                         $oferta->fill($input);
+                        //agregado por nico
+                        //Busco el usuario actual en la BD y obtengo el ID
+                        $userId = Auth::user()->id;                
+                        //agrego los datos de la modificación
+                        $oferta->user_id_modif = $userId;
+                        $oferta->fecha_modif = date('Y-m-d');
+                        //guardo los cambios                        
 			$oferta->save();
                         
                         Session::set('tab_activa', $oferta->tab);
