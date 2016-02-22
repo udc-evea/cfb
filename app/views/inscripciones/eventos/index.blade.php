@@ -85,6 +85,7 @@
                     @if($perfil != "Colaborador")
                         <th>Email UDC</th>
                         <th>Inscriptos ({{ count($inscriptos) }})?</th>
+                        <th>Asistente?</th>
                         <th>Notificado/a</th>
                     @endif
                     <th>Acciones</th>
@@ -123,6 +124,13 @@
                                         <input type="checkbox" value="None" id="squaredOne" name="check" />
                                         <label for="squaredOne"></label>
                                 </div> -->
+                            </td>
+                            <td>
+                                @if ($inscripcion->getEsAsistente())
+                                   {{ link_to_route('ofertas.inscripciones.cambiarAsistente', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Asistente al Evento.')) }}
+                                @else
+                                   {{ link_to_route('ofertas.inscripciones.cambiarAsistente', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar al Inscripto como Asistente al Evento.')) }}
+                                @endif
                             </td>
                             <td>
                                 @if ($inscripcion->getEsInscripto())

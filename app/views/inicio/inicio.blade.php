@@ -44,7 +44,7 @@
                 <div>
                     <h1 style="width: 400px; border: solid white 4px; background-color: black; color: white; border-radius: 15px; padding: 10px">
                         <span class="titulo1">Inscripciones On Line</span>
-                        <div><small>código v.3.1.2 | base v.<?php echo $verDB ?></small></div>
+                        <div><small>código v.3.1.3 | base v.<?php echo $verDB ?></small></div>
                     </h1>                    
                 </div> 
 	</div>

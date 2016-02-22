@@ -27,6 +27,11 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
       array('uses' => 'OfertasInscripcionesController@cambiarAprobado', 'as' => 'ofertas.inscripciones.cambiarAprobado')
     );
     
+    //agregue esta ruta para cambiar el estado de asistencia a un evento del preinscripto
+    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/asistente', 
+      array('uses' => 'OfertasInscripcionesController@cambiarAsistente', 'as' => 'ofertas.inscripciones.cambiarAsistente')
+    );
+    
     //agregue esta ruta para cambiar el estado de la inscripcion
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/cambiar', 
       array('uses' => 'OfertasInscripcionesController@cambiarEstado', 'as' => 'ofertas.inscripciones.cambiarEstado')

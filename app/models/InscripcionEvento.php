@@ -23,7 +23,8 @@ class InscripcionEvento extends Eloquent {
         'cant_notificaciones'  => 'integer|min:0',
         'telefono'  => 'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
-        'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/'
+        'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/',
+        'asistente' => 'integer'
     );
     
     public static $rules_virtual = ['recaptcha_challenge_field', 'recaptcha_response_field', 'reglamento', 'email_confirmation'];
@@ -375,4 +376,19 @@ class InscripcionEvento extends Eloquent {
         $aux = $this->sanear_apellidos_y_nombres($aux);
         $this->attributes['nombre'] = ucwords($aux);        
     }
+    
+    public function getEsAsistente(){
+        return ($this->asistente == 1);
+    }
+    
+    public function getAsistente(){
+        return $this->asistente;
+    }
+    
+    public function setAsistente($valor){
+        if ($valor == 0 || $valor == 1){
+            $this->attributes['asistente'] = $valor;
+        }
+    }
+    
 }

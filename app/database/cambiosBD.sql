@@ -46,3 +46,11 @@ INSERT INTO `cfb`.`version_bd` (`version`) VALUES ('3.0.2');
 ALTER TABLE `oferta_formativa` ADD `user_id_modif` INT NOT NULL COMMENT 'ID del usuario que realizó la ultima modificación a la oferta' ;
 ALTER TABLE `oferta_formativa` ADD `fecha_modif` DATE NOT NULL COMMENT 'Fecha de la última modificación realizada a la oferta' ;
 UPDATE  `cfb`.`version_bd` SET  `version` =  '3.0.3' WHERE  `version_bd`.`version` =  '3.0.2' LIMIT 1 ;
+
+
+/* ######  2016/02/22  ####################### */
+--         VERSION 3.0.4
+-- agrego en la tabla "inscripcion_evento" el campo "ASISTENTE"
+-- la sintaxis es:
+ALTER TABLE `inscripcion_evento` ADD `asistente` TINYINT(1) NOT NULL DEFAULT '0' COMMENT 'Campo donde se guarda aquellos ASISTENTES al evento (con un 1)' ;
+UPDATE  `cfb`.`version_bd` SET  `version` =  '3.0.4' WHERE  `version_bd`.`version` =  '3.0.3' LIMIT 1 ;

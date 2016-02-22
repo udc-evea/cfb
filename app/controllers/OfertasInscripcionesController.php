@@ -356,6 +356,21 @@ class OfertasInscripcionesController extends BaseController {
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }
     
+    public function cambiarAsistente($oferta_id, $id) {
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+               
+        if($inscripcion->getEsAsistente()){
+            $inscripcion->setAsistente(0);
+        }else{
+            $inscripcion->setAsistente(1);
+        }
+        $inscripcion->save();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+    }
+    
     public function cambiarEstadoDeRequisitos($oferta_id, $id) {
         //busco el inscripto ($id) segun la oferta ($oferta_id)
         $oferta = Oferta::findorFail($oferta_id);
