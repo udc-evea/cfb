@@ -86,8 +86,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->orderBy('id');
         }
     }
-    
-    // agregado por nico - devuelve los inscriptos de cada oferta
+        
+    // agregado por nico - devuelve los preinscriptos de cada oferta
     public function preinscriptosOferta() {
         if ($this->esCarrera) {
             return $this
@@ -327,21 +327,21 @@ class Oferta extends Eloquent implements StaplerableInterface {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_CURSO)
                         ->orderBy('anio', 'desc')
-                        ->orderBy('nombre');
+                        ->orderBy('id');//->orderBy('nombre');
     }
 
     public function scopeCarreras($query) {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_CARRERA)
                         ->orderBy('anio', 'desc')
-                        ->orderBy('nombre');
+                        ->orderBy('id');//->orderBy('nombre');
     }
     
     public function scopeEventos($query) {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_EVENTO)
                         ->orderBy('anio', 'desc')
-                        ->orderBy('nombre');
+                        ->orderBy('id');//->orderBy('nombre');
     }
 
     public function requisitos() {

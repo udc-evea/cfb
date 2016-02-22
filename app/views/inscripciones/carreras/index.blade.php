@@ -1,26 +1,6 @@
 @extends('layouts.scaffold')
 @section('main')
 
-<style type="text/css">
-  #divIrAbajo{
-      position: fixed;
-      right: 5px;;
-      width: 80px;
-      bottom: 100px;
-      text-align: center;      
-  }
-  #divIrAbajo a{
-      text-decoration: none;
-      color: white;
-      background-color: black;
-      padding: 7px;
-      border: 1px solid graytext;
-  }
-  #divIrAbajo i{
-      size: 20px;
-  }
-</style>
-
 <div id="divIrAbajo">
     <a href="#fondo" title="Ir abajo"><i class="glyphicon glyphicon-chevron-down"></i></a>
     <a href="#arriba" title="Ir arriba"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -29,7 +9,6 @@
     <div class="alert alert-info" align="center">
         <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
     </div>
-
     @if(count($inscripciones))
     <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
         <table class="tablaExportar">
@@ -61,11 +40,12 @@
         @endif
     </h4>
     @if (count($inscripciones))
+    <div id="preinscriptos">
 	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
-                    <th>Nro.</th>
-                    <th>Apellido</th>
+                    <th><button class="sort" data-sort="nro">Nro.</button></th>
+                    <th><button class="sort" data-sort="apellido">Apellido</button></th>
                     <th>Nombre</th>
                     @if($perfil != "Colaborador")
                         <th>Documento</th>
@@ -74,18 +54,18 @@
                     <th>Email</th>
                     @if($perfil != "Colaborador")
                         <th>Email UDC</th>
-                        <th>Inscripto</th>
+                        <th>Inscripto ({{ count($inscriptos) }})</th>
                         <th>Notificado/a</th>
                     @endif
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="list">
                <?php $i = 1; ?>
                @foreach ($inscripciones as $inscripcion)                  
                     <tr>
-                        <td>{{ $i }}</td>
-                        <td>{{{ $inscripcion->apellido }}}</td>	
+                        <td class="nro">{{ $i }}</td>
+                        <td class="apellido">{{{ $inscripcion->apellido }}}</td>
                         <td>{{{ $inscripcion->nombre }}}</td>
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->tipoydoc }}}</td>
@@ -131,7 +111,8 @@
                 @endforeach
 		</tbody>
 	</table>
-        @else
+    </div>
+    @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>
         <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
@@ -140,4 +121,13 @@
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
     </div>
 </div>
+
+<script>
+var options = {
+  valueNames: [ 'apellido', 'nro' ]
+};
+
+var preinscriptosList = new List('preinscriptos', options);
+</script>
+
 @stop

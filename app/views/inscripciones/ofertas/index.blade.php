@@ -143,7 +143,6 @@
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Vollver al listado de Ofertas" >Volver</a>
     </div>
 </div>
-@stop
 <script>
     $(function () {
         $('#tabs_opciones a').click(function (e) {
@@ -154,3 +153,4 @@
         $("#tabs_opciones a[href=#tab_{{$tab_activa}}]").tab('show');
     });
 </script>
+@stop

@@ -40,8 +40,67 @@ class OfertasController extends BaseController {
                 $userId = Auth::user()->id;
                 $userPerfil = Auth::user()->perfil;
                 $userName = Auth::user()->nombreyapellido;
+                                                                           
+                $preinscCarr = DB::table('inscripcion_carrera')->count();                
+                $inscCarr = DB::table('inscripcion_carrera')->where('estado_inscripcion','=',1)->count();
+                $preinscOfe = DB::table('inscripcion_oferta')->count();
+                $inscOfe = DB::table('inscripcion_oferta')->where('estado_inscripcion','=',1)->count();
+                $preinscEve = DB::table('inscripcion_evento')->count();
+                $inscEve = DB::table('inscripcion_evento')->where('estado_inscripcion','=',1)->count();
                 
-		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))->with('userId',$userId)->with('userPerfil',$userPerfil)->with('userName',$userName);
+                /*
+                
+                Carreras
+                SELECT oferta_formativa.id, oferta_formativa.nombre, count(inscripcion_carrera.id), oferta_formativa.anio from oferta_formativa 
+                inner JOIN inscripcion_carrera ON oferta_formativa.id = inscripcion_carrera.oferta_formativa_id
+                where tipo_oferta = 1
+                group by oferta_formativa.id
+                
+                Ofertas
+                SELECT oferta_formativa.id, oferta_formativa.nombre, count(inscripcion_oferta.id), oferta_formativa.anio from oferta_formativa 
+                inner JOIN inscripcion_oferta ON oferta_formativa.id = inscripcion_oferta.oferta_formativa_id
+                where tipo_oferta = 2
+                group by oferta_formativa.id
+                
+                Eventos
+                SELECT oferta_formativa.id, oferta_formativa.nombre, count(inscripcion_evento.id), oferta_formativa.anio from oferta_formativa 
+                inner JOIN inscripcion_evento ON oferta_formativa.id = inscripcion_evento.oferta_formativa_id
+                where tipo_oferta = 3
+                group by oferta_formativa.id
+                
+                 */
+                //obtengo el ID, Nombre, Año y cantidad de Preinscriptos de todas las carreras
+                $Carreras = DB::table('oferta_formativa')
+                        ->select(DB::raw("count(inscripcion_carrera.id) as total"))
+                        ->join('inscripcion_carrera','oferta_formativa.id','=','inscripcion_carrera.oferta_formativa_id')
+                        ->addselect('oferta_formativa.id', 'oferta_formativa.nombre', 'oferta_formativa.anio')
+                        ->where('tipo_oferta','=','1')
+                        ->groupBy('oferta_formativa.id')
+                        ->orderBy('oferta_formativa.anio','desc')
+                        ->get();
+                
+                $totalPreinscr = array(
+                    'carreras' => $preinscCarr, 
+                    'eventos' => $preinscEve,
+                    'ofertas' => $preinscOfe);
+                $totalInscr = array(
+                    'carreras' => $inscCarr, 
+                    'eventos' => $inscEve,
+                    'ofertas' => $inscOfe);
+                
+                $preUDC = $preinscCarr + $preinscEve + $preinscOfe;
+                $insUDC = $inscCarr + $inscEve + $inscOfe;
+                                
+		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))
+                        ->with('userId',$userId)
+                        ->with('userPerfil',$userPerfil)
+                        ->with('userName',$userName)
+                        ->with("TotalPreinscriptos",$totalPreinscr)
+                        ->with("TotalInscriptos",$totalInscr)
+                        ->with("preUDC",$preUDC)
+                        ->with("insUDC",$insUDC)
+                        ->with("Carreras",$Carreras)
+                ;
 	}
 
 	/**
