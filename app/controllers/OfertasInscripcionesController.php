@@ -179,7 +179,8 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc) {
                     $message
                             ->to($insc->correo, $insc->inscripto)
-                            ->subject('UDC:: Recibimos tu inscripción a ' . $oferta->nombre);
+                            ->subject('UDC:: Recibimos tu inscripción a ' . $oferta->nombre)
+                            ->replyTo('sistemas@udc.edu.ar');
                 });
             } catch (Swift_TransportException $e) {
                 Log::info("No se pudo enviar correo a " . $insc->inscripto . " <" . $insc->correo . ">");
@@ -441,7 +442,8 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send('emails.ofertas.notificacion_correo_udc', compact('inscripcion'), function($message) use($inscripcion){
                     $message
                             ->to($inscripcion->email, $inscripcion->apellido.','.$inscripcion->nombre)
-                            ->subject('Correo Institucional creado');
+                            ->subject('Correo Institucional creado')
+                            ->replyTo('sistemas@udc.edu.ar');
                 });
             } catch (Swift_TransportException $e) {
                 Log::info("No se pudo enviar correo a " . $inscripcion->apellido.','.$inscripcion->nombre." <" . $inscripcion->email.">");
