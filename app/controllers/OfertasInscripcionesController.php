@@ -12,6 +12,7 @@ class OfertasInscripcionesController extends BaseController {
         $oferta = Oferta::findOrFail($oferta_id);
         //me fijo si viene con un parametro mas en la url
         $exp = Request::get('exp');
+        $mailReplyTo = "inscripciones@udc.edu.ar";
         
         //traigo todos (pre-inscriptos e inscriptos) para ver en la vista
         //$inscripciones = $oferta->inscripciones->all(); --> descomentar esta linea        
@@ -173,14 +174,23 @@ class OfertasInscripcionesController extends BaseController {
 
         if ($validation->passes()) {
             
+            // verifico a cual correo se configura el 'replyTo()'
+            if($oferta->getEsOfertaAttribute()){
+                $mailReplyTo = "cursos@udc.edu.ar";
+            }elseif($oferta->getEsCarreraAttribute()){
+                $mailReplyTo = "alumnos@udc.edu.ar";
+            }else{
+                $mailReplyTo = "eventos@udc.edu.ar";
+            }
+            
             $insc = $inscripto->create($input_db);
 
             try {
-                Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc) {
+                Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc, $mailReplyTo) {
                     $message
                             ->to($insc->correo, $insc->inscripto)
                             ->subject('UDC:: Recibimos tu inscripción a ' . $oferta->nombre)
-                            ->replyTo('sistemas@udc.edu.ar');
+                            ->replyTo($mailReplyTo);
                 });
             } catch (Swift_TransportException $e) {
                 Log::info("No se pudo enviar correo a " . $insc->inscripto . " <" . $insc->correo . ">");
@@ -436,14 +446,23 @@ class OfertasInscripcionesController extends BaseController {
 
         //if ($validation->passes()) {
             
-            //$insc = $inscripto->create($input_db);        
+            //$insc = $inscripto->create($input_db); 
+        
+            // verifico a cual correo se configura el 'replyTo()'
+            if($oferta->getEsOfertaAttribute()){
+                $mailReplyTo = "cursos@udc.edu.ar";
+            }elseif($oferta->getEsCarreraAttribute()){
+                $mailReplyTo = "alumnos@udc.edu.ar";
+            }else{
+                $mailReplyTo = "eventos@udc.edu.ar";
+            }
 
             try {
-                Mail::send('emails.ofertas.notificacion_correo_udc', compact('inscripcion'), function($message) use($inscripcion){
+                Mail::send('emails.ofertas.notificacion_correo_udc', compact('inscripcion'), function($message) use($inscripcion, $mailReplyTo){
                     $message
                             ->to($inscripcion->email, $inscripcion->apellido.','.$inscripcion->nombre)
                             ->subject('Correo Institucional creado')
-                            ->replyTo('sistemas@udc.edu.ar');
+                            ->replyTo($mailReplyTo);
                 });
             } catch (Swift_TransportException $e) {
                 Log::info("No se pudo enviar correo a " . $inscripcion->apellido.','.$inscripcion->nombre." <" . $inscripcion->email.">");
