@@ -76,7 +76,9 @@
                     <?php $i = 1;?>
                     @foreach ($inscripciones as $inscripcion)
                         <?php 
-                            $listaIdPreinscriptos[] = $inscripcion->id;
+                            //$listaIdPreinscriptos[] = $inscripcion->id;
+                            $listaIdPreinscriptos = array();
+                            array_add($listaIdPreinscriptos,$inscripcion->id,$inscripcion->id);
                             if($i <= $oferta->cupo_maximo){
                                   $colorBackground = 'style="background-color: '.$colorInscriptos.' !important"';
                               }else{
@@ -136,7 +138,7 @@
                     @endforeach
                     </tbody>
             </table>
-            <?php $listaEnString = serialize($listaIdPreinscriptos); ?>
+            <?php $listaEnString = serialize($listaIdPreinscriptos); ?>            
             <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
         {{ Form::close() }}
