@@ -1,28 +1,6 @@
 @extends('layouts.scaffold')
 @section('main')
 
-<!-- <link rel="stylesheet" type="text/css" href="../../../../public/css/checkbox.css" /> -->
-
-<style type="text/css">
-  #divIrAbajo{
-      position: fixed;
-      right: 5px;;
-      width: 80px;
-      bottom: 100px;
-      text-align: center;      
-  }
-  #divIrAbajo a{
-      text-decoration: none;
-      color: white;
-      background-color: black;
-      padding: 7px;
-      border: 1px solid graytext;
-  }
-  #divIrAbajo i{
-      size: 20px;
-  }
-</style>
-
 <div id="divIrAbajo">
     <a href="#fondo" title="Ir abajo"><i class="glyphicon glyphicon-chevron-down"></i></a>
     <a href="#arriba" title="Ir arriba"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -70,101 +48,11 @@
                 </div>
             @endif
         </div>
-    @if (count($inscripciones))
-	<table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
-            <thead>
-                <tr>
-                    <th>Nro.</th>
-                    <th>Apellido</th>
-                    <th>Nombre</th>
-                    @if($perfil != "Colaborador")
-                        <th>Documento</th>
-                    @endif
-                    <th>Localidad</th>
-                    <th>Email Personal</th>
-                    @if($perfil != "Colaborador")
-                        <th>Email UDC</th>
-                        <th>Inscriptos ({{ count($inscriptos) }})?</th>
-                        <th>Asistente?</th>
-                        <th>Notificado/a</th>
-                    @endif
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                @foreach ($inscripciones as $inscripcion)
-                    <?php if($i <= $oferta->cupo_maximo){
-                              $colorBackground = 'style="background-color: '.$colorInscriptos.' !important"';
-                          }else{
-                              $colorBackground = 'style="background-color: '.$colorListaDeEspera.' !important"';
-                          }
-                    ?>
-                    <tr>
-                        <td <?php echo $colorBackground ?>>{{ $i }}</td>
-                        <td>{{{ $inscripcion->apellido }}}</td>
-                        <td>{{ $inscripcion->nombre }}</td>
-                        @if($perfil != "Colaborador")
-                            <td>{{{ $inscripcion->tipoydoc }}}</td>
-                        @endif
-                        <td>{{{ $inscripcion->localidad->la_localidad }}}</td>
-                        <td>{{{ $inscripcion->email }}}</td>
-                        @if($perfil != "Colaborador")
-                            <td>{{{ $inscripcion->email_institucional }}}</td>
-                            <td>
-                                @if ($inscripcion->getEsInscripto())
-                                   <input type="checkbox" name="vehicle" value="Car" checked><br>
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign')) }}
-                                @else
-                                   <input type="checkbox" name="vehicle" value="Bike"><br>
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign')) }}
-                                @endif
-                                <!-- Squared ONE 
-                                <div class="squaredOne">
-                                        <input type="checkbox" value="None" id="squaredOne" name="check" />
-                                        <label for="squaredOne"></label>
-                                </div> -->
-                            </td>
-                            <td>
-                                @if ($inscripcion->getEsAsistente())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarAsistente', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Asistente al Evento.')) }}
-                                @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarAsistente', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar al Inscripto como Asistente al Evento.')) }}
-                                @endif
-                            </td>
-                            <td>
-                                @if ($inscripcion->getEsInscripto())
-                                    @if ($inscripcion->getCantNotificaciones() > 0)
-                                       @if ($inscripcion->getCantNotificaciones() == 1)
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
-                                       @else
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
-                                       @endif
-                                    @else
-                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger')) }}
-                                    @endif
-                                @else
-                                    <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
-                                @endif
-                            </td>
-                        @endif
-                        <td>
-                            {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
-                            <!-- <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-default" title="Imprimir formulario de inscripcion"><i class="fa fa-file-pdf-o"></i></a> -->
-                            @if($perfil != "Colaborador")
-                                {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
-                                    {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
-                                {{ Form::close() }}
-                            @endif
-                        </td>
-                    </tr>                  
-                    <?php $i++;?>
-		@endforeach
-		</tbody>
-	</table>
-        <br>
-        <hr>
-        {{ Form::open(array('action' => array('ofertas.inscripciones.cambiarEstado', $oferta->id, $inscripcion->id))) }}
+    @if (count($inscripciones))	
+        <?php $listaIdPreinscriptos = array();?>
+        {{ Form::open(array(
+                    'method' => 'POST',
+                    'action' => array('OfertasInscripcionesController@cambiarInscripciones', $oferta->id))) }}
             <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
                 <thead>
                     <tr>
@@ -185,13 +73,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1; ?>
+                    <?php $i = 1;?>
                     @foreach ($inscripciones as $inscripcion)
-                        <?php if($i <= $oferta->cupo_maximo){
+                        <?php 
+                            $listaIdPreinscriptos[] = $inscripcion->id;
+                            if($i <= $oferta->cupo_maximo){
                                   $colorBackground = 'style="background-color: '.$colorInscriptos.' !important"';
                               }else{
                                   $colorBackground = 'style="background-color: '.$colorListaDeEspera.' !important"';
-                              }
+                            }
+                            $codigo = $inscripcion->generarCodigoDeVerificacion();
                         ?>
                         <tr>
                             <td <?php echo $colorBackground ?>>{{ $i }}</td>
@@ -200,18 +91,20 @@
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
-                            <td>{{{ $inscripcion->localidad->la_localidad }}}</td>
+                            <td>{{ $inscripcion->localidad->la_localidad }}<br>
+                                <?php echo $codigo?>
+                            </td>
                             <td>{{{ $inscripcion->email }}}</td>
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->email_institucional }}}</td>
                                 <td>
+                                    <div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
-                                       <input type="checkbox" name="incripcion" value=1 checked><br>
-                                       <!-- {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign')) }} -->
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
                                     @else
-                                       <input type="checkbox" name="incripcion" value=0><br>
-                                       <!-- {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign')) }} -->
-                                    @endif                                    
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                    @endif
+                                    </div>
                                 </td>
                                 <td>
                                     @if ($inscripcion->getEsInscripto())
@@ -225,7 +118,7 @@
                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger')) }}
                                         @endif
                                     @else
-                                        <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
+                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
                                 </td>
                             @endif
@@ -243,7 +136,9 @@
                     @endforeach
                     </tbody>
             </table>
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}
+            <?php $listaEnString = serialize($listaIdPreinscriptos); ?>
+            <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
         {{ Form::close() }}
     @else
         <br>

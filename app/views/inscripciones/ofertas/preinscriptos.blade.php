@@ -4,7 +4,11 @@
     @endif
 </h4>
 @if (count($preinscripciones))
-<fieldset>    
+<fieldset>
+    <?php $listaIdPreinscriptos = array();?>
+    {{ Form::open(array(
+                'method' => 'POST',
+                'action' => array('OfertasInscripcionesController@cambiarInscripciones', $oferta->id))) }}
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -33,7 +37,8 @@
                         $arreglo = $inscripcion->getColoresSegunEstados();
                         $color=$arreglo[0];
                         $bkgcolor=$arreglo[1];
-                   ?>                   
+                        $listaIdPreinscriptos[] = $inscripcion->id;
+                   ?>
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
                         <td>{{ $i }}</td>
                         <td>{{ $inscripcion->apellido }}</td>
@@ -53,11 +58,13 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($inscripcion->getEsInscripto())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Inscripto en el curso.')) }}
-                                @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Inscribir a la persona.')) }}
-                                @endif
+                                <div class="slideTwo">
+                                    @if ($inscripcion->getEsInscripto())
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                    @else
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                    @endif
+                                </div>
                             </td>
                             <!-- <td>@if ($inscripcion->getEsInscripto())
                                   @if($inscripcion->getComisionNro() > 0)
@@ -101,6 +108,10 @@
 		@endforeach
 		</tbody>
 	</table>
+        <?php $listaEnString = serialize($listaIdPreinscriptos); ?>
+        <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
+        {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
+        {{ Form::close() }}
 </fieldset>
 @else
 <br>

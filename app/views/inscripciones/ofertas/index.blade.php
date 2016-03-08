@@ -2,26 +2,6 @@
 @extends('layouts.scaffold')
 @section('main')
 
-<style type="text/css">
-  #divIrAbajo{
-      position: fixed;
-      right: 5px;;
-      width: 80px;
-      bottom: 100px;
-      text-align: center;      
-  }
-  #divIrAbajo a{
-      text-decoration: none;
-      color: white;
-      background-color: black;
-      padding: 7px;
-      border: 1px solid graytext;
-  }
-  #divIrAbajo i{
-      size: 20px;
-  }
-</style>
-
 <div id="divIrAbajo">
     <a href="#fondo" title="Ir abajo"><i class="glyphicon glyphicon-chevron-down"></i></a>
     <a href="#arriba" title="Ir arriba"><i class="glyphicon glyphicon-chevron-up"></i></a>

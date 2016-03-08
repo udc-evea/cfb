@@ -41,6 +41,10 @@
     </h4>
     @if (count($inscripciones))
     <div id="preinscriptos">
+        <?php $listaIdPreinscriptos = array();?>
+        {{ Form::open(array(
+                    'method' => 'POST',
+                    'action' => array('OfertasInscripcionesController@cambiarInscripciones', $oferta->id))) }}    
 	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -62,7 +66,8 @@
             </thead>
             <tbody class="list">
                <?php $i = 1; ?>
-               @foreach ($inscripciones as $inscripcion)                  
+               @foreach ($inscripciones as $inscripcion)
+                    <?php $listaIdPreinscriptos[] = $inscripcion->id; ?>
                     <tr>
                         <td class="nro">{{ $i }}</td>
                         <td class="apellido">{{{ $inscripcion->apellido }}}</td>
@@ -75,11 +80,13 @@
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->email_institucional }}}</td>
                             <td>
-                                @if ($inscripcion->getEsInscripto())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign')) }}
-                                @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign')) }}
-                                @endif
+                                <div class="slideTwo"><div class="slideTwo">
+                                    @if ($inscripcion->getEsInscripto())
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                    @else
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                    @endif
+                                </div>
                             </td>                        
                             <td>
                                 @if ($inscripcion->getEsInscripto())
@@ -93,7 +100,7 @@
                                        {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger')) }}
                                     @endif
                                 @else
-                                    <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
+                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                 @endif
                             </td>
                         @endif  
@@ -111,6 +118,10 @@
                 @endforeach
 		</tbody>
 	</table>
+        <?php $listaEnString = serialize($listaIdPreinscriptos); ?>
+        <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
+        {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
+        {{ Form::close() }}
     </div>
     @else
         <br>

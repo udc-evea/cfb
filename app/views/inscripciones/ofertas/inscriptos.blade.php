@@ -4,7 +4,7 @@
     @endif
 </h4>
 @if (count($inscripciones))
-<fieldset>    
+<fieldset>
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -16,7 +16,6 @@
                     @if($perfil != "Colaborador")
                         <th>Email UDC</th>
                         <th>Requisitos</th>
-                        <th>Inscripto</th>
                         <th>Comision Nro.</th>
                         <th>Notificado/a</th>
                     @endif
@@ -25,7 +24,7 @@
             </thead>
             <tbody>
                    <?php $i = 1; ?>
-                   @foreach ($inscripciones as $inscripcion)                   
+                   @foreach ($inscripciones as $inscripcion)
                    <?php
                         $arreglo = $inscripcion->getColoresSegunEstados();
                         $color=$arreglo[0];
@@ -49,14 +48,7 @@
                                 @else
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
                                 @endif
-                            </td>
-                            <td>
-                                @if ($inscripcion->getEsInscripto())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Inscripto en el curso.')) }}
-                                @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Inscribir a la persona.')) }}
-                                @endif
-                            </td>
+                            </td>                            
                             <td>
                                 @if ($inscripcion->getEsInscripto())
                                   @if($inscripcion->getComisionNro() > 0)
@@ -99,7 +91,7 @@
                     <?php $i++;?>
 		@endforeach
 		</tbody>
-	</table>
+	</table>        
 </fieldset>
 @else
 <br>

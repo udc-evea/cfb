@@ -30,14 +30,14 @@
                     <span class="input-group-addon" id="username">
                         <i class="glyphicon glyphicon-user"></i> <strong>Usuario</strong>
                     </span>
-                    {{Form::text('username', null,array('class' => 'form-control','aria-describedby'=>'username','placeholder'=>'Ingrese su nombre de usuario','title'=>'Ingrese su nombre de usuario'))}}
+                    {{Form::text('username', null,array('class' => 'form-control','aria-describedby'=>'username','placeholder'=>'Ingrese su nombre de usuario','title'=>'Ingrese su nombre de usuario','tabindex'=>1))}}
                 </div>
                 <br>
                 <div class="input-group">
                     <span class="input-group-addon" id="password">
                         <i class="glyphicon glyphicon-eye-open"></i> <strong>Clave</strong>
                     </span>
-                    {{Form::password('password',array('class' => 'form-control','aria-describedby'=>'password','placeholder'=>'Ingrese su contraseña','title'=>'Ingrese su contraseña'))}}
+                    {{Form::password('password',array('class' => 'form-control','aria-describedby'=>'password','placeholder'=>'Ingrese su contraseña','title'=>'Ingrese su contraseña','tabindex'=>1))}}
                 </div>
                     <br>
                 <div align="center">

@@ -1,5 +1,5 @@
 /* Estilos de Checkbox */
-body {
+/*body {
 	background: #555;
 }
 
@@ -11,7 +11,7 @@ h1 {
 	text-align: center;
 	margin-bottom: 50px;
 }
-
+*/
 input[type=checkbox] {
 	visibility: hidden;
 }
@@ -146,7 +146,7 @@ input[type=checkbox] {
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
 	border-radius: 50px;
-	background: #333;
+	background: #fc0228;
 	left: 6px;
 	top: 6px;
 

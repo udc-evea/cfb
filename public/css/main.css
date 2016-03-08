@@ -170,3 +170,9 @@ ul.requisitos li:hover {background-color: #fdf59a;}
         top:-4px;
         right:-5px;
       }
+      
+/*  ESTILOS DE BORDES DIFUMINADOS */
+.difuminado {
+    box-shadow: 0 0 15px 10px greenyellow;
+    border-radius: 5px;
+}

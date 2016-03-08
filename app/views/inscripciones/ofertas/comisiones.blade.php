@@ -30,7 +30,7 @@
             </thead>
             <tbody>
                    <?php $i = 1; ?>
-                   @foreach ($com as $inscripcion)                   
+                   @foreach ($com as $inscripcion)
                    <?php
                         $arreglo = $inscripcion->getColoresSegunEstados();
                         $color=$arreglo[0];
@@ -53,13 +53,6 @@
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}
                                 @else
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
-                                @endif
-                            </td> -->
-                            <!-- <td>
-                                @if ($inscripcion->getEsInscripto())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Inscripto en el curso.')) }}
-                                @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Inscribir a la persona.')) }}
                                 @endif
                             </td> -->
                             <td>@if ($inscripcion->getEsInscripto())

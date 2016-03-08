@@ -329,28 +329,54 @@ class OfertasInscripcionesController extends BaseController {
         return View::make('inscripciones.carreras.form_pdf', compact('inscripcion', 'oferta'));
         //return $this->exportarFormPDF($archivo , compact('inscripcion', 'oferta'), 'inscripciones.'.$oferta->view.'.form_pdf');
     }
-    
-    public function cambiarEstado($oferta_id, $id) {
+            
+    public function cambiarInscripciones($oferta_id) {
+        
         //busco el inscripto ($id) segun la oferta ($oferta_id)
         $oferta = Oferta::findorFail($oferta_id);
         $insc_class = $oferta->inscripcionModelClass;
-        $inscripcion = $insc_class::findOrFail($id);
-               
-        if($inscripcion->getEsInscripto()){
-            $inscripcion->setEstadoInscripcion(0);
-            $inscripcion->vaciarCorreoInstitucional();
-            if($oferta->getEsOfertaAttribute()){
-                $inscripcion->setComisionNro(0);
-            }            
-            $inscripcion->save();
-        }else{
-            $inscripcion->setEstadoInscripcion(1);
-            $inscripcion->crearCorreoInstitucional();
-            $inscripcion->save();
-        }
         
+        $variable = $_POST['listaIdPreinscriptos'];
+        $lista = unserialize($variable);
+    
+        if(isset($_POST['inscripto'])){
+        
+            $listacheck = $_POST['inscripto'];
+
+            /*Session::forget('lista');
+            Session::forget('listacheck');
+            Session::push('lista', $lista);
+            Session::push('listacheck', $listacheck);*/
+
+            foreach($lista as $nroPreIncr){
+                $inscripcion = $insc_class::findOrFail($nroPreIncr);
+                
+                if(array_key_exists($nroPreIncr, $listacheck)){
+                    if($oferta->getEsOfertaAttribute()){
+                        $inscripcion->setComisionNro(0);
+                        $inscripcion->setAprobado(0);
+                    }
+                    $inscripcion->crearCorreoInstitucional();
+                    $inscripcion->setEstadoInscripcion(1);
+                }else{                
+                    $inscripcion->vaciarCorreoInstitucional();
+                    $inscripcion->setEstadoInscripcion(0);                
+                }
+                $inscripcion->save();
+            }                
+        }else{
+            foreach($lista as $nroPreIncr){
+                $inscripcion = $insc_class::findOrFail($nroPreIncr);
+                if($oferta->getEsOfertaAttribute()){
+                    $inscripcion->setComisionNro(0);
+                }
+                $inscripcion->vaciarCorreoInstitucional();
+                $inscripcion->setEstadoInscripcion(0);
+                $inscripcion->save();
+            }
+        }
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
-    }
+    }    
     
     public function cambiarAprobado($oferta_id, $id) {
         //busco el inscripto ($id) segun la oferta ($oferta_id)
