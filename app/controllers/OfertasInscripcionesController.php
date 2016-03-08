@@ -343,13 +343,14 @@ class OfertasInscripcionesController extends BaseController {
                 $lista = unserialize($variable);
                 //$lista = $variable;
             }
+        }
         if(Input::has('inscripto')){
             $listacheck = Input::get('inscripto');
         }
-        if(isset($listacheck)){
+        if(isset($listacheck,$lista)){
         
             //$listacheck = $_POST['inscripto'];
-
+            
             Session::forget('lista');
             Session::forget('listacheck');
             Session::push('lista', $lista);
@@ -382,7 +383,7 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->save();
             }
         }
-}
+
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }    
     

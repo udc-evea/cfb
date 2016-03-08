@@ -76,9 +76,7 @@
                     <?php $i = 1;?>
                     @foreach ($inscripciones as $inscripcion)
                         <?php 
-                            //$listaIdPreinscriptos[] = $inscripcion->id;
-                            $listaIdPreinscriptos = array();
-                            array_add($listaIdPreinscriptos,$inscripcion->id,$inscripcion->id);
+                            $listaIdPreinscriptos[] = $inscripcion->id;                            
                             if($i <= $oferta->cupo_maximo){
                                   $colorBackground = 'style="background-color: '.$colorInscriptos.' !important"';
                               }else{
@@ -94,7 +92,7 @@
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
                             <td>{{ $inscripcion->localidad->la_localidad }}<br>
-                                <?php echo $codigo?>
+                                <?php echo $codigo; echo "<br>Id:".$inscripcion->id?>
                             </td>
                             <td>{{{ $inscripcion->email }}}</td>
                             @if($perfil != "Colaborador")
@@ -149,6 +147,8 @@
         echo var_dump($lista);
         echo "####################################<br>ListaCheck:<br>";
         echo var_dump($listacheck);
+        echo "####################################<br>";
+        echo var_dump($listaIdPreinscriptos);
         echo "####################################<br>";
         ?>
     @else
