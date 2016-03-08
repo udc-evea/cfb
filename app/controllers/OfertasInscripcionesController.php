@@ -343,10 +343,10 @@ class OfertasInscripcionesController extends BaseController {
         
             $listacheck = $_POST['inscripto'];
 
-            /*Session::forget('lista');
+            Session::forget('lista');
             Session::forget('listacheck');
             Session::push('lista', $lista);
-            Session::push('listacheck', $listacheck);*/
+            Session::push('listacheck', $listacheck);
 
             foreach($lista as $nroPreIncr){
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);

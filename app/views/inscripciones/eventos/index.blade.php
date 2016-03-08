@@ -140,6 +140,15 @@
             <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
         {{ Form::close() }}
+        <?php 
+        $lista = Session::get('lista');
+        $listacheck = Session::get('listacheck');
+        echo "####################################<br>Lista:<br>";
+        echo var_dump($lista);
+        echo "####################################<br>ListaCheck:<br>";
+        echo var_dump($listacheck);
+        echo "####################################<br>";
+        ?>
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>
