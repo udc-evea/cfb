@@ -336,12 +336,18 @@ class OfertasInscripcionesController extends BaseController {
         $oferta = Oferta::findorFail($oferta_id);
         $insc_class = $oferta->inscripcionModelClass;
         
-        $variable = $_POST['listaIdPreinscriptos'];
-        $lista = unserialize($variable);
-    
-        if(isset($_POST['inscripto'])){
+        if(Input::has('listaIdPreinscriptos')){
+            //$variable = $_POST['listaIdPreinscriptos'];
+            $variable = Input::get('listaIdPreinscriptos');
+            if(isset($variable)){
+                $lista = unserialize($variable);
+            }
+        if(Input::has('inscripto')){
+            $listacheck = Input::get('inscripto');
+        }
+        if(isset($listacheck)){
         
-            $listacheck = $_POST['inscripto'];
+            //$listacheck = $_POST['inscripto'];
 
             Session::forget('lista');
             Session::forget('listacheck');
@@ -375,6 +381,7 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->save();
             }
         }
+}
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }    
     
