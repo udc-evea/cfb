@@ -340,7 +340,8 @@ class OfertasInscripcionesController extends BaseController {
             //$variable = $_POST['listaIdPreinscriptos'];
             $variable = Input::get('listaIdPreinscriptos');
             if(isset($variable)){
-                $lista = unserialize($variable);
+                //$lista = unserialize($variable);
+                $lista = $variable;
             }
         if(Input::has('inscripto')){
             $listacheck = Input::get('inscripto');
