@@ -371,7 +371,7 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->save();
             }*/
         }else{
-            foreach($lista as $nroPreIncr){
+            /*foreach($lista as $nroPreIncr){
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);
                 if($oferta->getEsOfertaAttribute()){
                     $inscripcion->setComisionNro(0);
@@ -379,7 +379,7 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->vaciarCorreoInstitucional();
                 $inscripcion->setEstadoInscripcion(0);
                 $inscripcion->save();
-            }
+            }*/
         }
 }
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
