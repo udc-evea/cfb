@@ -341,7 +341,8 @@ class OfertasInscripcionesController extends BaseController {
             $variable = Input::get('listaIdPreinscriptos');
             if(isset($variable)){
                 //$lista = unserialize($variable);
-                $lista = $variable;
+                $lista = explode('-',$variable);
+                //$lista = $variable;
             }
         }
         if(Input::has('inscripto')){
@@ -356,7 +357,7 @@ class OfertasInscripcionesController extends BaseController {
             Session::push('lista', $lista);
             Session::push('listacheck', $listacheck);
 
-            /*foreach($lista as $nroPreIncr){
+            foreach($lista as $nroPreIncr){
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);
                 
                 if(array_key_exists($nroPreIncr, $listacheck)){
@@ -371,9 +372,9 @@ class OfertasInscripcionesController extends BaseController {
                     $inscripcion->setEstadoInscripcion(0);                
                 }
                 $inscripcion->save();
-            }*/
+            }
         }else{
-            /*foreach($lista as $nroPreIncr){
+            foreach($lista as $nroPreIncr){
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);
                 if($oferta->getEsOfertaAttribute()){
                     $inscripcion->setComisionNro(0);
@@ -381,7 +382,7 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->vaciarCorreoInstitucional();
                 $inscripcion->setEstadoInscripcion(0);
                 $inscripcion->save();
-            }*/
+            }
         }
 
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
