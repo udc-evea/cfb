@@ -92,7 +92,7 @@
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
                             <td>{{ $inscripcion->localidad->la_localidad }}<br>
-                                <?php echo $codigo; echo "<br>Id:".$inscripcion->id?>
+                                <?php //echo $codigo; echo "<br>Id:".$inscripcion->id?>
                             </td>
                             <td>{{{ $inscripcion->email }}}</td>
                             @if($perfil != "Colaborador")
@@ -141,7 +141,7 @@
             <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
         {{ Form::close() }}
-        <?php 
+        <?php /*
         $lista = Session::get('lista');
         $listacheck = Session::get('listacheck');
         echo "####################################<br>Lista:<br>";
@@ -151,7 +151,7 @@
         echo "####################################<br>";
         echo var_dump($listaIdPreinscriptos);
         echo "####################################<br>";
-        ?>
+        */?>
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>

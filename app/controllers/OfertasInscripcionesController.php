@@ -334,57 +334,72 @@ class OfertasInscripcionesController extends BaseController {
         
         //busco el inscripto ($id) segun la oferta ($oferta_id)
         $oferta = Oferta::findorFail($oferta_id);
-        $insc_class = $oferta->inscripcionModelClass;
-        
+        //según la Oferta, me fijo si debo consultar los inscriptos de Eventos, Ofertas o Carreras
+        $insc_class = $oferta->inscripcionModelClass;        
+        //me fijo si la variable del POST existe
         if(Input::has('listaIdPreinscriptos')){
-            //$variable = $_POST['listaIdPreinscriptos'];
+            //obtengo del POST la variable de los ID de todos los preinscriptos
             $variable = Input::get('listaIdPreinscriptos');
-            if(isset($variable)){
-                //$lista = unserialize($variable);
-                $lista = explode('-',$variable);
-                //$lista = $variable;
-            }
+            //separo todos los ID y los almaceno como un array asociativo
+            $lista = explode('-',$variable);
         }
+        //me fijo si la variable del POST existe
         if(Input::has('inscripto')){
+            //obtengo del POST la variable de los ID que van a ser inscriptos
             $listacheck = Input::get('inscripto');
         }
+        //si las dos variables existen y no son null, guardo los cambios
         if(isset($listacheck,$lista)){
-        
-            //$listacheck = $_POST['inscripto'];
-            
-            Session::forget('lista');
+            /*Session::forget('lista');
             Session::forget('listacheck');
             Session::push('lista', $lista);
-            Session::push('listacheck', $listacheck);
-
-            foreach($lista as $nroPreIncr){
+            Session::push('listacheck', $listacheck);*/
+            //recorro la lista de los preinscriptos uno por uno
+            foreach($lista as $nroPreIncr){                
+                //obtengo el objeto de ese preinscripto
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);
-                
+                //si el nro. de inscripto es uno de los que se debe inscribir, lo guardo
                 if(array_key_exists($nroPreIncr, $listacheck)){
+                    //si se trata de una Oferta, se debe además reiniciar otros campos
                     if($oferta->getEsOfertaAttribute()){
+                        //reinicio comision nro.
                         $inscripcion->setComisionNro(0);
+                        //reinicio Aprobado en 0
                         $inscripcion->setAprobado(0);
                     }
+                    //le creo el correo institucional
                     $inscripcion->crearCorreoInstitucional();
+                    //le asigno el campo inscripcion a 1
                     $inscripcion->setEstadoInscripcion(1);
-                }else{                
+                //si el preinscripto no esta para inscribir
+                }else{
+                    //borro el correo institucional
                     $inscripcion->vaciarCorreoInstitucional();
+                    //le asigno el campo inscripcion a 0
                     $inscripcion->setEstadoInscripcion(0);                
                 }
+                //guardo los cambios en la BD
                 $inscripcion->save();
             }
+        //si alguno de las variables viene vacia
         }else{
+            //recorro todos los preinscriptos y les reseteo algunos campos
             foreach($lista as $nroPreIncr){
+                //obtengo el objeto de ese preinscripto
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);
+                //si se trata de una Oferta, se debe además reiniciar otros campos
                 if($oferta->getEsOfertaAttribute()){
+                    //reinicio comision nro.
                     $inscripcion->setComisionNro(0);
                 }
+                //borro el correo institucional
                 $inscripcion->vaciarCorreoInstitucional();
+                //le asigno el campo inscripcion a 0
                 $inscripcion->setEstadoInscripcion(0);
+                //guardo los cambios en la BD
                 $inscripcion->save();
             }
-        }
-
+        }        
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }    
     

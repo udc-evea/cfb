@@ -108,7 +108,7 @@
 		@endforeach
 		</tbody>
 	</table>
-        <?php $listaEnString = serialize($listaIdPreinscriptos); ?>
+        <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
         {{ Form::submit('Actualizar', array('class' => 'btn btn-xs btn-success','title'=>'Actualizar los datos.')) }}            
         {{ Form::close() }}
