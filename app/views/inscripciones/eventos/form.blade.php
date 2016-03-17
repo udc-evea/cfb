@@ -67,33 +67,33 @@
 </div>
 
 
-@if(Auth::check())
-{{ Former::actions(
-            link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-default')),
-            Former::lg_primary_reset('Restablecer'),
-            Former::lg_success_submit('Guardar')
-   )
-}}
+@if(Auth::check())   
+    {{ Former::actions(
+                link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-default')),
+                Former::lg_primary_reset('Restablecer'),
+                Former::lg_success_submit('Enviar Inscripción')
+       )
+    }}
 @else
-{{ Former::checkbox('reglamento')
-     ->label('Reglamento')
-     ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
-     ->required()
-}}
-@include('inscripciones.reglamento', array('oferta' => $oferta))
+    {{ Former::checkbox('reglamento')
+         ->label('Reglamento')
+         ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
+         ->required()
+    }}
+    @include('inscripciones.reglamento', array('oferta' => $oferta))
 
-<div class="form-group">
-    <label class="control-label col-lg-2 col-sm-4">Código de seguridad</label>
-    <div class="col-lg-10 col-sm-8">
-        {{ Form::captcha(array('required' => 'required')) }}
+    <div class="form-group">
+        <label class="control-label col-lg-2 col-sm-4">Código de seguridad</label>
+        <div class="col-lg-10 col-sm-8">
+            {{ Form::captcha(array('required' => 'required')) }}
+        </div>
     </div>
-</div>
 
-{{ Former::actions(
-            link_to('http://udc.edu.ar', 'Volver', array('class' => 'btn btn-lg btn-default')),
-            Former::lg_primary_reset('Restablecer'),
-            Former::lg_success_submit('Completar inscripción')
-    )
-}}
+    {{ Former::actions(
+                link_to('http://udc.edu.ar', 'Volver', array('class' => 'btn btn-lg btn-default')),
+                Former::lg_primary_reset('Restablecer'),
+                Former::lg_success_submit('Completar inscripción')
+        )
+    }}
 @endif
 {{ Former::close() }}

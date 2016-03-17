@@ -131,8 +131,8 @@ class OfertasInscripcionesController extends BaseController {
      *
      * @return Response
      */
-    public function create($oferta_id) {
-        
+    public function create($id) {
+        $oferta_id = $this->obtenerElId($id);
         $ofertas  = Oferta::cursos()->get();
         $carreras = Oferta::carreras()->get();
         $eventos  = Oferta::eventos()->get();

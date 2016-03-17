@@ -36,7 +36,7 @@
                 {{ BS3::bool_to_label($oferta->permite_inscripciones) }}
                 @if(($userPerfil == "Administrador")||($oferta->user_id_creador == $userId))
                     @if($oferta->permite_inscripciones)
-                        <small><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}">[Form]</a></small>
+                        <small><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}">[Form]</a></small>
                     @endif
                 @endif
             </td>

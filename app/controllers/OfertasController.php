@@ -111,11 +111,14 @@ class OfertasController extends BaseController {
 	public function create()
 	{
 		$tipos_oferta = TipoOferta::orderBy('descripcion')->get();
+                $titulaciones = Titulacion::orderBy('id')->get();
                 if(!Session::get('errors')) {
                     Session::set('tab_activa', Input::get('tab_activa', 'ofertas'));
                 }
 
-		return View::make('ofertas.create')->with(compact('tipos_oferta'));
+		return View::make('ofertas.create')
+                        ->with(compact('tipos_oferta'))
+                        ->with('titulaciones',$titulaciones);
 	}
 
 	/**
@@ -176,7 +179,7 @@ class OfertasController extends BaseController {
 	public function edit($id)
 	{
 		$oferta = $this->oferta->find($id);
-
+                
 		if (is_null($oferta))
 		{
 			return Redirect::route('ofertas.index');
@@ -185,7 +188,9 @@ class OfertasController extends BaseController {
                 Session::set('tab_activa', $oferta->tab);
                                                 
 		$tipos_oferta = TipoOferta::all();
-		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'));
+                $titulaciones = Titulacion::orderBy('id')->get();
+		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'))
+                    ->with('titulaciones',$titulaciones);
 	}
 
 	/**

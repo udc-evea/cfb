@@ -23,7 +23,7 @@ class LocalidadesController extends BaseController {
 	{
 		$Localidades = $this->Localidad->all();
 
-		return View::make('Localidades.index', compact('Localidades'));
+		return View::make('localidades.index', compact('Localidades'));
 	}
 
 	/**
@@ -33,7 +33,7 @@ class LocalidadesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Localidades.create');
+		return View::make('localidades.create');
 	}
 
 	/**
@@ -50,10 +50,10 @@ class LocalidadesController extends BaseController {
 		{
 			$this->Localidad->create($input);
 
-			return Redirect::route('Localidades.index');
+			return Redirect::route('localidades.index');
 		}
 
-		return Redirect::route('Localidades.create')
+		return Redirect::route('localidades.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -69,7 +69,7 @@ class LocalidadesController extends BaseController {
 	{
 		$Localidad = $this->Localidad->findOrFail($id);
 
-		return View::make('Localidades.show', compact('Localidad'));
+		return View::make('localidades.show', compact('Localidad'));
 	}
 
 	/**
@@ -84,10 +84,10 @@ class LocalidadesController extends BaseController {
 
 		if (is_null($Localidad))
 		{
-			return Redirect::route('Localidades.index');
+			return Redirect::route('localidades.index');
 		}
 
-		return View::make('Localidades.edit', compact('Localidad'));
+		return View::make('localidades.edit', compact('Localidad'));
 	}
 
 	/**
@@ -106,10 +106,10 @@ class LocalidadesController extends BaseController {
 			$Localidad = $this->Localidad->find($id);
 			$Localidad->update($input);
 
-			return Redirect::route('Localidades.show', $id);
+			return Redirect::route('localidades.show', $id);
 		}
 
-		return Redirect::route('Localidades.edit', $id)
+		return Redirect::route('localidades.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class LocalidadesController extends BaseController {
 	{
 		$this->Localidad->find($id)->delete();
 
-		return Redirect::route('Localidades.index');
+		return Redirect::route('localidades.index');
 	}
 
 }

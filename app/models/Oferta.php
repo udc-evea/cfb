@@ -27,9 +27,15 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'fin' => 'date_format:d/m/Y',
         'cupo_maximo' => 'integer|min:0',
         'tipo_oferta' => 'required|exists:tipo_oferta_formativa,id',
+        'presentar_mas_doc' => 'integer',
         'doc_a_presentar' => 'between:2,2000',
         'url_imagen_mail' => 'between:2,100',
         'fecha_modif' => 'date_format:d/m/Y',
+        'resolucion_nro' => 'integer|min:0',
+        'lugar' => 'between:2,100',
+        'duracion_hs' => 'integer|min:0',
+        'lleva_tit_previa' => 'integer',
+        'titulacion_id' => 'required|exists:titulacion,id'
     );
 
     public function __construct($attributes = array()) {
@@ -503,4 +509,13 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function UltimaModificacion(){
         return $this->belongsTo('Usuario', 'user_id_modif');
     }
+    
+    public function stringAleatorio($id, $lenght) {
+        $string = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $lenght);
+        $string .= "AAA".$id;
+        return $string;
+    }
+    
+    
+    
 }

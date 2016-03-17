@@ -37,10 +37,18 @@
         ->route($route_name, $route_params  );
 }}
 {{ Former::populate($obj) }}
-<fieldset>
-{{ Former::text('nombre')->required()->onGroupAddClass('form-group-lg') }}
-{{ Former::number('anio')->required()->value(date("Y"))->help('Año en que se dicta la oferta formativa') }}
-
+<fieldset>        
+    {{ Former::text('nombre')
+                ->required()
+                ->onGroupAddClass('form-group-lg') 
+                ->placeholder('Ingrese el nombre de la Oferta (Sin números)')
+    }}    
+    <hr>
+    {{ Former::number('anio')
+                ->required()
+                ->value(date("Y"))
+                ->help('Año en que se dicta la oferta formativa') }}
+    <hr>
 <div class="form-group required">
     <label class="control-label col-lg-2 col-sm-4">Tipo de Oferta</label>
     <div class="col-lg-10 col-sm-8">
@@ -54,17 +62,37 @@
         </div>
     </div>
 </div>
-
-<input type="hidden" name="permite_inscripciones" value="0"/>
+<hr>
+<!-- <input type="hidden" name="permite_inscripciones" value="0"/>
 {{ Former::checkbox('permite_inscripciones')
-	->addClass('checkbox')->help('Habilita las inscripciones a esta oferta')}}
-
-{{ Former::text('inicio')->label('Fecha inicio')->addClass('fecha') }}
-{{ Former::text('fin')->label('Fecha fin')->addClass('fecha') }}
-{{ Former::number('cupo_maximo')->label('Cupo máximo')->help('0 o vacío: sin cupo.') }}
-{{ Former::textarea('terminos')->label('Reglamento')->rows(8) }}
-
-
+	->addClass('checkbox')
+        ->help('Habilita las inscripciones a esta oferta')
+        ->style('visibility: visible; margin-left: 3px')
+     }}    
+<hr> -->
+{{ Former::text('inicio')
+            ->label('Fecha inicio')
+            ->addClass('fecha')
+            ->placeholder('Colocar la fecha de INICIO de las inscripciones para esta Oferta.')
+}}
+<hr>
+{{ Former::text('fin')
+            ->label('Fecha fin')
+            ->addClass('fecha')
+            ->placeholder('Colocar la fecha de FIN de las inscripciones para esta Oferta.')
+}}
+<hr>
+{{ Former::number('cupo_maximo')
+            ->label('Cupo máximo')
+            ->placeholder('0 o vacío: sin cupo.') 
+}}
+<hr>
+{{ Former::textarea('terminos')
+            ->label('Reglamento')
+            ->rows(8)
+            ->placeholder('Ingrese el texto que se mostrará como REGLAMENTO en la inscripción.')
+}}
+<hr>
     <div class="form-group">
         <label for="mail_bienvenida_file_name" class="control-label col-lg-2 col-sm-4">Archivo de Imágen Seleccinado:</label>
         <div class="col-lg-5 col-sm-8">
@@ -90,19 +118,71 @@
     </div>
     <!-- {{ Former::text('mail_bienvenida_file_name')->label('Archivo de imágen seleccionado:') }} 
     {{ Former::file('mail_bienvenida')->label('Mail de bienvenida')->help('Vacío: envía un mail genérico.') }} -->
-    
+<hr>    
 <!-- Agrego el campo nuevo: url_imagen_mail -->
 <input type="hidden" name="url_imagen_mail"/>
-{{ Former::text('url_imagen_mail')->label('URL de la imagen')->rows(3)->help('URL a la que apuntara la imagen.') }}
-                        
+{{ Former::text('url_imagen_mail')
+            ->label('URL de la imagen')
+            ->rows(3)
+            ->placeholder('URL a la que apuntara la imagen.') }}
+<hr>
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
 <input type="hidden" name="presentar_mas_doc" value="0"/>
 {{ Former::checkbox('presentar_mas_doc')
         ->label('Debe presentar documentación extra?')
-	->addClass('checkbox')->help('Checkear si es que para esta Oferta el inscripto debe presentar documentación extra a la solicitada en el formulario de inscripción.') }}
-{{ Former::textarea('doc_a_presentar')->label('Documentación Extra')->rows(8) }}
-
+	->addClass('checkbox')
+        ->placeholder('Checkear si es que para esta Oferta el inscripto debe presentar documentación extra a la solicitada en el formulario de inscripción.') 
+        ->style('visibility: visible; margin-left: 3px')
+        ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
+}}
 <hr>
+<div id='DivDocAPresentar' style='display: none'>
+    {{ Former::textarea('doc_a_presentar')
+            ->label('Documentación Extra')
+            ->rows(8)
+            ->style('background-color: #EFFBFB')
+    }}
+<hr>
+</div>
+<!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->
+{{ Former::number('resolucion_nro')
+            ->label('Resolución Nro.')
+            ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
+            ->class('span7')
+}}
+<hr>
+{{ Former::text('lugar')
+            ->label('Lugar de encuentro') 
+            ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.')
+            ->class('span7')
+}}
+<hr>
+{{ Former::number('duracion_hs')
+            ->label('Duración de la Oferta (en HS.)')
+            ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
+            ->class('span7')
+}}
+<hr>
+{{ Former::checkbox('lleva_tit_previa')
+        ->label('Lleva titulación previa?')
+	->help('Checkear si es que para esta Oferta el inscripto debe podeer una Titulación previa.') 
+        ->style('visibility: visible; margin-left: 3px')
+        ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
+}}
+<hr>
+<div id='DivTitulacion' style='display: none'>
+    <div class="form-group"> 
+        <label class="control-label col-lg-2 col-sm-4">Titulación</label>
+        <div class="col-lg-10 col-sm-3">
+            <select class="form-control" name='titulacion_id'>
+                @foreach($titulaciones as $item)
+                    <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <hr>
+</div>
 <?php if($newForm): ?>
 {{ Former::actions(
             link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-success')),
@@ -118,6 +198,7 @@
     )
 }}
 <?php endif; ?>
+</table>
 </fieldset>
 {{ Former::close() }}
 <script>    
@@ -148,5 +229,16 @@
               }
 
           });
-      });          
+      });
+      
+      function mostrar_ocultar(divId, checkboxId) {
+        element = document.getElementById(divId);
+        check = document.getElementById(checkboxId);
+        if (check.checked) {
+            element.style.display='block';
+        }
+        else {
+            element.style.display='none';
+        }
+    }
 </script>

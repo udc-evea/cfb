@@ -69,14 +69,20 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
       array('uses' => 'OfertasController@verMail', 'as' => 'ofertas.vermail')            
     );
             
+    // especifico que todos los controladores para las Ofertas estan en OfertasController
     Route::resource('ofertas', 'OfertasController');
-        
+    // especifico que todos los controladores para las Inscripciones estan en OfertasInscripcionesController
     Route::resource('ofertas.inscripciones', 'OfertasInscripcionesController');
-
+    // especifico que todos los controladores para las Requisitos estan en RequisitosController
     Route::resource('ofertas.requisitos', 'RequisitosController');
-
+    // especifico que todos los controladores para los Tipos de DNI estan en TipoDocumentosController
     Route::resource('tipos_documento', 'TipoDocumentosController');
+    // especifico que todos los controladores para las Localidades estan en LocalidadesController
     Route::resource('localidades', 'LocalidadesController');
+    // especifico que todos los controladores para las Titulaciones estan en TitulacionesController
+    Route::resource('titulacion', 'TitulacionController');
+    // especifico que todos los controladores para el Personal estan en PersonalController
+    Route::resource('personal', 'PersonalController');
             
     //rutas para ver los usuarios
     Route::resource('usuarios', 'UsuariosController');

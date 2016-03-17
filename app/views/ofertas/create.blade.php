@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <div align="center">
-            <h1><b>Registrar nueva Oferta Formativa</b></h1>
+            <h1 style="background-color: black;border: solid 2px white; color: white;padding: 10px;border-radius: 10px;"><b>Registrar nueva Oferta Formativa</b></h1>
         </div>
         <hr>
         @if ($errors->any())

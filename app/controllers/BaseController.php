@@ -47,4 +47,11 @@ class BaseController extends Controller {
 
         return PDF::load($html, 'A4', 'landscape')->show();
     }
+    
+    protected function obtenerElId($string) {
+        $id = 0;
+        $aux = explode("AAA", $string);
+        $id = (int)$aux[1];
+        return $id;
+    }
 }
