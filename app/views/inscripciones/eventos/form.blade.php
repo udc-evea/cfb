@@ -79,6 +79,7 @@
          ->label('Reglamento')
          ->text('He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.')
          ->required()
+         ->style('visibility: visible')
     }}
     @include('inscripciones.reglamento', array('oferta' => $oferta))
 
