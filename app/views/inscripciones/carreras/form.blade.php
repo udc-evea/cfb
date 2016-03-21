@@ -442,7 +442,17 @@
                 <tr>
                     <td align="center">
                         <div class="checkbox">
-                            <label><p class="lead">{{Form::checkbox('reglamento', 1, false, ['required'])}} He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.<span class="text-danger">*</span></p></label>
+                            <!-- <label><p class="lead">{{Form::checkbox('reglamento', 1, false, ['required'])}} He leído y acepto el <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.<span class="text-danger">*</span></p></label> -->
+                            <label>
+                                <p class="lead">
+                                    {{
+                                        Form::checkbox('reglamento', 1, false, array('style' => 'visibility: visible'), ['required'])
+                                    }} 
+                                    He leído y acepto el 
+                                    <span class="text-danger">*</span>
+                                    <a href="#" data-toggle="modal" data-target="#modal_reglamento">reglamento vigente</a>.
+                                </p>
+                            </label>
                         </div>
                     </td>
              
