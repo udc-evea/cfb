@@ -25,7 +25,8 @@
         {{ Former::select('tipo_documento_cod')
             ->fromQuery(TipoDocumento::orderBy('descripcion')->get(), 'descripcion', 'tipo_documento')
             ->label('Tipo doc.')
-            ->value(TipoDocumento::TIPODOC_DNI)->required() }}
+            ->value(TipoDocumento::TIPODOC_DNI)
+            ->required() }}
         {{ Former::number('documento')->required() }}
         {{ Former::text('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}        
     </div>
@@ -83,7 +84,7 @@
 {{ Former::actions(
             link_to_route('ofertas.inscripciones.index', 'Volver', $oferta->id, array('class' => 'btn btn-lg btn-default')),
             Former::lg_primary_reset('Restablecer'),
-            Former::lg_success_submit('Guardar')
+            Former::lg_success_submit('Completar inscripción')
    )
 }}
 @else

@@ -83,6 +83,9 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::resource('titulacion', 'TitulacionController');
     // especifico que todos los controladores para el Personal estan en PersonalController
     Route::resource('personal', 'PersonalController');
+    // especifico que todos los controladores para los Capacitadores estan en CapacitadorController
+    Route::resource('capacitador', 'CapacitadorController');
+    
             
     //rutas para ver los usuarios
     Route::resource('usuarios', 'UsuariosController');

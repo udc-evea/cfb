@@ -25,7 +25,8 @@
         {{ Former::select('tipo_documento_cod')
             ->fromQuery(TipoDocumento::orderBy('descripcion')->get(), 'descripcion', 'tipo_documento')
             ->label('Tipo doc.')
-            ->value(TipoDocumento::TIPODOC_DNI)->required() }}
+            ->value(TipoDocumento::TIPODOC_DNI)
+            ->required() }}
         {{ Former::number('documento')->required() }}
         {{ Former::text('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}
     </div>

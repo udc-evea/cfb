@@ -516,6 +516,10 @@ class Oferta extends Eloquent implements StaplerableInterface {
         return $string;
     }
     
-    
+    public function obtenerCapacitadoresDeLaOferta($oferta_id) {
+        /* funcion que busca en la Base de datos todos los capacitadores de una oferta */
+        $aux = DB::table('capacitador')->where('oferta_id','=',$oferta_id)->orderby('rol_id','asc')->get();
+        return $aux;
+    }
     
 }

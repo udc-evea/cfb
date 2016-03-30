@@ -150,7 +150,10 @@ class OfertasController extends BaseController {
                     //guardo los cambios antes de redirigir
                     $this->oferta->save();
 
-                    return Redirect::route('ofertas.index');
+                    //return Redirect::route('ofertas.index');
+                    return Redirect::route('ofertas.edit', $this->oferta->id)
+			->withInput()			
+			->with('message', 'Oferta creada exitosamente!!');
 		}
 
 		return Redirect::route('ofertas.create')
@@ -186,11 +189,13 @@ class OfertasController extends BaseController {
 		}
                 
                 Session::set('tab_activa', $oferta->tab);
-                                                
+                
+                $cap = $oferta->obtenerCapacitadoresDeLaOferta($id);
 		$tipos_oferta = TipoOferta::all();
                 $titulaciones = Titulacion::orderBy('id')->get();
 		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'))
-                    ->with('titulaciones',$titulaciones);
+                    ->with('titulaciones',$titulaciones)
+                    ->with('capacitadores',$cap);
 	}
 
 	/**

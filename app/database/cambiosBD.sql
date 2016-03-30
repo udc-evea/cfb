@@ -123,9 +123,15 @@ PRIMARY KEY (`id`)
 -> ALTER TABLE `capacitador` ADD  CONSTRAINT `fk_capacitador-pers_id-personal_id` FOREIGN KEY (`personal_id`) REFERENCES `cfb`.`personal`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 /* agrego el FK del campo 'capacitador'.'rol_id' a 'rol_capacitador'.'id_rol' */
 -> ALTER TABLE `capacitador` ADD  CONSTRAINT `fk_capacitador-rol_id-rol_capacitador-id` FOREIGN KEY (`rol_id`) REFERENCES `cfb`.`rol_capacitador`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-
-
+/* Cambio en la base la versión del sistema, de 3.0.4 a 3.1.0 */
 ->UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.0' WHERE  `version_bd`.`version` =  '3.0.4' LIMIT 1 ;
+/* Esta versión de base de datos corresponde con la versión 3.1.4 de código */
 
+
+/* ######  2016/03/28  ####################### */
+--         VERSION 3.1.1
+-- Agrego cambios para la funcionalidad de los certificados
+-- la sintaxis es:
+/* Agrego indice de restricción para los Capacitadores: Un capacitador no puede tener mas de un rol en una oferta */
+ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `personal_id`);
+/* Esta versión de base de datos corresponde con la versión 3.1.5 de código */
