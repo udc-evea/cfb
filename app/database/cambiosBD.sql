@@ -138,7 +138,7 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 
 
 /* ######  2016/03/31  ####################### */
---         VERSION 3.1.2
+--         VERSION 3.1.1
 -- Agrego cambios para la funcionalidad de los certificados
 -- la sintaxis es:
 /* agrgego campo para los certificados de los alumnos que aprueban la oferta */
