@@ -70,7 +70,7 @@ class OfertasController extends BaseController {
                 
                  */
                 //obtengo el ID, Nombre, Año y cantidad de Preinscriptos de todas las carreras
-                $Carreras = DB::table('oferta_formativa')
+                /*$Carreras = DB::table('oferta_formativa')
                         ->select(DB::raw("count(inscripcion_carrera.id) as total"))
                         ->join('inscripcion_carrera','oferta_formativa.id','=','inscripcion_carrera.oferta_formativa_id')
                         ->addselect('oferta_formativa.id', 'oferta_formativa.nombre', 'oferta_formativa.anio')
@@ -78,8 +78,8 @@ class OfertasController extends BaseController {
                         ->groupBy('oferta_formativa.id')
                         ->orderBy('oferta_formativa.anio','desc')
                         ->get();
-                
-                $totalPreinscr = array(
+                */
+                /*$totalPreinscr = array(
                     'carreras' => $preinscCarr, 
                     'eventos' => $preinscEve,
                     'ofertas' => $preinscOfe);
@@ -87,19 +87,24 @@ class OfertasController extends BaseController {
                     'carreras' => $inscCarr, 
                     'eventos' => $inscEve,
                     'ofertas' => $inscOfe);
-                
-                $preUDC = $preinscCarr + $preinscEve + $preinscOfe;
+                */
+                /*$preUDC = $preinscCarr + $preinscEve + $preinscOfe;
                 $insUDC = $inscCarr + $inscEve + $inscOfe;
+                */
+                $personal = Personal::all();
+                $roles = RolCapacitador::all();                
                                 
 		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))
                         ->with('userId',$userId)
                         ->with('userPerfil',$userPerfil)
                         ->with('userName',$userName)
-                        ->with("TotalPreinscriptos",$totalPreinscr)
-                        ->with("TotalInscriptos",$totalInscr)
-                        ->with("preUDC",$preUDC)
-                        ->with("insUDC",$insUDC)
-                        ->with("Carreras",$Carreras)
+                        //->with("TotalPreinscriptos",$totalPreinscr)
+                        //->with("TotalInscriptos",$totalInscr)
+                        //->with("preUDC",$preUDC)
+                        //->with("insUDC",$insUDC)
+                        //->with("Carreras",$Carreras)
+                        ->with('personal',$personal)                        
+                        ->with('roles',$roles)
                 ;
 	}
 
@@ -134,7 +139,7 @@ class OfertasController extends BaseController {
 		$validation = Validator::make($input, Oferta::$rules);
 
 		if ($validation->passes())
-		{                                        
+		{
                     $this->oferta = $this->oferta->create($input);
 
                     Session::set('tab_activa', $this->oferta->tab);
@@ -150,8 +155,8 @@ class OfertasController extends BaseController {
                     //guardo los cambios antes de redirigir
                     $this->oferta->save();
 
-                    //return Redirect::route('ofertas.index');
-                    return Redirect::route('ofertas.edit', $this->oferta->id)
+                    return Redirect::route('ofertas.index')
+                    //return Redirect::route('ofertas.edit', $this->oferta->id)
 			->withInput()			
 			->with('message', 'Oferta creada exitosamente!!');
 		}
@@ -193,9 +198,13 @@ class OfertasController extends BaseController {
                 $cap = $oferta->obtenerCapacitadoresDeLaOferta($id);
 		$tipos_oferta = TipoOferta::all();
                 $titulaciones = Titulacion::orderBy('id')->get();
+                $personal = Personal::all();
+                $roles = RolCapacitador::all();
 		return View::make('ofertas.edit', compact('oferta', 'tipos_oferta'))
                     ->with('titulaciones',$titulaciones)
-                    ->with('capacitadores',$cap);
+                    ->with('capacitadores',$cap)
+                    ->with('personal',$personal)
+                    ->with('roles',$roles);
 	}
 
 	/**
@@ -274,4 +283,54 @@ class OfertasController extends BaseController {
 
 		return View::make($oferta->getVistaMail(), compact('oferta'));
 	}                
+        
+        /**
+	 * Guardo el/los Capacitador/es de la Oferta
+	 *
+	 * 
+	 * @return Response
+	 */
+	public function agregarCapacitadores()
+	{
+            if(Input::has('listaCapacitadores')){
+                //obtengo del POST la variable de todos los capacitadores agregados
+                $lista = Input::get('listaCapacitadores');
+                //separo los capacitadores en un array asociativo                
+                $size = sizeof($lista); $i=0;$j=1;
+                //recorro el array listaCapacitadores y divido la información
+                while ($j<$size){
+                    //obtengo el campo oferta_id y lo guardo en el array asociativo
+                    $listaAsociativo[$i]['oferta_id'] = $lista[0];
+                    //obtengo el campo personal_id y lo guardo en el array asociativo
+                    $listaAsociativo[$i]['personal_id'] = $lista[$j];
+                    //obtengo el campo rol_id y lo guardo en el array asociativo
+                    $listaAsociativo[$i]['rol_id'] = $lista[$j+1];
+                    //incremento las variables utilizadas: $j para sacar la info de la lista, e $i para elarray asociativo
+                    $j=$j+2; $i++;
+                }
+                //Session::put('listaCapacitadores',$listaAsociativo);
+                //Session::put('lista',$lista);
+                try{
+                    //recorro el array asociativo
+                    foreach ($listaAsociativo as $cap){
+                        //guardo la info en la Base de datos
+                        Capacitador::create($cap);
+                    }
+                    $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                    $final = $this->getEstiloMensajeFinal();
+                    //redirijo a Ofertas Index
+                    return Redirect::route('ofertas.index')
+                    ->with('message', "$cabecera Se agregaron correctamente los capacitadores.$final");
+                }  catch (PDOException $e){
+                    $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                    $final = $this->getEstiloMensajeFinal();
+                    return Redirect::route('ofertas.index')
+                    ->with('message', "$cabecera Error en la reación de/los capacitador/es. $final");
+                }   
+            }
+            $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.index')
+                    ->with('message', "$cabecera La validación de los datos del Capacitador no pasó.$final");
+	}
 }

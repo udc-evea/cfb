@@ -23,9 +23,7 @@
           <div class="row">
             <div class="col-md-12">
                 @if (Session::has('message'))
-                <div class="flash alert alert-warning">
-                    <p><span class="glyphicon glyphicon-warning-sign"></span> {{ Session::get('message') }}</p>
-                </div>
+                    {{ Session::get('message') }}
                 @endif
                 
                 @yield('main')

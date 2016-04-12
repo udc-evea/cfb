@@ -33,4 +33,15 @@ class Personal extends Eloquent implements UserInterface, RemindableInterface {
         
     protected $fillable = array('apellido','nombre','dni','email','titulacion_id');
 
+    public function getApellido() {
+        return $this->apellido;
+    }
+    
+    public function getNombre() {
+        return $this->nombre;
+    }
+    
+    public function getApellidoYNombre() {
+        return $this->apellido.', '.$this->nombre;
+    }
 }

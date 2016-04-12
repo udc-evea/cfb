@@ -124,7 +124,7 @@ PRIMARY KEY (`id`)
 /* agrego el FK del campo 'capacitador'.'rol_id' a 'rol_capacitador'.'id_rol' */
 -> ALTER TABLE `capacitador` ADD  CONSTRAINT `fk_capacitador-rol_id-rol_capacitador-id` FOREIGN KEY (`rol_id`) REFERENCES `cfb`.`rol_capacitador`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 /* Cambio en la base la versión del sistema, de 3.0.4 a 3.1.0 */
-->UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.0' WHERE  `version_bd`.`version` =  '3.0.4' LIMIT 1 ;
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.0' WHERE  `version_bd`.`version` =  '3.0.4' LIMIT 1 ;
 /* Esta versión de base de datos corresponde con la versión 3.1.4 de código */
 
 
@@ -135,3 +135,22 @@ PRIMARY KEY (`id`)
 /* Agrego indice de restricción para los Capacitadores: Un capacitador no puede tener mas de un rol en una oferta */
 ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `personal_id`);
 /* Esta versión de base de datos corresponde con la versión 3.1.5 de código */
+
+
+/* ######  2016/03/31  ####################### */
+--         VERSION 3.1.2
+-- Agrego cambios para la funcionalidad de los certificados
+-- la sintaxis es:
+/* agrgego campo para los certificados de los alumnos que aprueban la oferta */
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_alum_file_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Campo para almacenar el certificado base de los alumnos aprobados de la Oferta' ;
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_alum_file_size` INT(11) NULL DEFAULT NULL ;
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_alum_content_type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_alum_updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ;
+/* agrgego campo para los certificados del/los capacitador/es de la oferta */
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_cap_file_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Campo para almacenar el certificado base del/los capacitadores de la Oferta' ;
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_cap_file_size` INT(11) NULL DEFAULT NULL ;
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_cap_content_type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
+-> ALTER TABLE `oferta_formativa` ADD `cert_base_cap_updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ;
+/* Cambio en la base la versión del sistema, de 3.1.0 a 3.1.1 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.1' WHERE  `version_bd`.`version` =  '3.1.0' LIMIT 1 ;
+/* Esta versión de base de datos corresponde con la versión 3.1.6 de código */

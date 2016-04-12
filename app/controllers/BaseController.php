@@ -54,4 +54,12 @@ class BaseController extends Controller {
         $id = (int)$aux[1];
         return $id;
     }
+    
+    public function getEstiloMensajeCabecera($tipoAlert, $tipoIcono) {    
+        return "<div class='flash alert alert-dismiss alert-$tipoAlert'><button type='button' class='close' data-dismiss='alert'>x</button><p style='text-align: center'><span class='$tipoIcono'></span>";
+    }
+        
+    public function getEstiloMensajeFinal() {
+        return '</p></div>';
+    }
 }

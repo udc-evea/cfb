@@ -49,14 +49,16 @@
                 ->value(date("Y"))
                 ->help('Año en que se dicta la oferta formativa') }}
     <hr>
-    @if (count($capacitadores) < 1)
-        <a class="btn btn-primary" href="#">Agregar Capacitador/es</a>
-    @else
-        <li>Lista de Capacitadores:</li>
-        <?php foreach ($capacitadores as $cap):?>
-        <ol><?php echo $cap->personal_id." (".$cap->rol_id.")" ?></ol>
-        <?php endforeach ?>
-    @endif
+    <?php if(!$newForm): ?>
+        @if (count($capacitadores) < 1)
+            {{ link_to_route('capacitador.index', 'Agregar Capacitadores (CRUD)', null, array('class' => 'btn btn-lg btn-primary')) }}        
+        @else
+            <li>Lista de Capacitadores:</li>
+            <?php foreach ($capacitadores as $cap):?>
+            <ol><?php echo $cap->personal_id." (".$cap->rol_id.")" ?></ol>
+            <?php endforeach ?>
+        @endif
+    <?php endif; ?>
     <hr>    
 <div class="form-group required">
     <label class="control-label col-lg-2 col-sm-4">Tipo de Oferta</label>
@@ -117,7 +119,7 @@
             <div class="input-group">
                 <span class="input-group-btn">
                     <span class="btn btn-primary btn-file">
-                        Cargar<input type="file" id="mail_bienvenida" name="mail_bienvenida">                        
+                        Cargar <input type="file" id="mail_bienvenida" name="mail_bienvenida">                        
                     </span>
                 </span>
                 <input type="text" class="form-control" readonly>
@@ -178,8 +180,8 @@
         ->style('visibility: visible; margin-left: 3px')
         ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
 }}
-<hr>
 <div id='DivTitulacion' style='display: none'>
+    <hr>
     <div class="form-group"> 
         <label class="control-label col-lg-2 col-sm-4">Titulación</label>
         <div class="col-lg-10 col-sm-3">
@@ -189,9 +191,57 @@
                 @endforeach
             </select>
         </div>
-    </div>
-    <hr>
+    </div>    
 </div>
+<hr>
+    <!-- Agrego el campo nuevo: certificado_base_alumnos -->
+    <div class="form-group">
+        <label for="cert_base_alum_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para ALUMNOS:</label>
+        <div class="col-lg-5 col-sm-8">
+            <?php if($newForm): ?>
+                <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" placeholder="Sin Imágen">
+            <?php else: ?>
+                <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" value="<?php echo $oferta->cert_base_alum_file_name?>">
+            <?php endif;?>
+            <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
+        </div>
+        <div class="col-lg-5 col-sm-8">            
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Cargar <input type="file" id="cert_base_alum" name="cert_base_alum">
+                    </span>
+                </span>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+        </div>
+    </div>
+<hr>
+    <!-- Agrego el campo nuevo: certificado_base_capacitadores -->
+    <div class="form-group">
+        <label for="cert_base_cap_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para CAPACITADORES:</label>
+        <div class="col-lg-5 col-sm-8">
+            <?php if($newForm): ?>
+                <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" placeholder="Sin Imágen">
+            <?php else: ?>
+                <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" value="<?php echo $oferta->cert_base_cap_file_name?>">
+            <?php endif;?>
+            <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
+        </div>
+        <div class="col-lg-5 col-sm-8">            
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Cargar <input type="file" id="cert_base_cap" name="cert_base_cap">
+                    </span>
+                </span>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+        </div>
+    </div>    
+
 <?php if($newForm): ?>
 {{ Former::actions(
             link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-success')),

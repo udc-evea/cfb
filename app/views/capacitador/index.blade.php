@@ -33,7 +33,7 @@
                                 {{ link_to_route('capacitador.edit', ' ', array($capacitador->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
                                 {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $capacitador->id))) }}
                                     {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del capacitador')) }}
-                                {{ Form::close() }}                                                                    
+                                {{ Form::close() }}
                             </td>
                         @endif
                     </tr>

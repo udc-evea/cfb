@@ -59,7 +59,7 @@
     <label class="col-sm-2 control-label">&nbsp;</label>
     <div class="col-sm-10">
       {{ Form::submit('Guardar', array('class' => 'btn btn-lg btn-primary')) }}
-      {{ link_to_route('capacitador.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
+      {{ link_to_route('ofertas.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
     </div>
 </div>
 

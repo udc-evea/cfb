@@ -68,6 +68,10 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/ofertas/{oferta}/vermail', 
       array('uses' => 'OfertasController@verMail', 'as' => 'ofertas.vermail')            
     );
+    
+    Route::post('/ofertas/{oferta}/agregarcapacitadores',
+      array('uses' => 'OfertasController@agregarCapacitadores', 'as' => 'ofertas.agregarcapacitadores')
+    );
             
     // especifico que todos los controladores para las Ofertas estan en OfertasController
     Route::resource('ofertas', 'OfertasController');

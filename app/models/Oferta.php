@@ -40,6 +40,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function __construct($attributes = array()) {
         $this->hasAttachedFile('mail_bienvenida');
+        $this->hasAttachedFile('cert_base_alum');
+        $this->hasAttachedFile('cert_base_cap');
         
         Oferta::creating(function($model) {
             $model->chequearDisponibilidad();           //revisa siempre

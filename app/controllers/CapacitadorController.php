@@ -21,7 +21,7 @@ class CapacitadorController extends BaseController {
 	 */
 	public function index()
 	{
-                //agegado por nico
+                //agregado por nico
                 $userId = Auth::user()->id;
                 $user = Auth::user()->username;
                 $userPerfil = Auth::user()->perfil;
@@ -165,7 +165,11 @@ class CapacitadorController extends BaseController {
                         //$this->capacitador->update($input);
                         $capacitador->update($final);
 
-                        return Redirect::route('capacitador.index', $id);
+                        //return Redirect::route('capacitador.index', $id);
+                        //envío a Ofertas.index luego de editar un capacitador
+                        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                        $final = $this->getEstiloMensajeFinal();
+                        return Redirect::route('ofertas.index')->with('message',"$cabecera Los cambios en el capacitador se realizaron correctamente!. $final");
                         
                     }  catch (PDOException $e){
                         return Redirect::route('capacitador.create')
@@ -189,9 +193,13 @@ class CapacitadorController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+            $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+            $final = $this->getEstiloMensajeFinal();
             if(Auth::user()->perfil == 'Administrador'){
 		$this->capacitador->find($id)->delete();
-		return Redirect::route('capacitador.index');
+		//return Redirect::route('capacitador.index');
+                return Redirect::route('ofertas.index')
+                        ->with('message',"$cabecera Se eliminó correctamente el capacitador.$final");
             }else{
                 return Redirect::action('HomeController@bienvenido')
                             ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
