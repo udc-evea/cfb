@@ -44,16 +44,18 @@
                 <div>
                     <h1 style="width: 400px; border: solid white 4px; background-color: black; color: white; border-radius: 15px; padding: 10px">
                         <span class="titulo1">Inscripciones On Line</span>
-                        <div><small>código v.3.1.6 | base v.<?php echo $verDB ?></small></div>
+                        <div><small>código v.<?php echo $verCodigo ?> | base v.<?php echo $verDB ?></small></div>
                     </h1>                    
                 </div> 
 	</div>
         <br><br><br>
         @if(Auth::check())
         <div class="listadoOpciones">
-            <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-info" title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>
+            <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-info" style='width: 300px' title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>
             @if(Auth::user()->perfil == 'Administrador')
-                <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-danger" title="Ver todas las Usuarios"><i class="glyphicon glyphicon-user"></i> Todos los usuarios</a></p>
+                <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-danger" style='width: 300px' title="Ver todas las Usuarios"><i class="glyphicon glyphicon-user"></i> Usuarios del Sistema</a></p>
+                <p><a href="{{ route('personal.index') }}" class="btn btn-lg btn-success" style='width: 300px' title="Ver todo el Personal en condiciones de actuar como Capacitadores"><i class="glyphicon glyphicon-user"></i> Personal para Capacitaciones</a></p>
+                <p><a href="{{ route('titulacion.index') }}" class="btn btn-lg btn-default" style='width: 300px' title="Ver todas las titulaciones disponibles"><i class="glyphicon glyphicon-book"></i> Titulaciones</a></p>
             @endif
             <p><a href="{{action('HomeController@salir')}}" class="btn btn-lg btn-warning" title="Salir del Sistema de Inscripciones"><i class="glyphicon glyphicon-off"></i> Salir</a></p>
         </div>

@@ -50,8 +50,12 @@ class BaseController extends Controller {
     
     protected function obtenerElId($string) {
         $id = 0;
-        $aux = explode("AAA", $string);
-        $id = (int)$aux[1];
+        $aux = explode('*-AAA', $string);
+        if(sizeof($aux)>1){
+            $id = (int)$aux[1];
+        }else{
+            $id = (int)$aux[0];
+        }
         return $id;
     }
     

@@ -261,6 +261,9 @@ class OfertasController extends BaseController {
                 
                 Session::set('tab_activa', $oferta->tab);
                 
+                //borro todos los capacitadores de esa oferta
+                $this->eliminarCapacitadores($oferta->id);
+                
                 $oferta->delete();
                 
 		return Redirect::route('ofertas.index')
@@ -333,4 +336,15 @@ class OfertasController extends BaseController {
             return Redirect::route('ofertas.index')
                     ->with('message', "$cabecera La validación de los datos del Capacitador no pasó.$final");
 	}
+        
+        public function eliminarCapacitadores($oferta_id) {
+            //obtengo los capacitadores de la oferta
+            $capacitadores = DB::table('capacitador')->where('oferta_id','=',$oferta_id)->get();
+            //recorro los capacitadores y los elimino
+            foreach ($capacitadores as $cap){
+                DB::table('capacitador')->where('id','=',$cap->id)->delete();
+            }
+            //regreso a eliminar la oferta
+            return ;
+        }
 }

@@ -514,7 +514,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     
     public function stringAleatorio($id, $lenght) {
         $string = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $lenght);
-        $string .= "AAA".$id;
+        $string .= '*-AAA'.$id;
         return $string;
     }
     

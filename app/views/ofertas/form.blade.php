@@ -48,17 +48,6 @@
                 ->required()
                 ->value(date("Y"))
                 ->help('Año en que se dicta la oferta formativa') }}
-    <hr>
-    <?php if(!$newForm): ?>
-        @if (count($capacitadores) < 1)
-            {{ link_to_route('capacitador.index', 'Agregar Capacitadores (CRUD)', null, array('class' => 'btn btn-lg btn-primary')) }}        
-        @else
-            <li>Lista de Capacitadores:</li>
-            <?php foreach ($capacitadores as $cap):?>
-            <ol><?php echo $cap->personal_id." (".$cap->rol_id.")" ?></ol>
-            <?php endforeach ?>
-        @endif
-    <?php endif; ?>
     <hr>    
 <div class="form-group required">
     <label class="control-label col-lg-2 col-sm-4">Tipo de Oferta</label>

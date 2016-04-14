@@ -154,3 +154,14 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 /* Cambio en la base la versión del sistema, de 3.1.0 a 3.1.1 */
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.1' WHERE  `version_bd`.`version` =  '3.1.0' LIMIT 1 ;
 /* Esta versión de base de datos corresponde con la versión 3.1.6 de código */
+
+
+/* ######  2016/04/12  ####################### */
+--         VERSION 3.1.2
+-- Agrego cambios para la funcionalidad de los certificados
+-- la sintaxis es:
+/* Cambio en la base la versión del sistema, de 3.1.1 a 3.1.2 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.1' WHERE  `version_bd`.`version` =  '3.1.0' LIMIT 1 ;
+/* Agrego campo en la tabla "version_bd" para ir guardando la versión del código también */
+-> ALTER TABLE `version_bd` ADD `version_codigo` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Campo para guardar la versión del código.' ;
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.6' WHERE  `version_bd`.`version` =  '3.1.1' LIMIT 1 ;

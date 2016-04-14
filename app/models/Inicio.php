@@ -14,4 +14,8 @@ class Inicio extends Eloquent {
         return $this->version;
     }
     
+    public function getVersionCodigo() {
+        return $this->version_codigo;
+    }
+    
 }

@@ -111,7 +111,13 @@ class OfertasInscripcionesController extends BaseController {
         $aprobados = $oferta->aprobados->all();
         
         //return View::make('inscripciones.'.$oferta->view.'.index', compact('inscripciones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil);
-        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))->withoferta($oferta)->with('userName',$userName)->with('nomyape',$NomYApe)->with('perfil',$perfil)->with('tipoOferta',$tipoOferta)->with('aprobados',$aprobados);
+        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','comisiones'))
+                ->withoferta($oferta)
+                ->with('userName',$userName)
+                ->with('nomyape',$NomYApe)
+                ->with('perfil',$perfil)
+                ->with('tipoOferta',$tipoOferta)
+                ->with('aprobados',$aprobados);
       }else{                    
           $inscripciones = $oferta->inscripciones->all();
           $inscriptos = $oferta->inscriptosOferta->all();

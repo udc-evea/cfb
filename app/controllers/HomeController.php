@@ -31,8 +31,12 @@ class HomeController extends BaseController {
         public function bienvenido()
 	{
             $Inicio = Inicio::first();
-            $versionDB = $Inicio->getVersionDB();            
-            return View::make('inicio.inicio')->with('verDB',$versionDB);
+            $versionDB = $Inicio->getVersionDB();
+            $versionCodigo = $Inicio->getVersionCodigo();
+            return View::make('inicio.inicio')
+                    ->with('verDB',$versionDB)
+                    ->with('verCodigo',$versionCodigo)
+                ;
 	}
 
         public function salir()
