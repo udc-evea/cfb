@@ -191,7 +191,7 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#d35400" style="color: #FFFFFF;"><span class="glyphicon glyphicon-map-marker"></span> DOMICILIO EN PERÍODO DE CLASES</td>
-                    <td><label class="checkbox-inline">{{ Form::checkbox('domicilio_clases_igual', true, false) }} Igual que el domicilio de residencia</label></td>
+                    <td><label class="checkbox-inline">{{ Form::checkbox('domicilio_clases_igual', true, false,array('style' => 'visibility: visible', 'required'=>'required')) }} Igual que el domicilio de residencia</label></td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="2" style="font-weight: bold">Tipo de Residencia: <span class="text-danger">*</span>
@@ -335,15 +335,15 @@
 
                 <tr class="opcional">
                     <td><label>Rama de la actividad económica<span class="text-danger">*</span></label>
-                        {{ Form::select('situacion_laboral_rama_id', RamaActividadLaboral::select(), null, [ 'class' => 'form-control input-sm'],'required'=>'required') }}
+                        {{ Form::select('situacion_laboral_rama_id', RamaActividadLaboral::select(), null, [ 'class' => 'form-control input-sm']) }}
                     </td>
                     <td> <label>Categoría Ocupacional<span class="text-danger">*</span></label>
-                        {{ Form::select('situacion_laboral_categoria_ocupacional_id', CategoriaOcupacional::select(), null, [ 'class' => 'form-control input-sm','required'=>'required']) }}
+                        {{ Form::select('situacion_laboral_categoria_ocupacional_id', CategoriaOcupacional::select(), null, [ 'class' => 'form-control input-sm']) }}
                     </td>
                 </tr>
                 <tr class="opcional">
                     <td colspan="3"><label>Detalle de la labor que realiza<span class="text-danger">*</span></label>
-                        {{ Form::textarea('situacion_laboral_detalle_labor', null, [ 'class' => 'form-control', 'rows' => '2','required'=>'required']) }}
+                        {{ Form::textarea('situacion_laboral_detalle_labor', null, [ 'class' => 'form-control', 'rows' => '2']) }}
                     </td>
             </tbody>
         </table>
@@ -352,7 +352,7 @@
             <tbody bgcolor="#FFFFFF">
                 <tr>
                     <td height="60px" bgcolor="#2980b9" style="color:#fff;"><span class="glyphicon glyphicon-list-alt"></span> DATOS DEL PADRE</td>
-                    <td width="65%"> <label>Apellidos y Nombres del PADRE: <span class="text-danger">*</span></label>{{ Form::text('padre_apeynom', null, [ 'class' => 'form-control input-sm'],'required'=>'required') }}</td>
+                    <td width="65%"> <label>Apellidos y Nombres del PADRE: <span class="text-danger">*</span></label>{{ Form::text('padre_apeynom', null, [ 'class' => 'form-control input-sm','required'=>'required']) }}</td>
                 </tr>
                 <tr>
                     <td colspan="2">¿Vive? <span class="text-danger">*</span>

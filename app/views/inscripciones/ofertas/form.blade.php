@@ -1,6 +1,8 @@
 <?php $method        = $obj != null ? 'PUT' : 'POST';?>
 <?php $route_name    = $obj != null ? 'update' : 'nueva';?>
-<?php $route_params  = $obj != null ? array($oferta->id, $obj->id) : array($oferta->id);?>
+<?php $route_params  = $obj != null ? array($oferta->stringAleatorio($oferta->id,15), $obj->id) : array($oferta->id);?>
+<?php //$route_params  = $obj != null ? array($oferta->id, $obj->id) : array($oferta->id); //linea original ?>
+
 {{ HTML::script('js/inscripciones.js') }}
 <script>
     $(function(){

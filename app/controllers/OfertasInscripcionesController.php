@@ -168,7 +168,8 @@ class OfertasInscripcionesController extends BaseController {
      *
      * @return Response
      */
-    public function store($oferta_id) {
+    public function store($of_id) {
+        $oferta_id = $this->obtenerElId($of_id);
         $oferta = Oferta::findOrFail($oferta_id);
         $inscripto = $oferta->inscripcionModel;
         
@@ -205,11 +206,12 @@ class OfertasInscripcionesController extends BaseController {
             return Redirect::to('/inscripcion_ok');
         }
         //dd($validation);
-        return Redirect::route('ofertas.inscripciones.nueva', $oferta_id)
+        $id_string = $oferta->stringAleatorio($oferta_id,15);
+        return Redirect::route('ofertas.inscripciones.nueva', $id_string)
                         ->withOferta($oferta)
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'Error al guardar.');
+                        ->with('message', " Error al guardar.");
     }
 
     /**
@@ -279,7 +281,7 @@ class OfertasInscripcionesController extends BaseController {
         $inscripcion = $insc_class::findOrFail($id);
         
         $inscripcion->delete();
-
+        //throw new Exception;
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
                         ->with('message', 'Se eliminó el registro correctamente.');

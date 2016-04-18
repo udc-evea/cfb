@@ -323,12 +323,12 @@ class OfertasController extends BaseController {
                     $final = $this->getEstiloMensajeFinal();
                     //redirijo a Ofertas Index
                     return Redirect::route('ofertas.index')
-                    ->with('message', "$cabecera Se agregaron correctamente los capacitadores.$final");
+                        ->with('message', "$cabecera Se agregaron correctamente los capacitadores.$final");
                 }  catch (PDOException $e){
                     $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
                     $final = $this->getEstiloMensajeFinal();
                     return Redirect::route('ofertas.index')
-                    ->with('message', "$cabecera Error en la reación de/los capacitador/es. $final");
+                        ->with('message', "$cabecera Error en la reación de/los capacitador/es. $final");
                 }   
             }
             $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');

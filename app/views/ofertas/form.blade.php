@@ -37,7 +37,21 @@
         ->route($route_name, $route_params  );
 }}
 {{ Former::populate($obj) }}
-<fieldset>        
+<fieldset>
+    <div class="form-group required">
+        <label class="control-label col-lg-2 col-sm-4">Tipo de Oferta</label>
+        <div class="col-lg-10 col-sm-8">
+            <div class="btn-group" data-toggle="buttons">
+            @foreach($tipos_oferta as $item)
+                <label class="btn btn-default @if($obj && $item->id == $obj->tipo_oferta) active @endif">
+                    <i class="fa {{ $item->icono }}"></i> 
+                    <input type="radio" onchange='ocultarCamposEnCarrera()' required @if($obj && $item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
+                </label>
+            @endforeach
+            </div>
+        </div>
+    </div>
+    <hr>
     {{ Former::text('nombre')
                 ->required()
                 ->onGroupAddClass('form-group-lg') 
@@ -48,28 +62,15 @@
                 ->required()
                 ->value(date("Y"))
                 ->help('Año en que se dicta la oferta formativa') }}
-    <hr>    
-<div class="form-group required">
-    <label class="control-label col-lg-2 col-sm-4">Tipo de Oferta</label>
-    <div class="col-lg-10 col-sm-8">
-        <div class="btn-group" data-toggle="buttons">
-        @foreach($tipos_oferta as $item)
-            <label class="btn btn-default @if($obj && $item->id == $obj->tipo_oferta) active @endif">
-                <i class="fa {{ $item->icono }}"></i> 
-                <input type="radio" @if($obj && $item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
-            </label>
-        @endforeach
-        </div>
-    </div>
-</div>
-<hr>
+    
+
 <!-- <input type="hidden" name="permite_inscripciones" value="0"/>
 {{ Former::checkbox('permite_inscripciones')
 	->addClass('checkbox')
         ->help('Habilita las inscripciones a esta oferta')
         ->style('visibility: visible; margin-left: 3px')
-     }}    
-<hr> -->
+     }}    -->
+<hr>
 {{ Former::text('inicio')
             ->label('Fecha inicio')
             ->addClass('fecha')
@@ -94,7 +95,7 @@
 }}
 <hr>
     <div class="form-group">
-        <label for="mail_bienvenida_file_name" class="control-label col-lg-2 col-sm-4">Archivo de Imágen Seleccinado:</label>
+        <label for="mail_bienvenida_file_name" class="control-label col-lg-2 col-sm-4">Imágen confirmación e-mail:</label>
         <div class="col-lg-5 col-sm-8">
             <?php if($newForm): ?>
                 <input class="form-control" id="mail_bienvenida_file_name" type="text" name="mail_bienvenida_file_name" placeholder="Sin Imágen">
@@ -142,95 +143,98 @@
             ->rows(8)
             ->style('background-color: #EFFBFB')
     }}
-<hr>
-</div>
-<!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->
-{{ Former::number('resolucion_nro')
-            ->label('Resolución Nro.')
-            ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
-            ->class('span7')
-}}
-<hr>
-{{ Former::text('lugar')
-            ->label('Lugar de encuentro') 
-            ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.')
-            ->class('span7')
-}}
-<hr>
-{{ Former::number('duracion_hs')
-            ->label('Duración de la Oferta (en HS.)')
-            ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
-            ->class('span7')
-}}
-<hr>
-{{ Former::checkbox('lleva_tit_previa')
-        ->label('Lleva titulación previa?')
-	->help('Checkear si es que para esta Oferta el inscripto debe podeer una Titulación previa.') 
-        ->style('visibility: visible; margin-left: 3px')
-        ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
-}}
-<div id='DivTitulacion' style='display: none'>
     <hr>
-    <div class="form-group"> 
-        <label class="control-label col-lg-2 col-sm-4">Titulación</label>
-        <div class="col-lg-10 col-sm-3">
-            <select class="form-control" name='titulacion_id'>
-                @foreach($titulaciones as $item)
-                    <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>    
 </div>
-<hr>
-    <!-- Agrego el campo nuevo: certificado_base_alumnos -->
-    <div class="form-group">
-        <label for="cert_base_alum_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para ALUMNOS:</label>
-        <div class="col-lg-5 col-sm-8">
-            <?php if($newForm): ?>
-                <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" placeholder="Sin Imágen">
-            <?php else: ?>
-                <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" value="<?php echo $oferta->cert_base_alum_file_name?>">
-            <?php endif;?>
-            <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
-        </div>
-        <div class="col-lg-5 col-sm-8">            
-            <div class="input-group">
-                <span class="input-group-btn">
-                    <span class="btn btn-primary btn-file">
-                        Cargar <input type="file" id="cert_base_alum" name="cert_base_alum">
-                    </span>
-                </span>
-                <input type="text" class="form-control" readonly>
-            </div>
-            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
-        </div>
-    </div>
-<hr>
-    <!-- Agrego el campo nuevo: certificado_base_capacitadores -->
-    <div class="form-group">
-        <label for="cert_base_cap_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para CAPACITADORES:</label>
-        <div class="col-lg-5 col-sm-8">
-            <?php if($newForm): ?>
-                <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" placeholder="Sin Imágen">
-            <?php else: ?>
-                <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" value="<?php echo $oferta->cert_base_cap_file_name?>">
-            <?php endif;?>
-            <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
-        </div>
-        <div class="col-lg-5 col-sm-8">            
-            <div class="input-group">
-                <span class="input-group-btn">
-                    <span class="btn btn-primary btn-file">
-                        Cargar <input type="file" id="cert_base_cap" name="cert_base_cap">
-                    </span>
-                </span>
-                <input type="text" class="form-control" readonly>
-            </div>
-            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
-        </div>
-    </div>    
+<div id='ocultosDeCarrera'>
+    <!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->
+    {{ Former::number('resolucion_nro')
+                ->label('Resolución Nro.')
+                ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
+                ->class('span7')
+    }}
+    <hr>
+    {{ Former::text('lugar')
+                ->label('Lugar de encuentro') 
+                ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.')
+                ->class('span7')
+    }}
+    <hr>
+    {{ Former::number('duracion_hs')
+                ->label('Duración de la Oferta (en HS.)')
+                ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
+                ->class('span7')
+    }}
+    <hr>
+    {{ Former::checkbox('lleva_tit_previa')
+            ->label('Lleva titulación previa?')
+            ->help('Checkear si es que para esta Oferta el inscripto debe podeer una Titulación previa.') 
+            ->style('visibility: visible; margin-left: 3px')
+            ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
+    }}
 
+    <div id='DivTitulacion' style='display: none'>
+        <hr>
+        <div class="form-group"> 
+            <label class="control-label col-lg-2 col-sm-4">Titulación</label>
+            <div class="col-lg-10 col-sm-3">
+                <select class="form-control" name='titulacion_id'>
+                    @foreach($titulaciones as $item)
+                        <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>    
+    </div>
+    <hr>
+        <!-- Agrego el campo nuevo: certificado_base_alumnos -->
+        <div class="form-group">
+            <label for="cert_base_alum_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para ALUMNOS:</label>
+            <div class="col-lg-5 col-sm-8">
+                <?php if($newForm): ?>
+                    <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" placeholder="Sin Imágen">
+                <?php else: ?>
+                    <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" value="<?php echo $oferta->cert_base_alum_file_name?>">
+                <?php endif;?>
+                <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
+            </div>
+            <div class="col-lg-5 col-sm-8">            
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-primary btn-file">
+                            Cargar <input type="file" id="cert_base_alum" name="cert_base_alum">
+                        </span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+            </div>
+        </div>
+    <hr>
+        <!-- Agrego el campo nuevo: certificado_base_capacitadores -->
+        <div class="form-group">
+            <label for="cert_base_cap_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para CAPACITADORES:</label>
+            <div class="col-lg-5 col-sm-8">
+                <?php if($newForm): ?>
+                    <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" placeholder="Sin Imágen">
+                <?php else: ?>
+                    <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" value="<?php echo $oferta->cert_base_cap_file_name?>">
+                <?php endif;?>
+                <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
+            </div>
+            <div class="col-lg-5 col-sm-8">            
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-primary btn-file">
+                            Cargar <input type="file" id="cert_base_cap" name="cert_base_cap">
+                        </span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+            </div>
+        </div>    
+    <hr>
+</div>
 <?php if($newForm): ?>
 {{ Former::actions(
             link_to_route('ofertas.index', 'Volver', null, array('class' => 'btn btn-lg btn-success')),
@@ -246,7 +250,6 @@
     )
 }}
 <?php endif; ?>
-</table>
 </fieldset>
 {{ Former::close() }}
 <script>    
@@ -279,7 +282,7 @@
           });
       });
       
-      function mostrar_ocultar(divId, checkboxId) {
+    function mostrar_ocultar(divId, checkboxId) {
         element = document.getElementById(divId);
         check = document.getElementById(checkboxId);
         if (check.checked) {
@@ -289,4 +292,18 @@
             element.style.display='none';
         }
     }
+    
+    function ocultarCamposEnCarrera(){
+        oferta_id = document.querySelector('input[name="tipo_oferta"]:checked').value;
+        divAOcultar = document.getElementById('ocultosDeCarrera');
+        //window.alert('(fuera del IF)Oferta tipo: '+oferta_id);
+        if(oferta_id == 1){
+            //window.alert('(IF true) Oferta tipo: '+oferta_id);
+            divAOcultar.style.display='none';
+        }else{
+            //window.alert('(IF false) Oferta tipo: '+oferta_id);
+            divAOcultar.style.display='block';
+        }
+    }
+    
 </script>
