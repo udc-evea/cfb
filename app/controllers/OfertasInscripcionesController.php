@@ -118,7 +118,7 @@ class OfertasInscripcionesController extends BaseController {
                 ->with('perfil',$perfil)
                 ->with('tipoOferta',$tipoOferta)
                 ->with('aprobados',$aprobados);
-      }else{                    
+      }else{
           $inscripciones = $oferta->inscripciones->all();
           $inscriptos = $oferta->inscriptosOferta->all();
           return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))
@@ -220,7 +220,8 @@ class OfertasInscripcionesController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($oferta_id, $id) {
+    public function edit($of_id, $id) {
+        $oferta_id = $this->obtenerElId($of_id);
         $oferta = Oferta::findorFail($oferta_id);
         $insc_class = $oferta->inscripcionModelClass;
         $inscripcion = $insc_class::findOrFail($id);
@@ -242,7 +243,8 @@ class OfertasInscripcionesController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($oferta_id, $id) {
+    public function update($of_id, $id) {
+        $oferta_id = $this->obtenerElId($of_id);
         $oferta = Oferta::findorFail($oferta_id);
         $insc_class = $oferta->inscripcionModelClass;
         $inscripcion = $insc_class::findOrFail($id);

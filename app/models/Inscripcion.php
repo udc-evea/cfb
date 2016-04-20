@@ -20,10 +20,10 @@ class Inscripcion extends Eloquent {
         'localidad_id' => 'required|exists:repo_localidad,id',        
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',        
-        'email'    => 'required|email|confirmed|unique_with:inscripcion_oferta,oferta_formativa_id,email',
+        'email'    => 'required|email|unique_with:inscripcion_oferta,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
-        'telefono'  => 'required|integer|min:4000000',
+        'telefono'  => 'required|between:7,50|regex:/^[0-9+\(\)#\.\s\/ext-]+$/', //'required|integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/',
         'comision_nro' => 'integer|min:0',

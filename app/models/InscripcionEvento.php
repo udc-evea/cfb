@@ -18,10 +18,10 @@ class InscripcionEvento extends Eloquent {
         'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'localidad_id' => 'required|exists:repo_localidad,id',       
-        'email'    => 'required|email|confirmed|unique_with:inscripcion_evento,oferta_formativa_id,email',
+        'email'    => 'required|email|unique_with:inscripcion_evento,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
-        'telefono'  => 'required|integer|min:4000000',
+        'telefono'  => 'required|between:7,50|regex:/^[0-9+\(\)#\.\s\/ext-]+$/',//'integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/',
         'asistente' => 'integer'

@@ -137,7 +137,7 @@
                     </td>
                     <td>
                         <div class="col-sm-6"><label>Email<span class="text-danger">*</span></label> {{ Form::email('email', null, [ 'class' => 'form-control input-sm']) }}</div>
-                        <div class="col-sm-6"><label>Reingrese email<span class="text-danger">*</span></label> {{ Form::email('email_confirmation', null, [ 'class' => 'form-control input-sm','required'=>'required']) }}</div>
+                        <!-- <div class="col-sm-6"><label>Reingrese email<span class="text-danger">*</span></label> {{ Form::email('email_confirmation', null, [ 'class' => 'form-control input-sm','required'=>'required']) }}</div> -->
                     </td>
                 </tr>
             </tbody>

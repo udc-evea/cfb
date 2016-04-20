@@ -50,7 +50,7 @@
     <div class="panel-heading"><span class="glyphicon glyphicon-phone"></span> <strong>Información de Contacto</strong></div>
     <div class="panel-body">
         {{ Former::email('email')->label('Correo electrónico')->required() }}
-        {{ Former::email('email_confirmation')->label('Reingrese correo')->required() }}
+        <!-- {{ Former::email('email_confirmation')->label('Reingrese correo')->required() }} -->
         {{ Former::text('telefono')->label('Teléfono')->required() }}
     </div>
 </div>

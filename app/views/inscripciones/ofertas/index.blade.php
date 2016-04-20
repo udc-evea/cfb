@@ -15,7 +15,7 @@
         <strong>Pre-Inscriptos</strong> -->
         <!-- <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a></small> -->
     <!-- </h2> -->
-     @if(count($inscripciones))
+     @if(count($preinscripciones))
      <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
         <table class="tablaExportar">
             <tr>

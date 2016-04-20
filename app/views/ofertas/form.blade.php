@@ -2,30 +2,31 @@
 <?php $route_name = $obj ? 'ofertas.update' : 'ofertas.store'; ?>
 <?php $route_params = $obj ? array('id' => $obj->id) : array(); ?>
 <style>
-    #mail_bienvenida { width:0px; height:0px; }    
+#mail_bienvenida { width:0px; height:0px; }    
     
-    .btn-file {
-        position: relative;
-        overflow: hidden;
-      }
-      .btn-file input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        min-width: 100%;
-        min-height: 100%;
-        font-size: 100px;
-        text-align: right;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        background: red;
-        cursor: inherit;
-        display: block;
-      }
-      input[readonly] {
-        background-color: white !important;
-        cursor: text !important;
-      }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+}
+
+input[readonly] {
+    background-color: white !important;
+    cursor: text !important;
+}
 </style>
 
 
@@ -304,6 +305,10 @@
             //window.alert('(IF false) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='block';
         }
+    }
+    
+    window.onload = function (){
+        ocultarCamposEnCarrera();
     }
     
 </script>
