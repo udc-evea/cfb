@@ -19,6 +19,7 @@
                         <th>Aprobó?</th>
                     @endif
                     <th>Localidad</th>
+                    <th>Certificado</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,15 @@
                             </td>
                         @endif 
                         <td>{{ $inscripcion->localidad->la_localidad }}</td>
+                        <td>
+                            <?php $name = $oferta->cert_base_alum_file_name ?>
+                            <?php if ($name != null): ?>
+                                <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfa', 'alm' => $inscripcion->id )) }}" title="Certificado de Aprobación del alumnos"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                            <?php else: ?>
+                                <?php echo "No se cargo" ?>
+                            <?php endif; ?>
+                            <img src="<?php //echo asset($oferta->mail_bienvenida->url()) ?>"/>
+                        </td>
                     </tr>
                     <?php $i++;?>
 		@endforeach

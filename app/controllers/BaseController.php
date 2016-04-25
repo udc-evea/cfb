@@ -4,8 +4,9 @@ class BaseController extends Controller {
 	const EXPORT_XLSP = 'xlsp';
         const EXPORT_XLSI = 'xlsi';
 	const EXPORT_PDFP = 'pdfp';
-        const EXPORT_PDFI = 'pdfi';        
+        const EXPORT_PDFI = 'pdfi';
         const EXPORT_CSV = 'csv';
+        const EXPORT_PDFA = 'pdfa';
 
 	/**
 	 * Setup the layout used by the controller.

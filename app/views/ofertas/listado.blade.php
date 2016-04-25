@@ -34,12 +34,12 @@
                 
             </td>
             <td>
-                {{ BS3::bool_to_label($oferta->permite_inscripciones) }}
-                @if(($userPerfil == "Administrador")||($oferta->user_id_creador == $userId))
-                    @if($oferta->permite_inscripciones)
-                        <small><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}">[Form]</a></small>
-                    @endif
-                @endif
+                {{ BS3::bool_to_label($oferta->permite_inscripciones) }}                
+                <?php //if(($userPerfil == "Administrador")||($item->user_id_creador == $userId)):?>
+                    <?php //if($item->permite_inscripciones): ?>
+                        <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
+                    <?php //endif; ?>
+                 <?php //endif; ?>
             </td>
             <td>{{ ModelHelper::dateOrNull($oferta->inicio) }}</td>
             <td>{{ ModelHelper::dateOrNull($oferta->fin) }}</td>

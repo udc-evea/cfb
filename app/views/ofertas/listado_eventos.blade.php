@@ -27,19 +27,17 @@
                         <span class="text-danger glyphicon glyphicon-warning-sign"></span>
                     @endif
                 @endif
-                
                     @if($item->inscriptos > 0)
                         <small><a href="{{ URL::route('ofertas.inscripciones.show', $item->id) }}">[Ver]</a></small>
                     @endif
-                
             </td>
             <td>
-                {{ BS3::bool_to_label($item->permite_inscripciones) }}
-                @if(($userPerfil == "Administrador")||($item->user_id_creador == $userId))
-                    @if($item->permite_inscripciones)
-                        <small><a href="{{ URL::action('ofertas.inscripciones.create', $item->stringAleatorio($item->id,15)) }}">[Form]</a></small>
-                    @endif
-                @endif
+                {{ BS3::bool_to_label($item->permite_inscripciones) }}                
+                <?php //if(($userPerfil == "Administrador")||($item->user_id_creador == $userId)):?>
+                    <?php //if($item->permite_inscripciones): ?>
+                        <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $item->stringAleatorio($item->id,15)) }}"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
+                    <?php //endif; ?>
+                 <?php //endif; ?>
             </td>
             <td>{{ ModelHelper::dateOrNull($item->inicio) }}</td>
             <td>{{ ModelHelper::dateOrNull($item->fin) }}</td>

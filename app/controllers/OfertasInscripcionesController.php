@@ -56,6 +56,11 @@ class OfertasInscripcionesController extends BaseController {
                     //traigo solos los inscriptos para exportar a cvs
                     $inscripciones = $oferta->inscriptosOferta->all();
                     return $this->exportarCSV($oferta->nombre."_inscriptos", $inscripciones, 'inscripciones.'.$oferta->view.'.csv')->with('tipoOferta',$tipoOferta);
+                case parent::EXPORT_PDFA:
+                    //traigo solo los datos de alumno APROBADO para exportar a pdf
+                    $id_alumno = Request::get('alm');
+                    $aprobado = $oferta->datosAprobado($id_alumno);
+                    return $this->exportarPDF($oferta->nombre."_certif_aprobacion", $aprobado, 'inscripciones.'.$oferta->view.'.certificado')->with('tipoOferta',$tipoOferta);
             }
       }
 
@@ -137,7 +142,7 @@ class OfertasInscripcionesController extends BaseController {
      *
      * @return Response
      */
-    public function create($id) {
+    public function create($id) {        
         $oferta_id = $this->obtenerElId($id);
         $ofertas  = Oferta::cursos()->get();
         $carreras = Oferta::carreras()->get();
@@ -156,7 +161,7 @@ class OfertasInscripcionesController extends BaseController {
         $oferta = Oferta::find($oferta_id);
         if (!$oferta) {
             return View::make('errors.oferta_inexistente');
-        } elseif(!$oferta->permite_inscripciones) {
+        } elseif((!Auth::check()) && (!$oferta->permite_inscripciones)) {
             return View::make('inscripciones.cerradas')->withoferta($oferta);
         }
 

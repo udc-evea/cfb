@@ -304,6 +304,18 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->orderBy('nombre');            
         }
     }
+    // agregado por nico - devuelve los Datos de un alumno Aprobados de una Oferta
+    public function datosAprobado($id_alumno) {
+        if($this->esOferta) {
+            return $this
+                    ->hasMany('Inscripcion', 'oferta_formativa_id')
+                    ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('aprobado','LIKE',1)
+                    ->where('id','LIKE',1)
+                ;
+        }
+    }
     
     public function getViewAttribute() {
         if ($this->esCarrera) {
@@ -476,24 +488,32 @@ class Oferta extends Eloquent implements StaplerableInterface {
     
     //Cambio estado de la inscripcion de "abierta" a "cerrada"
     public function setCerrarOferta() {
-                
-        if($this->fechasEnTermino() && $this->cupoSuficiente()){
-            $this->permite_inscripciones = TRUE;
-        }else{
-            $this->permite_inscripciones = FALSE;
-        }
+        //$user = Auth::check();
+        //if(!$user){
+            if($this->fechasEnTermino() && $this->cupoSuficiente()){
+                $this->permite_inscripciones = TRUE;
+            }else{
+                $this->permite_inscripciones = FALSE;
+            }
+        //}else{
+        //    $this->permite_inscripciones = TRUE;
+        //}
         //guardo los cambios
         $this->save();
     }
     
     //Cambio estado de la inscripcion de "abierta" a "cerrada" solo para Eventos
     public function setCerrarEvento() {
-                
-        if($this->fechasEnTermino()){
-            $this->permite_inscripciones = TRUE;
-        }else{
-            $this->permite_inscripciones = FALSE;
-        }
+        //$user = Auth::check();
+        //if($user){
+            if($this->fechasEnTermino()){
+                $this->permite_inscripciones = TRUE;
+            }else{
+                $this->permite_inscripciones = FALSE;
+            }
+        //}else{
+        //    $this->permite_inscripciones = TRUE;
+        //}
         //guardo los cambios
         $this->save();
     }
