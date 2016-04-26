@@ -43,10 +43,10 @@ class BaseController extends Controller {
     }
 
     protected function exportarPDF($filename, $rows, $view)
-    {        
+    {   
         $html = View::make($view, compact('rows'));
 
-        return PDF::load($html, 'A4', 'landscape')->show();
+        return PDF::load($html, 'A4', 'landscape')->show($filename);
     }
     
     protected function obtenerElId($string) {
@@ -66,5 +66,11 @@ class BaseController extends Controller {
         
     public function getEstiloMensajeFinal() {
         return '</p></div>';
+    }
+    
+    public function nombreMes($mes){
+        setlocale(LC_TIME, 'spanish');  
+        $nombre=strftime("%B",mktime(0, 0, 0, $mes, 1, 2000)); 
+        return $nombre;
     }
 }

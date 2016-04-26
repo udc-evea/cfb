@@ -102,23 +102,26 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
                             ->with('localidad')
                             ->where('estado_inscripcion','LIKE',0)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre')
+                            ->orderBy('id');
         } elseif($this->esOferta) {
             return $this
                             ->hasMany('Inscripcion', 'oferta_formativa_id')
                             ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                             //->where('estado_inscripcion','LIKE',0)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre')
+                            ->orderBy('id');
             
         } elseif($this->esEvento) {
             return $this
                             ->hasMany('InscripcionEvento', 'oferta_formativa_id')
                             ->with('localidad', 'rel_como_te_enteraste')
                             ->where('estado_inscripcion','LIKE',0)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre')
+                            ->orderBy('id');
         }
     }
     
@@ -129,23 +132,26 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
                             ->with('localidad')
                             ->where('estado_inscripcion','LIKE',1)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre')
+                            ->orderBy('id');
         } elseif($this->esOferta) {
             return $this
                             ->hasMany('Inscripcion', 'oferta_formativa_id')
                             ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                             ->where('estado_inscripcion','LIKE',1)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre')
+                            ->orderBy('id');
             
         } elseif($this->esEvento) {
             return $this
                             ->hasMany('InscripcionEvento', 'oferta_formativa_id')
                             ->with('localidad', 'rel_como_te_enteraste')
                             ->where('estado_inscripcion','LIKE',1)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre')
+                            ->orderBy('id');
         }
     }
     
@@ -157,8 +163,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',0)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');        
         }
     }
     
@@ -170,8 +177,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',1)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');
         }
     }
     
@@ -183,8 +191,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',2)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -196,8 +205,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',3)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
 
@@ -209,8 +219,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',4)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -222,8 +233,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',5)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -235,8 +247,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',6)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -248,8 +261,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',7)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -261,8 +275,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',8)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -274,8 +289,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',9)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -287,8 +303,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('comision_nro','LIKE',10)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');            
         }
     }
     
@@ -300,8 +317,9 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('aprobado','LIKE',1)
-                    ->orderBy('apellido')
-                    ->orderBy('nombre');            
+                    //->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');           
         }
     }
     // agregado por nico - devuelve los Datos de un alumno Aprobados de una Oferta
@@ -312,7 +330,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                     ->where('estado_inscripcion','LIKE',1)
                     ->where('aprobado','LIKE',1)
-                    ->where('id','LIKE',1)
+                    ->where('id','LIKE',$id_alumno)
                 ;
         }
     }

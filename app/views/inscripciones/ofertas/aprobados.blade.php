@@ -53,7 +53,7 @@
                             <?php if ($name != null): ?>
                                 <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfa', 'alm' => $inscripcion->id )) }}" title="Certificado de Aprobación del alumnos"><i class="fa fa-file-pdf-o fa-3"></i></a>
                             <?php else: ?>
-                                <?php echo "No se cargo" ?>
+                                {{ link_to_route('ofertas.edit', ' Cargar certificados', array($oferta->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil', 'title'=>'Editar datos de la Oferta')) }}
                             <?php endif; ?>
                             <img src="<?php //echo asset($oferta->mail_bienvenida->url()) ?>"/>
                         </td>

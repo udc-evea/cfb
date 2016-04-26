@@ -59,8 +59,8 @@ class OfertasInscripcionesController extends BaseController {
                 case parent::EXPORT_PDFA:
                     //traigo solo los datos de alumno APROBADO para exportar a pdf
                     $id_alumno = Request::get('alm');
-                    $aprobado = $oferta->datosAprobado($id_alumno);
-                    return $this->exportarPDF($oferta->nombre."_certif_aprobacion", $aprobado, 'inscripciones.'.$oferta->view.'.certificado')->with('tipoOferta',$tipoOferta);
+                    $aprobado = $oferta->aprobados->find($id_alumno);
+                    return $this->exportarPDF("Certif_Aprobacion".$oferta->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
             }
       }
 
