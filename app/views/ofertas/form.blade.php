@@ -148,7 +148,7 @@ input[readonly] {
 </div>
 <div id='ocultosDeCarrera'>
     <!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->
-    {{ Former::number('resolucion_nro')
+    {{ Former::text('resolucion_nro')
                 ->label('Resolución Nro.')
                 ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
                 ->class('span7')

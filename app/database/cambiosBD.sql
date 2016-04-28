@@ -161,7 +161,19 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -- Agrego cambios para la funcionalidad de los certificados
 -- la sintaxis es:
 /* Cambio en la base la versión del sistema, de 3.1.1 a 3.1.2 */
--> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.1' WHERE  `version_bd`.`version` =  '3.1.0' LIMIT 1 ;
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.2' WHERE  `version_bd`.`version` =  '3.1.1' LIMIT 1 ;
 /* Agrego campo en la tabla "version_bd" para ir guardando la versión del código también */
 -> ALTER TABLE `version_bd` ADD `version_codigo` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Campo para guardar la versión del código.' ;
--> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.6' WHERE  `version_bd`.`version` =  '3.1.1' LIMIT 1 ;
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.6' WHERE  `version_bd`.`version_codigo` =  '3.1.1' LIMIT 1 ;
+
+
+/* ######  2016/04/28  ####################### */
+--    VERSION_BASE: 3.1.3 - VERSION_CODIGO: 3.1.6
+-- Cambio el "tipo" del campo "resolucion_nro" de entero a cadena
+-- la sintaxis es:
+/* Cambio en la base la versión del sistema, de 3.1.2 a 3.1.3 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.3' WHERE  `version_bd`.`version` =  '3.1.2' LIMIT 1 ;
+/* Cambio en la base la versión de código del sistema, de 3.1.6 a 3.1.7 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.6' WHERE  `version_bd`.`version_codigo` =  '3.1.1' LIMIT 1 ;
+/* Modifico el tipo en el */
+-> ALTER TABLE `oferta_formativa` CHANGE `resolucion_nro` `resolucion_nro` VARCHAR(30) NULL DEFAULT NULL COMMENT 'Es el Nro. de Resolución interna con la cuál se aprueba la creación de esta Oferta';
