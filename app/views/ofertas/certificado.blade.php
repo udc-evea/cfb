@@ -16,23 +16,31 @@
                 position: relative;
                 //display: inline;
             }
-            #nombreAlumno{
+            #nombreCapacitador{
                 position: absolute;
                 top: 250px;
                 text-align: center;
                 alignment-adjust: central;
                 width: 100%;
             }
-            #dniAlumno{
+            #dniCapacitador{
                 position: absolute;
                 top: 290px;
                 text-align: center;
                 alignment-adjust: central;
                 width: 100%;
             }
-            #nombreOferta{
+            #rolCapacitador{
                 position: absolute;
                 top: 323px;
+                left: 220px;
+                text-align: center;
+                alignment-adjust: central;
+                width: 100%;
+            }
+            #nombreOferta{
+                position: absolute;
+                top: 355px;
                 text-align: center;
                 alignment-adjust: central;
                 width: 100%;
@@ -68,31 +76,28 @@
     </head>
 <body>
     <?php
+        //$rows son los datos de la Oferta, Ej.: $rows->nombre;
+        $cap = Session::get('cap');
+        $capacRol = RolCapacitador::find($cap->rol_id);
+        $capacPersonal = Personal::find($cap->personal_id);
         $meses = array(
-                '01' => 'Enero',
-                '02' => 'Febrero',
-                '03' => 'Marzo',
-                '04' => 'Abril',
-                '05' => 'Mayo',
-                '06' => 'Junio',
-                '07' => 'Julio',
-                '08' => 'Agosto',
-                '09' => 'Septiembre',
-                '10' => 'Octubre',
-                '11' => 'Noviembre',
-                '12' => 'Diciembre',
+                '01' => 'Enero','02' => 'Febrero','03' => 'Marzo',
+                '04' => 'Abril','05' => 'Mayo','06' => 'Junio',
+                '07' => 'Julio','08' => 'Agosto','09' => 'Septiembre',
+                '10' => 'Octubre','11' => 'Noviembre','12' => 'Diciembre',
                 );
         $aux = array_get($meses, date('m'));
-    ?>    
+    ?> 
     <div class="certificado">
-        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
-        <h2 id="nombreAlumno"><span><?php echo strtoupper($rows->apellido.", ".$rows->nombre);?></span></h2>
-        <h2 id="dniAlumno"><span><?php echo $rows->documento;?></span></h2>
-        <h2 id="nombreOferta"><span><?php echo $rows->oferta->nombre;?></span></h2>
-        <h2 id="resolucion"><span><?php echo $rows->oferta->resolucion_nro;?></span></h2>
-        <h2 id="cantidadHorasReloj"><span><?php echo $rows->oferta->duracion_hs;?></span></h2>
-        <h2 id="diaHoy"><span><?php echo date('d')?></span></h2>
-        <h2 id="mesHoy"><span><?php echo strtoupper($aux) ?></span></h2>
+        <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
+        <h2 id="nombreCapacitador"><span><?php echo strtoupper($capacPersonal->nombre.", ".$capacPersonal->apellido); ?></span></h2>
+        <h2 id="dniCapacitador"><span><?php echo $capacPersonal->dni;?></span></h2>
+        <h2 id="rolCapacitador"><span><?php echo strtolower($capacRol->rol);?></span></h2>
+        <h2 id="nombreOferta"><span><?php echo $rows->nombre;?></span></h2>
+        <h2 id="resolucion"><?php echo $rows->resolucion_nro;?></h2>
+        <h2 id="cantidadHorasReloj"><?php echo $rows->duracion_hs;?></h2>
+        <h2 id="diaHoy"><?php echo date('d')?></h2>
+        <h2 id="mesHoy"><?php echo strtoupper($aux) ?></h2>
     </div>
     
 </body>

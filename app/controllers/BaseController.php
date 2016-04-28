@@ -7,6 +7,7 @@ class BaseController extends Controller {
         const EXPORT_PDFI = 'pdfi';
         const EXPORT_CSV = 'csv';
         const EXPORT_PDFA = 'pdfa';
+        const EXPORT_PDFCAP = 'pdfcap';
 
 	/**
 	 * Setup the layout used by the controller.

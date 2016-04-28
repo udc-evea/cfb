@@ -92,7 +92,23 @@ class OfertasController extends BaseController {
                 $insUDC = $inscCarr + $inscEve + $inscOfe;
                 */
                 $personal = Personal::all();
-                $roles = RolCapacitador::all();                
+                $roles = RolCapacitador::all();
+                
+                $exp = Request::get('exp');
+                    if (!empty($exp)) {
+                        switch ($exp) {
+                            case parent::EXPORT_PDFCAP:
+                                //obtengo los datos de la oferta y el capacitador
+                                $id_oferta = Request::get('ofid');
+                                $oferta = $this->oferta->find($id_oferta);
+                                //traigo solo los datos del CAPACITADOR para exportar a pdf
+                                $id_capacitador = Request::get('cap');
+                                $capacitador = DB::table('capacitador')->find($id_capacitador);
+                                Session::set('cap', $capacitador);
+                                //Session::set('of', $oferta);
+                                return $this->exportarPDF("Certif_Capacitador_"."Nico", $oferta, 'ofertas.certificado');
+                    }
+                }
                                 
 		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))
                         ->with('userId',$userId)
@@ -140,23 +156,23 @@ class OfertasController extends BaseController {
 
 		if ($validation->passes())
 		{
-                    $this->oferta = $this->oferta->create($input);
+                  $this->oferta = $this->oferta->create($input);
 
-                    Session::set('tab_activa', $this->oferta->tab);
+                  Session::set('tab_activa', $this->oferta->tab);
                     
-                    //agregado por nico
-                    //Busco el usuario actual en la BD y obtengo el ID
-                    $userId = Auth::user()->id;
-                    //agrego el ID del usuario en el campo user_id_creador de la oferta
-                    $this->oferta->user_id_creador = $userId;
-                    //agrego los datos de la modificación
-                    $this->oferta->user_id_modif = $userId;
-                    $this->oferta->fecha_modif = date('Y-m-d');
-                    //guardo los cambios antes de redirigir
-                    $this->oferta->save();
+                  //agregado por nico
+                  //Busco el usuario actual en la BD y obtengo el ID
+                  $userId = Auth::user()->id;
+                  //agrego el ID del usuario en el campo user_id_creador de la oferta
+                  $this->oferta->user_id_creador = $userId;
+                  //agrego los datos de la modificación
+                  $this->oferta->user_id_modif = $userId;
+                  $this->oferta->fecha_modif = date('Y-m-d');
+                  //guardo los cambios antes de redirigir
+                  $this->oferta->save();
 
-                    return Redirect::route('ofertas.index')
-                    //return Redirect::route('ofertas.edit', $this->oferta->id)
+                  //return Redirect::route('ofertas.edit', $this->oferta->id)
+                  return Redirect::route('ofertas.index')
 			->withInput()			
 			->with('message', 'Oferta creada exitosamente!!');
 		}
