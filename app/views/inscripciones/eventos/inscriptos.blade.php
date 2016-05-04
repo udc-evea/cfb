@@ -1,5 +1,9 @@
-<div>      
-    @if (count($inscripciones))	        
+<div class="container">      
+    @if (count($inscripciones))
+        <?php $listaIdInscriptos = array();?>
+        {{ Form::open(array(
+                    'method' => 'POST',
+                    'action' => array('OfertasInscripcionesController@cambiarAsistentes', $oferta->id))) }}
             <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
                 <thead>
                     <tr>
@@ -9,19 +13,21 @@
                         @if($perfil != "Colaborador")
                             <th>Documento</th>
                         @endif
-                        <th>Localidad</th>
-                        <th>Email Personal</th>
+                        <!-- <th>Localidad</th> 
+                        <th>Email Personal</th> -->
                         @if($perfil != "Colaborador")
                             <th>Email UDC</th>
-                            <th>Inscriptos ({{ count($inscripciones) }})?</th>
+                            <!-- <th>Inscriptos?</th> -->
                             <th>Notificado/a</th>
                         @endif
-                        <th>Acciones</th>
+                        <th>Asistio?</th>
+                        <!-- <th>Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1;?>
                     @foreach ($inscripciones as $inscripcion)
+                        <?php $listaIdInscriptos[] = $inscripcion->id; ?>
                         <tr>
                             <td>{{ $i }}</td>
                             <td>{{{ $inscripcion->apellido }}}</td>
@@ -29,19 +35,19 @@
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
-                            <td>{{ $inscripcion->localidad->la_localidad }}</td>
-                            <td>{{{ $inscripcion->email }}}</td>
+                            <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> 
+                            <td>{{{ $inscripcion->email }}}</td> -->
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->email_institucional }}}</td>
-                                <td>
+                                <!-- <td>
                                     <div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
-                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                        <input type="checkbox" name="inscripto[<?php //echo $inscripcion->id ?>]" id="slideTwo<?php //echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php //echo $inscripcion->id ?>"></label>
                                     @else
-                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                        <input type="checkbox" name="inscripto[<?php //echo $inscripcion->id ?>]" id="slideTwo<?php //echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php //echo $inscripcion->id ?>"></label>
                                     @endif
                                     </div>
-                                </td>
+                                </td> -->
                                 <td>
                                     @if ($inscripcion->getEsInscripto())
                                         @if ($inscripcion->getCantNotificaciones() > 0)
@@ -59,6 +65,15 @@
                                 </td>
                             @endif
                             <td>
+                                <div class="slideTwo">
+                                    @if ($inscripcion->getEsAsistente())
+                                        <input type="checkbox" name="asistente[<?php echo $inscripcion->id ?>]" id="slideTwoA<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoA<?php echo $inscripcion->id ?>"></label>
+                                    @else
+                                        <input type="checkbox" name="asistente[<?php echo $inscripcion->id ?>]" id="slideTwoA<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoA<?php echo $inscripcion->id ?>"></label>
+                                    @endif
+                                </div>
+                            </td>
+                            <!-- <td>
                                 {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
                                 
                                 @if($perfil != "Colaborador")
@@ -66,12 +81,18 @@
                                         {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
                                     {{ Form::close() }}
                                 @endif
-                            </td>
+                            </td> -->
                         </tr>                  
                         <?php $i++;?>
                     @endforeach
                     </tbody>
             </table>
+            <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
+            <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString ?>">
+            @if($perfil != "Colaborador")
+                {{ Form::submit('Actualizar Asistentes', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos.')) }}
+                {{ Form::close() }}
+            @endif
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>

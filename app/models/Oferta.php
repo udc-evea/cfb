@@ -505,7 +505,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         //fecha de inicio menor a fecha de fin
         self::$rules['inicio'].='|before:' . $input['fin'];
         //fecha de fin de inscripciones menor a fecha de fecha_fin_oferta
-        self::$rules['fin'].='|before:' . $input['fecha_fin_oferta'];
+        //self::$rules['fin'].='|before:' . $input['fecha_fin_oferta'];
     }
 
     public function inferirFormatoFecha($fecha) {

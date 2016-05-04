@@ -75,7 +75,7 @@ input[type=checkbox] {
 	width: 80px;
 	height: 30px;
 	background: #333;
-	margin: 20px auto;
+	//margin: 20px auto;
 
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;

@@ -37,6 +37,11 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
       array('uses' => 'OfertasInscripcionesController@cambiarInscripciones', 'as' => 'ofertas.inscripciones.cambiarInscripciones')
     );
     
+    //Ruta para cambiar el listado de asistentes de una sola vez
+    Route::any('/ofertas/{oferta}/inscripciones/cambiarAsistentes',
+      array('uses' => 'OfertasInscripcionesController@cambiarAsistentes', 'as' => 'ofertas.inscripciones.cambiarAsistentes')
+    );
+    
     //agregue esta ruta para cambiar el estado de los requisitos del inscripto
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/requisitos', 
       array('uses' => 'OfertasInscripcionesController@cambiarEstadoDeRequisitos', 'as' => 'ofertas.inscripciones.cambiarEstadoDeRequisitos')

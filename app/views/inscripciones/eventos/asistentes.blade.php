@@ -9,14 +9,15 @@
                         @if($perfil != "Colaborador")
                             <th>Documento</th>
                         @endif
-                        <th>Localidad</th>
+                        <!-- <th>Localidad</th> -->
                         <th>Email Personal</th>
                         @if($perfil != "Colaborador")
                             <th>Email UDC</th>
-                            <th>Inscriptos ({{ count($asistentes) }})?</th>
-                            <th>Notificado/a</th>
+                            <!-- <th>Inscriptos ({{ count($asistentes) }})?</th>
+                            <th>Notificado/a</th> -->
                         @endif
-                        <th>Acciones</th>
+                        <th>Certificado</th>
+                        <!-- <th>Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -29,13 +30,11 @@
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
-                            <td>{{ $inscripcion->localidad->la_localidad }}<br>
-                                <?php //echo $codigo; echo "<br>Id:".$inscripcion->id?>
-                            </td>
+                            <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                             <td>{{{ $inscripcion->email }}}</td>
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->email_institucional }}}</td>
-                                <td>
+                                <!-- <td>
                                     <div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
                                         <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
@@ -58,17 +57,24 @@
                                     @else
                                     <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
-                                </td>
+                                </td> -->
                             @endif
                             <td>
-                                {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
-                                <!-- <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-default" title="Imprimir formulario de inscripcion"><i class="fa fa-file-pdf-o"></i></a> -->
+                                <?php $name = $oferta->cert_base_alum_file_name ?>
+                                <?php if ($name != null): ?>
+                                    <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfas', 'alm' => $inscripcion->id )) }}" title="Certificado de Asistencia del alumno"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                                <?php else: ?>
+                                    {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
+                                <?php endif; ?>
+                            </td>
+                            <!-- <td>
+                                {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}                                
                                 @if($perfil != "Colaborador")
                                     {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
                                         {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
                                     {{ Form::close() }}
                                 @endif
-                            </td>
+                            </td> -->
                         </tr>                  
                         <?php $i++;?>
                     @endforeach

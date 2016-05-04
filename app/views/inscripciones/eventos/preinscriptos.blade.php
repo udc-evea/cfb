@@ -32,7 +32,7 @@
                         @if($perfil != "Colaborador")
                             <th>Email UDC</th>
                             <th>Inscriptos?</th>
-                            <th>Notificado/a</th>
+                            <!-- <th>Notificado/a</th> -->
                         @endif
                         <th>Acciones</th>
                     </tr>
@@ -62,13 +62,13 @@
                                 <td>
                                     <div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
-                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoP<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoP<?php echo $inscripcion->id ?>"></label>
                                     @else
-                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoP<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoP<?php echo $inscripcion->id ?>"></label>
                                     @endif
                                     </div>
                                 </td>
-                                <td>
+                                <!--<td>
                                     @if ($inscripcion->getEsInscripto())
                                         @if ($inscripcion->getCantNotificaciones() > 0)
                                            @if ($inscripcion->getCantNotificaciones() == 1)
@@ -82,7 +82,7 @@
                                     @else
                                     <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
-                                </td>
+                                </td> -->
                             @endif
                             <td>
                                 {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
@@ -97,25 +97,13 @@
                         <?php $i++;?>
                     @endforeach
                     </tbody>
-            </table>
-            <?php //$listaEnString = serialize($listaIdPreinscriptos); ?>
+            </table>            
             <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
             <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
             @if($perfil != "Colaborador")
                 {{ Form::submit('Actualizar Inscriptos', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos.')) }}            
                 {{ Form::close() }}
             @endif
-        <?php /*
-        $lista = Session::get('lista');
-        $listacheck = Session::get('listacheck');
-        echo "####################################<br>Lista:<br>";
-        echo var_dump($lista);
-        echo "####################################<br>ListaCheck:<br>";
-        echo var_dump($listacheck);
-        echo "####################################<br>";
-        echo var_dump($listaIdPreinscriptos);
-        echo "####################################<br>";
-        */?>
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>
