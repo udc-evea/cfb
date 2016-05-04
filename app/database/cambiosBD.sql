@@ -177,3 +177,15 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.6' WHERE  `version_bd`.`version_codigo` =  '3.1.1' LIMIT 1 ;
 /* Modifico el tipo en el */
 -> ALTER TABLE `oferta_formativa` CHANGE `resolucion_nro` `resolucion_nro` VARCHAR(30) NULL DEFAULT NULL COMMENT 'Es el Nro. de Resolución interna con la cuál se aprueba la creación de esta Oferta';
+
+
+/* ######  2016/05/04  ####################### */
+--    VERSION_BASE: 3.1.4 - VERSION_CODIGO: 3.1.7
+-- Agrego "fecha_fin_oferta" para que se anote la fecha de fin de cursada para mostrarse en el Certificado (solo para Ofertas y eventos)
+-- la sintaxis es:
+/* Cambio en la base la versión del sistema, de 3.1.3 a 3.1.4 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.4' WHERE  `version_bd`.`version` =  '3.1.3' LIMIT 1 ;
+/* Cambio en la base la versión de código del sistema, de 3.1.7 a 3.1.8 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.8' WHERE  `version_bd`.`version_codigo` =  '3.1.7' LIMIT 1 ;
+/* Agrego el campo "fecha_fin_oferta" en la tabla "oferta_formativa" */
+-> ALTER TABLE `oferta_formativa` ADD `fecha_fin_oferta` DATE NULL DEFAULT NULL COMMENT 'Fecha de Fin de la Oferta (solo Eventos y Cursos). Se obtiene de la Resolución de creación de Oferta.' AFTER `resolucion_nro`;

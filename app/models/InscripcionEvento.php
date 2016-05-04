@@ -389,24 +389,19 @@ class InscripcionEvento extends Eloquent {
         if ($valor == 0 || $valor == 1){
             $this->attributes['asistente'] = $valor;
         }
+    }        
+    
+    public function getCodigoVerificacion(){
+        return $this->codigo_verificacion;
     }
     
-    private function cadena_random($largo_cadena){
-        $cadena = '';
-        $caracteres = array_merge(range(0, 9), range('a', 'z'), range('A', 'Z'));        
-        for($i=0;$i<$largo_cadena;$i++){
-            $cadena .= $caracteres[array_rand($caracteres)];
+    public function setCodigoVerificacion($codigo){
+        if ($codigo != null){
+            $this->attributes['codigo_verificacion'] = $codigo;
+        }else{
+            throw new Exception(
+                    'El código de verificación esta vacío');
         }
-        return $cadena;
-    }
-    
-    public function generarCodigoDeVerificacion() {
-        $codigo = '';
-        for($i=0;$i<3;$i++){
-            $codigo .= $this->cadena_random(4)."-";
-        }
-        $codigo .= $this->cadena_random(4);
-        return $codigo;
     }
     
 }

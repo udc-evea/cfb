@@ -9,6 +9,11 @@
                 width: 100%;
                 height: 760px;
             }
+            p{
+                font-family: "Segoe UI";
+                font-size: 20pt;
+                color: red;
+            }
             .certificado{
                 border: 1px solid black;
                 width: 1085px;
@@ -90,14 +95,14 @@
     ?> 
     <div class="certificado">
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
-        <h2 id="nombreCapacitador"><span><?php echo strtoupper($capacPersonal->nombre.", ".$capacPersonal->apellido); ?></span></h2>
-        <h2 id="dniCapacitador"><span><?php echo $capacPersonal->dni;?></span></h2>
-        <h2 id="rolCapacitador"><span><?php echo strtolower($capacRol->rol);?></span></h2>
-        <h2 id="nombreOferta"><span><?php echo $rows->nombre;?></span></h2>
-        <h2 id="resolucion"><?php echo $rows->resolucion_nro;?></h2>
-        <h2 id="cantidadHorasReloj"><?php echo $rows->duracion_hs;?></h2>
-        <h2 id="diaHoy"><?php echo date('d')?></h2>
-        <h2 id="mesHoy"><?php echo strtoupper($aux) ?></h2>
+        <p id="nombreCapacitador"><span><?php echo strtoupper($capacPersonal->nombre.", ".$capacPersonal->apellido); ?></span></p>
+        <p id="dniCapacitador"><span><?php echo number_format($capacPersonal->dni, 0, ',', '.');?></span></p>
+        <p id="rolCapacitador"><span><?php echo strtolower($capacRol->rol);?></span></p>
+        <p id="nombreOferta"><span><?php echo $rows->nombre;?></span></p>
+        <p id="resolucion"><?php echo $rows->resolucion_nro;?></p>
+        <p id="cantidadHorasReloj"><?php echo $rows->duracion_hs;?></p>
+        <p id="diaHoy"><?php echo date('d')?></p>
+        <p id="mesHoy"><?php echo strtoupper($aux) ?></p>
     </div>
     
 </body>

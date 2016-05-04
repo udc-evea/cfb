@@ -65,7 +65,7 @@ class OfertasInscripcionesController extends BaseController {
       }
 
       if($oferta->getEsOfertaAttribute()){
-                
+        
         $inscripSinCom = $oferta->inscriptosSinComision->all();
         $inscripCom01 = $oferta->inscriptosComision01->all();
         $inscripCom02 = $oferta->inscriptosComision02->all();
@@ -123,7 +123,20 @@ class OfertasInscripcionesController extends BaseController {
                 ->with('perfil',$perfil)
                 ->with('tipoOferta',$tipoOferta)
                 ->with('aprobados',$aprobados);
-      }else{
+        
+      }elseif($oferta->getEsEventoAttribute()){ //solo si es un Evento
+        //Obtengo el listado de Aprobados de la Oferta
+        $asistentes = $oferta->asistentes->all();
+        
+        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','asistentes'))
+                ->withoferta($oferta)
+                ->with('userName',$userName)
+                ->with('nomyape',$NomYApe)
+                ->with('perfil',$perfil)
+                ->with('tipoOferta',$tipoOferta)
+              ;
+        
+      }else{ //solo si es una Carrera
           $inscripciones = $oferta->inscripciones->all();
           $inscriptos = $oferta->inscriptosOferta->all();
           return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))
@@ -426,8 +439,10 @@ class OfertasInscripcionesController extends BaseController {
                
         if($inscripcion->getEsAprobado()){
             $inscripcion->setAprobado(0);
+            /* Aca se borrarian los datos del que deja de ser "aprobado" */
         }else{
-            $inscripcion->setAprobado(1);            
+            $inscripcion->setAprobado(1);
+            $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
         }
         $inscripcion->save();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
@@ -441,8 +456,10 @@ class OfertasInscripcionesController extends BaseController {
                
         if($inscripcion->getEsAsistente()){
             $inscripcion->setAsistente(0);
+            /* Aca se borrarian los datos del que deja de ser "asistente" */
         }else{
             $inscripcion->setAsistente(1);
+            $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
         }
         $inscripcion->save();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));

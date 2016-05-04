@@ -74,4 +74,22 @@ class BaseController extends Controller {
         $nombre=strftime("%B",mktime(0, 0, 0, $mes, 1, 2000)); 
         return $nombre;
     }
+    
+    private function cadena_random($largo_cadena){
+        $cadena = '';
+        $caracteres = array_merge(range(0, 9), range('a', 'z'), range('A', 'Z'));        
+        for($i=0;$i<$largo_cadena;$i++){
+            $cadena .= $caracteres[array_rand($caracteres)];
+        }
+        return $cadena;
+    }
+    
+    public function generarCodigoDeVerificacion() {
+        $codigo = '';
+        for($i=0;$i<3;$i++){
+            $codigo .= $this->cadena_random(4)."-";
+        }
+        $codigo .= $this->cadena_random(4);
+        return $codigo;
+    }
 }

@@ -467,4 +467,17 @@ class Inscripcion extends Eloquent {
         $arreglo[1] = $bkgcolor;
         return $arreglo;
     }
+        
+    public function getCodigoVerificacion(){
+        return $this->codigo_verificacion;
+    }
+    
+    public function setCodigoVerificacion($codigo){
+        if ($codigo != null){
+            $this->attributes['codigo_verificacion'] = $codigo;
+        }else{
+            throw new Exception(
+                    'El código de verificación esta vacío');
+        }
+    }
 }

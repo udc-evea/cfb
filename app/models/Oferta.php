@@ -118,7 +118,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
             return $this
                             ->hasMany('InscripcionEvento', 'oferta_formativa_id')
                             ->with('localidad', 'rel_como_te_enteraste')
-                            ->where('estado_inscripcion','LIKE',0)
+                            //->where('estado_inscripcion','LIKE',0)
                             //->orderBy('apellido')
                             //->orderBy('nombre')
                             ->orderBy('id');
@@ -322,6 +322,21 @@ class Oferta extends Eloquent implements StaplerableInterface {
                     ->orderBy('id');           
         }
     }
+    
+    // agregado por nico - devuelve todos los Aprobados de la Oferta
+    public function asistentes() {
+        if($this->esEvento) {
+            return $this
+                    ->hasMany('InscripcionEvento', 'oferta_formativa_id')
+                    ->with('localidad', 'rel_como_te_enteraste')
+                    ->where('estado_inscripcion','LIKE',1)
+                    ->where('asistente','LIKE',1)
+                    ////->orderBy('apellido')
+                    //->orderBy('nombre')
+                    ->orderBy('id');
+        }
+    }
+    
     // agregado por nico - devuelve los Datos de un alumno Aprobados de una Oferta
     public function datosAprobado($id_alumno) {
         if($this->esOferta) {
@@ -489,6 +504,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function agregarReglas($input) {
         //fecha de inicio menor a fecha de fin
         self::$rules['inicio'].='|before:' . $input['fin'];
+        //fecha de fin de inscripciones menor a fecha de fecha_fin_oferta
+        self::$rules['fin'].='|before:' . $input['fecha_fin_oferta'];
     }
 
     public function inferirFormatoFecha($fecha) {

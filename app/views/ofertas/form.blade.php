@@ -73,13 +73,13 @@ input[readonly] {
      }}    -->
 <hr>
 {{ Former::text('inicio')
-            ->label('Fecha inicio')
+            ->label('Fecha inicio para las Incripciones')
             ->addClass('fecha')
             ->placeholder('Colocar la fecha de INICIO de las inscripciones para esta Oferta.')
 }}
 <hr>
 {{ Former::text('fin')
-            ->label('Fecha fin')
+            ->label('Fecha fin para las Inscripciones')
             ->addClass('fecha')
             ->placeholder('Colocar la fecha de FIN de las inscripciones para esta Oferta.')
 }}
@@ -152,6 +152,12 @@ input[readonly] {
                 ->label('Resolución Nro.')
                 ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
                 ->class('span7')
+    }}
+    <hr>
+    {{ Former::text('fecha_fin_oferta')
+                ->label('Fecha de finalización de la Oferta')
+                ->addClass('fecha')
+                ->placeholder('Colocar la fecha de finalización de la Oferta.')
     }}
     <hr>
     {{ Former::text('lugar')
