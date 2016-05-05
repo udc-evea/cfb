@@ -396,12 +396,8 @@ class InscripcionEvento extends Eloquent {
     }
     
     public function setCodigoVerificacion($codigo){
-        if ($codigo != null){
-            $this->attributes['codigo_verificacion'] = $codigo;
-        }else{
-            throw new Exception(
-                    'El código de verificación esta vacío');
-        }
+        //gusrdo en la base el código de verificación
+        $this->attributes['codigo_verificacion'] = $codigo;
     }
     
 }

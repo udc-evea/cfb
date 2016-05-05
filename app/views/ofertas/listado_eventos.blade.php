@@ -9,7 +9,7 @@
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Acciones</th>
-            <th>Utima Modif.</th>
+            <th>Ultima Modif.</th>
             <th>Capacitador/es</th>
         </tr>
     </thead>
@@ -82,6 +82,7 @@
                                     <thead>
                                         <th>Capacitador</th>
                                         <th>Rol</th>
+                                        <th>Certificado</th>
                                         <th>Acciones</th>
                                     </thead>
                                     <tbody>                                      
@@ -91,6 +92,14 @@
                                         <?php $capacPersonal = Personal::find($cap->personal_id); ?>
                                         <td><?php echo $capacPersonal->getApellidoYNombre() ?></td>
                                         <td><?php echo $capacRol->rol ?></td>
+                                        <td>
+                                            <?php $name = $item->cert_base_cap_file_name ?>
+                                            <?php if ($name != null): ?>
+                                                <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                                            <?php else: ?>
+                                                {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
+                                            <?php endif; ?>
+                                        </td>
                                         <td>
                                           {{ link_to_route('capacitador.edit', ' ', array($cap->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
                                           {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $cap->id))) }}

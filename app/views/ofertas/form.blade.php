@@ -174,7 +174,7 @@ input[readonly] {
     <hr>
     {{ Former::checkbox('lleva_tit_previa')
             ->label('Lleva titulación previa?')
-            ->help('Checkear si es que para esta Oferta el inscripto debe podeer una Titulación previa.') 
+            ->help('Checkear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
     }}

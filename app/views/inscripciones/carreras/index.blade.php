@@ -55,9 +55,9 @@
                         <th>Documento</th>
                     @endif
                     <th>Localidad</th>
-                    <th>Email</th>
+                    <th>Correos</th>
                     @if($perfil != "Colaborador")
-                        <th>Email UDC</th>
+                        <!--<th>Email UDC</th>-->
                         <th>Inscripto ({{ count($inscriptos) }})</th>
                         <th>Notificado/a</th>
                     @endif
@@ -76,9 +76,12 @@
                             <td>{{{ $inscripcion->tipoydoc }}}</td>
                         @endif
                         <td>{{{ $inscripcion->localidad->la_localidad }}}</td>
-                        <td>{{{ $inscripcion->email }}}</td>
+                        <td>
+                            <p>{{ $inscripcion->email }}</p>
+                            <p style="color: blue">{{ $inscripcion->email_institucional }}</p>
+                        </td>
                         @if($perfil != "Colaborador")
-                            <td>{{{ $inscripcion->email_institucional }}}</td>
+                            <!--<td>{{{ $inscripcion->email_institucional }}}</td>-->
                             <td>
                                 <div class="slideTwo"><div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())

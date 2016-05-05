@@ -20,16 +20,11 @@
      ?>
     <div>
         <h2>¡Preinscripción Exitosa!</h2>
-        <p>Bienvenido\a, has completado la preinscripción <?php echo $tipoOferta ?>: <strong>{{ $oferta->nombre }}.</strong></p>
-        @if($oferta->PresentarMasDoc)
-            {{ $oferta->doc_a_presentar }}
-        @endif
-        <p>Queremos informarte que ya se alcanzó el cupo máximo para este evento,
-            pero no te preocupes, todas las inscripciones se analizan y luego se determina quién esta
-            apto para participar del Evento.</p>
-        <p><strong>Tu solicitud quedará momentáneamente en lista de espera.</strong></p>
+        <p>Gracias por tu interés {{ $insc->nombre }} {{ $insc->apellido }}, has completado la preinscripción <?php echo $tipoOferta ?> <strong>{{ $oferta->nombre }}</strong>.</p>
+        <p>Tu solicitud quedará momentáneamente en lista de espera mientras analizamos
+            todas las postulaciones. En breve informaremos quiénes participan hasta completar el cupo.</p>
         <br>
-        <p>En breve nos pondremos en contacto.</p>
+        <p>Nos pondremos nuevamente en contacto con vos para confirmar tu inscripción.</p><br>
         <p>Atentamente,</p>
         <p>&nbsp;</p>
         <p>Universidad del Chubut</p>

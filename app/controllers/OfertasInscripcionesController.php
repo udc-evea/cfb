@@ -221,7 +221,7 @@ class OfertasInscripcionesController extends BaseController {
             $insc = $inscripto->create($input_db);
 
             try {
-                Mail::send($oferta->getVistaMail(), compact('oferta'), function($message) use($oferta, $insc, $mailReplyTo) {
+                Mail::send($oferta->getVistaMail(), compact('oferta','insc'), function($message) use($oferta, $insc, $mailReplyTo) {
                     $message
                             ->to($insc->correo, $insc->inscripto)
                             ->subject('UDC:: Recibimos tu inscripción a ' . $oferta->nombre)
@@ -473,11 +473,16 @@ class OfertasInscripcionesController extends BaseController {
                 if(array_key_exists($nroIncr, $listacheck)){
                     //le asigno el campo asistente a 1
                     $inscripcion->setAsistente(1);
+                    //genero el Codigo de Verificación del Asistente
+                    $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
                 //si el inscripto no esta como asistente
                 }else{
                     //le asigno el campo asistente a 0
                     $inscripcion->setAsistente(0);
-                }
+                    //pongo el Codigo de Verificacion en null
+                    $inscripcion->setCodigoVerificacion(null); 
+                    throw new Exception;
+                }    
                 //guardo los cambios en la BD
                 $inscripcion->save();
             }
@@ -504,6 +509,7 @@ class OfertasInscripcionesController extends BaseController {
                
         if($inscripcion->getEsAprobado()){
             $inscripcion->setAprobado(0);
+            $inscripcion->setCodigoVerificacion(null);
             /* Aca se borrarian los datos del que deja de ser "aprobado" */
         }else{
             $inscripcion->setAprobado(1);

@@ -104,9 +104,10 @@ class OfertasController extends BaseController {
                                 //traigo solo los datos del CAPACITADOR para exportar a pdf
                                 $id_capacitador = Request::get('cap');
                                 $capacitador = DB::table('capacitador')->find($id_capacitador);
+                                $capacPersonal = Personal::find($capacitador->personal_id);
                                 Session::set('cap', $capacitador);
                                 //Session::set('of', $oferta);
-                                return $this->exportarPDF("Certif_Capacitador_"."Nico", $oferta, 'ofertas.certificado');
+                                return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
                     }
                 }
                                 
