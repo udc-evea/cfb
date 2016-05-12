@@ -43,7 +43,7 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     );
     
     //agregue esta ruta para cambiar el estado de los requisitos del inscripto
-    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/requisitos', 
+    Route::any('/ofertas/{oferta}/inscripciones/requisitos', 
       array('uses' => 'OfertasInscripcionesController@cambiarEstadoDeRequisitos', 'as' => 'ofertas.inscripciones.cambiarEstadoDeRequisitos')
     );
     

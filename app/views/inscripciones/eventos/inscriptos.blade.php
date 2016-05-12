@@ -1,4 +1,17 @@
 <div class="container">      
+@if (count($inscripciones))
+    <div class="divTotales">
+        <div><h4>Total: {{ count($inscripciones) }}</h4></div>
+        <div> (
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+            @if($perfil == "Administrador")
+                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" target="_blank" title="Exportar listado solo de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a>
+            @endif
+         )</div>
+    </div>
+@endif
+
     @if (count($inscripciones))
         <?php $listaIdInscriptos = array();?>
         {{ Form::open(array(

@@ -1,10 +1,21 @@
-<h4>
-    @if(count($inscripciones))
-        Total: {{ count($inscripciones) }}
-    @endif
-</h4>
+@if(count($inscripciones))
+    <div class="divTotales">
+        <div><h4>Total: {{ count($inscripciones) }}</h4></div>
+        <div> (
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+            @if($perfil == "Administrador")
+                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" title="Exportar listado solo de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a>
+            @endif
+         )</div>
+    </div>
+@endif
 @if (count($inscripciones))
 <fieldset>
+    <?php $listaIdInscriptos = array();?>
+    {{ Form::open(array(
+                'method' => 'POST',
+                'action' => array('OfertasInscripcionesController@cambiarEstadoDeRequisitos', $oferta->id))) }}
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -23,12 +34,13 @@
                 </tr>
             </thead>
             <tbody>
-                   <?php $i = 1; ?>
-                   @foreach ($inscripciones as $inscripcion)
+                <?php $i = 1; ?>
+                @foreach ($inscripciones as $inscripcion)
                    <?php
                         $arreglo = $inscripcion->getColoresSegunEstados();
                         $color=$arreglo[0];
                         $bkgcolor=$arreglo[1];
+                        $listaIdInscriptos[] = $inscripcion->id;
                    ?>                   
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
                         <td>{{ $i }}</td>
@@ -43,11 +55,18 @@
                         @if($perfil != "Colaborador")
                             <td>{{ $inscripcion->email_institucional }}</td>
                             <td>
-                                @if ($inscripcion->getRequisitosCompletos())
+                                <div class="slideTwo">
+                                    @if ($inscripcion->getRequisitosCompletos())
+                                        <input type="checkbox" name="requisitos[<?php echo $inscripcion->id ?>]" id="slideTwoReq<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoReq<?php echo $inscripcion->id ?>"></label>
+                                    @else
+                                        <input type="checkbox" name="requisitos[<?php echo $inscripcion->id ?>]" id="slideTwoReq<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoReq<?php echo $inscripcion->id ?>"></label>
+                                    @endif
+                                </div>
+                                <!-- @if ($inscripcion->getRequisitosCompletos())
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}
                                 @else
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
-                                @endif
+                                @endif -->
                             </td>                            
                             <td>
                                 @if ($inscripcion->getEsInscripto())
@@ -91,7 +110,13 @@
                     <?php $i++;?>
 		@endforeach
 		</tbody>
-	</table>        
+	</table>
+        <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
+        <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString; ?>"/>
+        @if($perfil != "Colaborador")
+            {{ Form::submit('Actualizar Requisitos', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos de los requisitos presentados.')) }}
+            {{ Form::close() }}
+        @endif
 </fieldset>
 @else
 <br>

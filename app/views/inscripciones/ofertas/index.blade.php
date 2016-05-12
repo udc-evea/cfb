@@ -15,7 +15,7 @@
         <strong>Pre-Inscriptos</strong> -->
         <!-- <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a></small> -->
     <!-- </h2> -->
-     @if(count($preinscripciones))
+    <!-- @if(count($preinscripciones))
      <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
         <table class="tablaExportar">
             <tr>
@@ -37,7 +37,7 @@
             </tr>
         </table>
      </div>
-     @endif        
+     @endif -->       
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     <hr>
     <?php //var_dump($comisiones); ?>
@@ -46,7 +46,13 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones" role="tablist">
-                    <li class='active'><a title="Todos los Preinscriptos a la Oferta." href="#tab_preinscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Presinscriptos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
+                    <li class='active'>
+                        <a title="Todos los Preinscriptos a la Oferta." href="#tab_preinscriptos" role="tab" data-toggle="tab">
+                            <i class="glyphicon glyphicon-align-justify"></i> 
+                            Presinscriptos 
+                            <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
+                        </a>
+                    </li>
                     <?php if(!(empty($inscripciones))):?>
                         <li><a title="Solo los Inscriptos a la Oferta." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
                     <?php endif;?>

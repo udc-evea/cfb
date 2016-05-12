@@ -12,7 +12,7 @@
             body p *{
                 font-family: "Segoe UI" !Important;
                 font-size: 16pt;
-                color: red;
+                color: blue;
             }
             .certificado{
                 //border: 1px solid black;
@@ -22,15 +22,15 @@
             }
             #nombreAlumno{
                 position: absolute;
-                top: 240px;
-                text-align: center;
+                top: 180px;
+                text-align: center;                
                 alignment-adjust: central;
                 width: 100%;
                 font-size: 20pt;
             }
             #dniAlumno{
                 position: absolute;
-                top: 278px;
+                top: 230px;
                 text-align: center;
                 alignment-adjust: central;
                 width: 100%;
@@ -38,35 +38,43 @@
             }
             #nombreOferta{
                 position: absolute;
-                top: 319px;
+                top: 265px;
                 text-align: center;
                 alignment-adjust: central;
                 width: 100%;
             }
             #resolucion{
                 position: absolute;
-                top: 390px;
+                top: 335px;
                 padding-right: 100px;
                 text-align: center;
                 width: 100%;
             }
             #cantidadHorasReloj{
                 position: absolute;
-                top: 390px;
+                top: 335px;
                 padding-left: 548px;
                 text-align: center;                
                 width: 100%;
             }
             #diaHoy{
                 position: absolute;
-                top: 427px;
+                top: 370px;
                 text-align: center;
                 width: 100%;
             }
             #mesHoy{
                 position: absolute;
-                top: 427px;
+                top: 370px;
                 padding-left: 430px;
+                text-align: center;
+                width: 100%;
+            }
+            #cuv{
+                position: absolute;
+                top: 650px;
+                padding-right: 260px;
+                font-size: 10pt !important;
                 text-align: center;
                 width: 100%;
             }
@@ -94,11 +102,12 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
         <p id="nombreAlumno"><span><?php echo strtoupper($rows->apellido.", ".$rows->nombre);?></span></p>
         <p id="dniAlumno"><span><?php echo number_format($rows->documento, 0, ',', '.');?></span></p>
-        <p id="nombreOferta"><span><?php echo $rows->oferta->nombre;?></span></p>
+        <p id="nombreOferta"><span><?php echo strtoupper($rows->oferta->nombre);?></span></p>
         <p id="resolucion"><span><?php echo $rows->oferta->resolucion_nro;?></span></p>
         <p id="cantidadHorasReloj"><span><?php echo $rows->oferta->duracion_hs;?></span></p>
         <p id="diaHoy"><span><?php echo date('d')?></span></p>
         <p id="mesHoy"><span><?php echo strtoupper($aux) ?></span></p>
+        <p id="cuv"><span><?php echo $rows->codigo_verificacion ?></span></p>
     </div>
     
 </body>

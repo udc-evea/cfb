@@ -11,7 +11,7 @@
         <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
     </div>
 
-    @if(count($preinscripciones))        
+    <!--@if(count($preinscripciones))        
     <div class="alert alert-warning" style="width: 30%;margin-left: 33%;">
         <table class="tablaExportar">
             <tr>
@@ -33,7 +33,7 @@
             </tr>
         </table>
      </div>
-    @endif
+    @endif-->
     <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     <hr>
         <!-- Nav tabs -->

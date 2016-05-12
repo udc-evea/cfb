@@ -1,8 +1,12 @@
-<h4>
-    @if(count($preinscripciones))
-        Total: {{ count($preinscripciones) }}
-    @endif
-</h4>
+@if(count($preinscripciones))
+    <div class="divTotales">
+        <div><h4>Total: {{ count($preinscripciones) }}</h4></div>
+        <div> (
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsp')) }}" target="_blank" title="Exportar listado de todos los Pre-Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfp')) }}" target="_blank" title="Exportar listado de todos los Pre-inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+         )</div>
+    </div>
+@endif
 @if (count($preinscripciones))
 <fieldset>
     <?php $listaIdPreinscriptos = array();?>
@@ -22,7 +26,7 @@
                     <th>E-mail</th>
                     @if($perfil != "Colaborador")
                         <!-- <th>Email UDC</th> -->
-                        <th>Requisitos</th>
+                        <!-- <th>Requisitos</th> -->
                         <th>Inscripto</th>
                         <!-- <th>Comision Nro.</th> 
                         <th>Notificado/a</th> -->
@@ -50,13 +54,13 @@
                         <td>{{ $inscripcion->email }}</td>
                         @if($perfil != "Colaborador")
                             <!-- <td>{{{ $inscripcion->email_institucional }}}</td> -->
-                            <td>
+                            <!-- <td>
                                 @if ($inscripcion->getRequisitosCompletos())
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}
                                 @else
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
                                 @endif
-                            </td>
+                            </td> -->
                             <td>
                                 <div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())

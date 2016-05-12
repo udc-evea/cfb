@@ -176,3 +176,20 @@ ul.requisitos li:hover {background-color: #fdf59a;}
     box-shadow: 0 0 15px 10px greenyellow;
     border-radius: 5px;
 }
+
+/*  Título en Tab de Ofertas (donde se descargan los PDF y XLS) */
+.divTotales{
+    display: initial;
+    background-color: #eee;
+    border: #e67e22 solid 2px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.divTotales div{
+    display: inline-block;
+}
+
+.divTotales h4{
+    font-weight: bold;
+}

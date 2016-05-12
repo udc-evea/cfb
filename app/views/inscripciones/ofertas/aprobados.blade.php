@@ -1,8 +1,8 @@
-<h4>
-    @if(count($aprobados))
-        Total: {{ count($aprobados) }}
-    @endif
-</h4>
+@if(count($aprobados))
+    <div class="divTotales">
+        <div><h4>Total: {{ count($aprobados) }}</h4></div>
+    </div>
+@endif
 @if (count($aprobados))
 <fieldset>    
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">

@@ -1,8 +1,8 @@
-<h4>
-    @if(count($com))
-        Total: {{ count($com) }}
-    @endif
-</h4>
+@if(count($com))
+    <div class="divTotales">
+        <div><h4>Total: {{ count($com) }}</h4></div>
+    </div>
+@endif
 @if (count($com))
 <fieldset>    
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">

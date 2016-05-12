@@ -404,6 +404,8 @@ class OfertasInscripcionesController extends BaseController {
                         $inscripcion->setComisionNro(0);
                         //reinicio Aprobado en 0
                         $inscripcion->setAprobado(0);
+                        //reinicio presento_requisitos en FALSE
+                        $inscripcion->setRequisitosCompletos(FALSE);
                     }
                     //le creo el correo institucional
                     $inscripcion->crearCorreoInstitucional();
@@ -414,7 +416,9 @@ class OfertasInscripcionesController extends BaseController {
                     //borro el correo institucional
                     $inscripcion->vaciarCorreoInstitucional();
                     //le asigno el campo inscripcion a 0
-                    $inscripcion->setEstadoInscripcion(0);                
+                    $inscripcion->setEstadoInscripcion(0);
+                    //reinicio presento_requisitos en FALSE
+                    $inscripcion->setRequisitosCompletos(FALSE);
                 }
                 //guardo los cambios en la BD
                 $inscripcion->save();
@@ -429,6 +433,8 @@ class OfertasInscripcionesController extends BaseController {
                 if($oferta->getEsOfertaAttribute()){
                     //reinicio comision nro.
                     $inscripcion->setComisionNro(0);
+                    //reinicio presento_requisitos en FALSE
+                    $inscripcion->setRequisitosCompletos(FALSE);
                 }
                 //borro el correo institucional
                 $inscripcion->vaciarCorreoInstitucional();
@@ -536,9 +542,62 @@ class OfertasInscripcionesController extends BaseController {
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
     }*/
     
-    public function cambiarEstadoDeRequisitos($oferta_id, $id) {
+    public function cambiarEstadoDeRequisitos($oferta_id) {
         //busco el inscripto ($id) segun la oferta ($oferta_id)
         $oferta = Oferta::findorFail($oferta_id);
+        //según la Oferta, me fijo si debo consultar los inscriptos de Eventos, Ofertas o Carreras
+        $insc_class = $oferta->inscripcionModelClass;        
+        //me fijo si la variable del POST existe
+        if(Input::has('listaIdInscriptos')){
+            //obtengo del POST la variable de los ID de todos los Inscriptos
+            $variable = Input::get('listaIdInscriptos');
+            //separo todos los ID y los almaceno como un array asociativo
+            $lista = explode('-',$variable);
+        }
+        //me fijo si la variable del POST existe
+        if(Input::has('requisitos')){
+            //obtengo del POST la variable de los ID que van a ser inscriptos
+            $listacheck = Input::get('requisitos');
+        }
+        //si las dos variables existen y no son null, guardo los cambios
+        if(isset($listacheck,$lista)){
+            /*Session::forget('lista');
+            Session::forget('listacheck');
+            Session::push('lista', $lista);
+            Session::push('listacheck', $listacheck);*/
+            //recorro la lista de los inscriptos uno por uno
+            foreach($lista as $nroIncr){
+                //obtengo el objeto de ese inscripto
+                $inscripcion = $insc_class::findOrFail($nroIncr);
+                //si el nro. de inscripto es uno de los que asistieron, lo guardo
+                if(array_key_exists($nroIncr, $listacheck)){
+                    //le asigno el campo presento_requisitos en TRUE
+                    $inscripcion->setRequisitosCompletos(TRUE);
+                //si el inscripto no esta con requisitos presentados
+                }else{
+                    //le asigno el campo presento_requisitos en FALSE
+                    $inscripcion->setRequisitosCompletos(FALSE);
+                }    
+                //guardo los cambios en la BD
+                $inscripcion->save();
+            }
+        //si alguno de las variables viene vacia
+        }else{
+            //recorro todos los inscriptos y les reseteo algunos campos
+            foreach($lista as $nroIncr){
+                //obtengo el objeto de ese inscripto
+                $inscripcion = $insc_class::findOrFail($nroIncr);
+                //le asigno el campo presento_requisitos en FALSE
+                $inscripcion->setRequisitosCompletos(FALSE);
+                //guardo los cambios en la BD
+                $inscripcion->save();
+            }
+        }        
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));                                                                        
+                
+        /* ################################################################# */
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        /*$oferta = Oferta::findorFail($oferta_id);
         $insc_class = $oferta->inscripcionModelClass;
         $inscripcion = $insc_class::findOrFail($id);
                
@@ -548,7 +607,7 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setRequisitosCompletos(TRUE);
         }
         $inscripcion->save();
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id)); */
     }
     
     public function sumarComision($oferta_id, $id) {
