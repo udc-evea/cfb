@@ -417,8 +417,11 @@ class OfertasInscripcionesController extends BaseController {
                     $inscripcion->vaciarCorreoInstitucional();
                     //le asigno el campo inscripcion a 0
                     $inscripcion->setEstadoInscripcion(0);
-                    //reinicio presento_requisitos en FALSE
-                    $inscripcion->setRequisitosCompletos(FALSE);
+                    //si se trata de una Oferta, se debe además reiniciar otros campos
+                    if($oferta->getEsOfertaAttribute()){
+                        //reinicio presento_requisitos en FALSE
+                        $inscripcion->setRequisitosCompletos(FALSE);
+                    }
                 }
                 //guardo los cambios en la BD
                 $inscripcion->save();
