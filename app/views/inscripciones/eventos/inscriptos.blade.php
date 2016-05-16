@@ -51,7 +51,7 @@
                             <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> 
                             <td>{{{ $inscripcion->email }}}</td> -->
                             @if($perfil != "Colaborador")
-                                <td>{{{ $inscripcion->email_institucional }}}</td>
+                                <td>{{ $inscripcion->email_institucional }}</td>
                                 <!-- <td>
                                     <div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
@@ -103,7 +103,8 @@
             <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
             <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString ?>">
             @if($perfil != "Colaborador")
-                {{ Form::submit('Actualizar Asistentes', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos.')) }}
+                {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.')) }}
+                {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
                 {{ Form::close() }}
             @endif
     @else

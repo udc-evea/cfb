@@ -18,7 +18,7 @@
                     <th>Documento</th>
                     <th>Email</th>
                     @if($perfil != "Colaborador")
-                        <th>Email UDC</th>
+                        <!-- <th>Email UDC</th> -->
                         <!-- <th>Requisitos</th>
                         <th>Inscripto</th> -->
                         <th>Comision Nro.</th>
@@ -45,9 +45,9 @@
                         @endif
                         <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                         <td>{{ $inscripcion->tipoydoc }}</td>
-                        <td>{{ $inscripcion->email }}</td>
+                        <td>{{ $inscripcion->email }}<p style="color: blue">{{ $inscripcion->email_institucional }}</p></td>
                         @if($perfil != "Colaborador")
-                            <td>{{{ $inscripcion->email_institucional }}}</td>
+                            <!--<td>{{{ $inscripcion->email_institucional }}}</td>-->
                             <!-- <td>
                                 @if ($inscripcion->getRequisitosCompletos())
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}

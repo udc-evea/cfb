@@ -41,6 +41,9 @@
     </h4>
     @if (count($inscripciones))
     <div id="preinscriptos">
+        <input class="search" placeholder="Buscar por Nro. o Apellido"/>
+        <button class="sort" data-sort="nro" >Por Nro.</button>
+        <button class="sort" data-sort="apellido" >Por Apellido</button>
         <?php $listaIdPreinscriptos = array();?>
         {{ Form::open(array(
                     'method' => 'POST',
@@ -48,8 +51,8 @@
 	<table class="table table-striped" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
-                    <th><button class="sort" data-sort="nro">Nro.</button></th>
-                    <th><button class="sort" data-sort="apellido">Apellido</button></th>
+                    <th>Nro.</th>
+                    <th>Apellidos</th>
                     <th>Nombre</th>
                     @if($perfil != "Colaborador")
                         <th>Documento</th>
@@ -124,7 +127,8 @@
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
         @if($perfil != "Colaborador")
-            {{ Form::submit('Actualizar Inscriptos', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos.')) }}            
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.')) }}
+            {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif
     </div>

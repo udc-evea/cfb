@@ -119,7 +119,7 @@ ul.requisitos li:hover {background-color: #fdf59a;}
         border-color:#aaa;
       }
       .sort {
-        min-width: 70px;
+        min-width: 85px;
         padding:5px;
         border-radius: 6px;
         border:none;

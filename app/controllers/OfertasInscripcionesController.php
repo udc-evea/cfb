@@ -489,8 +489,8 @@ class OfertasInscripcionesController extends BaseController {
                     //le asigno el campo asistente a 0
                     $inscripcion->setAsistente(0);
                     //pongo el Codigo de Verificacion en null
-                    $inscripcion->setCodigoVerificacion(null); 
-                    throw new Exception;
+                    $inscripcion->vaciarCodigoVerificacion($inscripcion);
+                    //throw new Exception;
                 }    
                 //guardo los cambios en la BD
                 $inscripcion->save();
@@ -503,6 +503,8 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion = $insc_class::findOrFail($nroIncr);
                 //le asigno el campo asistente a 0
                 $inscripcion->setAsistente(0);
+                //pongo el Codigo de Verificacion en null
+                $inscripcion->vaciarCodigoVerificacion($inscripcion);
                 //guardo los cambios en la BD
                 $inscripcion->save();
             }

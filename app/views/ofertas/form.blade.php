@@ -147,11 +147,11 @@ input[readonly] {
     <hr>
 </div>
 <div id='ocultosDeCarrera'>
-    <!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->
+    <!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->    
     {{ Former::text('resolucion_nro')
-                ->label('Resolución Nro.')
-                ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
-                ->class('span7')
+            ->label('Resolución Nro.')
+            ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
+            ->class('span7')
     }}
     <hr>
     {{ Former::text('fecha_fin_oferta')
@@ -304,7 +304,7 @@ input[readonly] {
         oferta_id = document.querySelector('input[name="tipo_oferta"]:checked').value;
         divAOcultar = document.getElementById('ocultosDeCarrera');
         //window.alert('(fuera del IF)Oferta tipo: '+oferta_id);
-        if(oferta_id == 1){
+        if(oferta_id == 1){ //si la Oferta es Carrera, oculto algunos campos
             //window.alert('(IF true) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='none';
         }else{

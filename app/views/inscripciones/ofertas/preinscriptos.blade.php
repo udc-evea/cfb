@@ -9,6 +9,10 @@
 @endif
 @if (count($preinscripciones))
 <fieldset>
+    <div id="preinscriptos">
+        <input class="search" placeholder="Buscar por Nro. o Apellido"/>
+        <button class="sort" data-sort="nro" >Por Nro.</button>
+        <button class="sort" data-sort="apellido" >Por Apellido</button>
     <?php $listaIdPreinscriptos = array();?>
     {{ Form::open(array(
                 'method' => 'POST',
@@ -34,7 +38,7 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="list">
                    <?php $i = 1; ?>
                    @foreach ($preinscripciones as $inscripcion)                   
                    <?php
@@ -44,8 +48,8 @@
                         $listaIdPreinscriptos[] = $inscripcion->id;
                    ?>
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
-                        <td>{{ $i }}</td>
-                        <td>{{ $inscripcion->apellido }}</td>
+                        <td class="nro">{{ $i }}</td>
+                        <td class="apellido">{{ $inscripcion->apellido }}</td>
                         <td>{{ $inscripcion->nombre }}</td>
                         @if($perfil != "Colaborador")
                             <td>{{ $inscripcion->tipoydoc }}</td>
@@ -115,11 +119,21 @@
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
         @if($perfil != "Colaborador")
-            {{ Form::submit('Actualizar Inscriptos', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos.')) }}            
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.')) }}
+            {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif
+    </div>
 </fieldset>
 @else
 <h2>Aún no hay inscriptos en esta oferta.</h2>
 <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
 @endif
+
+<script>
+var options = {
+  valueNames: [ 'apellido', 'nro' ]
+};
+
+var preinscriptosList = new List('preinscriptos', options);
+</script>

@@ -396,8 +396,13 @@ class InscripcionEvento extends Eloquent {
     }
     
     public function setCodigoVerificacion($codigo){
-        //gusrdo en la base el código de verificación
+        //guardo en la base el código de verificación
         $this->attributes['codigo_verificacion'] = $codigo;
+    }
+    
+    public function vaciarCodigoVerificacion(){
+        //pongo en NULL en la base el código de verificación
+        $this->attributes['codigo_verificacion'] = NULL;
     }
     
 }

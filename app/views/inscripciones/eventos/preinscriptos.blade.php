@@ -19,7 +19,11 @@
            
         @endif
 
-        @if (count($preinscripciones))	
+        @if (count($preinscripciones))
+        <div id="preinscriptos">
+            <input class="search" placeholder="Buscar por Nro. o Apellido"/>
+            <button class="sort" data-sort="nro" >Por Nro.</button>
+            <button class="sort" data-sort="apellido" >Por Apellido</button>
             <?php $listaIdPreinscriptos = array();?>
             {{ Form::open(array(
                         'method' => 'POST',
@@ -28,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>Nro.</th>
-                            <th>Apellido</th>
+                            <th>Apellidos</th>
                             <th>Nombre</th>
                             @if($perfil != "Colaborador")
                                 <th>Documento</th>
@@ -36,14 +40,14 @@
                             <th>Localidad</th>
                             <th>Email Personal</th>
                             @if($perfil != "Colaborador")
-                                <th>Email UDC</th>
+                                <!---<th>Email UDC</th>-->
                                 <th>Inscriptos?</th>
                                 <!-- <th>Notificado/a</th> -->
                             @endif
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="list">
                         <?php $i = 1;?>
                         @foreach ($preinscripciones as $inscripcion)
                             <?php 
@@ -55,16 +59,16 @@
                                 }
                             ?>
                             <tr>
-                                <td <?php echo $colorBackground ?>>{{ $i }}</td>
-                                <td>{{{ $inscripcion->apellido }}}</td>
+                                <td <?php echo $colorBackground ?> class="nro">{{ $i }}</td>
+                                <td class="apellido">{{{ $inscripcion->apellido }}}</td>
                                 <td>{{ $inscripcion->nombre }}</td>
                                 @if($perfil != "Colaborador")
                                     <td>{{{ $inscripcion->tipoydoc }}}</td>
                                 @endif
                                 <td>{{ $inscripcion->localidad->la_localidad }}</td>
-                                <td>{{{ $inscripcion->email }}}</td>
+                                <td>{{ $inscripcion->email }}<p style="color: blue">{{ $inscripcion->email_institucional }}</p></td>
                                 @if($perfil != "Colaborador")
-                                    <td>{{{ $inscripcion->email_institucional }}}</td>
+                                    <!--<td>{{ $inscripcion->email_institucional }}</td>-->
                                     <td>
                                         <div class="slideTwo">
                                         @if ($inscripcion->getEsInscripto())
@@ -107,9 +111,11 @@
                 <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
                 <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
                 @if($perfil != "Colaborador")
-                    {{ Form::submit('Actualizar Inscriptos', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos.')) }}            
+                    {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.')) }}
+                    {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
                     {{ Form::close() }}
                 @endif
+        </div>
         @else
             <br>
             <h2>Aún no hay inscriptos en esta oferta.</h2>
@@ -119,3 +125,11 @@
             <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
         </div>
     </div>
+
+
+<script>    
+    var options = {
+      valueNames: [ 'apellido', 'nro' ]
+    };
+    var preinscriptosList = new List('preinscriptos', options);        
+</script>

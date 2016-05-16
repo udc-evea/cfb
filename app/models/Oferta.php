@@ -31,7 +31,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'doc_a_presentar' => 'between:2,2000',
         'url_imagen_mail' => 'between:2,100',
         'fecha_modif' => 'date_format:d/m/Y',
-        'resolucion_nro' => 'required|between:2,30|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'integer|min:0',
+        'resolucion_nro' => 'between:2,30|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|min:0',
+        'fecha_fin_oferta' => 'date_format:d/m/Y',
         'lugar' => 'between:2,100',
         'duracion_hs' => 'integer|min:0',
         'lleva_tit_previa' => 'integer',
@@ -423,6 +424,14 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function setFinAttribute($fecha) {
         $this->attributes['fin'] = ModelHelper::getFechaISO($fecha);
+    }
+    
+    public function getFechaFinOfertaAttribute($fecha) {
+        return Carbon::parse($fecha)->format('d/m/Y');
+    }
+
+    public function setFechaFinOfertaAttribute($fecha) {
+        $this->attributes['fecha_fin_oferta'] = ModelHelper::getFechaISO($fecha);
     }
 
     public function getPermiteInscripcionesAttribute() {

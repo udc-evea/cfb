@@ -25,7 +25,7 @@
                     <th>Documento</th>
                     <th>Email</th>
                     @if($perfil != "Colaborador")
-                        <th>Email UDC</th>
+                        <!-- <th>Email UDC</th> -->
                         <th>Requisitos</th>
                         <th>Comision Nro.</th>
                         <th>Notificado/a</th>
@@ -51,9 +51,9 @@
                         @endif
                         <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                         <td>{{ $inscripcion->tipoydoc }}</td>
-                        <td>{{ $inscripcion->email }}</td>
+                        <td>{{ $inscripcion->email }}<p style="color: blue">{{ $inscripcion->email_institucional }}</p></td>
                         @if($perfil != "Colaborador")
-                            <td>{{ $inscripcion->email_institucional }}</td>
+                            <!-- <td>{{ $inscripcion->email_institucional }}</td> -->
                             <td>
                                 <div class="slideTwo">
                                     @if ($inscripcion->getRequisitosCompletos())
@@ -114,7 +114,8 @@
         <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
         <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString; ?>"/>
         @if($perfil != "Colaborador")
-            {{ Form::submit('Actualizar Requisitos', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos de los requisitos presentados.')) }}
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos de los requisitos presentados.')) }}
+            {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif
 </fieldset>
