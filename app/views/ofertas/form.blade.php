@@ -35,7 +35,8 @@ input[readonly] {
         ->secure()
         ->rules(['nombre' => 'required'])
         ->method($method)
-        ->route($route_name, $route_params  );
+        ->route($route_name, $route_params)
+        ->id('formOferta');
 }}
 {{ Former::populate($obj) }}
 <fieldset>
@@ -154,9 +155,9 @@ input[readonly] {
             ->class('span7')
     }}
     <hr>
-    {{ Former::text('fecha_fin_oferta')
+    {{ Former::date('fecha_fin_oferta')
                 ->label('Fecha de finalización de la Oferta')
-                ->addClass('fecha')
+                //->addClass('fecha')
                 ->placeholder('Colocar la fecha de finalización de la Oferta.')
     }}
     <hr>
@@ -259,6 +260,7 @@ input[readonly] {
 <?php endif; ?>
 </fieldset>
 {{ Former::close() }}
+
 <script>    
     $(function(){
         $('#btn-upload').click(function(e){
@@ -311,10 +313,10 @@ input[readonly] {
             //window.alert('(IF false) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='block';
         }
-    }
+    };
     
     window.onload = function (){
         ocultarCamposEnCarrera();
-    }
+    };
     
 </script>

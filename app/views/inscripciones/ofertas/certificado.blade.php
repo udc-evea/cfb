@@ -100,7 +100,7 @@
     ?>    
     <div class="certificado">
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
-        <p id="nombreAlumno"><span><?php echo strtoupper($rows->apellido.", ".$rows->nombre);?></span></p>
+        <p id="nombreAlumno"><span><?php echo $rows->apellido.", ".$rows->nombre;?></span></p>
         <p id="dniAlumno"><span><?php echo number_format($rows->documento, 0, ',', '.');?></span></p>
         <p id="nombreOferta"><span><?php echo strtoupper($rows->oferta->nombre);?></span></p>
         <p id="resolucion"><span><?php echo $rows->oferta->resolucion_nro;?></span></p>

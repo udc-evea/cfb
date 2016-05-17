@@ -18,7 +18,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     protected $guarded = array();
     
     protected $table = 'oferta_formativa';
-    protected $dates = array('inicio', 'fin');
+    protected $dates = array('inicio', 'fin', 'fecha_fin_oferta');
     public $timestamps = false;
     public static $rules = array(
         'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',
@@ -103,26 +103,26 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
                             ->with('localidad')
                             ->where('estado_inscripcion','LIKE',0)
-                            //->orderBy('apellido')
-                            //->orderBy('nombre')
-                            ->orderBy('id');
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+                            //->orderBy('id');
         } elseif($this->esOferta) {
             return $this
                             ->hasMany('Inscripcion', 'oferta_formativa_id')
                             ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                             //->where('estado_inscripcion','LIKE',0)
-                            //->orderBy('apellido')
-                            //->orderBy('nombre')
-                            ->orderBy('id');
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+                            //->orderBy('id');
             
         } elseif($this->esEvento) {
             return $this
                             ->hasMany('InscripcionEvento', 'oferta_formativa_id')
                             ->with('localidad', 'rel_como_te_enteraste')
                             //->where('estado_inscripcion','LIKE',0)
-                            //->orderBy('apellido')
-                            //->orderBy('nombre')
-                            ->orderBy('id');
+                            ->orderBy('apellido')
+                            ->orderBy('nombre');
+                            //->orderBy('id');
         }
     }
     
@@ -513,8 +513,11 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function agregarReglas($input) {
         //fecha de inicio menor a fecha de fin
         self::$rules['inicio'].='|before:' . $input['fin'];
+    }
+    
+    public function agregarReglas2($input) {        
         //fecha de fin de inscripciones menor a fecha de fecha_fin_oferta
-        //self::$rules['fin'].='|before:' . $input['fecha_fin_oferta'];
+        self::$rules['fin'].='|before:' . $input['fecha_fin_oferta'];
     }
 
     public function inferirFormatoFecha($fecha) {

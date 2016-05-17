@@ -95,19 +95,19 @@ class OfertasController extends BaseController {
                 $roles = RolCapacitador::all();
                 
                 $exp = Request::get('exp');
-                    if (!empty($exp)) {
-                        switch ($exp) {
-                            case parent::EXPORT_PDFCAP:
-                                //obtengo los datos de la oferta y el capacitador
-                                $id_oferta = Request::get('ofid');
-                                $oferta = $this->oferta->find($id_oferta);
-                                //traigo solo los datos del CAPACITADOR para exportar a pdf
-                                $id_capacitador = Request::get('cap');
-                                $capacitador = DB::table('capacitador')->find($id_capacitador);
-                                $capacPersonal = Personal::find($capacitador->personal_id);
-                                Session::set('cap', $capacitador);
-                                //Session::set('of', $oferta);
-                                return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
+                if (!empty($exp)) {
+                    switch ($exp) {
+                        case parent::EXPORT_PDFCAP:
+                            //obtengo los datos de la oferta y el capacitador
+                            $id_oferta = Request::get('ofid');
+                            $oferta = $this->oferta->find($id_oferta);
+                            //traigo solo los datos del CAPACITADOR para exportar a pdf
+                            $id_capacitador = Request::get('cap');
+                            $capacitador = DB::table('capacitador')->find($id_capacitador);
+                            $capacPersonal = Personal::find($capacitador->personal_id);
+                            Session::set('cap', $capacitador);
+                            //Session::set('of', $oferta);
+                            return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
                     }
                 }
                                 
@@ -133,10 +133,7 @@ class OfertasController extends BaseController {
 	public function create()
 	{
 		$tipos_oferta = TipoOferta::orderBy('descripcion')->get();
-                $titulaciones = Titulacion::orderBy('id')->get();
-                if(!Session::get('errors')) {
-                    Session::set('tab_activa', Input::get('tab_activa', 'ofertas'));
-                }
+                $titulaciones = Titulacion::orderBy('id')->get();                
 
 		return View::make('ofertas.create')
                         ->with(compact('tipos_oferta'))
@@ -152,14 +149,15 @@ class OfertasController extends BaseController {
 	{
 		$input = Input::all();
 		$this->oferta->agregarReglas($input);
+                $fechaFinOferta = Input::get('fecha_fin_oferta');
+                if($fechaFinOferta != null){
+                    $this->oferta->agregarReglas2($input);
+                }
 
 		$validation = Validator::make($input, Oferta::$rules);
 
-		if ($validation->passes())
-		{
+		if ($validation->passes()){
                   $this->oferta = $this->oferta->create($input);
-
-                  Session::set('tab_activa', $this->oferta->tab);
                     
                   //agregado por nico
                   //Busco el usuario actual en la BD y obtengo el ID
@@ -169,13 +167,19 @@ class OfertasController extends BaseController {
                   //agrego los datos de la modificación
                   $this->oferta->user_id_modif = $userId;
                   $this->oferta->fecha_modif = date('Y-m-d');
+                  //Si es carrera: guardo la fecha_fin_oferta en NULL
+                  if($this->oferta->getEsCarreraAttribute()){
+                      $this->oferta->setFechaFinOfertaAttribute(null);
+                  }
                   //guardo los cambios antes de redirigir
                   $this->oferta->save();
 
                   //return Redirect::route('ofertas.edit', $this->oferta->id)
+                  $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                  $final = $this->getEstiloMensajeFinal();
                   return Redirect::route('ofertas.index')
 			->withInput()			
-			->with('message', 'Oferta creada exitosamente!!');
+			->with('message', "$cabecera Oferta creada exitosamente!! $final");
 		}
 
 		return Redirect::route('ofertas.create')
@@ -210,8 +214,6 @@ class OfertasController extends BaseController {
 			return Redirect::route('ofertas.index');
 		}
                 
-                Session::set('tab_activa', $oferta->tab);
-                
                 $cap = $oferta->obtenerCapacitadoresDeLaOferta($id);
 		$tipos_oferta = TipoOferta::all();
                 $titulaciones = Titulacion::orderBy('id')->get();
@@ -233,12 +235,14 @@ class OfertasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-                $this->oferta->agregarReglas($input);
+                $fechaFinOferta = Input::get('fecha_fin_oferta');
+                if($fechaFinOferta != null){
+                    $this->oferta->agregarReglas2($input);
+                }
                 
 		$validation = Validator::make($input, Oferta::$rules);
 
-		if ($validation->passes())
-		{
+		if ($validation->passes()){
 			$oferta = $this->oferta->find($id);
                         $oferta->fill($input);
                         //agregado por nico
@@ -247,18 +251,25 @@ class OfertasController extends BaseController {
                         //agrego los datos de la modificación
                         $oferta->user_id_modif = $userId;
                         $oferta->fecha_modif = date('Y-m-d');
+                        //Si es carrera: guardo la fecha_fin_oferta en NULL
+                        if($oferta->getEsCarreraAttribute()){
+                            $oferta->setFechaFinOfertaAttribute(null);
+                        }
                         //guardo los cambios                        
 			$oferta->save();
-                        
-                        Session::set('tab_activa', $oferta->tab);
 			
-                        return Redirect::route('ofertas.index');
+                        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                        $final = $this->getEstiloMensajeFinal();
+                        return Redirect::route('ofertas.index')
+                                ->with('message', "$cabecera Se guardaron los cambios correctamente!. $final");
 		}
 
+                $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                $final = $this->getEstiloMensajeFinal();
 		return Redirect::route('ofertas.edit', $id)
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+			->with('message', "$cabecera Hay errores en la validación de los datos!. $final");
 	}
 
 	/**
@@ -272,19 +283,21 @@ class OfertasController extends BaseController {
 		$oferta = $this->oferta->find($id);
                 
                 if(!$oferta) {
+                    $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                    $final = $this->getEstiloMensajeFinal();
                     return Redirect::route('ofertas.index')
-                        ->with('message', 'No se pudo encontrar la oferta especificada');
+                        ->with('message', "$cabecera No se pudo encontrar la oferta especificada. $final");
                 }
-                
-                Session::set('tab_activa', $oferta->tab);
                 
                 //borro todos los capacitadores de esa oferta
                 $this->eliminarCapacitadores($oferta->id);
                 
                 $oferta->delete();
                 
+                $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                $final = $this->getEstiloMensajeFinal();
 		return Redirect::route('ofertas.index')
-                        ->with('message', 'Se eliminó el registro correctamente.');
+                        ->with('message', "$cabecera Se eliminó el registro correctamente!. $final");
 	}
 
 	/**
@@ -325,7 +338,7 @@ class OfertasController extends BaseController {
                     $listaAsociativo[$i]['personal_id'] = $lista[$j];
                     //obtengo el campo rol_id y lo guardo en el array asociativo
                     $listaAsociativo[$i]['rol_id'] = $lista[$j+1];
-                    //incremento las variables utilizadas: $j para sacar la info de la lista, e $i para elarray asociativo
+                    //incremento las variables utilizadas: $j para sacar la info de la lista, e $i para el array asociativo
                     $j=$j+2; $i++;
                 }
                 //Session::put('listaCapacitadores',$listaAsociativo);
@@ -338,6 +351,7 @@ class OfertasController extends BaseController {
                     }
                     $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
                     $final = $this->getEstiloMensajeFinal();
+                                        
                     //redirijo a Ofertas Index
                     return Redirect::route('ofertas.index')
                         ->with('message', "$cabecera Se agregaron correctamente los capacitadores.$final");

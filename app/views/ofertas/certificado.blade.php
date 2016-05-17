@@ -101,7 +101,7 @@
     ?> 
     <div class="certificado">
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
-        <p id="nombreCapacitador"><span><?php echo strtoupper($capacPersonal->nombre.", ".$capacPersonal->apellido); ?></span></p>
+        <p id="nombreCapacitador"><span><?php echo $capacPersonal->nombre.", ".$capacPersonal->apellido; ?></span></p>
         <p id="dniCapacitador"><span><?php echo number_format($capacPersonal->dni, 0, ',', '.');?></span></p>
         <p id="rolCapacitador"><span><?php echo strtolower($capacRol->rol);?></span></p>
         <p id="nombreOferta"><span><?php echo strtoupper($rows->nombre);?></span></p>

@@ -15,7 +15,7 @@
                     </h1>
             </div>
             <div>
-                <h3>Usuario: {{ $userName }}</h3>
+                <h3>Usuario: {{ $userName }} ?></h3>
             </div>
             <div align="left">
                 <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a></p>

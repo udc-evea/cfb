@@ -41,7 +41,7 @@
     </h4>
     @if (count($inscripciones))
     <div id="preinscriptos">
-        <input class="search" placeholder="Buscar por Nro. o Apellido"/>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
         <button class="sort" data-sort="nro" >Por Nro.</button>
         <button class="sort" data-sort="apellido" >Por Apellido</button>
         <?php $listaIdPreinscriptos = array();?>
@@ -53,7 +53,7 @@
                 <tr>
                     <th>Nro.</th>
                     <th>Apellidos</th>
-                    <th>Nombre</th>
+                    <!-- <th>Nombre</th> -->
                     @if($perfil != "Colaborador")
                         <th>Documento</th>
                     @endif
@@ -72,9 +72,9 @@
                @foreach ($inscripciones as $inscripcion)
                     <?php $listaIdPreinscriptos[] = $inscripcion->id; ?>
                     <tr>
-                        <td class="nro">{{ $i }}</td>
-                        <td class="apellido">{{{ $inscripcion->apellido }}}</td>
-                        <td>{{{ $inscripcion->nombre }}}</td>
+                        <td class="nro">{{ $inscripcion->id }}</td>
+                        <td class="apellido">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
+                        <!-- <td>{{ $inscripcion->nombre }}</td> -->
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->tipoydoc }}}</td>
                         @endif
@@ -127,7 +127,7 @@
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
         @if($perfil != "Colaborador")
-            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.')) }}
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitForm')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif

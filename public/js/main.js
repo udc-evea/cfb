@@ -64,3 +64,16 @@ var MainModule = {
 $(function() {
    MainModule.init();
 });
+    
+    /* Funcion para que oculte el submit de confirmrInscriptos cuando la lista de preinscriptos 
+     * no esta completa */
+    function verificarListaCompleta(){
+        var inputBuscar = document.getElementById('inputBuscar').value;        
+        var inputBuscarSize = document.getElementById('inputBuscar').value.length;        
+        
+        if(inputBuscarSize > 0){            
+            document.getElementById("btnSubmitForm").disabled = true;
+        }else{            
+            document.getElementById("btnSubmitForm").disabled = false;
+        }
+    }
