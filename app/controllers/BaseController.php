@@ -45,7 +45,7 @@ class BaseController extends Controller {
     }
 
     protected function exportarPDF($filename, $rows, $view)
-    {   
+    {
         $html = View::make($view, compact('rows'));
 
         return PDF::load($html, 'A4', 'landscape')->show($filename);

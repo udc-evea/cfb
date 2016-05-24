@@ -15,7 +15,7 @@
                     </h1>
             </div>
             <div>
-                <h3>Usuario: {{ $userName }} ?></h3>
+                <h3>Usuario: {{ $userName }} - {{ $tab_activa }}</h3>
             </div>
             <div align="left">
                 <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a></p>
@@ -36,7 +36,7 @@
     
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane" id="tab_ofertas">
+        <div class="tab-pane active" id="tab_ofertas">
             @include('ofertas.listado', compact('ofertas'))
             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                 {{ link_to_route('ofertas.create', 'Crear nueva Oferta', ['tab_activa' => 'ofertas'], array('class' => 'btn btn-primary')) }}
@@ -48,7 +48,7 @@
                 {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
                 @endif
         </div>
-        <div class="tab-pane active" id="tab_eventos">
+        <div class="tab-pane" id="tab_eventos">
             @include('ofertas.listado_eventos', compact('eventos'))
             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                 {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
@@ -259,8 +259,8 @@ $(function () {
             }]
         }
     });
-}); -->
-</script>
+}); 
+</script> -->
 <!-- #################################################################### -->
 <!--                  FIN Scripts para los gráficos                       -->
 @stop

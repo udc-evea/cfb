@@ -235,11 +235,13 @@ class OfertasInscripcionesController extends BaseController {
         }
         //dd($validation);
         $id_string = $oferta->stringAleatorio($oferta_id,15);
+        $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+        $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.nueva', $id_string)
                         ->withOferta($oferta)
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', " Error al guardar.");
+                        ->with('message', "$cabecera Error al guardar. $final");
     }
 
     /**
@@ -289,14 +291,18 @@ class OfertasInscripcionesController extends BaseController {
 
         if ($validation->passes()) {
             $inscripcion->update($input_db);
-
-            return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+                ->with('message', "$cabecera Se guardaron correctamente los cambios! $final")
+                ;
         }
-
+        $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+        $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.edit', array($oferta_id, $id))
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'Ocurrieron errores al guardar.');
+                        ->with('message', "$cabecera Ocurrieron errores al guardar.! $final");
     }
 
     /**
@@ -311,10 +317,12 @@ class OfertasInscripcionesController extends BaseController {
         $inscripcion = $insc_class::findOrFail($id);
         
         $inscripcion->delete();
-        //throw new Exception;
+        
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
-                        ->with('message', 'Se eliminó el registro correctamente.');
+                        ->with('message', "$cabecera Se eliminó el registro correctamente. $final");
     }
         
         /**
@@ -446,8 +454,11 @@ class OfertasInscripcionesController extends BaseController {
                 //guardo los cambios en la BD
                 $inscripcion->save();
             }
-        }        
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+        }
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+            ->with('message',"$cabecera Se hicieron los cambios correctamente! $final");
     }
     
     public function cambiarAsistentes($oferta_id) {
@@ -508,8 +519,11 @@ class OfertasInscripcionesController extends BaseController {
                 //guardo los cambios en la BD
                 $inscripcion->save();
             }
-        }        
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+        }
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+            ->with('message',"$cabecera Se hicieron los cambios correctamente! $final");
     }
     
     public function cambiarAprobado($oferta_id, $id) {
@@ -527,7 +541,10 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
         }
         $inscripcion->save();
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+            ->with('message',"$cabecera Se hicieron los cambios correctamente! $final");
     }
     
     /*public function cambiarAsistente($oferta_id, $id) {
@@ -597,8 +614,11 @@ class OfertasInscripcionesController extends BaseController {
                 //guardo los cambios en la BD
                 $inscripcion->save();
             }
-        }        
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));                                                                        
+        }
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+            ->with('message',"$cabecera Se hicieron los cambios correctamente! $final");
                 
         /* ################################################################# */
         //busco el inscripto ($id) segun la oferta ($oferta_id)
@@ -627,7 +647,10 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setComisionNro(0);
         }
         $inscripcion->save();
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+            ->with('message',"$cabecera Se sumó correctamente la comisión! $final");
     }
     
     public function restarComision($oferta_id, $id) {
@@ -641,8 +664,11 @@ class OfertasInscripcionesController extends BaseController {
         }else{
             $inscripcion->setComisionNro(0);
         }
-        $inscripcion->save();        
-        return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+        $inscripcion->save();
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+            ->with('message',"$cabecera Se restó correctamente la comisión! $final");
     }
     
     public function enviarMailInstitucional($oferta_id, $id){
@@ -692,7 +718,9 @@ class OfertasInscripcionesController extends BaseController {
                 
             // incremento la cantidad de veces que se notifico al inscripto
             $inscripcion->seEnvioNotificacion();
-            
-            return Redirect::route('ofertas.inscripciones.index', array($oferta_id));
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+                    ->with('message',"$cabecera Se envió correctamente el mail informativo de la cuenta institucional! $final");
     }
 }

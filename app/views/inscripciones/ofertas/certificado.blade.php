@@ -7,20 +7,48 @@
                 //border: 1px solid red;
                 margin: -30px;
                 width: 100%;
-                height: 760px;                
-            }
-            body p *{
+                height: 760px;
                 font-family: "Segoe UI" !Important;
-                font-size: 16pt;
-                color: blue;
             }
             .certificado{
                 //border: 1px solid black;
+                //font-family: "Segoe UI" !Important;
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
-            #nombreAlumno{
+            #textoCertificado{
+                //border: solid 2px green;
+                position: absolute;
+                width: 100%;
+                top: 140px;
+                color: black;
+                text-align: center;
+                //font-family: "Segoe UI" !Important;
+                font-size: 16pt;
+            }
+            #cuv{
+                position: absolute;
+                top: 680px;
+                left: 100px;
+                font-size: 10pt !important;
+                text-align: left;
+            }
+            #cuvhelp{
+                position: absolute;
+                top: 700px;
+                left: 100px;
+                font-size: 10pt !important;
+                text-align: left;
+            }
+            #cuvqr{
+                position: absolute;
+                top: 650px;                
+                text-align: right;
+                right: 50px;
+                width: 100%;
+            }
+            /*#nombreAlumno{
                 position: absolute;
                 top: 180px;
                 text-align: center;                
@@ -69,46 +97,42 @@
                 padding-left: 430px;
                 text-align: center;
                 width: 100%;
-            }
-            #cuv{
-                position: absolute;
-                top: 650px;
-                padding-right: 260px;
-                font-size: 10pt !important;
-                text-align: center;
-                width: 100%;
-            }
+            }*/            
         </style>
-    </head>
+    </head>    
 <body>
     <?php
-        $meses = array(
-                '01' => 'Enero',
-                '02' => 'Febrero',
-                '03' => 'Marzo',
-                '04' => 'Abril',
-                '05' => 'Mayo',
-                '06' => 'Junio',
-                '07' => 'Julio',
-                '08' => 'Agosto',
-                '09' => 'Septiembre',
-                '10' => 'Octubre',
-                '11' => 'Noviembre',
-                '12' => 'Diciembre',
-                );
+        //guardo en un array todos los meses - sirve para luego buscar el mes actual en string
+        $meses = array('01' => 'Enero','02' => 'Febrero','03' => 'Marzo','04' => 'Abril',
+                '05' => 'Mayo','06' => 'Junio','07' => 'Julio','08' => 'Agosto',
+                '09' => 'Septiembre','10' => 'Octubre','11' => 'Noviembre','12' => 'Diciembre',);
         $aux = array_get($meses, date('m'));
+        //código para generar la imagen del código QR se guarda en public/images/qrcodes
+        $renderer = new \BaconQrCode\Renderer\Image\Png();
+        $renderer->setHeight(256);
+        $renderer->setWidth(256);
+        $writer = new \BaconQrCode\Writer($renderer);       
+        $filename = $rows->oferta->id;$filename .= $rows->id;$filename .= ".png";
+        $mje = "http://udc.edu.ar/verificacion-de-certificado?cuv=".$rows->codigo_verificacion;
+        $writer->writeFile($mje,$filename);
     ?>    
     <div class="certificado">
-        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
-        <p id="nombreAlumno"><span><?php echo $rows->apellido.", ".$rows->nombre;?></span></p>
-        <p id="dniAlumno"><span><?php echo number_format($rows->documento, 0, ',', '.');?></span></p>
-        <p id="nombreOferta"><span><?php echo strtoupper($rows->oferta->nombre);?></span></p>
-        <p id="resolucion"><span><?php echo $rows->oferta->resolucion_nro;?></span></p>
-        <p id="cantidadHorasReloj"><span><?php echo $rows->oferta->duracion_hs;?></span></p>
-        <p id="diaHoy"><span><?php echo date('d')?></span></p>
-        <p id="mesHoy"><span><?php echo strtoupper($aux) ?></span></p>
-        <p id="cuv"><span><?php echo $rows->codigo_verificacion ?></span></p>
+        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
+        <div id='textoCertificado'>
+            <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
+            <p><span><?php echo strtoupper($rows->apellido).", ".$rows->nombre;?></span></p>
+            <p>D.N.I. <span><?php echo number_format($rows->documento, 0, ',', '.');?>,</span></p>
+            <p>ha aprobado el <span><?php echo strtoupper($rows->oferta->nombre);?></span></p>
+            <p>según Resolución Rectoral N° <span><?php echo $rows->oferta->resolucion_nro;?></span>, con una acreditación de 
+                <span><?php echo $rows->oferta->duracion_hs;?> horas reloj.</span></p>            
+            <p>Se extiende el presente certificado a los 
+                <span><?php echo date('d')?></span> días del mes de 
+                <span><?php echo strtoupper($aux) ?></span> de 2016</p>
+            <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
+        </div>
+            <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $rows->codigo_verificacion ?></span></p>
+            <p id="cuvhelp">Para verificar el certificado accedé a http://udc.edu.ar/verificacion-de-certificados o escaneá el código QR con tu celular</p>            
+            <div id='cuvqr'><img src="<?php echo $filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
-    
 </body>
 </html>

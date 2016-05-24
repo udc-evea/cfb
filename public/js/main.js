@@ -68,7 +68,6 @@ $(function() {
     /* Funcion para que oculte el submit de confirmrInscriptos cuando la lista de preinscriptos 
      * no esta completa */
     function verificarListaCompleta(){
-        var inputBuscar = document.getElementById('inputBuscar').value;        
         var inputBuscarSize = document.getElementById('inputBuscar').value.length;        
         
         if(inputBuscarSize > 0){            
@@ -77,3 +76,4 @@ $(function() {
             document.getElementById("btnSubmitForm").disabled = false;
         }
     }
+        

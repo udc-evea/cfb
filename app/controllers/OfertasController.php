@@ -110,6 +110,7 @@ class OfertasController extends BaseController {
                             return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
                     }
                 }
+                Session::set('tab_activa', $this->oferta->tab);
                                 
 		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))
                         ->with('userId',$userId)

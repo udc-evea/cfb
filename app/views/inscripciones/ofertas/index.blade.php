@@ -127,7 +127,7 @@
     <!-- <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a> -->
     <div id="fondo">
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
-    </div>
+    </div>    
 </div>
 <script>
     $(function () {

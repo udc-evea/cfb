@@ -197,9 +197,9 @@ class Inscripcion extends Eloquent {
         //defino una variable donde se almacenarán las iniciales de los nombres
         $iniciales = "";        
         //reemplazo todos los caracteres especiales en los nombres
-        $nombres = $this->sanear_string($nombres);
+        $nombres2 = $this->sanear_string($nombres);
         //paso a minuscula los nombres del preinscripto
-        $nomMinuscula = strtolower($nombres);
+        $nomMinuscula = strtolower($nombres2);
         //$nomMinuscula = $this->sanear_string($nomMinuscula);
         //separo el/los nombre/s del preinscripto
         $nom = explode(" ",$nomMinuscula);

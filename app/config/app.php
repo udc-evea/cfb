@@ -129,6 +129,7 @@ return array(
                 'Thujohn\Pdf\PdfServiceProvider',
                 'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
                 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+                'SimpleSoftwareIO\QrCode\QrCodeServiceProvider'
 	),
 
 	/*
@@ -200,6 +201,7 @@ return array(
                 'Former' => 'Former\Facades\Former',
                 'Excel' => 'Maatwebsite\Excel\Facades\Excel',
                 'PDF' => 'Thujohn\Pdf\PdfFacade',
+                'QrCode' => 'SimpleSoftwareIO\QrCode\Facades\QrCode'
 
 	),
 
