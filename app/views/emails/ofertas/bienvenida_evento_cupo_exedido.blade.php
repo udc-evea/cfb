@@ -20,7 +20,7 @@
      ?>
     <div>
         <h2>¡Preinscripción Exitosa!</h2>
-        <p>Gracias por tu interés {{ $insc->nombre }} {{ $insc->apellido }}, has completado la preinscripción <?php echo $tipoOferta ?> <strong>{{ $oferta->nombre }}</strong>.</p>
+        <p>Gracias por tu interés <?php if($insc->nombre != null){ echo $insc->nombre." ".$insc->apellido; }else{ echo "Nombre y Apellido";} ?>, has completado la preinscripción <?php echo $tipoOferta ?> <strong>{{ $oferta->nombre }}</strong>.</p>
         <p>Tu solicitud quedará momentáneamente en lista de espera mientras analizamos
             todas las postulaciones. En breve informaremos quiénes participan hasta completar el cupo.</p>
         <br>

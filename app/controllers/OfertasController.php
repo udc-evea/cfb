@@ -310,12 +310,12 @@ class OfertasController extends BaseController {
 	public function verMail($id)
 	{
 		$oferta = $this->oferta->find($id);
-
+                $insc = new InscripcionEvento();
 		if (is_null($oferta)) {
-			return Redirect::route('ofertas.index');
+                    return Redirect::route('ofertas.index');
 		}
 
-		return View::make($oferta->getVistaMail(), compact('oferta'));
+		return View::make($oferta->getVistaMail(), compact('oferta','insc'));
 	}                
         
         /**

@@ -495,7 +495,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function getVistaMail() {
         //compruebo si se ha pasado el cupo maximo (esto solo sucede en Eventos)
-        if(($this->count() > $this->cupo_maximo)&&($this->cupo_maximo != 0)){
+        if(($this->count() > $this->cupo_maximo)&&($this->cupo_maximo != 0) && ($this->esEvento)){
             //si es así, envío mail dónde se aclara la lista de espera
             return 'emails.ofertas.bienvenida_evento_cupo_exedido';
         //Si no se exedió el cupo (Ofertas y Carreras)

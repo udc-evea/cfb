@@ -189,3 +189,18 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.8' WHERE  `version_bd`.`version_codigo` =  '3.1.7' LIMIT 1 ;
 /* Agrego el campo "fecha_fin_oferta" en la tabla "oferta_formativa" */
 -> ALTER TABLE `oferta_formativa` ADD `fecha_fin_oferta` DATE NULL DEFAULT NULL COMMENT 'Fecha de Fin de la Oferta (solo Eventos y Cursos). Se obtiene de la Resolución de creación de Oferta.' AFTER `resolucion_nro`;
+
+
+/* ######  2016/05/25  ####################### */
+--    VERSION_BASE: 3.1.4 - VERSION_CODIGO: 3.1.9
+-- Arreglos varios en el código
+/* 
+1) Arreglo del error de la vista de mail.
+2) Arreglo de envío de mail "cupo_exedido" solo para eventos.
+3) Separación de preinscriptos e inscriptos en pestañas para carrera
+4) Se mantienen los campos de ordenamiento (nro. y apellido.) y búsqueda tanto en la pestaña de preinscriptos como la de inscriptos
+5) se cambia la versión del código a 3.1.9
+*/
+-- la sintaxis es:
+/* Cambio en la base la versión de código del sistema, de 3.1.8 a 3.1.9 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.9' WHERE  `version_bd`.`version_codigo` =  '3.1.8' LIMIT 1 ;

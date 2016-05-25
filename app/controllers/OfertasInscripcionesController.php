@@ -147,7 +147,7 @@ class OfertasInscripcionesController extends BaseController {
               ;
         
       }else{ //solo si es una Carrera
-          $inscripciones = $oferta->inscripciones->all();
+          $preinscripciones = $oferta->inscripciones->all();
           $inscriptos = $oferta->inscriptosOferta->all();
           return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones'))
                   ->withoferta($oferta)
