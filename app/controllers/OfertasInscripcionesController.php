@@ -38,16 +38,16 @@ class OfertasInscripcionesController extends BaseController {
             switch ($exp) {
                 case parent::EXPORT_XLSP:
                     //traigo solos los preinscriptos para exportar a excel
-                    $inscripciones = $oferta->preinscriptosOferta->all();
-                    return $this->exportarXLS($oferta->nombre."_preinscriptos_XLS", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    $preinscripciones = $oferta->inscripciones->all();
+                    return $this->exportarXLS($oferta->nombre."_preinscriptos_XLS", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_XLSI:
                     //traigo solos los inscriptos para exportar a excel
                     $inscripciones = $oferta->inscriptosOferta->all();
                     return $this->exportarXLS($oferta->nombre."_inscriptos_XLS", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFP:
                     //traigo solos los preinscriptos para exportar a pdf
-                    $inscripciones = $oferta->preinscriptosOferta->all();
-                    return $this->exportarPDF($oferta->nombre."_preinscriptos_PDF", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    $preinscripciones = $oferta->inscripciones->all();
+                    return $this->exportarPDF($oferta->nombre."_preinscriptos_PDF", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFI:
                     //traigo solos los inscriptos para exportar a pdf
                     $inscripciones = $oferta->inscriptosOferta->all();
@@ -61,6 +61,19 @@ class OfertasInscripcionesController extends BaseController {
                     $id_alumno = Request::get('alm');
                     $aprobado = $oferta->aprobados->find($id_alumno);
                     return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
+                case parent::EXPORT_PDFAS:
+                    //traigo solo los datos de alumno Asistente para exportar a pdf
+                    $id_alumno = Request::get('alm');
+                    $alumnoAsistente = $oferta->asistentes->find($id_alumno);
+                    return $this->exportarPDF($oferta->nombre." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
+                case parent::EXPORT_PDFASIST:
+                    //traigo todos los asistentes dle evento para exportar a pdf
+                    $asistentes = $oferta->asistentes->all();
+                    return $this->exportarPDF($oferta->nombre."_asistentes",$asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                case parent::EXPORT_XLSAS:
+                    //traigo solos los asistentes al evento para exportar a excel
+                    $asistentes = $oferta->asistentes->all();
+                    return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
             }
       }
 
@@ -125,7 +138,7 @@ class OfertasInscripcionesController extends BaseController {
                 ->with('aprobados',$aprobados);
         
       }elseif($oferta->getEsEventoAttribute()){ //solo si es un Evento
-            if (!empty($exp)) {
+            /*if (!empty($exp)) {
                 switch ($exp) {
                     case parent::EXPORT_PDFAS:
                         //traigo solo los datos de alumno Asistente para exportar a pdf
@@ -141,7 +154,7 @@ class OfertasInscripcionesController extends BaseController {
                         $asistentes = $oferta->asistentes->all();
                         return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 }
-            }
+            }*/
       
             //Obtengo el listado de Asistentes al Evento
             $asistentes = $oferta->asistentes->all();

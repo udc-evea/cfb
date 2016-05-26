@@ -1,3 +1,4 @@
+<?php set_time_limit(300); ?>
 <!DOCTYPE html>
 <html lang="es-AR">
     <head>

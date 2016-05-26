@@ -57,9 +57,9 @@
                             <td>
                                 <div class="slideTwo"><div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
-                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoinsc<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoinsc<?php echo $inscripcion->id ?>"></label>
                                     @else
-                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwo<?php echo $inscripcion->id ?>" value='1'><label for="slideTwo<?php echo $inscripcion->id ?>"></label>
+                                        <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoinsc<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoinsc<?php echo $inscripcion->id ?>"></label>
                                     @endif
                                 </div>
                             </td>                        
