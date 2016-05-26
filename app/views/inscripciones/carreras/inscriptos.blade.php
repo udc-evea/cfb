@@ -11,8 +11,8 @@
     @if (count($inscriptos))
     <div id="inscriptos">
         <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
-        <button class="sort" data-sort="nroo" >Por Nro.</button>
-        <button class="sort" data-sort="apellidoo" >Por Apellido</button>
+        <button class="sort" data-sort="nroinsc" >Por Nro.</button>
+        <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
         <?php $listaIdPreinscriptos = array();?>
         {{ Form::open(array(
                     'method' => 'POST',
@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     <th>Nro.</th>
-                    <th>Apellidos</th>
+                    <th>Apellidos y Nombres</th>
                     <!-- <th>Nombre</th> -->
                     @if($perfil != "Colaborador")
                         <th>Documento</th>
@@ -41,8 +41,8 @@
                @foreach ($inscriptos as $inscripcion)
                     <?php $listaIdPreinscriptos[] = $inscripcion->id; ?>
                     <tr>
-                        <td class="nroo">{{ $inscripcion->id }}</td>
-                        <td class="apellidoo">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
+                        <td class="nroinsc">{{ $inscripcion->id }}</td>
+                        <td class="apellidoinsc">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
                         <!-- <td>{{ $inscripcion->nombre }}</td> -->
                         @if($perfil != "Colaborador")
                             <td>{{{ $inscripcion->tipoydoc }}}</td>
@@ -109,7 +109,7 @@
     
 <script>
     var options = {
-      valueNames: [ 'apellidoo', 'nroo' ]
+      valueNames: [ 'apellidoinsc', 'nroinsc' ]
     };
 
     var inscriptosList = new List('inscriptos', options);

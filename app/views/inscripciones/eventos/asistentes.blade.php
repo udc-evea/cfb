@@ -1,11 +1,24 @@
-<div>                     
+<div class="container">      
     @if (count($asistentes))
+        <div class="divTotales">
+            <div><h4>Total: {{ count($asistentes) }}</h4></div>
+            <div> (
+                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsas')) }}" target="_blank" title="Exportar listado de asistentes a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfasist')) }}" target="_blank" title="Exportar listado de asistentes a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>                
+             )</div>
+        </div>
+    @endif    
+    @if (count($asistentes))
+    <div id='asistentes'>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <button class="sort" data-sort="nroasis" >Por Nro.</button>
+        <button class="sort" data-sort="apellidoasis" >Por Apellido</button>
             <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
                 <thead>
                     <tr>
                         <th>Nro.</th>
-                        <th>Apellido</th>
-                        <th>Nombre</th>
+                        <th>Apellidos y Nombres</th>
+                        <!-- <th>Nombre</th> -->
                         @if($perfil != "Colaborador")
                             <th>Documento</th>
                         @endif
@@ -20,13 +33,13 @@
                         <!-- <th>Acciones</th> -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="list">
                     <?php $i = 1;?>
                     @foreach ($asistentes as $inscripcion)
                         <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{{ $inscripcion->apellido }}}</td>
-                            <td>{{ $inscripcion->nombre }}</td>
+                            <td class="nroasis">{{ $i }}</td>
+                            <td class="apellidoasis">{{{ $inscripcion->apellido }}}, {{ $inscripcion->nombre }}</td>
+                            <!-- <td>{{ $inscripcion->nombre }}</td> -->
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
@@ -82,11 +95,20 @@
                         </tr>                  
                         <?php $i++;?>
                     @endforeach
-                    </tbody>
+                </tbody>
             </table>
+    </div>
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>
         <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
     @endif
 </div>
+
+<script>
+    var options = {
+      valueNames: [ 'apellidoasis', 'nroasis' ]
+    };
+
+    var asistentesList = new List('asistentes', options);
+</script>

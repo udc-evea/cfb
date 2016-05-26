@@ -132,19 +132,27 @@ class OfertasInscripcionesController extends BaseController {
                         $id_alumno = Request::get('alm');
                         $alumnoAsistente = $oferta->asistentes->find($id_alumno);
                         return $this->exportarPDF($oferta->nombre." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
+                    case parent::EXPORT_PDFASIST:
+                        //traigo todos los asistentes dle evento para exportar a pdf
+                        $asistentes = $oferta->asistentes->all();
+                        return $this->exportarPDF($oferta->nombre."_asistentes",$asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                    case parent::EXPORT_XLSAS:
+                        //traigo solos los asistentes al evento para exportar a excel
+                        $asistentes = $oferta->asistentes->all();
+                        return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 }
             }
       
-        //Obtengo el listado de Aprobados de la Oferta
-        $asistentes = $oferta->asistentes->all();
-        
-        return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','asistentes'))
-                ->withoferta($oferta)
-                ->with('userName',$userName)
-                ->with('nomyape',$NomYApe)
-                ->with('perfil',$perfil)
-                ->with('tipoOferta',$tipoOferta)
-              ;
+            //Obtengo el listado de Asistentes al Evento
+            $asistentes = $oferta->asistentes->all();
+
+            return View::make('inscripciones.'.$oferta->view.'.index', compact('preinscripciones','inscripciones','asistentes'))
+                    ->withoferta($oferta)
+                    ->with('userName',$userName)
+                    ->with('nomyape',$NomYApe)
+                    ->with('perfil',$perfil)
+                    ->with('tipoOferta',$tipoOferta)
+                  ;
         
       }else{ //solo si es una Carrera
           $preinscripciones = $oferta->inscripciones->all();

@@ -1,18 +1,21 @@
 <div class="container">      
-@if (count($inscripciones))
-    <div class="divTotales">
-        <div><h4>Total: {{ count($inscripciones) }}</h4></div>
-        <div> (
-            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
-            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
-            @if($perfil == "Administrador")
-                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" target="_blank" title="Exportar listado solo de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a>
-            @endif
-         )</div>
-    </div>
-@endif
-
     @if (count($inscripciones))
+        <div class="divTotales">
+            <div><h4>Total: {{ count($inscripciones) }}</h4></div>
+            <div> (
+                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+                <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfi')) }}" target="_blank" title="Exportar listado solo de Inscriptos a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                @if($perfil == "Administrador")
+                    <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'csv')) }}" target="_blank" title="Exportar listado solo de Inscriptos a CSV"><i class="fa fa-file-text-o"></i></a>
+                @endif
+             )</div>
+        </div>
+    @endif
+    @if (count($inscripciones))
+    <div id='inscriptos'>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <button class="sort" data-sort="nroinsc" >Por Nro.</button>
+        <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
         <?php $listaIdInscriptos = array();?>
         {{ Form::open(array(
                     'method' => 'POST',
@@ -21,8 +24,8 @@
                 <thead>
                     <tr>
                         <th>Nro.</th>
-                        <th>Apellido</th>
-                        <th>Nombre</th>
+                        <th>Apellidos y Nombres</th>
+                        <!-- <th>Nombre</th> -->
                         @if($perfil != "Colaborador")
                             <th>Documento</th>
                         @endif
@@ -37,14 +40,14 @@
                         <!-- <th>Acciones</th> -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="list">
                     <?php $i = 1;?>
                     @foreach ($inscripciones as $inscripcion)
                         <?php $listaIdInscriptos[] = $inscripcion->id; ?>
                         <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{{ $inscripcion->apellido }}}</td>
-                            <td>{{ $inscripcion->nombre }}</td>
+                            <td class="nroinsc">{{ $i }}</td>
+                            <td class="apellidoinsc">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
+                            <!-- <td>{{ $inscripcion->nombre }}</td> -->
                             @if($perfil != "Colaborador")
                                 <td>{{{ $inscripcion->tipoydoc }}}</td>
                             @endif
@@ -107,9 +110,18 @@
                 {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
                 {{ Form::close() }}
             @endif
+    </div>
     @else
         <br>
         <h2>Aún no hay inscriptos en esta oferta.</h2>
         <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
     @endif
 </div>
+
+<script>
+    var options = {
+      valueNames: [ 'apellidoinsc', 'nroinsc' ]
+    };
+
+    var inscriptosList = new List('inscriptos', options);
+</script>

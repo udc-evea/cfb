@@ -1,14 +1,16 @@
 <?php
 
 class BaseController extends Controller {
-	const EXPORT_XLSP = 'xlsp';
-        const EXPORT_XLSI = 'xlsi';
-	const EXPORT_PDFP = 'pdfp';
-        const EXPORT_PDFI = 'pdfi';
-        const EXPORT_CSV = 'csv';
-        const EXPORT_PDFA = 'pdfa';
-        const EXPORT_PDFAS = 'pdfas';
-        const EXPORT_PDFCAP = 'pdfcap';
+	const EXPORT_XLSP = 'xlsp'; //exportar a excel todos los preinscriptos
+        const EXPORT_XLSI = 'xlsi'; //exportar a excel todos los inscriptos
+        const EXPORT_XLSAS = 'xlsas'; //exportar a excel todos los asistentes a evento
+	const EXPORT_PDFP = 'pdfp'; //exportar a pdf todos los preinscriptos
+        const EXPORT_PDFI = 'pdfi'; //exportar a pdf todos los inscriptos
+        const EXPORT_CSV = 'csv'; //exportar a csv todos los inscriptos
+        const EXPORT_PDFA = 'pdfa'; //exportar a pdf todos los aprobados
+        const EXPORT_PDFAS = 'pdfas'; //exportar a pdf los datos del Asistente (p/el certificado)
+        const EXPORT_PDFASIST = 'pdfasist'; //exportar a pdf todos los asistentes a un evento
+        const EXPORT_PDFCAP = 'pdfcap'; //exportar a pdf los datos del capacitador (p/el certificado)
 
 	/**
 	 * Setup the layout used by the controller.
@@ -46,7 +48,7 @@ class BaseController extends Controller {
 
     protected function exportarPDF($filename, $rows, $view)
     {
-        $html = View::make($view, compact('rows'));
+        $html = View::make($view, compact('rows'))->render();
 
         return PDF::load($html, 'A4', 'landscape')->show($filename);
     }
