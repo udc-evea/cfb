@@ -11,7 +11,7 @@ return array(
 	'DOMPDF_ENABLE_REMOTE' => true,//'DOMPDF_ENABLE_REMOTE' => false,
 	'DOMPDF_ENABLE_CSS_FLOAT' => false,
 	'DOMPDF_ENABLE_JAVASCRIPT' => true,
-	'DEBUGPNG' => true,//,false,
+	'DEBUGPNG' => false,
 	'DEBUGKEEPTEMP' => false,
 	'DEBUGCSS' => false,
 	'DEBUG_LAYOUT' => false,

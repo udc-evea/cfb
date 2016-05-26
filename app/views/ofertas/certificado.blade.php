@@ -65,12 +65,12 @@
         $renderer = new \BaconQrCode\Renderer\Image\Png();
         $renderer->setHeight(256);
         $renderer->setWidth(256);
-        $writer = new \BaconQrCode\Writer($renderer);
-        $dir_to_save = "/qrcodes/";
+        $writer = new \BaconQrCode\Writer($renderer);        
+        $dir_to_save = "img/qrcodes/";
         if(!is_dir($dir_to_save)){
             mkdir($dir_to_save);
         }
-        $filename = $rows->id; $filename .= $capacPersonal->id; $filename .= ".png";
+        $filename = "of_".$rows->id; $filename .= "_cap_".$capacPersonal->id; $filename .= ".png";
         $mje = "http://udc.edu.ar/verificacion-de-certificado?cuv=";
         $writer->writeFile($mje,$dir_to_save.$filename);
     ?>  
