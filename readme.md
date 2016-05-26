@@ -15,13 +15,15 @@ Gestor de inscripciones de la Universidad del Chubut, hecho con [Laravel](http:/
 # clonar el repositorio
 git clone https://github.com/udc-evea/cfb.git
 
+# crear configuración para el entorno local a partir de la plantilla
+# el archivo debe llamarse '.env.local.php'
+cp env.local_sample.php .env.local.php
+
+
 # instalar dependencias
 cd cfb
 composer install
 
-# crear configuración para el entorno local a partir de la plantilla
-# el archivo debe llamarse '.env.local.php'
-cp env.local_sample.php .env.local.php
 
 # otorgar permisos de escritura al servidor web (Apache) en directorios de trabajo
 # (www-data suele ser el usuario con el que se ejecuta)
