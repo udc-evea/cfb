@@ -111,10 +111,14 @@
         $renderer = new \BaconQrCode\Renderer\Image\Png();
         $renderer->setHeight(256);
         $renderer->setWidth(256);
-        $writer = new \BaconQrCode\Writer($renderer);       
+        $writer = new \BaconQrCode\Writer($renderer);
+        $dir_to_save = "/qrcodes/";
+        if(!is_dir($dir_to_save)){
+            mkdir($dir_to_save);
+        }
         $filename = $rows->oferta->id;$filename .= $rows->id;$filename .= ".png";
         $mje = "http://udc.edu.ar/verificacion-de-certificado?cuv=".$rows->codigo_verificacion;
-        $writer->writeFile($mje,$filename);
+        $writer->writeFile($mje,$dir_to_save.$filename);
     ?>    
     <div class="certificado">
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
@@ -132,7 +136,7 @@
         </div>
             <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $rows->codigo_verificacion ?></span></p>
             <p id="cuvhelp">Para verificar el certificado accedé a http://udc.edu.ar/verificacion-de-certificados o escaneá el código QR con tu celular</p>            
-            <div id='cuvqr'><img src="<?php echo $filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
+            <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
 </body>
 </html>
