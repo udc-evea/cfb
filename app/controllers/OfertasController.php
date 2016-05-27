@@ -256,6 +256,9 @@ class OfertasController extends BaseController {
                         if($oferta->getEsCarreraAttribute()){
                             $oferta->setFechaFinOfertaAttribute(null);
                         }
+                        if($fechaFinOferta == null){
+                            $oferta->setFechaFinOfertaAttribute(NULL);
+                        }
                         //guardo los cambios                        
 			$oferta->save();
 			

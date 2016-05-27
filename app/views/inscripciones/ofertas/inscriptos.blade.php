@@ -12,6 +12,10 @@
 @endif
 @if (count($inscripciones))
 <fieldset>
+    <div id="inscriptos">
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <button class="sort" data-sort="nroinsc" >Por Nro.</button>
+        <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
     <?php $listaIdInscriptos = array();?>
     {{ Form::open(array(
                 'method' => 'POST',
@@ -20,8 +24,8 @@
             <thead>
                 <tr>
                     <th>Nro.</th>
-                    <th>Apellidos</th>
-                    <th>Nombres</th>
+                    <th>Apellidos y Nombres</th>
+                    <!--<th>Nombres</th>-->
                     <th>Documento</th>
                     <th>Email</th>
                     @if($perfil != "Colaborador")
@@ -33,7 +37,7 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="list">
                 <?php $i = 1; ?>
                 @foreach ($inscripciones as $inscripcion)
                    <?php
@@ -43,9 +47,9 @@
                         $listaIdInscriptos[] = $inscripcion->id;
                    ?>                   
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
-                        <td>{{ $i }}</td>
-                        <td>{{ $inscripcion->apellido }}</td>
-                        <td>{{ $inscripcion->nombre }}</td>
+                        <td class="nroinsc">{{ $i }}</td>
+                        <td class="apellidoinsc">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
+                        <!--<td>{{ $inscripcion->nombre }}</td> -->
                         @if($perfil != "Colaborador")
                             <!-- <td>{{ $inscripcion->tipoydoc }}</td> -->
                         @endif
@@ -114,7 +118,7 @@
         <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
         <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString; ?>"/>
         @if($perfil != "Colaborador")
-            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos de los requisitos presentados.')) }}
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Actualizar los datos de los requisitos presentados.', 'id'=>'btnSubmitForm')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif
@@ -124,3 +128,11 @@
 <h2>Aún no hay inscriptos en esta oferta.</h2>
 <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
 @endif
+
+<script>
+    var options = {
+      valueNames: [ 'apellidoinsc', 'nroinsc' ]
+    };
+    var inscriptosList = new List('inscriptos', options);
+    
+</script>

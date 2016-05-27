@@ -155,9 +155,9 @@ input[readonly] {
             ->class('span7')
     }}
     <hr>
-    {{ Former::date('fecha_fin_oferta')
+    {{ Former::text('fecha_fin_oferta')
                 ->label('Fecha de finalización de la Oferta')
-                //->addClass('fecha')
+                ->addClass('fecha')
                 ->placeholder('Colocar la fecha de finalización de la Oferta.')
     }}
     <hr>
@@ -315,8 +315,18 @@ input[readonly] {
         }
     };
     
+    function sanearFechaFinOferta(){
+        ffo = String(document.getElementById('fecha_fin_oferta').value);
+        
+        if(ffo === '30/11/-0001'){            
+            document.getElementById('fecha_fin_oferta').value = '';
+            //window.alert('Fecha: '+ffo);
+        }
+    }
+    
     window.onload = function (){
         ocultarCamposEnCarrera();
+        sanearFechaFinOferta();
     };
     
 </script>
