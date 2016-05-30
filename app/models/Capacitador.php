@@ -26,10 +26,11 @@ class Capacitador extends Eloquent implements UserInterface, RemindableInterface
     public static $rules = array(
         'oferta_id' => 'required|exists:oferta_formativa,id',
         'personal_id' => 'required|exists:personal,id',
-        'rol_id' => 'required|exists:rol_capacitador,id'
+        'rol_id' => 'required|exists:rol_capacitador,id',
+        'codigo_verificacion' => 'between:2,30'
     );
         
-    protected $fillable = array('oferta_id','personal_id','rol_id');
+    protected $fillable = array('oferta_id','personal_id','rol_id','codigo_verificacion');
     
     public function ObtenerOferta() {
         return $this->belongsTo('Oferta', 'oferta_id');

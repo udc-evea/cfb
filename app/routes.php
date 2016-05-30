@@ -110,4 +110,5 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
  Route::get('/login', array('uses' => 'HomeController@login'));
  Route::post('/login', array('uses' => 'HomeController@acceso'));
 
+ Route::any('/verificar-certificado', array('uses' => 'HomeController@verificarCertificado'));
 

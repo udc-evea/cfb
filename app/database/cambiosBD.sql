@@ -204,3 +204,24 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -- la sintaxis es:
 /* Cambio en la base la versión de código del sistema, de 3.1.8 a 3.1.9 */
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.9' WHERE  `version_bd`.`version_codigo` =  '3.1.8' LIMIT 1 ;
+
+
+
+/* ######  2016/05/31  ####################### */
+--    VERSION_BASE: 3.1.5 - VERSION_CODIGO: 3.1.10
+-- Validacion de Certificados
+/* 
+1) Código de verificacion es con A-Z y 0-9 (sin minusculas)
+2) Creo form de verificación con GET+CUV, GET solo y POST
+3) Agrego el campo de codigo_verificacion en la tabla "Capacitar", para el certificado.
+4) Agrego el codigo_verificacion en la creacion de los Capacitadores y por ende en su Certificados
+5) se cambia la versión del código a 3.1.10
+6) se cambia la versión de la base de datos a 3.1.5
+*/
+-- la sintaxis es:
+/* creo el campo codigo_verificacion para los capacitadores UNIQUE */
+-> ALTER TABLE `capacitador` ADD `codigo_verificacion` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Campo dónde se almacenará el código de verificación para los Certificados de los Capacitadores' , ADD UNIQUE (`codigo_verificacion`) ;
+/* Cambio en la base la versión de código del sistema, de 3.1.9 a 3.1.10 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.10' WHERE  `version_bd`.`version_codigo` =  '3.1.9' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.1.4 a 3.1.5 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.5' WHERE  `version_bd`.`version` =  '3.1.4' LIMIT 1 ;

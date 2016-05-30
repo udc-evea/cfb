@@ -71,7 +71,7 @@
             mkdir($dir_to_save);
         }
         $filename = "of_".$rows->id; $filename .= "_cap_".$capacPersonal->id; $filename .= ".png";
-        $mje = "http://udc.edu.ar/verificacion-de-certificado?cuv=";
+        $mje = "http://udc.edu.ar/verificacion-de-certificado?cuv=".$cap->codigo_verificacion;
         $writer->writeFile($mje,$dir_to_save.$filename);
     ?>  
     
@@ -90,7 +90,7 @@
                 <span><?php echo strtoupper($aux) ?></span> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
         </div>
-            <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $rows->codigo_verificacion ?></span></p>
+            <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $cap->codigo_verificacion ?></span></p>
             <p id="cuvhelp">Para verificar el certificado accedé a http://udc.edu.ar/verificacion-de-certificados o escaneá el código QR con tu celular</p>            
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>

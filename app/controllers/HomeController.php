@@ -68,4 +68,35 @@ class HomeController extends BaseController {
 	{                            
             return View::make('inicio.inicio');
 	}
+        
+        public function verificarCertificado(){
+            //controlador para manejar el Sistema de Verificación de Certificados
+            $cant_caracteres_cuv = 19;  //16 caracteres + 3 guiones
+            
+            //obtengo si vine por GET o por POST
+            $method = Request::getMethod();
+            if($method == 'POST'){
+                $input = Input::except(['_token']);
+                $mje = "vino por POST!";
+                $codGET = $input['codigovalidacion'];
+            }else{
+                if(Request::has('cuv')){
+                    $codGET = Request::get('cuv');
+                    if(strlen($codGET) != $cant_caracteres_cuv ){
+                        $mje = "El CUV ingresado no tiene los 19 caracteres necesarios.";
+                    }
+                }else{
+                    $codGET = null;
+                }            
+                if($codGET == null){
+                    $mje = "vino por GET pero NOOOOOO tiene el CUV";
+                }else{
+                    $mje = "vino por GET con el CUV";
+                }
+            }
+            
+            return View::make('inicio.verificarCodigo')
+                    ->with('mje',$mje)
+                    ->with('cuv',$codGET);
+        }
 }

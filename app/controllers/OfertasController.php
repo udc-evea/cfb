@@ -342,6 +342,8 @@ class OfertasController extends BaseController {
                     $listaAsociativo[$i]['personal_id'] = $lista[$j];
                     //obtengo el campo rol_id y lo guardo en el array asociativo
                     $listaAsociativo[$i]['rol_id'] = $lista[$j+1];
+                    //genero el código de verificación para el certificado del Capacitador
+                    $listaAsociativo[$i]['codigo_verificacion'] = $this->generarCodigoDeVerificacion();
                     //incremento las variables utilizadas: $j para sacar la info de la lista, e $i para el array asociativo
                     $j=$j+2; $i++;
                 }

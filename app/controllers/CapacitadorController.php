@@ -193,7 +193,7 @@ class CapacitadorController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-            $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-warning-sign');
             $final = $this->getEstiloMensajeFinal();
             if(Auth::user()->perfil == 'Administrador'){
 		$this->capacitador->find($id)->delete();
