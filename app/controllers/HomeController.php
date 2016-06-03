@@ -69,34 +69,194 @@ class HomeController extends BaseController {
             return View::make('inicio.inicio');
 	}
         
-        public function verificarCertificado(){
-            //controlador para manejar el Sistema de Verificación de Certificados
-            $cant_caracteres_cuv = 19;  //16 caracteres + 3 guiones
+        public function verificarCertificado(){            
             
             //obtengo si vine por GET o por POST
             $method = Request::getMethod();
+            //inicializo variables
+            $inscripto=null;$oferta=null;$personal=null;$rol=null;$encontrado=false;
+            
+            //si viene por post, armo el código completo y verifico
             if($method == 'POST'){
                 $input = Input::except(['_token']);
-                $mje = "vino por POST!";
-                $codGET = $input['codigovalidacion'];
-            }else{
-                if(Request::has('cuv')){
-                    $codGET = Request::get('cuv');
-                    if(strlen($codGET) != $cant_caracteres_cuv ){
-                        $mje = "El CUV ingresado no tiene los 19 caracteres necesarios.";
+                //junto los códigos ingresados
+                $codPOST = $this->armarCodigoDeVerificacion($input['codigovalidacion1'], $input['codigovalidacion2'], $input['codigovalidacion3'], $input['codigovalidacion4']);
+                //verifico que el código sea correcto
+                if($this->esCodigoValido($codPOST)){
+                    //si es correcto, busco en la BD el código
+                    $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                    $final = $this->getEstiloMensajeFinal();                    
+                    $esInscriptoDeOferta = DB::table('inscripcion_oferta')->where('codigo_verificacion','=',$codPOST)->get();
+                    if($esInscriptoDeOferta == null){
+                        $esInscriptoDeEvento = DB::table('inscripcion_evento')->where('codigo_verificacion','=',$codPOST)->get();
+                        if($esInscriptoDeEvento == null){
+                            $esCapacitador = DB::table('capacitador')->where('codigo_verificacion','=',$codPOST)->get();
+                            if($esCapacitador == null){
+                                $cabecera = $this->getEstiloMensajeCabecera('warning', 'glyphicon glyphicon-warning-sign');
+                                $final = $this->getEstiloMensajeFinal();
+                                return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                    ->with('message', "$cabecera La sintaxis del código ingresado es correcta, aunque no se encuentra un certificado que coincida! comuniquese con la Universidad del Chubut $final");
+                            }else{
+                                $encontrado = true;
+                                $oferta = DB::table('oferta_formativa')->where('id','=',$esCapacitador[0]->oferta_id)->get();
+                                $personal = DB::table('personal')->where('id','=',$esCapacitador[0]->personal_id)->get();
+                                $rol = DB::table('rol_capacitador')->where('id','=',$esCapacitador[0]->rol_id)->get();
+                                return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                    //->with('oferta',$oferta)
+                                    //->with('personal',$personal)
+                                    //->with('rol',$rol)
+                                    ->with('message', "$cabecera El código Ingresado es Correcto $final");
+                            }
+                        }else{
+                            $encontrado = true;
+                            $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeEvento[0]->oferta_formativa_id)->get();                  
+                            return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado'))
+                                    //->with('oferta',$oferta)
+                                    ->with('inscripto',$esInscriptoDeEvento)
+                                    ->with('message', "$cabecera El código Ingresado es Correcto $final");
+                        }
+                    }else{
+                        $encontrado = true;
+                        $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeOferta[0]->oferta_formativa_id)->get();                     
+                        return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                //->with('oferta',null)
+                                //->with('inscripto',null)
+                                ->with('message', "$cabecera El código Ingresado es Correcto $final");            
                     }
                 }else{
-                    $codGET = null;
-                }            
-                if($codGET == null){
-                    $mje = "vino por GET pero NOOOOOO tiene el CUV";
-                }else{
-                    $mje = "vino por GET con el CUV";
+                    $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                    $final = $this->getEstiloMensajeFinal();
+                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                          ->with('message', "$cabecera El código ingresado no es correcto. Verifique el código e intente nuevamente!! $final");
                 }
-            }
+            //si viene por GET, me fijo si viene el codigo como parametro
+            }else{
+                //si vino el codigo, verifico que sea correcto
+                if(Request::has('cuv')){
+                    $codGET = Request::get('cuv');
+                    //verifico que el código sea correcto
+                    if($this->esCodigoValido($codGET)){
+                        //si es correcto, busco en la BD el código
+                        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+                        $final = $this->getEstiloMensajeFinal();
+                        $esInscriptoDeOferta = DB::table('inscripcion_oferta')->where('codigo_verificacion','=',$codGET)->get();
+                        if($esInscriptoDeOferta == null){
+                            $esInscriptoDeEvento = DB::table('inscripcion_evento')->where('codigo_verificacion','=',$codGET)->get();
+                            if($esInscriptoDeEvento == null){
+                                $esCapacitador = DB::table('capacitador')->where('codigo_verificacion','=',$codGET)->get();
+                                if($esCapacitador == null){
+                                    $cabecera = $this->getEstiloMensajeCabecera('warning', 'glyphicon glyphicon-warning-sign');
+                                    $final = $this->getEstiloMensajeFinal();
+                                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                        ->with('message', "$cabecera Si bien el código ingresado es correcto, no se encuentra un certificado que coincida! comuniquese con la Universidad del Chubut $final");
+                                }else{
+                                    $encontrado = true;
+                                    $oferta = DB::table('oferta_formativa')->where('id','=',$esCapacitador[0]->oferta_id)->get();
+                                    $personal = DB::table('personal')->where('id','=',$esCapacitador[0]->personal_id)->get();
+                                    $rol = DB::table('rol_capacitador')->where('id','=',$esCapacitador[0]->rol_id)->get();
+                                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                        //->with('oferta',$oferta)
+                                        //->with('personal',$personal)
+                                        //->with('rol',$rol)
+                                        //->with('inscripto',null)
+                                        ->with('message', "$cabecera El código Ingresado es Correcto $final");
+                                }
+                            }else{
+                                $encontrado = true;
+                                $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeEvento[0]->oferta_formativa_id)->get();                    
+                                return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado'))
+                                        //->with('oferta',$oferta)
+                                        ->with('inscripto',$esInscriptoDeEvento)
+                                        ->with('message', "$cabecera El código Ingresado es Correcto $final");
+                            }
+                        }else{
+                            $encontrado = true;
+                            $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeOferta[0]->oferta_formativa_id)->get();
+                            return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado'))
+                                    //->with('oferta',$oferta)
+                                    ->with('inscripto',$esInscriptoDeOferta)
+                                    ->with('message', "$cabecera El código Ingresado es Correcto $final");            
+                        }
+                    //si el código no es correcto, muestro mje de error
+                    }else{
+                        $encontrado = true;
+                        $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                        $final = $this->getEstiloMensajeFinal();
+                        return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                            ->with('message', "$cabecera El código ingresado no es correcto. Verifique el código e intente nuevamente!! $final");
+                    }
+                //si no vino el código por parametro
+                }else{
+                    //voy a la pagina de verificacion sin mensajes
+                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                        ->with('message', null);
+                }
+            }                                 
+        }
+        
+        private function armarCodigoDeVerificacion($parte1,$parte2,$parte3,$parte4)
+        {            
+            return $codigo = $parte1.'-'.$parte2.'-'.$parte3.'-'.$parte4;
+        }
+        
+        private function esCodigoValido($cod)
+        {
+            $tamanioCodigo = 19;
             
-            return View::make('inicio.verificarCodigo')
-                    ->with('mje',$mje)
-                    ->with('cuv',$codGET);
+            return ($tamanioCodigo == strlen($cod));
+        }
+        
+        public static function arreglarCaracteres($s1) 
+        {
+            $s1 = str_replace(
+                array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+                array('Á', 'Á', 'A', 'A', 'A', 'Á', 'Á', 'A', 'A'),
+                $s1
+            );
+            $s1 = str_replace(
+                array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+                array('É', 'É', 'E', 'E', 'É', 'É', 'E', 'E'),
+                $s1
+            );
+            $s1 = str_replace(
+                array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+                array('Í', 'Í', 'I', 'I', 'Í', 'Í', 'I', 'I'),
+                $s1
+            );
+
+            $s1 = str_replace(
+                array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+                array('Ó', 'Ó', 'O', 'O', 'Ó', 'Ó', 'O', 'O'),
+                $s1
+            );
+
+            $s1 = str_replace(
+                array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+                array('Ú', 'Ú', 'U', 'U', 'Ú', 'Ú', 'U', 'U'),
+                $s1
+            );
+
+            $s1 = str_replace(
+                array('ñ', 'Ñ', 'ç', 'Ç'),
+                array('Ñ', 'Ñ', 'c', 'C'),
+                $s1
+            );
+
+            //Esta parte se encarga de eliminar cualquier caracter extraño
+            // quito el apóstrofe para apellidos tipo "D'alessandro" - "'",
+            $s1 = str_replace(
+                array("\\", "¨", "º", "-", "~",
+                     "#", "@", "|", "!", "\"",
+                     "·", "$", "%", "&", "/",
+                     "(", ")", "?", "¡",
+                     "¿", "[", "^", "`", "]",
+                     "+", "}", "{", "¨", "´",
+                     ">", "< ", ";", ",", ":",
+                     "."),
+                '',
+                $s1
+            );
+            
+            return $s1;
         }
 }

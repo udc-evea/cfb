@@ -56,6 +56,7 @@
                 <p><a href="{{ route('usuarios.index') }}" class="btn btn-lg btn-danger" style='width: 300px' title="Ver todas las Usuarios"><i class="glyphicon glyphicon-user"></i> Usuarios del Sistema</a></p>
                 <p><a href="{{ route('personal.index') }}" class="btn btn-lg btn-success" style='width: 300px' title="Ver todo el Personal en condiciones de actuar como Capacitadores"><i class="glyphicon glyphicon-user"></i> Personal para Capacitaciones</a></p>
                 <p><a href="{{ route('titulacion.index') }}" class="btn btn-lg btn-default" style='width: 300px' title="Ver todas las titulaciones disponibles"><i class="glyphicon glyphicon-book"></i> Titulaciones</a></p>
+                <p><a href="{{ action('HomeController@verificarCertificado') }}" class="btn btn-lg btn-default" style='width: 300px' title="Verificar si un certificado es válido" target="_blank"><i class="glyphicon glyphicon-qrcode"></i> Verificar Certificado</a></p>
             @endif
             <p><a href="{{action('HomeController@salir')}}" class="btn btn-lg btn-warning" title="Salir del Sistema de Inscripciones"><i class="glyphicon glyphicon-off"></i> Salir</a></p>
         </div>

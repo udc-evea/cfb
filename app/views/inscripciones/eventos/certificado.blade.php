@@ -56,7 +56,7 @@
         $meses = array('01' => 'Enero','02' => 'Febrero','03' => 'Marzo','04' => 'Abril',
                 '05' => 'Mayo','06' => 'Junio','07' => 'Julio','08' => 'Agosto',
                 '09' => 'Septiembre','10' => 'Octubre','11' => 'Noviembre','12' => 'Diciembre',);
-        $aux = array_get($meses, date('m'));
+        $mes_actual = array_get($meses, date('m'));
         //código para generar la imagen del código QR se guarda en public/images/qrcodes
         $renderer = new \BaconQrCode\Renderer\Image\Png();
         $renderer->setHeight(256);
@@ -67,8 +67,10 @@
             mkdir($dir_to_save);
         }
         $filename = "ev_".$rows->oferta->id; $filename .= "_insc_".$rows->id; $filename .= ".png";
-        $mje = "http://udc.edu.ar/verificacion-de-certificado?cuv=".$rows->codigo_verificacion;
+        $mje = URL::to("/verificar-certificado?cuv=").$rows->codigo_verificacion;        
         $writer->writeFile($mje,$dir_to_save.$filename);
+        //compruebo los caracteres del apellido y nombre
+        $rows->apellido = HomeController::arreglarCaracteres($rows->apellido);
     ?>    
            
     <div class="certificado">
@@ -77,15 +79,15 @@
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
             <p><span><?php echo strtoupper($rows->apellido).", ".$rows->nombre;?></span></p>
             <p>D.N.I. <span><?php echo number_format($rows->documento, 0, ',', '.');?>,</span></p>
-            <p>asistió a <span><?php echo strtoupper($rows->oferta->nombre);?></span></p>
+            <p>asistió a <span><?php echo $rows->oferta->nombre;?></span></p>
             <br>
             <p>Se extiende el presente certificado a los 
                 <span><?php echo date('d')?></span> días del mes de 
-                <span><?php echo strtoupper($aux) ?></span> de 2016</p>
+                <span><?php echo $mes_actual ?></span> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
         </div>
             <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $rows->codigo_verificacion ?></span></p>
-            <p id="cuvhelp">Para verificar el certificado accedé a http://udc.edu.ar/verificacion-de-certificados o escaneá el código QR con tu celular</p>            
+            <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
     
