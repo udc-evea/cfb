@@ -46,19 +46,3 @@ Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.</p></div>
     </div>
     </body>
 </html>
-
-
-
-<div>
-            {{ $message }}
-            <?php if(Session::has('inscripto')):?>
-                @if(count($inscripto))
-                    <br>
-                    <?php echo var_dump($inscripto);?>
-                    <br>
-                    {{ $inscripto[0]->apellido }}, {{ $inscripto[0]->nombre }}<br>
-                    {{ $inscripto[0]->oferta_formativa_id }}<br>
-                    {{ $oferta[0]->nombre }}
-                @endif
-            <?php endif;?>
-        </div>
