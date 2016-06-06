@@ -17,7 +17,11 @@
            <td>
                <?php $firstName = $item->sanear_string($item->nombre); ?>
                <?php $lastName = $item->sanear_string($item->apellido); ?>
-               {{ $firstName }},{{ $lastName }},{{ $item->email_institucional }},{{ $item->documento }},,,,,,,,,,,,
+               <?php $clave = $item->documento; 
+                    if(strlen($item->documento)<8){
+                        $clave = $item->documento."udc";
+                    }?>
+               {{ $firstName }},{{ $lastName }},{{ $item->email_institucional }},{{ $clave }},,,,,,,,,,,,
            </td>
         </tr>
         <?php $i++;?>

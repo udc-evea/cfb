@@ -95,8 +95,13 @@
                                         <td><?php echo $capacPersonal->getApellidoYNombre() ?></td>
                                         <td><?php echo $capacRol->rol ?></td>
                                         <td>
-                                            <?php $name = $oferta->cert_base_cap_file_name ?>
-                                            <?php if ($name != null): ?>
+                                            <?php 
+                                                $nomb = $oferta->cert_base_cap_file_name;
+                                                $hs = $oferta->duracion_hs;
+                                                $resol = $oferta->resolucion_nro;
+                                                $fechafinoferta = $oferta->fecha_fin_oferta;
+                                            ?>
+                                            <?php if (($nomb != null)&&($hs != null)&&($resol != null)&&($fechafinoferta != null)): ?>
                                                 <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $oferta->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                             <?php else: ?>
                                                 {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}

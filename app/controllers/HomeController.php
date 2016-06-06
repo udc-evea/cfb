@@ -117,6 +117,7 @@ class HomeController extends BaseController {
                         }
                     }else{
                         $encontrado = true;
+                        $inscripto = $esInscriptoDeOferta;
                         $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeOferta[0]->oferta_formativa_id)->get();                     
                         return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
                                 //->with('oferta',null)
@@ -256,7 +257,6 @@ class HomeController extends BaseController {
                 '',
                 $s1
             );
-            
             return $s1;
         }
 }

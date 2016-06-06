@@ -8,7 +8,7 @@
     </div>
 @endif
 @if (count($preinscripciones))
-<fieldset>
+  <fieldset>
     <div id="preinscriptos">
         <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
         <button class="sort" data-sort="nro" >Por Nro.</button>
@@ -26,8 +26,8 @@
                     @if($perfil != "Colaborador")
                         <th>Documento</th>
                     @endif
-                    <th>Localidad</th>
-                    <th>E-mail</th>
+                    <!--<th>Localidad</th> 
+                    <th>E-mail</th> -->
                     @if($perfil != "Colaborador")
                         <!-- <th>Email UDC</th> -->
                         <!-- <th>Requisitos</th> -->
@@ -35,7 +35,7 @@
                         <!-- <th>Comision Nro.</th> 
                         <th>Notificado/a</th> -->
                     @endif
-                    <th>Acciones</th>
+                    <!--<th>Acciones</th>-->
                 </tr>
             </thead>
             <tbody class="list">
@@ -54,8 +54,8 @@
                         @if($perfil != "Colaborador")
                             <td>{{ $inscripcion->tipoydoc }}</td>
                         @endif
-                        <td>{{ $inscripcion->localidad->la_localidad }}</td>
-                        <td>{{ $inscripcion->email }}</td>
+                        <!--<td>{{ $inscripcion->localidad->la_localidad }}</td>
+                        <td>{{ $inscripcion->email }}</td> -->
                         @if($perfil != "Colaborador")
                             <!-- <td>{{{ $inscripcion->email_institucional }}}</td> -->
                             <!-- <td>
@@ -102,15 +102,14 @@
                                 @endif
                             </td>-->
                         @endif                        
-                        <td>
-                            {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
-                            <!-- <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-default" title="Imprimir formulario de inscripcion"><i class="fa fa-file-pdf-o"></i></a> -->
+                        <!--<td>
+                            {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}                            
                             @if($perfil != "Colaborador")
-                                {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
+                                {{ Form::open(array('id'=>'formBorrarInscripto','class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
                                     {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
                                 {{ Form::close() }}
                             @endif
-                        </td>
+                        </td>-->
                     </tr>
                     <?php $i++;?>
 		@endforeach
@@ -124,10 +123,10 @@
             {{ Form::close() }}
         @endif
     </div>
-</fieldset>
+  </fieldset>
 @else
-<h2>Aún no hay inscriptos en esta oferta.</h2>
-<p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
+    <h2>Aún no hay inscriptos en esta oferta.</h2>
+    <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
 @endif
 
 <script>

@@ -34,11 +34,11 @@
             <div class="alert alert-info">
                 {{ Form::open(array('action'=>'HomeController@verificarCertificado')) }}
                 <fieldset>
-                    <div id="legend">
+                    <!--<div id="legend">
                         <legend class="">Probar Oferta con: K6XD-YBJJ-RCJC-3P5I</legend>
                         <legend class="">Probar Evento con: ZZJQ-7WJ9-J0PP-MVK5</legend>
                         <legend class="">Probar Capacitador con: NZO8-RNM4-LWMA-XOYK</legend>
-                    </div>
+                    </div>-->
                     <div class="row">
                         <div class="col-xs-1" style="margin-left: 33%">
                           {{Form::text('codigovalidacion1', null,array('class' => 'form-control','id'=>'codigovalidacion1','title'=>'CUV: primeros 4 caracteres.','placeholder'=>'XXXX','style'=>'text-transform:uppercase','onkeyup'=>'javascript:this.value=this.value.toUpperCase()','maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}

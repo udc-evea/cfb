@@ -194,6 +194,7 @@ input[readonly] {
         </div>    
     </div>
     <hr>
+    <div class="alert alert-info" style="padding: 20px;">
         <!-- Agrego el campo nuevo: certificado_base_alumnos -->
         <div class="form-group">
             <label for="cert_base_alum_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para ALUMNOS:</label>
@@ -217,7 +218,7 @@ input[readonly] {
                 <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
             </div>
         </div>
-    <hr>
+        <hr>
         <!-- Agrego el campo nuevo: certificado_base_capacitadores -->
         <div class="form-group">
             <label for="cert_base_cap_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para CAPACITADORES:</label>
@@ -240,7 +241,8 @@ input[readonly] {
                 </div>
                 <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
             </div>
-        </div>    
+        </div> 
+    </div>
     <hr>
 </div>
 <?php if($newForm): ?>

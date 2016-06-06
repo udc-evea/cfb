@@ -70,14 +70,14 @@
         $mje = URL::to("/verificar-certificado?cuv=").$rows->codigo_verificacion;        
         $writer->writeFile($mje,$dir_to_save.$filename);
         //compruebo los caracteres del apellido y nombre
-        $rows->apellido = HomeController::arreglarCaracteres($rows->apellido);
+        $apellidoBien = HomeController::arreglarCaracteres($rows->apellido);
     ?>    
            
     <div class="certificado">
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><span><?php echo strtoupper($rows->apellido).", ".$rows->nombre;?></span></p>
+            <p><span><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></span></p>
             <p>D.N.I. <span><?php echo number_format($rows->documento, 0, ',', '.');?>,</span></p>
             <p>asistió a <span><?php echo $rows->oferta->nombre;?></span></p>
             <br>

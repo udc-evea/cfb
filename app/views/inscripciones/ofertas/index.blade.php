@@ -47,6 +47,13 @@
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones" role="tablist">
                     <li class='active'>
+                        <a title="Todos los Preinscriptos a la Oferta." href="#tab_datos" role="tab" data-toggle="tab">
+                            <i class="glyphicon glyphicon-user"></i> 
+                            Editar Datos 
+                            <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
+                        </a>
+                    </li>
+                    <li>
                         <a title="Todos los Preinscriptos a la Oferta." href="#tab_preinscriptos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-align-justify"></i> 
                             Presinscriptos 
@@ -98,9 +105,12 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_preinscriptos">
+            <div class="tab-pane active" id="tab_datos">
+                @include('inscripciones.ofertas.datos', compact('preinscriptos'))
+            </div>
+            <div class="tab-pane" id="tab_preinscriptos">
                 @include('inscripciones.ofertas.preinscriptos', compact('preinscriptos'))
-            </div>            
+            </div>
             <div class="tab-pane" id="tab_inscriptos">
                 @include('inscripciones.ofertas.inscriptos', compact('inscriptos'))
             </div>
