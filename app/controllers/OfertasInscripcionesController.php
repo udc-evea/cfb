@@ -62,7 +62,7 @@ class OfertasInscripcionesController extends BaseController {
                     $aprobado = $oferta->aprobados->find($id_alumno);
                     return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
                 case parent::EXPORT_PDFAS:
-                    //traigo solo los datos de alumno Asistente para exportar a pdf
+                    //traigo solo los datos de alumno ASISTENTE para exportar a pdf
                     $id_alumno = Request::get('alm');
                     $alumnoAsistente = $oferta->asistentes->find($id_alumno);
                     return $this->exportarPDF($oferta->nombre." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
@@ -74,6 +74,14 @@ class OfertasInscripcionesController extends BaseController {
                     //traigo solos los asistentes al evento para exportar a excel
                     $asistentes = $oferta->asistentes->all();
                     return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                case parent::EXPORT_PDFAPDOS:
+                    //traigo todos los aprobados de la oferta para exportar a pdf
+                    $aprobados = $oferta->aprobados->all();
+                    return $this->exportarPDF($oferta->nombre."_aprobados",$aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                case parent::EXPORT_XLSAPDOS:
+                    //traigo todos los aprobados de la oferta para exportar a excel
+                    $aprobados = $oferta->aprobados->all();
+                    return $this->exportarXLS($oferta->nombre."_aprobados_XLS", $aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
             }
       }
 

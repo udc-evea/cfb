@@ -40,6 +40,13 @@
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones" role="tablist">
                     <li class='active'>
+                        <a title="Todos los datos de los Preinscriptos a la Carrera" href="#tab_datos" role="tab" data-toggle="tab">
+                            <i class="glyphicon glyphicon-align-justify"></i> 
+                            Editar Datos
+                            <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
+                        </a>
+                    </li>
+                    <li>
                         <a title="Todos los Preinscriptos a la Carrera" href="#tab_preinscriptos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-align-justify"></i> 
                             Presinscriptos 
@@ -54,7 +61,10 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_preinscriptos">
+            <div class="tab-pane active" id="tab_datos">
+                @include('inscripciones.carreras.datos', compact('inscripciones'))
+            </div>
+            <div class="tab-pane" id="tab_preinscriptos">
                 @include('inscripciones.carreras.preinscriptos', compact('inscripciones'))
             </div>
             <div class="tab-pane" id="tab_inscriptos">

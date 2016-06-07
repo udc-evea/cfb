@@ -112,11 +112,13 @@
                                 </table>
                                 <div class='row-fluid'>
                                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"> Agregar más</button>
+                                    <a href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'xlscapes')) }}" target="_blank" title="Exportar listado de Capacitadores a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+                                    <a href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcapes')) }}" target="_blank" title="Exportar listado de Capacitadores a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                 </div>
                             </fieldset>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                           </div>
                         </div>
 

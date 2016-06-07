@@ -32,7 +32,7 @@
                         <th>Inscripto ({{ count($inscriptos) }})</th>
                         <th>Notificado/a</th>
                     @endif
-                    <th>Acciones</th>
+                    <!--<th>Acciones</th>-->
                 </tr>
             </thead>
             <tbody class="list">
@@ -78,7 +78,7 @@
                                 @endif
                             </td>
                         @endif  
-                        <td>
+                        <!--<td>
                             {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
                             <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-xs btn-default" title="Imprimir formulario de inscripcion"><i class="fa fa-file-pdf-o"></i></a>
                             @if($perfil != "Colaborador")
@@ -86,7 +86,7 @@
                                     {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
                                 {{ Form::close() }}
                             @endif
-                        </td>
+                        </td>-->
                     </tr>
                     <?php $i++;?>
                 @endforeach

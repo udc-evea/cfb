@@ -2,15 +2,24 @@
 
 class BaseController extends Controller {
 	const EXPORT_XLSP = 'xlsp'; //exportar a excel todos los preinscriptos
+        const EXPORT_PDFP = 'pdfp'; //exportar a pdf todos los preinscriptos
+        
         const EXPORT_XLSI = 'xlsi'; //exportar a excel todos los inscriptos
-        const EXPORT_XLSAS = 'xlsas'; //exportar a excel todos los asistentes a evento
-	const EXPORT_PDFP = 'pdfp'; //exportar a pdf todos los preinscriptos
         const EXPORT_PDFI = 'pdfi'; //exportar a pdf todos los inscriptos
         const EXPORT_CSV = 'csv'; //exportar a csv todos los inscriptos
-        const EXPORT_PDFA = 'pdfa'; //exportar a pdf todos los aprobados
-        const EXPORT_PDFAS = 'pdfas'; //exportar a pdf los datos del Asistente (p/el certificado)
+        
+        const EXPORT_XLSAS = 'xlsas'; //exportar a excel todos los asistentes a evento
         const EXPORT_PDFASIST = 'pdfasist'; //exportar a pdf todos los asistentes a un evento
+        
+        const EXPORT_XLSAPDOS = 'xlsapdos'; //exportar a excel todos los aprobados de un curso
+        const EXPORT_PDFAPDOS = 'pdfapdos'; //exportar a pdf todos los aprobados de un curso
+        
+        const EXPORT_PDFA = 'pdfa'; //exportar a pdf los datos del Aprobado (p/el certificado)
+        const EXPORT_PDFAS = 'pdfas'; //exportar a pdf los datos del Asistente (p/el certificado)
         const EXPORT_PDFCAP = 'pdfcap'; //exportar a pdf los datos del capacitador (p/el certificado)
+        
+        const EXPORT_XLSCAPES = 'xlscapes'; //exportar a xls el listado de los capacitadores de una Oferta
+        const EXPORT_PDFCAPES = 'pdfcapes'; //exportar a pdf el listado de los capacitadores de una Oferta
 
 	/**
 	 * Setup the layout used by the controller.

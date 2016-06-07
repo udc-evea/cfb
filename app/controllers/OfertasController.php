@@ -108,6 +108,19 @@ class OfertasController extends BaseController {
                             Session::set('cap', $capacitador);
                             //Session::set('of', $oferta);
                             return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
+                        case parent::EXPORT_XLSCAPES:
+                            $id_oferta = Request::get('ofid');
+                            $oferta = $this->oferta->find($id_oferta);
+                            $capacitadores = Oferta::obtenerCapacitadoresDeLaOferta($id_oferta);
+                            Session::set('capacitadores', $capacitadores);
+                            return $this->exportarXLS($oferta->nombre."_Capacitadores", $oferta, 'ofertas.capacitadores');
+                        case parent::EXPORT_PDFCAPES:
+                            $id_oferta = Request::get('ofid');
+                            //$oferta = $this->oferta->find($id_oferta);
+                            $oferta = DB::table('oferta_formativa')->where('id','=',$id_oferta)->get();
+                            $capacitadores = Oferta::obtenerCapacitadoresDeLaOferta($id_oferta);
+                            Session::set('capacitadores', $capacitadores);
+                            return $this->exportarPDF($oferta[0]->nombre."_Capacitadores", $oferta, 'ofertas.capacitadores');
                     }
                 }
                 Session::set('tab_activa', $this->oferta->tab);

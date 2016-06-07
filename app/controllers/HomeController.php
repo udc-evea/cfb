@@ -74,7 +74,7 @@ class HomeController extends BaseController {
             //obtengo si vine por GET o por POST
             $method = Request::getMethod();
             //inicializo variables
-            $inscripto=null;$oferta=null;$personal=null;$rol=null;$encontrado=false;
+            $inscripto=null;$oferta=null;$personal=null;$rol=null;$encontrado=false;$tipoOferta='Oferta';
             
             //si viene por post, armo el código completo y verifico
             if($method == 'POST'){
@@ -94,24 +94,26 @@ class HomeController extends BaseController {
                             if($esCapacitador == null){
                                 $cabecera = $this->getEstiloMensajeCabecera('warning', 'glyphicon glyphicon-warning-sign');
                                 $final = $this->getEstiloMensajeFinal();
-                                return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado','tipoOferta'))
                                     ->with('message', "$cabecera La sintaxis del código ingresado es correcta, aunque no se encuentra un certificado que coincida! comuniquese con la Universidad del Chubut $final");
                             }else{
                                 $encontrado = true;
                                 $oferta = DB::table('oferta_formativa')->where('id','=',$esCapacitador[0]->oferta_id)->get();
                                 $personal = DB::table('personal')->where('id','=',$esCapacitador[0]->personal_id)->get();
                                 $rol = DB::table('rol_capacitador')->where('id','=',$esCapacitador[0]->rol_id)->get();
-                                return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
-                                    //->with('oferta',$oferta)
-                                    //->with('personal',$personal)
-                                    //->with('rol',$rol)
+                                if($oferta[0]->tipo_oferta == 1){
+                                    $tipoOferta = 'Carrera';
+                                }elseif($oferta[0]->tipo_oferta == 3){
+                                    $tipoOferta = 'Evento';
+                                }
+                                return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado','tipoOferta'))
                                     ->with('message', "$cabecera El código Ingresado es Correcto $final");
                             }
                         }else{
                             $encontrado = true;
                             $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeEvento[0]->oferta_formativa_id)->get();                  
-                            return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado'))
-                                    //->with('oferta',$oferta)
+                            $tipoOferta = 'Evento';
+                            return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado','tipoOferta'))
                                     ->with('inscripto',$esInscriptoDeEvento)
                                     ->with('message', "$cabecera El código Ingresado es Correcto $final");
                         }
@@ -119,9 +121,7 @@ class HomeController extends BaseController {
                         $encontrado = true;
                         $inscripto = $esInscriptoDeOferta;
                         $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeOferta[0]->oferta_formativa_id)->get();                     
-                        return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
-                                //->with('oferta',null)
-                                //->with('inscripto',null)
+                        return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado','tipoOferta'))
                                 ->with('message', "$cabecera El código Ingresado es Correcto $final");            
                     }
                 }else{
@@ -148,33 +148,33 @@ class HomeController extends BaseController {
                                 if($esCapacitador == null){
                                     $cabecera = $this->getEstiloMensajeCabecera('warning', 'glyphicon glyphicon-warning-sign');
                                     $final = $this->getEstiloMensajeFinal();
-                                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
+                                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado','tipoOferta'))
                                         ->with('message', "$cabecera Si bien el código ingresado es correcto, no se encuentra un certificado que coincida! comuniquese con la Universidad del Chubut $final");
                                 }else{
                                     $encontrado = true;
                                     $oferta = DB::table('oferta_formativa')->where('id','=',$esCapacitador[0]->oferta_id)->get();
                                     $personal = DB::table('personal')->where('id','=',$esCapacitador[0]->personal_id)->get();
                                     $rol = DB::table('rol_capacitador')->where('id','=',$esCapacitador[0]->rol_id)->get();
-                                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado'))
-                                        //->with('oferta',$oferta)
-                                        //->with('personal',$personal)
-                                        //->with('rol',$rol)
-                                        //->with('inscripto',null)
+                                    if($oferta[0]->tipo_oferta == 1){
+                                        $tipoOferta = 'Carrera';
+                                    }elseif($oferta[0]->tipo_oferta == 3){
+                                        $tipoOferta = 'Evento';
+                                    }
+                                    return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado','tipoOferta'))
                                         ->with('message', "$cabecera El código Ingresado es Correcto $final");
                                 }
                             }else{
+                                $tipoOferta = 'Evento';
                                 $encontrado = true;
                                 $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeEvento[0]->oferta_formativa_id)->get();                    
-                                return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado'))
-                                        //->with('oferta',$oferta)
+                                return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado','tipoOferta'))
                                         ->with('inscripto',$esInscriptoDeEvento)
                                         ->with('message', "$cabecera El código Ingresado es Correcto $final");
                             }
                         }else{
                             $encontrado = true;
                             $oferta = DB::table('oferta_formativa')->where('id','=',$esInscriptoDeOferta[0]->oferta_formativa_id)->get();
-                            return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado'))
-                                    //->with('oferta',$oferta)
+                            return View::make('inicio.verificarCodigo',compact('oferta','personal','rol','encontrado','tipoOferta'))
                                     ->with('inscripto',$esInscriptoDeOferta)
                                     ->with('message', "$cabecera El código Ingresado es Correcto $final");            
                         }

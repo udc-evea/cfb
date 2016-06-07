@@ -73,12 +73,12 @@
             @endif
         @if($oferta[0] != null)
             <div id='certifOK' class='alert alert-success'>            
-                <div id='imgCertifOK'>
+                <!--<div id='imgCertifOK'>
                     <img src="{{ asset('img/usuario_encontrado.png') }}" width="200"/>
-                </div>
+                </div>-->
                 <div id='datosCertifOK'>
                     @if($oferta[0] != null)
-                        <span><b>Oferta: </b></span>
+                        <span><b>{{ $tipoOferta }}: </b></span>
                         <ul>
                             <li>Nombre: {{ $oferta[0]->nombre }}</li>
                             <li>Finalización: {{ $oferta[0]->fecha_fin_oferta }}</li>
@@ -87,7 +87,7 @@
                         </ul>                    
                     @endif
                     @if($personal[0] != null)
-                        <span><b>Persona: </b></span>
+                        <span><b>Datos Personales: </b></span>
                         <ul>
                             <li>Apellido y Nombre: {{ $personal[0]->apellido }}, {{ $personal[0]->nombre }}</li>
                             <li>D.N.I.: {{ $personal[0]->dni }}</li>
@@ -97,7 +97,7 @@
                         </ul>
                     @endif
                     @if($inscripto[0] != null)
-                        <span><b>Alumno: </b></span>
+                        <span><b>Datos Personales: </b></span>
                         <ul>
                             <li>Apellido y Nombre: {{ $inscripto[0]->apellido }}, {{ $inscripto[0]->nombre }}</li>
                             <li>D.N.I.: {{ $inscripto[0]->documento }}</li>

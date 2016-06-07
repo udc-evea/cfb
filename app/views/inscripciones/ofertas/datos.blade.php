@@ -14,7 +14,7 @@
                         <th>Documento</th>
                     @endif
                     <th>Localidad</th>
-                    <th>E-mails</th>
+                    <th>E-mail</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -27,12 +27,7 @@
                             <td>{{ $inscripcion->tipoydoc }}</td>
                         @endif
                         <td>{{ $inscripcion->localidad->la_localidad }}</td>
-                        <td>
-                            <p>{{ $inscripcion->email }}</p>
-                            @if($perfil != "Colaborador")
-                                <p>{{ $inscripcion->email_institucional }}</p>
-                            @endif
-                        </td>
+                        <td>{{ $inscripcion->email }}</td>
                         <td>
                             {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
                             @if($perfil != "Colaborador")

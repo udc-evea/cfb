@@ -40,7 +40,8 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones_ev" role="tablist">
-                    <li class='active'><a title="Todos los Preinscriptos al evento." href="#tab_preinscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Presinscriptos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
+                    <li class='active'><a title="Editar los datos de todos los Preinscriptos al evento." href="#tab_datos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Editar Datos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
+                    <li><a title="Todos los Preinscriptos al evento." href="#tab_preinscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Presinscriptos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
                     <?php if(!(empty($inscripciones))):?>
                         <li><a title="Solo los Inscriptos al evento." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
                     <?php endif;?>
@@ -52,9 +53,12 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_preinscriptos">
+            <div class="tab-pane active" id="tab_datos">
+                @include('inscripciones.eventos.datos', compact('preinscripciones'))
+            </div>
+            <div class="tab-pane" id="tab_preinscriptos">
                 @include('inscripciones.eventos.preinscriptos', compact('preinscripciones'))
-            </div>            
+            </div>
             <div class="tab-pane" id="tab_inscriptos">
                 @include('inscripciones.eventos.inscriptos', compact('inscripciones'))
             </div>            

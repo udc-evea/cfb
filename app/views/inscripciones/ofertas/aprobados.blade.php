@@ -1,6 +1,10 @@
 @if(count($aprobados))
     <div class="divTotales">
         <div><h4>Total: {{ count($aprobados) }}</h4></div>
+        <div> (
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'xlsapdos')) }}" target="_blank" title="Exportar listado solo de Aprobados a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+            <a href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfapdos')) }}" target="_blank" title="Exportar listado solo de Aprobados a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+         )</div>
     </div>
 @endif
 @if (count($aprobados))
