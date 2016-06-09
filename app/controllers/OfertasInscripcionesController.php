@@ -435,8 +435,8 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion = $insc_class::findOrFail($nroPreIncr);
                 //si el nro. de inscripto es uno de los que se debe inscribir, lo guardo
                 if(array_key_exists($nroPreIncr, $listacheck)){
-                    //si se trata de una Oferta, se debe además reiniciar otros campos
-                    if($oferta->getEsOfertaAttribute()){
+                    //si se trata de una Oferta y no estaba anotado como Inscripto, se debe además reiniciar otros campos
+                    if(($oferta->getEsOfertaAttribute()) && (!$inscripcion->getEsInscripto())){
                         //reinicio comision nro.
                         $inscripcion->setComisionNro(0);
                         //reinicio Aprobado en 0
@@ -519,7 +519,7 @@ class OfertasInscripcionesController extends BaseController {
                 //obtengo el objeto de ese inscripto
                 $inscripcion = $insc_class::findOrFail($nroIncr);
                 //si el nro. de inscripto es uno de los que asistieron, lo guardo
-                if(array_key_exists($nroIncr, $listacheck)){
+                if(array_key_exists($nroIncr, $listacheck) &&(!$inscripcion->getEsAsistente())){
                     //le asigno el campo asistente a 1
                     $inscripcion->setAsistente(1);
                     //genero el Codigo de Verificación del Asistente

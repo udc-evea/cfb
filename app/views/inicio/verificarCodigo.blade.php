@@ -92,7 +92,7 @@
                             <li>Apellido y Nombre: {{ $personal[0]->apellido }}, {{ $personal[0]->nombre }}</li>
                             <li>D.N.I.: {{ $personal[0]->dni }}</li>
                             @if($rol[0] != null)
-                                <li>Participo como: {{ $rol[0]->rol }}</li>
+                                <li>Participó como: {{ $rol[0]->rol }}</li>
                             @endif
                         </ul>
                     @endif
