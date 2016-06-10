@@ -80,6 +80,13 @@
                           </div>
                           <div class="modal-body">
                             <fieldset>
+                                <div class="row-fluid">
+                                    <div class="alert alert-success">
+                                        Descargar listado:
+                                        <a href="{{ URL::Route('ofertas.index', array('ofid' => $oferta->id, 'exp' => 'xlscapes')) }}" target="_blank" title="Exportar listado de Capacitadores a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+                                        <a href="{{ URL::Route('ofertas.index', array('ofid' => $oferta->id, 'exp' => 'pdfcapes')) }}" target="_blank" title="Exportar listado de Capacitadores a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                                    </div>
+                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                         <th>Capacitador</th>

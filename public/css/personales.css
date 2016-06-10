@@ -1,0 +1,15 @@
+/* Estilos para los PDF y los EXCEL de descarga */
+#tituloHoja{
+    font-size: 20pt;
+}
+#cabeceraPlanilla{
+    border: solid 1px black;
+    font-size: 14pt;
+    background-color: #CCC;
+}
+#cabeceraPlanilla th{
+    border: solid 1px black;
+}
+#filaPlanilla td{
+    border: solid 1px black;
+}

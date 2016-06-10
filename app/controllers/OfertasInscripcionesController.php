@@ -37,18 +37,26 @@ class OfertasInscripcionesController extends BaseController {
       if (!empty($exp)) {
             switch ($exp) {
                 case parent::EXPORT_XLSP:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Preinscriptos');
                     //traigo solos los preinscriptos para exportar a excel
                     $preinscripciones = $oferta->inscripciones->all();
                     return $this->exportarXLS($oferta->nombre."_preinscriptos_XLS", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_XLSI:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Inscriptos');
                     //traigo solos los inscriptos para exportar a excel
                     $inscripciones = $oferta->inscriptosOferta->all();
                     return $this->exportarXLS($oferta->nombre."_inscriptos_XLS", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFP:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Preinscriptos');
                     //traigo solos los preinscriptos para exportar a pdf
                     $preinscripciones = $oferta->inscripciones->all();
                     return $this->exportarPDF($oferta->nombre."_preinscriptos_PDF", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFI:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Inscriptos');
                     //traigo solos los inscriptos para exportar a pdf
                     $inscripciones = $oferta->inscriptosOferta->all();
                     return $this->exportarPDF($oferta->nombre."_inscriptos_PDF", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
@@ -67,18 +75,26 @@ class OfertasInscripcionesController extends BaseController {
                     $alumnoAsistente = $oferta->asistentes->find($id_alumno);
                     return $this->exportarPDF($oferta->nombre." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
                 case parent::EXPORT_PDFASIST:
-                    //traigo todos los asistentes dle evento para exportar a pdf
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Asistentes');
+                    //traigo todos los asistentes del evento para exportar a pdf                    
                     $asistentes = $oferta->asistentes->all();
                     return $this->exportarPDF($oferta->nombre."_asistentes",$asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
                 case parent::EXPORT_XLSAS:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Asistentes');
                     //traigo solos los asistentes al evento para exportar a excel
                     $asistentes = $oferta->asistentes->all();
                     return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFAPDOS:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Aprobados');
                     //traigo todos los aprobados de la oferta para exportar a pdf
                     $aprobados = $oferta->aprobados->all();
                     return $this->exportarPDF($oferta->nombre."_aprobados",$aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
                 case parent::EXPORT_XLSAPDOS:
+                    //pongo el titulo del cuadro en la session
+                    Session::set('titulo','Aprobados');
                     //traigo todos los aprobados de la oferta para exportar a excel
                     $aprobados = $oferta->aprobados->all();
                     return $this->exportarXLS($oferta->nombre."_aprobados_XLS", $aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
@@ -458,6 +474,9 @@ class OfertasInscripcionesController extends BaseController {
                     if($oferta->getEsOfertaAttribute()){
                         //reinicio presento_requisitos en FALSE
                         $inscripcion->setRequisitosCompletos(FALSE);
+                    }elseif($oferta->getEsEventoAttribute()){
+                        //reinicio Asistente en 0
+                        $inscripcion->setAsistente(0);
                     }
                 }
                 //guardo los cambios en la BD
@@ -519,7 +538,7 @@ class OfertasInscripcionesController extends BaseController {
                 //obtengo el objeto de ese inscripto
                 $inscripcion = $insc_class::findOrFail($nroIncr);
                 //si el nro. de inscripto es uno de los que asistieron, lo guardo
-                if(array_key_exists($nroIncr, $listacheck) &&(!$inscripcion->getEsAsistente())){
+                if(array_key_exists($nroIncr, $listacheck)){
                     //le asigno el campo asistente a 1
                     $inscripcion->setAsistente(1);
                     //genero el Codigo de Verificación del Asistente

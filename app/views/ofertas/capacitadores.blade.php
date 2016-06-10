@@ -3,38 +3,22 @@
 <html lang="es-AR">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}" media="all">
+        <link rel="stylesheet" href="{{ asset('css/personales.css') }}" media="all">
     </head>
     <body>
-        <?php 
-            $caps = Session::get('capacitadores'); 
-            echo 'Capacitador: <br>';
-            echo 'Personal_ID: '.$caps[0]->personal_id."<br>";
-            echo 'Rol_ID: '.$caps[0]->rol_id."<br>";
-            echo 'Oferta_ID: '.$caps[0]->oferta_id."<br>";
-            echo "#################<br>";
-            echo 'Capacitador: <br>';
-            echo 'Personal_ID: '.$caps[1]->personal_id."<br>";
-            echo 'Rol_ID: '.$caps[1]->rol_id."<br>";
-            echo 'Oferta_ID: '.$caps[1]->oferta_id."<br>";
-            echo "#################<br>";
-            echo 'Oferta: <br>';
-            echo 'Nombre_OF: '.$rows[0]->nombre.'<br>';
-            echo 'ID_OF: '.$rows[0]->id.'<br>';
-        ?>
-        @if(count($rows)>0)
-        <table class="tablaExcel">
+        <?php $caps = Session::get('capacitadores');?>
+        @if(count($caps)>0)        
+        <table>
             <tr>
-                <th colspan="16">
-                    Anotados en Oferta: 
-                </th>
+                <th colspan='5' id="tituloHoja">Capacitadores de la Oferta: {{ $rows[0]->nombre }}<th>
             </tr>
-            <tr>
+            <tr id="cabeceraPlanilla">
                 <th>Nro.</th>
-                <!--<th>Apellido</th>
-                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Documento</th>
-                <th>Inscripto</th>
+                <th>Email</th>
+                <th>Rol en la Oferta</th>
+                <!--<th>Inscripto</th>
                 <th>Pres. Req.</th>
                 <th>Email</th>
                 <th>Email UDC</th>
@@ -48,10 +32,13 @@
                 <th>Comisión Nro.</th>-->
             </tr>
             <?php $i=1;?>
-            @foreach($rows as $item)
-                <tr>
+            @foreach($caps as $cap)
+                <tr id="filaPlanilla">
                     <td>{{ $i }}</td>
-
+                    <td>{{ $cap['personal']['apellido'] }}, {{ $cap['personal']['nombre'] }}</td>
+                    <td>{{ $cap['personal']['dni'] }}</td>
+                    <td>{{ $cap['personal']['email'] }}</td>
+                    <td>{{ $cap['rol']['rol'] }}</td>
                 </tr>
                 <?php $i++;?>
             @endforeach

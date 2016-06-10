@@ -78,6 +78,13 @@
                           </div>
                           <div class="modal-body">
                             <fieldset>
+                                <div class="row-fluid">
+                                    <div class="alert alert-success">
+                                        Descargar listado:
+                                        <a href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'xlscapes')) }}" target="_blank" title="Exportar listado de Capacitadores a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
+                                        <a href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcapes')) }}" target="_blank" title="Exportar listado de Capacitadores a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                                    </div>
+                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                         <th>Capacitador</th>
@@ -112,8 +119,6 @@
                                 </table>
                                 <div class='row-fluid'>
                                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"> Agregar más</button>
-                                    <a href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'xlscapes')) }}" target="_blank" title="Exportar listado de Capacitadores a Excel"><i class="fa fa-file-excel-o fa-3"></i></a>
-                                    <a href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcapes')) }}" target="_blank" title="Exportar listado de Capacitadores a PDF"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                 </div>
                             </fieldset>
                           </div>

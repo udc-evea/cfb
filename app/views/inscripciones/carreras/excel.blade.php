@@ -3,39 +3,35 @@
 <html lang="es-AR">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}" media="all">
+        <link rel="stylesheet" href="{{ asset('css/personales.css') }}" media="all">
     </head>
 <body>
 @if(count($rows)>0)
-    <table class="tablaExcel">
+    <table>
         <tr>
-            <th colspan="10">
-                Anotados en Carrera: {{$rows[0]->oferta->nombre}}
+            <th colspan='8' id="tituloHoja">
+                {{ Session::get('titulo') }} a la Carrera: {{$rows[0]->oferta->nombre}}
             </th>
         </tr>
-        <tr>
+        <tr id="cabeceraPlanilla">
             <th>Nro.</th>
-            <th>Apellido</th>
-            <th>Nombre</th>
+            <th>Ape. y Nom.</th>
             <th>Documento</th>
             <th>Fecha nac.</th>
             <th>Localidad</th>
-            <th>Email</th>
-            <th>Email UDC</th>
+            <th>Emails</th>
             <th>Teléfono fijo</th>
             <th>Teléfono celular</th>
         </tr>
     <?php $i=1;?>
     @foreach($rows as $item)
-        <tr>
+        <tr id="filaPlanilla">
             <td>{{ $i }}</td>
-            <td>{{ $item->apellido }}</td>
-            <td>{{ $item->nombre }}</td>
+            <td class='row-fluid'>{{ $item->apellido }}, {{ $item->nombre }}</td>
             <td>{{ $item->documento }}</td>
             <td>{{ $item->fecha_nacimiento }}</td>
             <td>{{ $item->localidad->localidad }}</td>
-            <td>{{ $item->email }}</td>
-            <td>{{ $item->email_institucional }}</td>
+            <td class='row-fluid'>{{ $item->email }} / {{ $item->email_institucional }}</td>
             <td>{{ $item->telefono_fijo }}</td>
             <td>{{ $item->telefono_celular }}</td>
         </tr>

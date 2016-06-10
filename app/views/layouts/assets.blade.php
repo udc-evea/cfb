@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}" media="all">
 <link rel="stylesheet" href="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main.css') }}" media="all">
+<link rel="stylesheet" href="{{ asset('css/personales.css') }}" media="all">
 <link rel="stylesheet" href="{{ asset('css/checkbox.css') }}" >
 
 

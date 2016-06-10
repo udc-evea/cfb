@@ -110,15 +110,16 @@ class OfertasController extends BaseController {
                             return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
                         case parent::EXPORT_XLSCAPES:
                             $id_oferta = Request::get('ofid');
-                            $oferta = $this->oferta->find($id_oferta);
-                            $capacitadores = Oferta::obtenerCapacitadoresDeLaOferta($id_oferta);
+                            $oferta = DB::table('oferta_formativa')->where('id','=',$id_oferta)->get();
+                            $capAux = Oferta::obtenerCapacitadoresDeLaOferta($id_oferta);
+                            $capacitadores = $this->datosCapacitadores($capAux);
                             Session::set('capacitadores', $capacitadores);
-                            return $this->exportarXLS($oferta->nombre."_Capacitadores", $oferta, 'ofertas.capacitadores');
+                            return $this->exportarXLS($oferta[0]->nombre."_Capacitadores", $oferta, 'ofertas.capacitadores');
                         case parent::EXPORT_PDFCAPES:
                             $id_oferta = Request::get('ofid');
-                            //$oferta = $this->oferta->find($id_oferta);
                             $oferta = DB::table('oferta_formativa')->where('id','=',$id_oferta)->get();
-                            $capacitadores = Oferta::obtenerCapacitadoresDeLaOferta($id_oferta);
+                            $capAux = Oferta::obtenerCapacitadoresDeLaOferta($id_oferta);
+                            $capacitadores = $this->datosCapacitadores($capAux);
                             Session::set('capacitadores', $capacitadores);
                             return $this->exportarPDF($oferta[0]->nombre."_Capacitadores", $oferta, 'ofertas.capacitadores');
                     }
@@ -138,8 +139,19 @@ class OfertasController extends BaseController {
                         ->with('roles',$roles)
                 ;
 	}
+        
+        private function datosCapacitadores($capAux){
+            $datosCapacitadores = array();
+            $i=0;
+            foreach($capAux as $c){
+                $datosCapacitadores[$i]['personal'] = Personal::find($c->personal_id);
+                $datosCapacitadores[$i]['rol'] = RolCapacitador::find($c->rol_id);
+                $i++;
+            }
+            return $datosCapacitadores;
+        }
 
-	/**
+        /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
