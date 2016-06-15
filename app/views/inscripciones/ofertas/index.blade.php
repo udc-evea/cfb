@@ -37,8 +37,15 @@
             </tr>
         </table>
      </div>
-     @endif -->       
+     @endif -->
+    <div>
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+        @if(sizeof($preinscripciones))
+            {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
+                {{ Form::submit('Limpiar Oferta', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Oferta')) }}
+            {{ Form::close() }}
+        @endif
+    </div>
     <hr>
     <?php //var_dump($comisiones); ?>
     <?php //echo "-->> CANT:".sizeof($comisiones)."<br>" ?>

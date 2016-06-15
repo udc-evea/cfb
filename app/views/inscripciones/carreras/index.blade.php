@@ -33,7 +33,14 @@
         </table>
      </div>
     @endif -->
-    <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+    <div>
+        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+        @if(sizeof($preinscripciones))
+            {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
+                {{ Form::submit('Limpiar Carrera', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Carrera')) }}
+            {{ Form::close() }}
+        @endif
+    </div>
     <hr>
         <!-- Nav tabs -->
         <div class="row">

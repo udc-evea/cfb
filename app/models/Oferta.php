@@ -102,7 +102,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
             return $this
                             ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
                             ->with('localidad')
-                            ->where('estado_inscripcion','LIKE',0)
+                            //->where('estado_inscripcion','LIKE',0)
                             ->orderBy('apellido')
                             ->orderBy('nombre');
                             //->orderBy('id');

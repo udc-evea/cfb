@@ -35,32 +35,32 @@
             <div id="formVerificacionCodigo">
                 <div class="alert alert-info">
                     {{ Form::open(array('action'=>'HomeController@verificarCertificado')) }}
-                    <fieldset>
+                    <fieldset style="margin-left: 20%;width: 60%">
                         <!--<div id="legend">
                             <legend class="">Probar Oferta con: K6XD-YBJJ-RCJC-3P5I</legend>
                             <legend class="">Probar Evento con: ZZJQ-7WJ9-J0PP-MVK5</legend>
                             <legend class="">Probar Capacitador con: NZO8-RNM4-LWMA-XOYK</legend>
                         </div>-->
-                    <div class="row">
-                        <div class="col-xs-1" style="margin-left: 33%">
-                          {{Form::text('codigovalidacion1', null,array('class' => 'form-control','id'=>'codigovalidacion1','title'=>'CUV: primeros 4 caracteres.','placeholder'=>'XXXX','style'=>'text-transform:uppercase; min-width:70px','onkeyup'=>'javascript:this.value=this.value.toUpperCase()','maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
+                        <div class="row">
+                            <div class="col-xs-3">
+                                {{Form::text('codigovalidacion1', null,array('class' => 'form-control','id'=>'codigovalidacion1','title'=>'CUV: primeros 4 caracteres.','placeholder'=>'AAAA','onkeyup'=>'javascript:this.value=this.value.toUpperCase()','maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
                             </div>
-                            <div class="col-xs-1">
-                              {{Form::text('codigovalidacion2', null,array('class' => 'form-control','id'=>'codigovalidacion2','title'=>'CUV: segundos 4 caracteres.','placeholder'=>'XXXX','style'=>'text-transform:uppercase; min-width:70px','onkeyup'=>'javascript:this.value=this.value.toUpperCase()', 'maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
+                            <div class="col-xs-3">
+                                {{Form::text('codigovalidacion2', null,array('class' => 'form-control','id'=>'codigovalidacion2','title'=>'CUV: segundos 4 caracteres.','placeholder'=>'BBBB','onkeyup'=>'javascript:this.value=this.value.toUpperCase()', 'maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
                             </div>
-                            <div class="col-xs-1">
-                              {{Form::text('codigovalidacion3', null,array('class' => 'form-control','id'=>'codigovalidacion3','title'=>'CUV: terceros 4 caracteres.','placeholder'=>'XXXX','style'=>'text-transform:uppercase; min-width:70px','onkeyup'=>'javascript:this.value=this.value.toUpperCase()', 'maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
+                            <div class="col-xs-3">
+                                {{Form::text('codigovalidacion3', null,array('class' => 'form-control','id'=>'codigovalidacion3','title'=>'CUV: terceros 4 caracteres.','placeholder'=>'CCCC','onkeyup'=>'javascript:this.value=this.value.toUpperCase()', 'maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
                             </div>
-                            <div class="col-xs-1">
-                              {{Form::text('codigovalidacion4', null,array('class' => 'form-control','id'=>'codigovalidacion4','title'=>'CUV: últimos 4 caracteres.','placeholder'=>'XXXX','style'=>'text-transform:uppercase; min-width:70px','onkeyup'=>'javascript:this.value=this.value.toUpperCase()', 'maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
+                            <div class="col-xs-3">
+                                {{Form::text('codigovalidacion4', null,array('class' => 'form-control','id'=>'codigovalidacion4','title'=>'CUV: últimos 4 caracteres.','placeholder'=>'DDDD','onkeyup'=>'javascript:this.value=this.value.toUpperCase()', 'maxlength'=>4,'required'=>'required','pattern'=>'.{4,}'))}}
                             </div>
                         </div>
                         <br>
                         <div align="center">
                             {{Form::submit('Verificar código', array('class' => 'btn btn-primary','title'=>'Verificar código de certificación'))}}
                         </div>
-                        {{ Form::close() }}
                     </fieldset>
+                    {{ Form::close() }}
                 </div>
             </div>
             @endif

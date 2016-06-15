@@ -762,13 +762,30 @@ class OfertasInscripcionesController extends BaseController {
 
             //return Redirect::to('/ofertas');
         //}
-        
-                
+                        
             // incremento la cantidad de veces que se notifico al inscripto
             $inscripcion->seEnvioNotificacion();
             $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
             $final = $this->getEstiloMensajeFinal();
             return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
                     ->with('message',"$cabecera Se envió correctamente el mail informativo de la cuenta institucional! $final");
+    }
+    
+    public function limpiarPreinscripciones($id_oferta) {
+        //busco la oferta en la BD
+        $oferta = Oferta::findOrFail($id_oferta);
+        
+        //traigo todos (pre-inscriptos e inscriptos) para ver en la vista
+        $preinscripciones = $oferta->preinscriptosOferta->all();
+        
+        foreach($preinscripciones as $preinscripto){
+            $preinscripto->delete();
+        }
+        
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
+                        ->withoferta($oferta)
+                        ->with('message', "$cabecera Se eliminaron todos los preinscriptos correctamente. $final");
     }
 }

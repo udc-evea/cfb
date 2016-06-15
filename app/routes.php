@@ -77,6 +77,10 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::post('/ofertas/{oferta}/agregarcapacitadores',
       array('uses' => 'OfertasController@agregarCapacitadores', 'as' => 'ofertas.agregarcapacitadores')
     );
+    
+    Route::delete('/ofertas/{oferta}/limpiar', 
+      array('uses' => 'OfertasInscripcionesController@limpiarPreinscripciones', 'as' => 'ofertas.inscripciones.limpiar')
+    );
             
     // especifico que todos los controladores para las Ofertas estan en OfertasController
     Route::resource('ofertas', 'OfertasController');
