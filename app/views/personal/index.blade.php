@@ -11,6 +11,10 @@
     </div>
 </div>
 @if ($personal->count())
+    <div id="personal">
+        <input class="search" placeholder="Buscar por Apellido o DNI" id="inputBuscar"/>        
+        <button class="sort" data-sort="apellido" >Por Apellido</button>
+        <button class="sort" data-sort="dni" >Por DNI</button>
 	<table class="table table-striped">
 		<thead>
                     <tr>
@@ -23,11 +27,11 @@
                         @endif
                     </tr>
 		</thead>
-		<tbody>
+		<tbody class="list">
                     @foreach ($personal as $pers)
                     <tr>
-                        <td>{{ $pers->apellido }}, {{ $pers->nombre }}</td>
-                        <td>{{ $pers->dni }}</td>
+                        <td class="apellido">{{ $pers->apellido }}, {{ $pers->nombre }}</td>
+                        <td class="dni">{{ $pers->dni }}</td>
 			<td>{{ $pers->email }}</td>
                         <td>{{ $pers->titulacion_id }}</td>
                         @if($perfil == 'Administrador')
@@ -42,14 +46,21 @@
                     @endforeach
 		</tbody>
 	</table>
-<div class="row block">
-    <div align="center">
-        <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
-        <a href="{{ route('personal.create') }}" class="btn btn-primary" title="Nuevo Personal"><i class="glyphicon glyphicon-user"></i> Nuevo Personal</a></p>
     </div>
-</div>
+    <div class="row block">
+        <div align="center">
+            <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
+            <a href="{{ route('personal.create') }}" class="btn btn-primary" title="Nuevo Personal"><i class="glyphicon glyphicon-user"></i> Nuevo Personal</a></p>
+        </div>
+    </div>
 @else
 	No hay ningun Personal cargado!
 @endif
+<script>
+    var options = {
+      valueNames: [ 'apellido', 'dni' ]
+    };
 
+    var personalList = new List('personal', options);
+</script>
 @stop

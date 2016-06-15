@@ -11,6 +11,10 @@
     </div>
 </div>
 @if ($usuarios->count())
+    <div id="usuarios">
+        <input class="search" placeholder="Buscar por Apellido o Usuario" id="inputBuscar"/>        
+        <button class="sort" data-sort="apellido" >Por Apellido</button>
+        <button class="sort" data-sort="usuario" >Por usuario</button>
 	<table class="table table-striped">
 		<thead>
                     <tr>
@@ -22,11 +26,11 @@
                         @endif
                     </tr>
 		</thead>
-		<tbody>
+		<tbody class="list">
                     @foreach ($usuarios as $usu)
                     <tr>
-                        <td>{{{ $usu->nombreyapellido }}}</td>
-			<td>{{{ $usu->username }}}</td>
+                        <td class="apellido">{{{ $usu->nombreyapellido }}}</td>
+			<td class="usuario">{{{ $usu->username }}}</td>
                         <td>{{{ $usu->perfil }}}</td>
                         @if($perfil == 'Administrador')
                             @if( $user != $usu->username)
@@ -44,14 +48,21 @@
                     @endforeach
 		</tbody>
 	</table>
-<div class="row block">
-    <div align="center">
-        <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
-        <a href="{{ route('usuarios.create') }}" class="btn btn-primary" title="Nuevo Usuario"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario</a></p>
     </div>
-</div>
+    <div class="row block">
+        <div align="center">
+            <p><a href="{{action('HomeController@bienvenido')}}" class="btn btn-warning" title="Volver al Inicio"><i class="glyphicon glyphicon-chevron-left"></i> Regresar al Inicio</a>
+            <a href="{{ route('usuarios.create') }}" class="btn btn-primary" title="Nuevo Usuario"><i class="glyphicon glyphicon-user"></i> Nuevo Usuario</a></p>
+        </div>
+    </div>
 @else
 	No hay Usuarios!
 @endif
+<script>
+    var options = {
+      valueNames: [ 'apellido', 'usuario' ]
+    };
 
+    var usuariosList = new List('usuarios', options);
+</script>
 @stop
