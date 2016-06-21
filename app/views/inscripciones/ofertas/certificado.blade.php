@@ -7,8 +7,7 @@
                 //border: 1px solid red;
                 margin: -30px;
                 width: 100%;
-                height: 760px;
-                font-family: "Segoe UI" !Important;
+                height: 760px;                
             }
             .certificado{
                 //border: 1px solid black;
@@ -24,7 +23,7 @@
                 top: 140px;
                 color: black;
                 text-align: center;
-                //font-family: "Segoe UI" !Important;
+                //font-family: 'Segoe UI Light' !Important;
                 font-size: 16pt;
             }
             #cuv{
@@ -48,56 +47,6 @@
                 right: 50px;
                 width: 100%;
             }
-            /*#nombreAlumno{
-                position: absolute;
-                top: 180px;
-                text-align: center;                
-                alignment-adjust: central;
-                width: 100%;
-                font-size: 20pt;
-            }
-            #dniAlumno{
-                position: absolute;
-                top: 230px;
-                text-align: center;
-                alignment-adjust: central;
-                width: 100%;
-                font-size: 20pt;
-            }
-            #nombreOferta{
-                position: absolute;
-                top: 265px;
-                text-align: center;
-                alignment-adjust: central;
-                width: 100%;
-            }
-            #resolucion{
-                position: absolute;
-                top: 335px;
-                padding-right: 100px;
-                text-align: center;
-                width: 100%;
-            }
-            #cantidadHorasReloj{
-                position: absolute;
-                top: 335px;
-                padding-left: 548px;
-                text-align: center;                
-                width: 100%;
-            }
-            #diaHoy{
-                position: absolute;
-                top: 370px;
-                text-align: center;
-                width: 100%;
-            }
-            #mesHoy{
-                position: absolute;
-                top: 370px;
-                padding-left: 430px;
-                text-align: center;
-                width: 100%;
-            }*/            
         </style>
     </head>    
 <body>

@@ -95,7 +95,10 @@ class HomeController extends BaseController {
                                 $cabecera = $this->getEstiloMensajeCabecera('warning', 'glyphicon glyphicon-warning-sign');
                                 $final = $this->getEstiloMensajeFinal();
                                 return View::make('inicio.verificarCodigo',compact('inscripto','oferta','personal','rol','encontrado','tipoOferta'))
-                                    ->with('message', "$cabecera La sintaxis del código ingresado es correcta, aunque no se encuentra un certificado que coincida! comuniquese con la Universidad del Chubut $final");
+                                    ->with('message', "$cabecera ¡Lo sentimos! Los datos ingresados no corresponden "
+                                            . "a un certificado existente. Por favor compruebe el Código Único de "
+                                            . "Verificación (CUV) e ingréselo nuevamente. Si los problemas persisten, "
+                                            . "envíenos un e-mail a universidad@udc.edu.ar. $final");
                             }else{
                                 $encontrado = true;
                                 $oferta = DB::table('oferta_formativa')->where('id','=',$esCapacitador[0]->oferta_id)->get();
