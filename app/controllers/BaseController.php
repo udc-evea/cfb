@@ -57,8 +57,20 @@ class BaseController extends Controller {
 
     protected function exportarPDF($filename, $rows, $view)
     {
-        $view = View::make($view, compact('rows'));
-        $html = $view->render();
+        $html = '<!DOCTYPE html>
+                <html lang="es-AR">
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                        <style>
+                            body {
+                                //border: 1px solid red;
+                                margin: -30px;
+                                width: 100%;
+                                height: 760px;
+                                font-family: serif !Important;
+                            }';
+        $aux = View::make($view, compact('rows'));
+        $html .= $aux->render();
 
         return PDF::load($html, 'A4', 'landscape')->show($filename);
     }
