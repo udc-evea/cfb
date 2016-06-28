@@ -124,7 +124,10 @@ class OfertasController extends BaseController {
                             return $this->exportarPDF($oferta[0]->nombre."_Capacitadores", $oferta, 'ofertas.capacitadores');
                     }
                 }
-                Session::set('tab_activa', $this->oferta->tab);
+                
+                if(!Session::has('tab_activa')){
+                    Session::set('tab_activa', 'carreras');
+                }
                                 
 		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))
                         ->with('userId',$userId)
@@ -179,9 +182,9 @@ class OfertasController extends BaseController {
                 if($fechaFinOferta != null){
                     $this->oferta->agregarReglas2($input);
                 }
-
-		$validation = Validator::make($input, Oferta::$rules);
-
+                
+		$validation = Validator::make($input, Oferta::$rules);                                
+                
 		if ($validation->passes()){
                   $this->oferta = $this->oferta->create($input);
                     
@@ -200,6 +203,9 @@ class OfertasController extends BaseController {
                   //guardo los cambios antes de redirigir
                   $this->oferta->save();
 
+                  //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+                  Session::set('tab_activa', $this->oferta->tipo_oferta);
+                  
                   //return Redirect::route('ofertas.edit', $this->oferta->id)
                   $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
                   $final = $this->getEstiloMensajeFinal();
@@ -235,6 +241,9 @@ class OfertasController extends BaseController {
 	{
 		$oferta = $this->oferta->find($id);
                 
+                //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+                Session::set('tab_activa', $oferta->tipo_oferta);
+                
 		if (is_null($oferta))
 		{
 			return Redirect::route('ofertas.index');
@@ -267,7 +276,7 @@ class OfertasController extends BaseController {
                 }
                 
 		$validation = Validator::make($input, Oferta::$rules);
-
+                
 		if ($validation->passes()){
 			$oferta = $this->oferta->find($id);
                         $oferta->fill($input);
@@ -309,7 +318,10 @@ class OfertasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$oferta = $this->oferta->find($id);
+		$oferta = $this->oferta->find($id);                                
+                
+                //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+                Session::set('tab_activa', $oferta->tipo_oferta);
                 
                 if(!$oferta) {
                     $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
@@ -320,9 +332,9 @@ class OfertasController extends BaseController {
                 
                 //borro todos los capacitadores de esa oferta
                 $this->eliminarCapacitadores($oferta->id);
-                
+                //borro la oferta de la Base de datos                
                 $oferta->delete();
-                
+                //devuelvo mje para el aire
                 $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
                 $final = $this->getEstiloMensajeFinal();
 		return Redirect::route('ofertas.index')
@@ -373,6 +385,10 @@ class OfertasController extends BaseController {
                     //incremento las variables utilizadas: $j para sacar la info de la lista, e $i para el array asociativo
                     $j=$j+2; $i++;
                 }
+                
+                //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+                Session::set('tab_activa', $this->oferta->tipo_oferta);
+                
                 //Session::put('listaCapacitadores',$listaAsociativo);
                 //Session::put('lista',$lista);
                 try{
@@ -409,5 +425,41 @@ class OfertasController extends BaseController {
             }
             //regreso a eliminar la oferta
             return ;
+        }
+        
+        public function finalizarOferta($id_oferta){
+            //busco la oferta según el ID ingresado
+            $oferta = $this->oferta->findOrFail($id_oferta);
+            
+            //seteo la Oferta como FINALIZADA (no se puede modificar nada)
+            $oferta->setFinalizada(1);
+            $oferta->save();
+            
+            //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+            Session::set('tab_activa', $oferta->tipo_oferta);
+            
+            //vuelvo al index con un  mensaje exitoso
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.index')
+                    ->with('message', "$cabecera La Oferta: $oferta->nombre se finalizó de manera correcta! No se pueden realizar más cambios en ella.$final");
+        }
+        
+        public function desfinalizarOferta($id_oferta){
+            //busco la oferta según el ID ingresado
+            $oferta = $this->oferta->findOrFail($id_oferta);
+            
+            //seteo la Oferta como DESFINALIZADA (se puede modificar)
+            $oferta->setFinalizada(0);
+            $oferta->save();
+            
+            //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+            Session::set('tab_activa', $oferta->tipo_oferta);
+            
+            //vuelvo al index con un mensaje exitoso
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.index')
+                    ->with('message', "$cabecera La Oferta: $oferta->nombre se desfinalizó de manera correcta! Ya se pueden realizar cambios en ella.$final");
         }
 }

@@ -14,6 +14,9 @@ class OfertasInscripcionesController extends BaseController {
         $exp = Request::get('exp');
         $mailReplyTo = "inscripciones@udc.edu.ar";
         
+        //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
+        Session::set('tab_activa', $oferta->tipo_oferta);
+        
         //traigo todos (pre-inscriptos e inscriptos) para ver en la vista
         //$inscripciones = $oferta->inscripciones->all(); --> descomentar esta linea        
         
@@ -68,7 +71,8 @@ class OfertasInscripcionesController extends BaseController {
                     //traigo solo los datos de alumno APROBADO para exportar a pdf
                     $id_alumno = Request::get('alm');
                     $aprobado = $oferta->aprobados->find($id_alumno);
-                    return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
+                    Session::set('oferta',$oferta);
+                    return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado');
                 case parent::EXPORT_PDFAS:
                     //traigo solo los datos de alumno ASISTENTE para exportar a pdf
                     $id_alumno = Request::get('alm');

@@ -44,10 +44,18 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($inscripcion->getEsAprobado())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
+                                @if(!$oferta->estaFinalizada())
+                                    @if ($inscripcion->getEsAprobado())
+                                       {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
+                                    @else
+                                       {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
+                                    @endif
                                 @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
+                                    @if ($inscripcion->getEsAprobado())
+                                       Si
+                                    @else
+                                       No
+                                    @endif
                                 @endif
                             </td>
                         @endif 

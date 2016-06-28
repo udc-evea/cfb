@@ -72,7 +72,7 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
 
     Route::get('/ofertas/{oferta}/vermail', 
       array('uses' => 'OfertasController@verMail', 'as' => 'ofertas.vermail')            
-    );
+    );    
     
     Route::post('/ofertas/{oferta}/agregarcapacitadores',
       array('uses' => 'OfertasController@agregarCapacitadores', 'as' => 'ofertas.agregarcapacitadores')
@@ -80,6 +80,16 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     
     Route::delete('/ofertas/{oferta}/limpiar', 
       array('uses' => 'OfertasInscripcionesController@limpiarPreinscripciones', 'as' => 'ofertas.inscripciones.limpiar')
+    );
+    
+    //ruta para finalizar la oferta
+    Route::get('/ofertas/{oferta}/finalizar', 
+      array('uses' => 'OfertasController@finalizarOferta', 'as' => 'ofertas.finalizar')
+    );
+    
+    //ruta para desfinalizar la oferta
+    Route::get('/ofertas/{oferta}/desfinalizar', 
+      array('uses' => 'OfertasController@desfinalizarOferta', 'as' => 'ofertas.desfinalizar')
     );
             
     // especifico que todos los controladores para las Ofertas estan en OfertasController

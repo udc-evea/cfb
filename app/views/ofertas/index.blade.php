@@ -1,7 +1,43 @@
-<?php $tab_activa = Session::get('tab_activa', 'ofertas'); ?>
+<?php
+    $TIPO_CARRERA = 1;
+    $TIPO_CURSO = 2;
+    $TIPO_EVENTO = 3;
+    $classOf = 'class="tab-pane"';
+    $classCa = 'class="tab-pane"';
+    $classEv = 'class="tab-pane"';
+    $tipoOfertaCadena = 'Evento';
+    if(Session::has('tab_activa')){
+        $tab_activa = Session::get('tab_activa'); 
+        if($tab_activa == $TIPO_CURSO){
+            $classOf = 'class="tab-pane active"';
+            $tipoOfertaCadena = 'Oferta';
+        }elseif($tab_activa == $TIPO_CARRERA){
+            $classCa = 'class="tab-pane active"';
+            $tipoOfertaCadena = 'Carrera';
+        }else{
+            $classEv = 'class="tab-pane active"';
+        }
+    }
+?>
 @extends('layouts.scaffold')
 @section('title', 'Inscripciones On Line - Universidad del Chubut')
 @section('main')
+<style type="text/css">
+#searchinput {
+    width: 200px;
+}
+#searchclear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #ccc;
+}
+</style>
 <div class="container">
     <!-- Header -->
     <div class="row block">
@@ -36,19 +72,19 @@
     
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_ofertas">
+        <div <?php echo $classOf ?> id="tab_ofertas">
             @include('ofertas.listado', compact('ofertas'))
             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                 {{ link_to_route('ofertas.create', 'Crear nueva Oferta', ['tab_activa' => 'ofertas'], array('class' => 'btn btn-primary')) }}
             @endif
         </div>
-        <div class="tab-pane" id="tab_carreras">
+        <div <?php echo $classCa ?> id="tab_carreras">
             @include('ofertas.listado_carreras', compact('carreras'))
             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                 {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
                 @endif
         </div>
-        <div class="tab-pane" id="tab_eventos">
+        <div <?php echo $classEv ?> id="tab_eventos">
             @include('ofertas.listado_eventos', compact('eventos'))
             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                 {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
@@ -56,6 +92,7 @@
         </div>
     </div>
     <br><br>
+       
     <!-- Modal de las Estadisticas 
     <div class="row-fluid">
         <!-- Muestro el modal con un button 

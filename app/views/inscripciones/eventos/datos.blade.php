@@ -35,6 +35,7 @@
                                     <!-- <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-default" title="Imprimir formulario de inscripcion"><i class="fa fa-file-pdf-o"></i></a> -->
                                     @if($perfil != "Colaborador")
                                         {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
+                                            <input id='mjeBorrar' value="¿Está seguro que desea borrar el preinscriptos de esta Oferta?" type="hidden" />
                                             {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
                                         {{ Form::close() }}
                                     @endif

@@ -225,3 +225,19 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.10' WHERE  `version_bd`.`version_codigo` =  '3.1.9' LIMIT 1 ;
 /* Cambio en la base la versión del sistema, de 3.1.4 a 3.1.5 */
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.5' WHERE  `version_bd`.`version` =  '3.1.4' LIMIT 1 ;
+
+
+/* ######  2016/06/24  ####################### */
+--    VERSION_BASE: 3.1.6 - VERSION_CODIGO: 3.1.11
+-- Archivar Oferta (e inscripciones de la Oferta)
+/* 
+1) se cambia la versión del código a 3.1.11
+2) se cambia la versión de la base de datos a 3.1.6
+*/
+-- la sintaxis es:
+/* Cambio en la base la versión de código del sistema, de 3.1.10 a 3.1.11 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.11' WHERE  `version_bd`.`version_codigo` =  '3.1.10' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.1.5 a 3.1.6 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.6' WHERE  `version_bd`.`version` =  '3.1.5' LIMIT 1 ;
+/* Agrego campo que determina si la Oferta está FINALIZADA o no */
+-> ALTER TABLE `oferta_formativa` ADD `finalizada` TINYINT(1) NOT NULL DEFAULT '0' COMMENT 'Campo que determina si la Oferta está finalizada o no.' ;

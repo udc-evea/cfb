@@ -10,7 +10,7 @@
 @if (count($preinscripciones))
   <fieldset>
     <div id="preinscriptos">
-        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id='inputBuscar' onchange="verificarListaCompleta()"/>
         <button class="sort" data-sort="nro" >Por Nro.</button>
         <button class="sort" data-sort="apellido" >Por Apellido</button>
     <?php $listaIdPreinscriptos = array();?>
@@ -28,7 +28,7 @@
                     @endif
                     <!--<th>Localidad</th> 
                     <th>E-mail</th> -->
-                    @if($perfil != "Colaborador")
+                    @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
                         <!-- <th>Email UDC</th> -->
                         <!-- <th>Requisitos</th> -->
                         <th>Inscripto</th>
@@ -56,7 +56,7 @@
                         @endif
                         <!--<td>{{ $inscripcion->localidad->la_localidad }}</td>
                         <td>{{ $inscripcion->email }}</td> -->
-                        @if($perfil != "Colaborador")
+                        @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
                             <!-- <td>{{{ $inscripcion->email_institucional }}}</td> -->
                             <!-- <td>
                                 @if ($inscripcion->getRequisitosCompletos())

@@ -55,7 +55,8 @@
                                    {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
                                 @endif
                             </td> -->
-                            <td>@if ($inscripcion->getEsInscripto())
+                            <td>
+                                @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
                                   @if($inscripcion->getComisionNro() > 0)
                                     {{ link_to_route('ofertas.inscripciones.restarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-minus','title'=>'Bajar el nro. de la comisión.')) }}
                                   @endif
@@ -65,17 +66,25 @@
                                 @else
                                     <strong>Sin Com.</strong>
                                 @endif
-                                @if ($inscripcion->getEsInscripto())
+                                @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
                                   @if($inscripcion->getComisionNro() < 10)
                                     {{ link_to_route('ofertas.inscripciones.sumarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-plus','title'=>'Sumar el nro. de la comisión.')) }}
                                   @endif
-                                @endif 
+                                @endif                                
                             </td>
                             <td>
-                                @if ($inscripcion->getEsAprobado())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
+                                @if(!$oferta->estaFinalizada())
+                                    @if ($inscripcion->getEsAprobado())
+                                       {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
+                                    @else
+                                       {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
+                                    @endif
                                 @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
+                                    @if ($inscripcion->getEsAprobado())
+                                       Si
+                                    @else
+                                       No
+                                    @endif
                                 @endif
                             </td>
                             <!-- <td>

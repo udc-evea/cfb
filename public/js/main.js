@@ -17,7 +17,8 @@ var MainModule = {
     confirmDeleteForm: function()
     {
         var $forms = $("form.confirm-delete");
-        var mensaje = "¿Seguro que desea eliminar este registro?";
+        //var mensaje = "¿Seguro que desea eliminar este registro?";
+        var mensaje = document.getElementById('mjeBorrar').value;
         
         if(!$forms.length) return;
 
@@ -70,10 +71,12 @@ $(function() {
     function verificarListaCompleta(){
         var inputBuscarSize = document.getElementById('inputBuscar').value.length;        
         
-        if(inputBuscarSize > 0){            
+        if(inputBuscarSize > 0){
             document.getElementById("btnSubmitForm").disabled = true;
-        }else{            
+            //alert("disabled TRUE: "+inputBuscarSize);
+        }else{
             document.getElementById("btnSubmitForm").disabled = false;
+            //alert("disabled FALSE+ "+inputBuscarSize);
         }
     }
         

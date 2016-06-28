@@ -9,6 +9,11 @@
 <div id="arriba" class="container">
     <div class="alert alert-info" align="center">
         <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
+        @if($oferta->estaFinalizada())
+            <div class='alert alert-danger'>
+                <h2>Esta {{ $tipoOferta }} se encuentra <strong>Finalizada</strong></h2>
+            </div>
+        @endif
     </div>
     <!-- <h2>Usuario: {{ $nomyape }} - {{ $userName }} ({{ $perfil }})</h2>
     <h2>
@@ -40,10 +45,12 @@
      @endif -->
     <div>
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
-        @if(sizeof($preinscripciones))
-            {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
-                {{ Form::submit('Limpiar Oferta', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Oferta')) }}
-            {{ Form::close() }}
+        @if(!$oferta->estaFinalizada())
+            @if(sizeof($preinscripciones))
+                {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
+                    {{ Form::submit('Borrar inscriptos de Oferta', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Oferta')) }}
+                {{ Form::close() }}
+            @endif
         @endif
     </div>
     <hr>

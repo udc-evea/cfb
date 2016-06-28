@@ -7,15 +7,16 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Evento Nombre</th>
+                <th>Nombre de Evento</th>
                 <th>Año</th>
                 <th>Pre-Inscriptos</th>
                 <th>Inscribiendo</th>
-                <th>Fecha Inicio</th>
+                <!--<th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
-                <th>Acciones</th>
+                <th>Acciones</th>-->
                 <th>Ultima Modif.</th>
                 <th>Capacitador/es</th>
+                <th>Opciones</th>
             </tr>
         </thead>
 
@@ -39,12 +40,12 @@
                 <td>
                     {{ BS3::bool_to_label($item->permite_inscripciones) }}                
                     <?php //if(($userPerfil == "Administrador")||($item->user_id_creador == $userId)):?>
-                        <?php //if($item->permite_inscripciones): ?>
-                            <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $item->stringAleatorio($item->id,15)) }}"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
-                        <?php //endif; ?>
+                        @if(!$item->estaFinalizada())
+                            <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $item->stringAleatorio($item->id,15)) }}" target="_blank"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
+                        @endif
                      <?php //endif; ?>
                 </td>
-                <td>{{ ModelHelper::dateOrNull($item->inicio) }}</td>
+                <!--<td>{{ ModelHelper::dateOrNull($item->inicio) }}</td>
                 <td>{{ ModelHelper::dateOrNull($item->fin) }}</td>
                 <td>
                 @if(($userPerfil == "Administrador")||($item->user_id_creador == $userId))
@@ -60,7 +61,7 @@
                 @else
                     <small>No tiene permisos para esta oferta</small>
                 @endif
-                </td>
+                </td>-->
                 <td>{{ $item->ultimaModificacion->nombreyapellido }} ({{ $item->fecha_modif }})</td>
                 <td>
                   <?php $capacitadores = $item->obtenerCapacitadoresDeLaOferta($item->id);?>
@@ -95,7 +96,9 @@
                                             <th>Capacitador</th>
                                             <th>Rol</th>
                                             <th>Certificado</th>
-                                            <th>Acciones</th>
+                                            @if(!$item->estaFinalizada())
+                                                <th>Acciones</th>
+                                            @endif
                                         </thead>
                                         <tbody>                                      
                                           @foreach($capacitadores as $cap)
@@ -112,19 +115,23 @@
                                                     {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                                                 <?php endif; ?>
                                             </td>
+                                            @if(!$item->estaFinalizada())
                                             <td>
                                               {{ link_to_route('capacitador.edit', ' ', array($cap->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
                                               {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $cap->id))) }}
                                                 {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del capacitador')) }}
                                               {{ Form::close() }}
                                             </td>
+                                            @endif
                                           </tr>
                                           @endforeach                                      
                                         </tbody>
                                     </table>
-                                    <div class='row-fluid'>
-                                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"> Agregar más</button>
-                                    </div>
+                                    @if(!$item->estaFinalizada())
+                                        <div class='row-fluid'>
+                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"> Agregar más</button>
+                                        </div>
+                                    @endif
                                 </fieldset>
                               </div>
                               <div class="modal-footer">
@@ -138,9 +145,10 @@
                   <?php endif;//else: ?>
                   <!-- Muestro el formulario para Agregar los capacitadores de esta oferta -->                                                    
                     <!-- Modal del Form para agregar Capacitadores a una Oferta -->
-
-                        <!-- Muestro el modal con un button -->
-                        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                        @if(!$item->estaFinalizada())
+                            <!-- Muestro el modal con un button -->
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                        @endif
                         <!-- Modal -->
                         <div id="modalNewCapacitador<?php echo $item->id ?>" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -202,6 +210,40 @@
                         </div>
                     </div>
                   <?php //endif; ?>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Más
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Datos de la Oferta</li>
+                            <li style="padding: 3px 20px;">Inicio: {{ $item->inicio }}</li>
+                            <li style="padding: 3px 20px;">Fin: {{ $item->fin }}</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Opciones básicas</li>
+                            @if(($userPerfil == "Administrador")||($item->user_id_creador == $userId))
+                                <li>{{ link_to_route('ofertas.vermail', 'Ver mail', array($item->id), array('title'=>'Ver Mail personalizado', 'target'=>'_blank')) }}</li>
+                                @if(!$item->estaFinalizada())
+                                    <li>{{ link_to_route('ofertas.edit', 'Editar Oferta', array($item->id), array('title'=>'Editar datos de la Oferta')) }}</li>
+                                @endif                                
+                                @if(($item->inscriptos == 0) && (!$item->estaFinalizada()))
+                                    {{ Form::open(array('class' => 'confirm-delete', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $item->id))) }}
+                                        <input id='mjeBorrar' value="¿Está seguro que desea borrar esta Oferta?" type="hidden" />
+                                        <li style="padding: 3px 20px;">{{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger')) }}</li>
+                                    {{ Form::close() }}
+                                @else
+                                    <li style="padding: 3px 20px;">{{ Former::disabled_button('Borrar')->disabled()->title("No se puede eliminar: hay inscriptos.")->class('btn btn-xs') }}</li>
+                                @endif
+                                @if(!$item->estaFinalizada())
+                                    <li>{{ link_to_route('ofertas.finalizar', 'Finalizar Oferta', array($item->id), array('title'=>'Finalizar la Oferta (no se harán más cambios.')) }}</li>
+                                @else
+                                    <li>{{ link_to_route('ofertas.desfinalizar', 'Desfinalizar Oferta', array($item->id), array('title'=>'Desfinalizar la Oferta (se permite hacer cambios.')) }}</li>
+                                @endif
+                            @else
+                                <li><small>No tiene permisos para esta oferta</small></li>
+                            @endif
+                        </ul>
+                    </div>
                 </td>
             </tr>
             @endforeach

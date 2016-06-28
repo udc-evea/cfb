@@ -54,7 +54,7 @@
                         </td>
                         @if($perfil != "Colaborador")
                             <!--<td>{{{ $inscripcion->email_institucional }}}</td>-->
-                            <td>
+                            <td>@if(!$oferta->estaFinalizada())
                                 <div class="slideTwo"><div class="slideTwo">
                                     @if ($inscripcion->getEsInscripto())
                                         <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoinsc<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoinsc<?php echo $inscripcion->id ?>"></label>
@@ -62,8 +62,16 @@
                                         <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoinsc<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoinsc<?php echo $inscripcion->id ?>"></label>
                                     @endif
                                 </div>
+                                @else
+                                    @if ($inscripcion->getEsInscripto())
+                                        Si
+                                    @else
+                                        No
+                                    @endif
+                                @endif
                             </td>                        
                             <td>
+                              @if(!$oferta->estaFinalizada())
                                 @if ($inscripcion->getEsInscripto())
                                     @if ($inscripcion->getCantNotificaciones() > 0)
                                        @if ($inscripcion->getCantNotificaciones() == 1)
@@ -77,6 +85,21 @@
                                 @else
                                     <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                 @endif
+                              @else
+                                @if ($inscripcion->getEsInscripto())
+                                    @if ($inscripcion->getCantNotificaciones() > 0)
+                                       @if ($inscripcion->getCantNotificaciones() == 1)
+                                            {{ $inscripcion->getCantNotificaciones() }} vez
+                                       @else
+                                            {{ $inscripcion->getCantNotificaciones() }} veces
+                                       @endif
+                                    @else
+                                       nunca
+                                    @endif
+                                @else
+                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
+                                @endif
+                              @endif
                             </td>
                         @endif  
                         <!--<td>
@@ -95,7 +118,7 @@
 	</table>
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
-        @if($perfil != "Colaborador")
+        @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
             {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitForm')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}

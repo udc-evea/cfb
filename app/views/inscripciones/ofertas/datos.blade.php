@@ -15,7 +15,9 @@
                     @endif
                     <th>Localidad</th>
                     <th>E-mail</th>
-                    <th>Acciones</th>
+                    @if(!$oferta->estaFinalizada())
+                        <th>Acciones</th>
+                    @endif
                 </tr>
             </thead>
             <tbody class="list">
@@ -28,14 +30,17 @@
                         @endif
                         <td>{{ $inscripcion->localidad->la_localidad }}</td>
                         <td>{{ $inscripcion->email }}</td>
+                        @if(!$oferta->estaFinalizada())
                         <td>
                             {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
                             @if($perfil != "Colaborador")
                                 {{ Form::open(array('id'=>'formBorrarInscripto','class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.destroy', $oferta->id, $inscripcion->id))) }}
+                                    <input id='mjeBorrar' value="¿Está seguro que desea borrar el preinscriptos de esta Oferta?" type="hidden" />
                                     {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar Inscripto')) }}
                                 {{ Form::close() }}
                             @endif
                         </td>
+                        @endif
                     </tr>                    
 		@endforeach
 		</tbody>

@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-AR">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -8,8 +8,8 @@
                 margin: -30px;
                 width: 100%;
                 height: 760px;
-                font-family: "Segoe UI" !Important;
-            }-->
+                font-family: 'symbol' !Important;
+            }
             .certificado{
                 //border: 1px solid black;
                 //font-family: "Segoe UI" !Important;

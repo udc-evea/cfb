@@ -8,7 +8,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Nombre</th>
+                <th>Nombre de Oferta</th>
                 <th>Año</th>
                 <th>Pre-Inscriptos</th>
                 <th>Inscribiendo</th>
@@ -33,18 +33,16 @@
                             <span class="text-danger glyphicon glyphicon-warning-sign"></span>
                         @endif
                     @endif
-
-                        @if($oferta->inscriptos > 0)
-                            <small><a href="{{ URL::route('ofertas.inscripciones.show', $oferta->id) }}">[Ver]</a></small>
-                        @endif
-
+                    @if($oferta->inscriptos > 0)
+                        <small><a href="{{ URL::route('ofertas.inscripciones.show', $oferta->id) }}">[Ver]</a></small>
+                    @endif
                 </td>
                 <td>
                     {{ BS3::bool_to_label($oferta->permite_inscripciones) }}                
                     <?php //if(($userPerfil == "Administrador")||($item->user_id_creador == $userId)):?>
-                        <?php //if($item->permite_inscripciones): ?>
-                            <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
-                        <?php //endif; ?>
+                        <?php if(!$oferta->estaFinalizada()): ?>
+                            <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}" target="_blank"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
+                        <?php endif; ?>
                      <?php //endif; ?>
                 </td>
                 <!--<td>{{ ModelHelper::dateOrNull($oferta->inicio) }}</td>
@@ -71,9 +69,9 @@
                     <div class="row-fluid">
                   <!-- Muestro el formulario para Editar los capacitadores de esta oferta -->
                     <!-- Modal del Form para editar los Capacitadores a una Oferta -->
-
+                        
                         <!-- Muestro el modal con un button -->
-                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEditCapacitador<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-pencil'></i></button>
+                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEditCapacitador<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-pencil'></i></button>                        
                         <!-- Modal -->
                         <div id="modalEditCapacitador<?php echo $oferta->id ?>" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -98,7 +96,9 @@
                                             <th>Capacitador</th>
                                             <th>Rol</th>
                                             <th>Certificado</th>
-                                            <th>Acciones</th>
+                                            @if(!$oferta->estaFinalizada())
+                                                <th>Acciones</th>
+                                            @endif
                                         </thead>
                                         <tbody>                                      
                                           @foreach($capacitadores as $cap)
@@ -120,19 +120,23 @@
                                                     {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                                                 <?php endif; ?>
                                             </td>
+                                            @if(!$oferta->estaFinalizada())
                                             <td>
                                               {{ link_to_route('capacitador.edit', ' ', array($cap->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
                                               {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $cap->id))) }}
                                                 {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del capacitador')) }}
                                               {{ Form::close() }}
                                             </td>
+                                            @endif
                                           </tr>
                                           @endforeach                                      
                                         </tbody>
                                     </table>
-                                    <div class='row-fluid'>
-                                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"> Agregar más</button>
-                                    </div>
+                                    @if(!$oferta->estaFinalizada())
+                                        <div class='row-fluid'>
+                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"> Agregar más</button>
+                                        </div>
+                                    @endif
                                 </fieldset>
                               </div>
                               <div class="modal-footer">
@@ -146,9 +150,10 @@
                   <?php endif;//else: ?>
                   <!-- Muestro el formulario para Agregar los capacitadores de esta oferta -->                                                    
                     <!-- Modal del Form para agregar Capacitadores a una Oferta -->
-
-                        <!-- Muestro el modal con un button -->
-                        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                        @if(!$oferta->estaFinalizada())
+                            <!-- Muestro el modal con un button -->
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                        @endif
                         <!-- Modal -->
                         <div id="modalNewCapacitador<?php echo $oferta->id ?>" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -212,31 +217,39 @@
                   <?php //endif; ?>
                 </td>
                 <td>
-                        <div class="dropdown">
-                            <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Más
-                            <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-header">Datos de la Oferta</li>
-                                <li style="padding: 3px 20px;">Inicio: {{ $oferta->inicio }}</li>
-                                <li style="padding: 3px 20px;">Fin: {{ $oferta->fin }}</li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Opciones básicas</li>
-                                @if(($userPerfil == "Administrador")||($oferta->user_id_creador == $userId))
-                                    <li>{{ link_to_route('ofertas.vermail', 'Ver mail', array($oferta->id), array('title'=>'Ver Mail personalizado', 'target'=>'_blank')) }}</li>
+                    <div class="dropdown">
+                        <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Más
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Datos de la Oferta</li>
+                            <li style="padding: 3px 20px;">Inicio: {{ $oferta->inicio }}</li>
+                            <li style="padding: 3px 20px;">Fin: {{ $oferta->fin }}</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Opciones básicas</li>
+                            @if(($userPerfil == "Administrador")||($oferta->user_id_creador == $userId))
+                                <li>{{ link_to_route('ofertas.vermail', 'Ver mail', array($oferta->id), array('title'=>'Ver Mail personalizado', 'target'=>'_blank')) }}</li>
+                                @if(!$oferta->estaFinalizada())
                                     <li>{{ link_to_route('ofertas.edit', 'Editar Oferta', array($oferta->id), array('title'=>'Editar datos de la Oferta')) }}</li>
-                                    @if($oferta->inscriptos == 0)
-                                        {{ Form::open(array('class' => 'confirm-delete', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $oferta->id))) }}
+                                @endif                                
+                                @if(($oferta->inscriptos == 0) && (!$oferta->estaFinalizada()))
+                                    {{ Form::open(array('class' => 'confirm-delete', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $oferta->id))) }}
+                                        <input id='mjeBorrar' value="¿Está seguro que desea borrar esta Oferta?" type="hidden" />
                                         <li style="padding: 3px 20px;">{{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger')) }}</li>
-                                        {{ Form::close() }}
-                                    @else
-                                        <li style="padding: 3px 20px;">{{ Former::disabled_button('Borrar')->disabled()->title("No se puede eliminar: hay inscriptos.")->class('btn btn-xs') }}</li>
-                                    @endif
+                                    {{ Form::close() }}
                                 @else
-                                    <li><small>No tiene permisos para esta oferta</small></li>
+                                    <li style="padding: 3px 20px;">{{ Former::disabled_button('Borrar')->disabled()->title("No se puede eliminar: hay inscriptos.")->class('btn btn-xs') }}</li>
                                 @endif
-                            </ul>
-                        </div>
-                    </td>
+                                @if(!$oferta->estaFinalizada())
+                                    <li>{{ link_to_route('ofertas.finalizar', 'Finalizar Oferta', array($oferta->id), array('title'=>'Finalizar la Oferta (no se harán más cambios.')) }}</li>
+                                @else
+                                    <li>{{ link_to_route('ofertas.desfinalizar', 'Desfinalizar Oferta', array($oferta->id), array('title'=>'Desfinalizar la Oferta (se permite hacer cambios.')) }}</li>
+                                @endif
+                            @else
+                                <li><small>No tiene permisos para esta oferta</small></li>
+                            @endif
+                        </ul>
+                    </div>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -251,5 +264,5 @@
       valueNames: [ 'anio', 'nombre' ]
     };
     var divOfertasList = new List('divOfertas', options);
-    
+            
 </script>
