@@ -17,8 +17,8 @@ var MainModule = {
     confirmDeleteForm: function()
     {
         var $forms = $("form.confirm-delete");
-        //var mensaje = "¿Seguro que desea eliminar este registro?";
-        var mensaje = document.getElementById('mjeBorrar').value;
+        var mensaje = "¿Seguro que desea eliminar este registro?";
+        //var mensaje = document.getElementById('mjeBorrar').value;
         
         if(!$forms.length) return;
 
@@ -68,14 +68,14 @@ $(function() {
     
     /* Funcion para que oculte el submit de confirmrInscriptos cuando la lista de preinscriptos 
      * no esta completa */
-    function verificarListaCompleta(){
-        var inputBuscarSize = document.getElementById('inputBuscar').value.length;        
+    function verificarListaCompleta(id_input_buscar, id_btn_Submit_Form){
+        var inputBuscarSize = document.getElementById(id_input_buscar).value.length;        
         
         if(inputBuscarSize > 0){
-            document.getElementById("btnSubmitForm").disabled = true;
+            document.getElementById(id_btn_Submit_Form).disabled = true;
             //alert("disabled TRUE: "+inputBuscarSize);
         }else{
-            document.getElementById("btnSubmitForm").disabled = false;
+            document.getElementById(id_btn_Submit_Form).disabled = false;
             //alert("disabled FALSE+ "+inputBuscarSize);
         }
     }

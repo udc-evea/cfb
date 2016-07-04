@@ -4,7 +4,11 @@
     </div>
 @endif
 @if (count($com))
-<fieldset>    
+<fieldset>
+    <div id="comisiones">
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarOfComisIndex"/>
+        <button class="sort" data-sort="nrocom" >Por Nro.</button>
+        <button class="sort" data-sort="apellidocom" >Por Apellido</button>
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -28,7 +32,7 @@
                     <!-- <th>Acciones</th> -->
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="list">
                    <?php $i = 1; ?>
                    @foreach ($com as $inscripcion)
                    <?php
@@ -37,8 +41,8 @@
                         $bkgcolor=$arreglo[1];
                    ?>                   
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
-                        <td>{{ $i }}</td>
-                        <td>{{ $inscripcion->apellido }}</td>
+                        <td class="nrocom">{{ $i }}</td>
+                        <td class="apellidocom">{{ $inscripcion->apellido }}</td>
                         <td>{{ $inscripcion->nombre }}</td>
                         @if($perfil != "Colaborador")
                             <!-- <td>{{ $inscripcion->tipoydoc }}</td> -->
@@ -67,7 +71,7 @@
                                     <strong>Sin Com.</strong>
                                 @endif
                                 @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
-                                  @if($inscripcion->getComisionNro() < 10)
+                                  @if($inscripcion->getComisionNro() < 10)                                  
                                     {{ link_to_route('ofertas.inscripciones.sumarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-plus','title'=>'Sumar el nro. de la comisión.')) }}
                                   @endif
                                 @endif                                
@@ -123,4 +127,9 @@
     function CargarAnterior(){
         window.history.go(-1);
     }
+    
+    var options = {
+      valueNames: [ 'apellidocom', 'nrocom' ]
+    };
+    var comisionesList = new List('comisiones', options);
 </script>

@@ -10,7 +10,7 @@
 @if (count($preinscripciones))
   <fieldset>
     <div id="preinscriptos">
-        <input class="search" placeholder="Buscar por Nro. o Apellido" id='inputBuscar' onchange="verificarListaCompleta()"/>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id='inputBuscarOfPreinscrIndex' onchange="verificarListaCompleta('inputBuscarOfPreinscrIndex','btnSubmitFormOfPreinscrIndex')"/>
         <button class="sort" data-sort="nro" >Por Nro.</button>
         <button class="sort" data-sort="apellido" >Por Apellido</button>
     <?php $listaIdPreinscriptos = array();?>
@@ -118,7 +118,7 @@
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
         @if($perfil != "Colaborador")
-            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitForm')) }}
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormOfPreinscrIndex')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif

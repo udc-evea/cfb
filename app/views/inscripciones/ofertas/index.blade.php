@@ -1,4 +1,74 @@
-<?php $tab_activa = Session::get('tab_activa', 'preinscriptos'); ?>
+<?php    
+    $classDatos = 'class="tab-pane"';
+    $classPreinscr = 'class="tab-pane"';
+    $classInscr = 'class="tab-pane"';
+    $classSinCom = 'class="tab-pane"';
+    $classCom1_9 = 'class="tab-pane"';
+    $classCom01 = 'class="tab-pane"';
+    $classCom02 = 'class="tab-pane"';
+    $classCom03 = 'class="tab-pane"';
+    $classCom04 = 'class="tab-pane"';
+    $classCom05 = 'class="tab-pane"';
+    $classCom06 = 'class="tab-pane"';
+    $classCom07 = 'class="tab-pane"';
+    $classCom08 = 'class="tab-pane"';
+    $classCom09 = 'class="tab-pane"';
+    $classCom10 = 'class="tab-pane"';
+    $classAprob = 'class="tab-pane"';
+    if(Session::has('tab_activa_inscripciones')){
+        $tab_activa = Session::get('tab_activa_inscripciones');
+        switch ($tab_activa) {
+            case 1:
+                $classDatos = 'class="tab-pane active"';
+                break;
+            case 2:
+                $classPreinscr = 'class="tab-pane active"';
+                break;
+            case 3:
+                $classInscr = 'class="tab-pane active"';
+                break;
+            case 4:
+                $classSinCom = 'class="tab-pane active"';
+                break;
+            case 5:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 6:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 7:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 8:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 9:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 10:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 11:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 12:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 13:
+                $classCom1_9 = 'class="tab-pane active"';
+                break;
+            case 14:
+                $classCom10 = 'class="tab-pane active"';
+                break;
+            case 15:
+                $classAprob = 'class="tab-pane active"';
+                break;
+            default:
+                $classDatos = 'class="tab-pane active"';
+                break;
+        }
+    }
+?>
 @extends('layouts.scaffold')
 @section('main')
 
@@ -60,7 +130,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones" role="tablist">
-                    <li class='active'>
+                    <li>
                         <a title="Todos los Preinscriptos a la Oferta." href="#tab_datos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-user"></i> 
                             Editar Datos 
@@ -119,32 +189,31 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_datos">
+            <div <?php echo $classDatos ?> id="tab_datos">
                 @include('inscripciones.ofertas.datos', compact('preinscriptos'))
             </div>
-            <div class="tab-pane" id="tab_preinscriptos">
+            <div <?php echo $classPreinscr ?> id="tab_preinscriptos">
                 @include('inscripciones.ofertas.preinscriptos', compact('preinscriptos'))
             </div>
-            <div class="tab-pane" id="tab_inscriptos">
+            <div <?php echo $classInscr ?> id="tab_inscriptos">
                 @include('inscripciones.ofertas.inscriptos', compact('inscriptos'))
             </div>
             <?php if(!(empty($comisiones))):?>
                 <?php foreach($comisiones as $com):?>
                     <?php foreach($com as $c):?>
                        <?php if($c['comision_nro'] == 0):?>
-                          <div class="tab-pane" id="tab_sincomision">
+                          <div <?php echo $classSinCom ?> id="tab_sincomision">
                        <?php elseif($c['comision_nro'] != 10):?>
-                          <div class="tab-pane" id="tab_comision0<?php echo $c['comision_nro'] ?>">
+                          <div <?php echo $classCom1_9 ?> id="tab_comision0<?php echo $c['comision_nro'] ?>">
                        <?php else:?>                              
-                          <div class="tab-pane" id="tab_comision<?php echo $c['comision_nro'] ?>">
+                          <div <?php echo $classCom10 ?> id="tab_comision<?php echo $c['comision_nro'] ?>">
                        <?php endif;?>
-                              <?php //throw new Exception;?>
                              @include('inscripciones.ofertas.comisiones', compact('com'))
                           </div>
                     <?php endforeach;?>
                 <?php endforeach;?>
             <?php endif;?>
-            <div class="tab-pane" id="tab_aprobados">
+            <div <?php echo $classAprob ?> id="tab_aprobados">
                 @include('inscripciones.ofertas.aprobados', compact('aprobados'))
             </div>
         </div>
@@ -153,14 +222,5 @@
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     </div>    
 </div>
-<script>
-    $(function () {
-        $('#tabs_opciones a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
 
-        $("#tabs_opciones a[href=#tab_{{$tab_activa}}]").tab('show');
-    });
-</script>
 @stop

@@ -2,7 +2,7 @@
         <br>
         @if (count($preinscripciones))
         <div id="datosPreinscriptos">
-            <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+            <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarEvDatosIndex"/>
             <button class="sort" data-sort="nrodatos" >Por Nro.</button>
             <button class="sort" data-sort="apellidodatos" >Por Apellido</button>
                 <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">

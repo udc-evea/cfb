@@ -13,10 +13,7 @@ class OfertasInscripcionesController extends BaseController {
         //me fijo si viene con un parametro mas en la url
         $exp = Request::get('exp');
         $mailReplyTo = "inscripciones@udc.edu.ar";
-        
-        //coloco en la sesion a que tipo de oferta entre, asi puedo regresar al mismo
-        Session::set('tab_activa', $oferta->tipo_oferta);
-        
+                        
         //traigo todos (pre-inscriptos e inscriptos) para ver en la vista
         //$inscripciones = $oferta->inscripciones->all(); --> descomentar esta linea        
         
@@ -103,6 +100,11 @@ class OfertasInscripcionesController extends BaseController {
                     $aprobados = $oferta->aprobados->all();
                     return $this->exportarXLS($oferta->nombre."_aprobados_XLS", $aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
             }
+      }
+      
+      //Seteo el tab_activo de las inscripciones
+      if(!Session::has('tab_activa_inscripciones')){
+        Session::set('tab_activa_inscripciones',1);
       }
 
       if($oferta->getEsOfertaAttribute()){
@@ -346,6 +348,10 @@ class OfertasInscripcionesController extends BaseController {
                 ->with('message', "$cabecera Se guardaron correctamente los cambios! $final")
                 ;
         }
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',1);
+        
         $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.edit', array($oferta_id, $id))
@@ -366,6 +372,9 @@ class OfertasInscripcionesController extends BaseController {
         $inscripcion = $insc_class::findOrFail($id);
         
         $inscripcion->delete();
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',1);
         
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
@@ -507,6 +516,10 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->save();
             }
         }
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',2);
+        
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
@@ -572,6 +585,10 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->save();
             }
         }
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',3);
+        
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
@@ -593,6 +610,10 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
         }
         $inscripcion->save();
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',3);
+        
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
@@ -667,6 +688,10 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripcion->save();
             }
         }
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',3);
+        
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
@@ -699,6 +724,10 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setComisionNro(0);
         }
         $inscripcion->save();
+        
+        //Seteo el tab_activo de las inscripciones        
+        Session::set('tab_activa_inscripciones',3);
+        
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
@@ -717,6 +746,10 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setComisionNro(0);
         }
         $inscripcion->save();
+        
+        //Seteo el tab_activo de las inscripciones        
+        Session::set('tab_activa_inscripciones',3);
+        
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta_id))

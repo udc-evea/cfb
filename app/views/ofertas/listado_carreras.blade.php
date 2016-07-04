@@ -1,7 +1,7 @@
 @if ($carreras->count())
 <div id='divCarreras'>
     <br>
-    <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscar"/>
+    <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarCarrerasIndex"/>
         <button class="sort" data-sort="anio" >Año</button>
         <button class="sort" data-sort="nombre" >Nombre</button>
     <table class="table table-striped">

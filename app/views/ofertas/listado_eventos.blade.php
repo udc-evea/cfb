@@ -1,7 +1,7 @@
 @if ($eventos->count())
 <div id='divEventos'>
     <br>
-    <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscar"/>
+    <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarEventosIndex"/>
         <button class="sort" data-sort="anio" >Año</button>
         <button class="sort" data-sort="nombre" >Nombre</button>
     <table class="table table-striped">

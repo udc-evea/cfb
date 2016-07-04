@@ -10,7 +10,7 @@
 @endif
     @if (count($inscriptos))
     <div id="inscriptos">
-        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarCarrInscrIndex" onchange="verificarListaCompleta('inputBuscarCarrInscrIndex','btnSubmitFormCarrInscrIndex')"/>
         <button class="sort" data-sort="nroinsc" >Por Nro.</button>
         <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
         <?php $listaIdPreinscriptos = array();?>
@@ -119,7 +119,7 @@
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
         @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
-            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitForm')) }}
+            {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormCarrInscrIndex')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}
         @endif

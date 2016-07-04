@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-                    <html lang='es-AR'>
-                        <head>
-                            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-                            <style>
-                                @font-face {
-                                    font-family:my_font;
-                                    src:url(<?php echo asset('font-awesome/fonts/segoeui.ttf')?>) format('truetype');
-                                }
-                                body {
-                                    //border: 1px solid red;
-                                    margin: -30px;
-                                    width: 100%;
-                                    height: 760px;                
-                                }
-                                .certificado{
-                                    //border: 1px solid black;
-                                    font-family: my_font !Important;
-                                    width: 1085px;
-                                    height: 735px;
-                                    position: relative;
-                                }
+<html lang='es-AR'>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+        <style>
+            @font-face {
+                font-family:my_font;
+                src:url(<?php echo asset('font-awesome/fonts/segoeui.ttf')?>) format('truetype');
+            }
+            body {
+                //border: 1px solid red;
+                margin: -30px;
+                width: 100%;
+                height: 760px;                
+            }
+            .certificado{
+                //border: 1px solid black;
+                font-family: my_font !Important;
+                width: 1085px;
+                height: 735px;
+                position: relative;
+            }
             #textoCertificado{
                 //border: solid 2px green;
                 position: absolute;
@@ -29,6 +29,9 @@
                 text-align: center;
                 //font-family: 'Segoe UI Light' !Important;
                 font-size: 16pt;
+            }
+            p{
+                line-height: 15px;
             }
             #cuv{
                 position: absolute;
@@ -81,17 +84,17 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><span><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></span></p>
-            <p>D.N.I. <span><?php echo number_format($rows->documento, 0, ',', '.');?>,</span></p>
+            <p><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></p>
+            <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
             <p>ha aprobado el <?php echo $rows->oferta->nombre;?></p>
             <p>según Resolución Rectoral N° <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
             <p>Se extiende el presente certificado a los 
                 <?php echo date('d')?> días del mes de 
                 <?php echo $mes_actual ?> de 2016</p>
-            <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
+            <p>en la ciudad de Rawson, Provincia del Chubut.</p>
         </div>
-            <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $rows->codigo_verificacion ?></span></p>
+            <p id="cuv">Código Único de Verificación (CUV): <?php echo $rows->codigo_verificacion ?></p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular</p>
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>

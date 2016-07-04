@@ -10,7 +10,7 @@
     @endif    
     @if (count($asistentes))
     <div id='asistentes'>
-        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarEvAsistIndex"/>
         <button class="sort" data-sort="nroasis" >Por Nro.</button>
         <button class="sort" data-sort="apellidoasis" >Por Apellido</button>
             <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">

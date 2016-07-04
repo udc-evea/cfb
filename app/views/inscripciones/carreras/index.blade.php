@@ -1,4 +1,25 @@
-<?php $tab_activa = Session::get('tab_activa', 'preinscriptos'); ?>
+<?php    
+    $classDatos = 'class="tab-pane"';
+    $classPreinscr = 'class="tab-pane"';
+    $classInscr = 'class="tab-pane"';
+    if(Session::has('tab_activa_inscripciones')){
+        $tab_activa = Session::get('tab_activa_inscripciones');
+        switch ($tab_activa) {
+            case 1:
+                $classDatos = 'class="tab-pane active"';
+                break;
+            case 2:
+                $classPreinscr = 'class="tab-pane active"';
+                break;
+            case 3:
+                $classInscr = 'class="tab-pane active"';
+                break;
+            default:
+                $classDatos = 'class="tab-pane active"';
+                break;
+        }
+    }
+?>
 @extends('layouts.scaffold')
 @section('main')
 
@@ -47,7 +68,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones" role="tablist">
-                    <li class='active'>
+                    <li>
                         <a title="Todos los datos de los Preinscriptos a la Carrera" href="#tab_datos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-align-justify"></i> 
                             Editar Datos
@@ -69,13 +90,13 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_datos">
+            <div <?php echo $classDatos ?> id="tab_datos">
                 @include('inscripciones.carreras.datos', compact('inscripciones'))
             </div>
-            <div class="tab-pane" id="tab_preinscriptos">
+            <div <?php echo $classPreinscr ?> id="tab_preinscriptos">
                 @include('inscripciones.carreras.preinscriptos', compact('inscripciones'))
             </div>
-            <div class="tab-pane" id="tab_inscriptos">
+            <div <?php echo $classInscr ?> id="tab_inscriptos">
                 @include('inscripciones.carreras.inscriptos', compact('inscripciones'))
             </div>
         </div>
@@ -83,15 +104,5 @@
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
     </div>
 </div>
-<script>
-    $(function () {
-        $('#tabs_opciones a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-
-        $("#tabs_opciones a[href=#tab_{{$tab_activa}}]").tab('show');
-    });
-</script>    
 
 @stop

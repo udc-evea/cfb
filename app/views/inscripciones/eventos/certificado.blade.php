@@ -27,6 +27,9 @@
                 //font-family: "Segoe UI" !Important;
                 font-size: 16pt;
             }
+            p{
+                line-height: 15px;
+            }
             #cuv{
                 position: absolute;
                 top: 680px;
@@ -77,16 +80,16 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><span><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></span></p>
-            <p>D.N.I. <span><?php echo number_format($rows->documento, 0, ',', '.');?>,</span></p>
-            <p>asistió a <span><?php echo $rows->oferta->nombre;?></span></p>
+            <p><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></p>
+            <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
+            <p>asistió a <?php echo $rows->oferta->nombre;?></p>
             <br>
             <p>Se extiende el presente certificado a los 
-                <span><?php echo date('d')?></span> días del mes de 
-                <span><?php echo $mes_actual ?></span> de 2016</p>
+                <?php echo date('d')?> días del mes de 
+                <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
         </div>
-            <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $rows->codigo_verificacion ?></span></p>
+            <p id="cuv">Código Único de Verificación (CUV): <?php echo $rows->codigo_verificacion ?></p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular</p>
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>

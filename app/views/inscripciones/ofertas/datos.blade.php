@@ -2,7 +2,7 @@
 @if (count($preinscripciones))
   <fieldset>
     <div id="datosPreinscriptos">
-        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscar" onchange="verificarListaCompleta()"/>
+        <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarOfDatosIndex"/>
         <button class="sort" data-sort="nrodat" >Por Nro.</button>
         <button class="sort" data-sort="apellidodat" >Por Apellido</button>
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">

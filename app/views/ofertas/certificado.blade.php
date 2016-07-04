@@ -27,6 +27,9 @@
                 //font-family: "Segoe UI" !Important;
                 font-size: 15pt;
             }
+            p{
+                line-height: 15px;
+            }
             #cuv{
                 position: absolute;
                 top: 680px;
@@ -81,18 +84,18 @@
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><span><b><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></b></span></p>
-            <p>D.N.I. <span><b><?php echo number_format($capacPersonal->dni, 0, ',', '.');?></b>,</span></p>
+            <p><b><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></b></p>
+            <p>D.N.I. <b><?php echo number_format($capacPersonal->dni, 0, ',', '.');?></b>,</p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
-            <p><span><b><?php echo $rows->nombre;?></b></span></p>
-            <p>según Resolución Rectoral N° <span><?php echo $rows->resolucion_nro;?></span>, con una acreditación de 
-                <span><?php echo $rows->duracion_hs;?> horas reloj.</span></p>            
+            <p><b><?php echo $rows->nombre;?></b></p>
+            <p>según Resolución Rectoral N° <?php echo $rows->resolucion_nro;?>, con una acreditación de 
+                <?php echo $rows->duracion_hs;?> horas reloj.</p>            
             <p>Se extiende el presente certificado a los 
-                <span><?php echo date('d')?></span> días del mes de 
-                <span><?php echo $mes_actual ?></span> de 2016</p>
+                <?php echo date('d')?> días del mes de 
+                <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
         </div>
-            <p id="cuv">Código Único de Verificación (CUV): <span><?php echo $cap->codigo_verificacion ?></span></p>
+            <p id="cuv">Código Único de Verificación (CUV): <?php echo $cap->codigo_verificacion ?></p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular</p>
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>

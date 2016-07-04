@@ -1,4 +1,29 @@
-<?php $tab_activa = Session::get('tab_activa', 'preinscriptos'); ?>
+<?php    
+    $classDatos = 'class="tab-pane"';
+    $classPreinscr = 'class="tab-pane"';
+    $classInscr = 'class="tab-pane"';
+    $classAsist = 'class="tab-pane"';
+    if(Session::has('tab_activa_inscripciones')){
+        $tab_activa = Session::get('tab_activa_inscripciones');
+        switch ($tab_activa) {
+            case 1:
+                $classDatos = 'class="tab-pane active"';
+                break;
+            case 2:
+                $classPreinscr = 'class="tab-pane active"';
+                break;
+            case 3:
+                $classInscr = 'class="tab-pane active"';
+                break;
+            case 3:
+                $classAsist = 'class="tab-pane active"';
+                break;
+            default:
+                $classDatos = 'class="tab-pane active"';
+                break;
+        }
+    }
+?>
 @extends('layouts.scaffold')
 @section('main')
 
@@ -48,7 +73,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones_ev" role="tablist">
-                    <li class='active'><a title="Editar los datos de todos los Preinscriptos al evento." href="#tab_datos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Editar Datos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
+                    <li><a title="Editar los datos de todos los Preinscriptos al evento." href="#tab_datos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Editar Datos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
                     <li><a title="Todos los Preinscriptos al evento." href="#tab_preinscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Presinscriptos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
                     <?php if(!(empty($inscripciones))):?>
                         <li><a title="Solo los Inscriptos al evento." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
@@ -61,16 +86,16 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_datos">
+            <div <?php echo $classDatos ?> id="tab_datos">
                 @include('inscripciones.eventos.datos', compact('preinscripciones'))
             </div>
-            <div class="tab-pane" id="tab_preinscriptos">
+            <div <?php echo $classPreinscr ?> id="tab_preinscriptos">
                 @include('inscripciones.eventos.preinscriptos', compact('preinscripciones'))
             </div>
-            <div class="tab-pane" id="tab_inscriptos">
+            <div <?php echo $classInscr ?> id="tab_inscriptos">
                 @include('inscripciones.eventos.inscriptos', compact('inscripciones'))
             </div>            
-            <div class="tab-pane" id="tab_asistentes">
+            <div <?php echo $classAsist ?> id="tab_asistentes">
                 @include('inscripciones.eventos.asistentes', compact('asistentes'))
             </div>
         </div>
