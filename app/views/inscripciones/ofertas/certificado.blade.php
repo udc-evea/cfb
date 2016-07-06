@@ -2,11 +2,7 @@
 <html lang='es-AR'>
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-        <style>
-            @font-face {
-                font-family:my_font;
-                src:url(<?php echo asset('font-awesome/fonts/segoeui.ttf')?>) format('truetype');
-            }
+        <style>            
             body {
                 //border: 1px solid red;
                 margin: -30px;
@@ -14,20 +10,19 @@
                 height: 760px;                
             }
             .certificado{
-                //border: 1px solid black;
-                font-family: my_font !Important;
+                //border: 1px solid black;                
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
             #textoCertificado{
                 //border: solid 2px green;
+                font-family: "Segoe UI" !Important;
                 position: absolute;
                 width: 100%;
-                top: 140px;
+                top: 160px;
                 color: black;
                 text-align: center;
-                //font-family: 'Segoe UI Light' !Important;
                 font-size: 16pt;
             }
             p{
@@ -84,9 +79,9 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></p>
+            <p style="font-size: 18pt;"><b><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></b></p>
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
-            <p>ha aprobado el <?php echo $rows->oferta->nombre;?></p>
+            <p>ha aprobado el <b style="font-size: 18pt;"> <?php echo $rows->oferta->nombre;?></b></p>
             <p>según Resolución Rectoral N° <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
             <p>Se extiende el presente certificado a los 

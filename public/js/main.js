@@ -13,12 +13,11 @@ var MainModule = {
         'locale': 'es'  
       });
     },
-    
+            
     confirmDeleteForm: function()
     {
         var $forms = $("form.confirm-delete");
-        var mensaje = "¿Seguro que desea eliminar este registro?";
-        //var mensaje = document.getElementById('mjeBorrar').value;
+        var mensaje = "¿Seguro que desea eliminar el registro seleccionado?";        
         
         if(!$forms.length) return;
 

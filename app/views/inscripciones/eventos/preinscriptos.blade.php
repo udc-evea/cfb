@@ -41,7 +41,9 @@
                             <th>Email Personal</th>
                             @if($perfil != "Colaborador")
                                 <!---<th>Email UDC</th>-->
-                                <th>Inscriptos?</th>
+                                @if(!$oferta->estaFinalizada())
+                                    <th>Inscriptos?</th>
+                                @endif
                                 <!-- <th>Notificado/a</th> -->
                             @endif
                             <!--<th>Acciones</th>-->
@@ -67,32 +69,34 @@
                                 @endif
                                 <td>{{ $inscripcion->localidad->la_localidad }}</td>
                                 <td>{{ $inscripcion->email }}<p style="color: blue">{{ $inscripcion->email_institucional }}</p></td>
-                                @if($perfil != "Colaborador")
-                                    <!--<td>{{ $inscripcion->email_institucional }}</td>-->
-                                    <td>
-                                        <div class="slideTwo">
-                                        @if ($inscripcion->getEsInscripto())
-                                            <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoP<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoP<?php echo $inscripcion->id ?>"></label>
-                                        @else
-                                            <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoP<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoP<?php echo $inscripcion->id ?>"></label>
-                                        @endif
-                                        </div>
-                                    </td>
-                                    <!--<td>
-                                        @if ($inscripcion->getEsInscripto())
-                                            @if ($inscripcion->getCantNotificaciones() > 0)
-                                               @if ($inscripcion->getCantNotificaciones() == 1)
-                                                    {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
-                                               @else
-                                                    {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
-                                               @endif
+                                @if(!$oferta->estaFinalizada())
+                                    @if($perfil != "Colaborador")
+                                        <!--<td>{{ $inscripcion->email_institucional }}</td>-->
+                                        <td>
+                                            <div class="slideTwo">
+                                            @if ($inscripcion->getEsInscripto())
+                                                <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoP<?php echo $inscripcion->id ?>" value='1' checked='checked'><label for="slideTwoP<?php echo $inscripcion->id ?>"></label>
                                             @else
-                                               {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger')) }}
+                                                <input type="checkbox" name="inscripto[<?php echo $inscripcion->id ?>]" id="slideTwoP<?php echo $inscripcion->id ?>" value='1'><label for="slideTwoP<?php echo $inscripcion->id ?>"></label>
                                             @endif
-                                        @else
-                                        <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
-                                        @endif
-                                    </td> -->
+                                            </div>
+                                        </td>
+                                        <!--<td>
+                                            @if ($inscripcion->getEsInscripto())
+                                                @if ($inscripcion->getCantNotificaciones() > 0)
+                                                   @if ($inscripcion->getCantNotificaciones() == 1)
+                                                        {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
+                                                   @else
+                                                        {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
+                                                   @endif
+                                                @else
+                                                   {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger')) }}
+                                                @endif
+                                            @else
+                                            <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
+                                            @endif
+                                        </td> -->
+                                    @endif
                                 @endif
                                 <!--<td>
                                     {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
@@ -109,10 +113,12 @@
                 </table>            
                 <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
                 <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
-                @if($perfil != "Colaborador")
-                    {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvPreinscrIndex')) }}
-                    {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
-                    {{ Form::close() }}
+                @if(!$oferta->estaFinalizada())
+                    @if($perfil != "Colaborador")
+                        {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvPreinscrIndex')) }}
+                        {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
+                        {{ Form::close() }}
+                    @endif
                 @endif
         </div>
         @else

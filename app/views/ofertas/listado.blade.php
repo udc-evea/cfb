@@ -34,6 +34,7 @@
                         @endif
                     @endif
                     @if($oferta->inscriptos > 0)
+                        <?php Session::set('tab_activa_inscripciones',1); ?>
                         <small><a href="{{ URL::route('ofertas.inscripciones.show', $oferta->id) }}">[Ver]</a></small>
                     @endif
                 </td>
@@ -124,6 +125,7 @@
                                             <td>
                                               {{ link_to_route('capacitador.edit', ' ', array($cap->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
                                               {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $cap->id))) }}
+                                                <input id='mjeBorrar' value="¿Está seguro que desea eliminar esta Oferta?" type="hidden" />
                                                 {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del capacitador')) }}
                                               {{ Form::close() }}
                                             </td>
@@ -233,7 +235,6 @@
                                 @endif                                
                                 @if(($oferta->inscriptos == 0) && (!$oferta->estaFinalizada()))
                                     {{ Form::open(array('class' => 'confirm-delete', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $oferta->id))) }}
-                                        <input id='mjeBorrar' value="¿Está seguro que desea borrar esta Oferta?" type="hidden" />
                                         <li style="padding: 3px 20px;">{{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger')) }}</li>
                                     {{ Form::close() }}
                                 @else

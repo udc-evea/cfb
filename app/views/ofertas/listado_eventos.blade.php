@@ -34,6 +34,7 @@
                         @endif
                     @endif
                         @if($item->inscriptos > 0)
+                            <?php Session::set('tab_activa_inscripciones',1); ?>
                             <small><a href="{{ URL::route('ofertas.inscripciones.show', $item->id) }}">[Ver]</a></small>
                         @endif
                 </td>
@@ -228,7 +229,6 @@
                                 @endif                                
                                 @if(($item->inscriptos == 0) && (!$item->estaFinalizada()))
                                     {{ Form::open(array('class' => 'confirm-delete', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $item->id))) }}
-                                        <input id='mjeBorrar' value="¿Está seguro que desea borrar esta Oferta?" type="hidden" />
                                         <li style="padding: 3px 20px;">{{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger')) }}</li>
                                     {{ Form::close() }}
                                 @else

@@ -8,24 +8,22 @@
                 margin: -30px;
                 width: 100%;
                 height: 760px;
-                font-family: "Segoe UI" !Important;
             }
             .certificado{
                 //border: 1px solid black;
-                //font-family: "Segoe UI" !Important;
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
             #textoCertificado{
                 //border: solid 2px green;
+                font-family: "Segoe UI" !Important;
                 position: absolute;
                 width: 100%;
                 top: 140px;
                 color: black;
                 text-align: center;
-                //font-family: "Segoe UI" !Important;
-                font-size: 15pt;
+                font-size: 16pt;
             }
             p{
                 line-height: 15px;
@@ -84,10 +82,10 @@
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><b><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></b></p>
-            <p>D.N.I. <b><?php echo number_format($capacPersonal->dni, 0, ',', '.');?></b>,</p>
+            <p style="font-size: 18pt;"><b><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></b></p>
+            <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?>,</p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
-            <p><b><?php echo $rows->nombre;?></b></p>
+            <p style="font-size: 18pt;"><b><?php echo $rows->nombre;?></b></p>
             <p>según Resolución Rectoral N° <?php echo $rows->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->duracion_hs;?> horas reloj.</p>            
             <p>Se extiende el presente certificado a los 

@@ -34,9 +34,13 @@
                         @if($perfil != "Colaborador")
                             <th>Email UDC</th>
                             <!-- <th>Inscriptos?</th> -->
-                            <th>Notificado/a</th>
+                            @if(!$oferta->estaFinalizada())
+                                <th>Notificado/a</th>
+                            @endif
                         @endif
-                        <th>Asistio?</th>
+                        @if(!$oferta->estaFinalizada())
+                            <th>Asistio?</th>
+                        @endif
                         <!-- <th>Acciones</th> -->
                     </tr>
                 </thead>
@@ -64,6 +68,7 @@
                                     @endif
                                     </div>
                                 </td> -->
+                                @if(!$oferta->estaFinalizada())
                                 <td>
                                     @if ($inscripcion->getEsInscripto())
                                         @if ($inscripcion->getCantNotificaciones() > 0)
@@ -79,7 +84,9 @@
                                     <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
                                 </td>
+                                @endif
                             @endif
+                            @if(!$oferta->estaFinalizada())
                             <td>
                                 <div class="slideTwo">
                                     @if ($inscripcion->getEsAsistente())
@@ -89,6 +96,7 @@
                                     @endif
                                 </div>
                             </td>
+                            @endif
                             <!-- <td>
                                 {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
                                 
@@ -105,10 +113,12 @@
             </table>
             <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
             <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString ?>">
-            @if($perfil != "Colaborador")
-                {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvInscrIndex')) }}
-                {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
-                {{ Form::close() }}
+            @if(!$oferta->estaFinalizada())
+                @if($perfil != "Colaborador")
+                    {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvInscrIndex')) }}
+                    {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
+                    {{ Form::close() }}
+                @endif
             @endif
     </div>
     @else

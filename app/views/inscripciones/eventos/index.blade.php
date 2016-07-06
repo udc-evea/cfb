@@ -1,4 +1,7 @@
-<?php    
+<?php
+    $liInscEvDatos = '';
+    $liInscEvPreinsc = '';
+    $liInscEvInscr = '';
     $classDatos = 'class="tab-pane"';
     $classPreinscr = 'class="tab-pane"';
     $classInscr = 'class="tab-pane"';
@@ -8,21 +11,26 @@
         switch ($tab_activa) {
             case 1:
                 $classDatos = 'class="tab-pane active"';
+                $liInscEvDatos = 'class="active"';
                 break;
             case 2:
                 $classPreinscr = 'class="tab-pane active"';
+                $liInscEvPreinsc = 'class="active"';
                 break;
             case 3:
                 $classInscr = 'class="tab-pane active"';
+                $liInscEvInscr = 'class="active"';
                 break;
             case 3:
                 $classAsist = 'class="tab-pane active"';
                 break;
             default:
                 $classDatos = 'class="tab-pane active"';
+                $liInscEvDatos = 'class="active"';
                 break;
         }
     }
+    Session::set('tab_activa',3);
 ?>
 @extends('layouts.scaffold')
 @section('main')
@@ -34,6 +42,11 @@
 <div id="arriba" class="container">
     <div class="alert alert-info" align="center">
         <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
+        @if($oferta->estaFinalizada())
+            <div class='alert alert-danger'>
+                <h2>Esta {{ $tipoOferta }} se encuentra <strong>Finalizada</strong></h2>
+            </div>
+        @endif
     </div>
 
     <!--@if(count($preinscripciones))        
@@ -62,10 +75,12 @@
     <div>
         
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
-        @if(sizeof($preinscripciones))
-            {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
-                {{ Form::submit('Borrar inscriptos de Evento', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos del Evento')) }}
-            {{ Form::close() }}
+        @if(!$oferta->estaFinalizada())
+            @if(sizeof($preinscripciones))
+                {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
+                    {{ Form::submit('Borrar inscriptos de Evento', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos del Evento')) }}
+                {{ Form::close() }}
+            @endif
         @endif
     </div>
     <hr>
@@ -73,10 +88,10 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones_ev" role="tablist">
-                    <li><a title="Editar los datos de todos los Preinscriptos al evento." href="#tab_datos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Editar Datos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
-                    <li><a title="Todos los Preinscriptos al evento." href="#tab_preinscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Presinscriptos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
+                    <li <?php echo $liInscEvDatos ?>><a title="Editar los datos de todos los Preinscriptos al evento." href="#tab_datos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Editar Datos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
+                    <li <?php echo $liInscEvPreinsc ?>><a title="Todos los Preinscriptos al evento." href="#tab_preinscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-align-justify"></i> Presinscriptos <span class="badge"><?php echo sizeof($preinscripciones); ?></span></a></li>
                     <?php if(!(empty($inscripciones))):?>
-                        <li><a title="Solo los Inscriptos al evento." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
+                        <li <?php echo $liInscEvInscr ?>><a title="Solo los Inscriptos al evento." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
                     <?php endif;?>
                     <?php if(!(empty($asistentes))):?>
                         <li><a title="Solo los Asistentes al Evento." href="#tab_asistentes" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-thumbs-up"></i> Asistentes <span class="badge"><?php echo sizeof($asistentes); ?></span></a></li>

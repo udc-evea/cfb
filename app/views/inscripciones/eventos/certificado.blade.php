@@ -8,23 +8,21 @@
                 margin: -30px;
                 width: 100%;
                 height: 760px;
-                font-family: 'symbol' !Important;
             }
             .certificado{
                 //border: 1px solid black;
-                //font-family: "Segoe UI" !Important;
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
             #textoCertificado{
                 //border: solid 2px green;
+                font-family: "Segoe UI" !Important;
                 position: absolute;
                 width: 100%;
-                top: 140px;
+                top: 160px;
                 color: black;
                 text-align: center;
-                //font-family: "Segoe UI" !Important;
                 font-size: 16pt;
             }
             p{
@@ -80,9 +78,9 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></p>
+            <p style="font-size: 18pt;"><b><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></b></p>
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
-            <p>asistió a <?php echo $rows->oferta->nombre;?></p>
+            <p>asistió a <b style="font-size: 18pt;"> <?php echo $rows->oferta->nombre;?></b></p>
             <br>
             <p>Se extiende el presente certificado a los 
                 <?php echo date('d')?> días del mes de 

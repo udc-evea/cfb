@@ -2,6 +2,9 @@
     $TIPO_CARRERA = 1;
     $TIPO_CURSO = 2;
     $TIPO_EVENTO = 3;
+    $liClassOferta = '';
+    $liClassCarrera = '';
+    $liClassEvento = '';
     $classOf = 'class="tab-pane"';
     $classCa = 'class="tab-pane"';
     $classEv = 'class="tab-pane"';
@@ -10,34 +13,21 @@
         $tab_activa = Session::get('tab_activa'); 
         if($tab_activa == $TIPO_CURSO){
             $classOf = 'class="tab-pane active"';
+            $liClassOferta = 'class="active"';
             $tipoOfertaCadena = 'Oferta';
         }elseif($tab_activa == $TIPO_CARRERA){
             $classCa = 'class="tab-pane active"';
+            $liClassCarrera = 'class="active"';
             $tipoOfertaCadena = 'Carrera';
         }else{
             $classEv = 'class="tab-pane active"';
+            $liClassEvento = 'class="active"';
         }
     }
 ?>
 @extends('layouts.scaffold')
 @section('title', 'Inscripciones On Line - Universidad del Chubut')
 @section('main')
-<style type="text/css">
-#searchinput {
-    width: 200px;
-}
-#searchclear {
-    position: absolute;
-    right: 5px;
-    top: 0;
-    bottom: 0;
-    height: 14px;
-    margin: auto;
-    font-size: 14px;
-    cursor: pointer;
-    color: #ccc;
-}
-</style>
 <div class="container">
     <!-- Header -->
     <div class="row block">
@@ -63,9 +53,9 @@
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <ul class="nav nav-tabs" id="tabs_ofertas" role="tablist">
-                <li><a href="#tab_ofertas" role="tab" data-toggle="tab"><i class="fa fa-graduation-cap"></i> Ofertas ({{$ofertas->count()}})</a></li>
-                <li><a href="#tab_carreras" role="tab" data-toggle="tab"><i class="fa fa-university"></i> Carreras ({{$carreras->count()}})</a></li>
-                <li><a href="#tab_eventos" role="tab" data-toggle="tab"><i class="fa fa-calendar"></i> Eventos ({{$eventos->count()}})</a></li>
+                <li <?php echo $liClassOferta ?>><a href="#tab_ofertas" role="tab" data-toggle="tab"><i class="fa fa-graduation-cap"></i> Ofertas ({{$ofertas->count()}})</a></li>
+                <li <?php echo $liClassCarrera ?>><a href="#tab_carreras" role="tab" data-toggle="tab"><i class="fa fa-university"></i> Carreras ({{$carreras->count()}})</a></li>
+                <li <?php echo $liClassEvento ?>><a href="#tab_eventos" role="tab" data-toggle="tab"><i class="fa fa-calendar"></i> Eventos ({{$eventos->count()}})</a></li>
             </ul>
         </div>
     </div>

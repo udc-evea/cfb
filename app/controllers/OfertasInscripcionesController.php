@@ -339,6 +339,9 @@ class OfertasInscripcionesController extends BaseController {
         $input_db = Input::except($inscripcion::$rules_virtual);
                 
         $validation = $inscripcion->validarExistente($input);
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',1);
 
         if ($validation->passes()) {
             $inscripcion->update($input_db);
@@ -347,10 +350,7 @@ class OfertasInscripcionesController extends BaseController {
             return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
                 ->with('message', "$cabecera Se guardaron correctamente los cambios! $final")
                 ;
-        }
-        
-        //Seteo el tab_activo de las inscripciones
-        Session::set('tab_activa_inscripciones',1);
+        }                
         
         $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
         $final = $this->getEstiloMensajeFinal();

@@ -1,4 +1,7 @@
-<?php    
+<?php
+    $liInscOfDatos = '';
+    $liInscOfPreinsc = '';
+    $liInscOfInscr = '';
     $classDatos = 'class="tab-pane"';
     $classPreinscr = 'class="tab-pane"';
     $classInscr = 'class="tab-pane"';
@@ -20,12 +23,15 @@
         switch ($tab_activa) {
             case 1:
                 $classDatos = 'class="tab-pane active"';
+                $liInscOfDatos = 'class="active"';
                 break;
             case 2:
                 $classPreinscr = 'class="tab-pane active"';
+                $liInscOfPreinsc = 'class="active"';
                 break;
             case 3:
                 $classInscr = 'class="tab-pane active"';
+                $liInscOfInscr = 'class="active"';
                 break;
             case 4:
                 $classSinCom = 'class="tab-pane active"';
@@ -68,6 +74,7 @@
                 break;
         }
     }
+    Session::set('tab_activa',2);
 ?>
 @extends('layouts.scaffold')
 @section('main')
@@ -130,14 +137,14 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <ul class="nav nav-tabs" id="tabs_opciones" role="tablist">
-                    <li>
+                    <li <?php echo $liInscOfDatos?>>
                         <a title="Todos los Preinscriptos a la Oferta." href="#tab_datos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-user"></i> 
                             Editar Datos 
                             <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
                         </a>
                     </li>
-                    <li>
+                    <li <?php echo $liInscOfPreinsc?>>
                         <a title="Todos los Preinscriptos a la Oferta." href="#tab_preinscriptos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-align-justify"></i> 
                             Presinscriptos 
@@ -145,7 +152,7 @@
                         </a>
                     </li>
                     <?php if(!(empty($inscripciones))):?>
-                        <li><a title="Solo los Inscriptos a la Oferta." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
+                        <li <?php echo $liInscOfInscr?>><a title="Solo los Inscriptos a la Oferta." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
                     <?php endif;?>
                     <?php if(!(empty($comisiones))):?>
                         <?php if(sizeof($comisiones)>1):?>

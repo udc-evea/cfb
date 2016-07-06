@@ -77,12 +77,14 @@ input[readonly] {
             ->label('Fecha inicio para las Incripciones')
             ->addClass('fecha')
             ->placeholder('Colocar la fecha de INICIO de las inscripciones para esta Oferta.')
+            ->required();
 }}
 <hr>
 {{ Former::text('fin')
             ->label('Fecha fin para las Inscripciones')
             ->addClass('fecha')
             ->placeholder('Colocar la fecha de FIN de las inscripciones para esta Oferta.')
+            ->required();
 }}
 <hr>
 {{ Former::number('cupo_maximo')
@@ -314,6 +316,7 @@ input[readonly] {
         }else{
             //window.alert('(IF false) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='block';
+            document.getElementById('fecha_fin_oferta').required = true;
         }
     };
     
