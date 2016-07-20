@@ -23,7 +23,9 @@
                         <th>Aprobó?</th>
                     @endif
                     <th>Localidad</th>
-                    <th>Certificado</th>
+                    @if($perfil != "Colaborador")
+                        <th>Certificado</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +62,7 @@
                             </td>
                         @endif 
                         <td>{{ $inscripcion->localidad->la_localidad }}</td>
+                        @if($perfil != "Colaborador")
                         <td>
                             <?php 
                                 $name = $oferta->cert_base_alum_file_name;
@@ -72,6 +75,7 @@
                                 {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                             <?php endif; ?>
                         </td>
+                        @endif
                     </tr>
                     <?php $i++;?>
 		@endforeach

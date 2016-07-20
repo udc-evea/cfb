@@ -233,7 +233,7 @@
                                 @if(!$oferta->estaFinalizada())
                                     <li>{{ link_to_route('ofertas.edit', 'Editar Oferta', array($oferta->id), array('title'=>'Editar datos de la Oferta')) }}</li>
                                 @endif                                
-                                @if(($oferta->inscriptos == 0) && (!$oferta->estaFinalizada()))
+                                @if(($oferta->inscriptos == 0) && (!$oferta->estaFinalizada()) && ($userPerfil == "Administrador"))
                                     {{ Form::open(array('class' => 'confirm-delete', 'method' => 'DELETE', 'route' => array('ofertas.destroy', $oferta->id))) }}
                                         <li style="padding: 3px 20px;">{{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger')) }}</li>
                                     {{ Form::close() }}
@@ -243,7 +243,9 @@
                                 @if(!$oferta->estaFinalizada())
                                     <li>{{ link_to_route('ofertas.finalizar', 'Finalizar Oferta', array($oferta->id), array('title'=>'Finalizar la Oferta (no se harán más cambios.')) }}</li>
                                 @else
-                                    <li>{{ link_to_route('ofertas.desfinalizar', 'Desfinalizar Oferta', array($oferta->id), array('title'=>'Desfinalizar la Oferta (se permite hacer cambios.')) }}</li>
+                                    @if($userPerfil == "Administrador")
+                                        <li>{{ link_to_route('ofertas.desfinalizar', 'Desfinalizar Oferta', array($oferta->id), array('title'=>'Desfinalizar la Oferta (se permite hacer cambios.')) }}</li>
+                                    @endif
                                 @endif
                             @else
                                 <li><small>No tiene permisos para esta oferta</small></li>

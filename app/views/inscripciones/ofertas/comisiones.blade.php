@@ -21,11 +21,11 @@
                     <!-- <th>Localidad</th> -->
                     <th>Documento</th>
                     <th>Email</th>
-                    @if($perfil != "Colaborador")
-                        <!-- <th>Email UDC</th> -->
-                        <!-- <th>Requisitos</th>
-                        <th>Inscripto</th> -->
-                        <th>Comision Nro.</th>
+                    <!-- <th>Email UDC</th> -->
+                    <!-- <th>Requisitos</th>
+                    <th>Inscripto</th> -->
+                    <th>Comision Nro.</th>
+                    @if($perfil == "Administrador")
                         <th>Aprobó?</th>
                         <!-- <th>Notificado/a</th> -->
                     @endif
@@ -50,59 +50,61 @@
                         <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                         <td>{{ $inscripcion->tipoydoc }}</td>
                         <td>{{ $inscripcion->email }}<p style="color: blue">{{ $inscripcion->email_institucional }}</p></td>
-                        @if($perfil != "Colaborador")
-                            <!--<td>{{{ $inscripcion->email_institucional }}}</td>-->
-                            <!-- <td>
-                                @if ($inscripcion->getRequisitosCompletos())
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}
+                        
+                        <!--<td>{{{ $inscripcion->email_institucional }}}</td>-->
+                        <!-- <td>
+                            @if ($inscripcion->getRequisitosCompletos())
+                               {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Borrar que la persona presentó todos los requisitos.')) }}
+                            @else
+                               {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
+                            @endif
+                        </td> -->
+                        <td>
+                            @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
+                              @if($inscripcion->getComisionNro() > 0)
+                                {{ link_to_route('ofertas.inscripciones.restarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-minus','title'=>'Bajar el nro. de la comisión.')) }}
+                              @endif
+                            @endif
+                            @if($inscripcion->getComisionNro() != 0)
+                                <strong>Com. {{ $inscripcion->getComisionNro() }}</strong>
+                            @else
+                                <strong>Sin Com.</strong>
+                            @endif
+                            @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
+                              @if($inscripcion->getComisionNro() < 10)                                  
+                                {{ link_to_route('ofertas.inscripciones.sumarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-plus','title'=>'Sumar el nro. de la comisión.')) }}
+                              @endif
+                            @endif                                
+                        </td>
+                        @if($perfil == "Administrador")
+                        <td>
+                            @if(!$oferta->estaFinalizada())
+                                @if ($inscripcion->getEsAprobado())
+                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
                                 @else
-                                   {{ link_to_route('ofertas.inscripciones.cambiarEstadoDeRequisitos', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Anotar que la persona presentó todos los requisitos.')) }}
+                                   {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
                                 @endif
-                            </td> -->
-                            <td>
-                                @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
-                                  @if($inscripcion->getComisionNro() > 0)
-                                    {{ link_to_route('ofertas.inscripciones.restarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-minus','title'=>'Bajar el nro. de la comisión.')) }}
-                                  @endif
-                                @endif
-                                @if($inscripcion->getComisionNro() != 0)
-                                    <strong>Com. {{ $inscripcion->getComisionNro() }}</strong>
+                            @else
+                                @if ($inscripcion->getEsAprobado())
+                                   Si
                                 @else
-                                    <strong>Sin Com.</strong>
+                                   No
                                 @endif
-                                @if (($inscripcion->getEsInscripto())&&(!$oferta->estaFinalizada()))
-                                  @if($inscripcion->getComisionNro() < 10)                                  
-                                    {{ link_to_route('ofertas.inscripciones.sumarComision', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-plus','title'=>'Sumar el nro. de la comisión.')) }}
-                                  @endif
-                                @endif                                
-                            </td>
-                            <td>
-                                @if(!$oferta->estaFinalizada())
-                                    @if ($inscripcion->getEsAprobado())
-                                       {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-ok-sign','title'=>'Quitar la persona como Aprobado del curso.')) }}
-                                    @else
-                                       {{ link_to_route('ofertas.inscripciones.cambiarAprobado', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger glyphicon glyphicon-remove-sign','title'=>'Aprobar al inscripto.')) }}
-                                    @endif
+                            @endif
+                        </td>
+                        @endif
+                        <!-- <td>
+                            @if ($inscripcion->getEsInscripto())
+                                @if ($inscripcion->getCantNotificaciones() > 0)
+                                   {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
                                 @else
-                                    @if ($inscripcion->getEsAprobado())
-                                       Si
-                                    @else
-                                       No
-                                    @endif
+                                   {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
                                 @endif
-                            </td>
-                            <!-- <td>
-                                @if ($inscripcion->getEsInscripto())
-                                    @if ($inscripcion->getCantNotificaciones() > 0)
-                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
-                                    @else
-                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
-                                    @endif
-                                @else
-                                    <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" style="width: 55px" title="No Corresponde"></button>
-                                @endif
-                            </td>-->
-                        @endif                        
+                            @else
+                                <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" style="width: 55px" title="No Corresponde"></button>
+                            @endif
+                        </td>-->
+                        
                         <!-- <td>
                             {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}
                             <!-- <a href="{{route('ofertas.inscripciones.imprimir', [$oferta->id, $inscripcion->id])}}" class="btn btn-default" title="Imprimir formulario de inscripcion"><i class="fa fa-file-pdf-o"></i></a> -->

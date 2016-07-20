@@ -28,7 +28,7 @@
                     @endif
                     <!--<th>Localidad</th> 
                     <th>E-mail</th> -->
-                    @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
+                    @if(!$oferta->estaFinalizada())
                         <!-- <th>Email UDC</th> -->
                         <!-- <th>Requisitos</th> -->
                         <th>Inscripto</th>
@@ -56,7 +56,7 @@
                         @endif
                         <!--<td>{{ $inscripcion->localidad->la_localidad }}</td>
                         <td>{{ $inscripcion->email }}</td> -->
-                        @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
+                        @if(!$oferta->estaFinalizada())
                             <!-- <td>{{{ $inscripcion->email_institucional }}}</td> -->
                             <!-- <td>
                                 @if ($inscripcion->getRequisitosCompletos())
@@ -117,7 +117,7 @@
 	</table>
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
-        @if($perfil != "Colaborador")
+        @if(!$oferta->estaFinalizada())
             {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormOfPreinscrIndex')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}

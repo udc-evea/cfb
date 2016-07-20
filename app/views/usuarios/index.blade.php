@@ -1,5 +1,4 @@
 @extends('layouts.scaffold')
-
 @section('main')
 <div align="center">
     <h1 style="background-color: black;border: solid 2px white; color: white;padding: 10px;border-radius: 5px;">Lista de Usuarios</h1>
@@ -41,7 +40,7 @@
                                 {{ Form::close() }}
                             </td>
                             @else
-                            <td title="Solo otro Administrador puede editar sus datos!">Inhabilitado</td>
+                                <td title="Solo otro Administrador puede editar sus datos!">Inhabilitado</td>
                             @endif
                         @endif
                     </tr>

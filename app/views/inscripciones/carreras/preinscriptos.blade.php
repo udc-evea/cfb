@@ -27,7 +27,7 @@
                     @endif
                     <th>Localidad</th>
                     <th>Correos</th>
-                    @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
+                    @if(!$oferta->estaFinalizada())
                         <!--<th>Email UDC</th>-->
                         <th>Inscripto ({{ count($inscriptos) }})</th>
                         <th>Notificado/a</th>
@@ -51,7 +51,7 @@
                             <p>{{ $inscripcion->email }}</p>
                             <p style="color: blue">{{ $inscripcion->email_institucional }}</p>
                         </td>
-                        @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
+                        @if(!$oferta->estaFinalizada())
                             <!--<td>{{{ $inscripcion->email_institucional }}}</td>-->
                             <td>
                                 <div class="slideTwo"><div class="slideTwo">
@@ -94,7 +94,7 @@
 	</table>
         <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
         <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
-        @if(($perfil != "Colaborador")&&(!$oferta->estaFinalizada()))
+        @if(!$oferta->estaFinalizada())
             {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormCarrPreinscrIndex')) }}
             {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
             {{ Form::close() }}

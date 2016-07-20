@@ -70,7 +70,6 @@
                                 <td>{{ $inscripcion->localidad->la_localidad }}</td>
                                 <td>{{ $inscripcion->email }}<p style="color: blue">{{ $inscripcion->email_institucional }}</p></td>
                                 @if(!$oferta->estaFinalizada())
-                                    @if($perfil != "Colaborador")
                                         <!--<td>{{ $inscripcion->email_institucional }}</td>-->
                                         <td>
                                             <div class="slideTwo">
@@ -114,11 +113,9 @@
                 <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
                 <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
                 @if(!$oferta->estaFinalizada())
-                    @if($perfil != "Colaborador")
                         {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvPreinscrIndex')) }}
                         {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
                         {{ Form::close() }}
-                    @endif
                 @endif
         </div>
         @else

@@ -122,12 +122,11 @@
      @endif -->
     <div>
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
-        @if(!$oferta->estaFinalizada())
-            @if(sizeof($preinscripciones))
+        @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)) && ($perfil == "Administrador"))
                 {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
+                    <input id='mjeBorrar' value="¿Está seguro que desea borrar todos los preinscriptos a esta Oferta?" type="hidden" />
                     {{ Form::submit('Borrar inscriptos de Oferta', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Oferta')) }}
                 {{ Form::close() }}
-            @endif
         @endif
     </div>
     <hr>

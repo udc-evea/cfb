@@ -22,7 +22,7 @@
                         <th>DNI</th>
                         <th>E-mail</th>
                         <th>Titulación</th>
-                        @if($perfil == 'Administrador')
+                        @if($perfil != 'Colaborador')
                                 <th>Acciones</th>
                         @endif
                     </tr>
@@ -34,12 +34,14 @@
                         <td class="dni">{{ $pers->dni }}</td>
 			<td>{{ $pers->email }}</td>
                         <td>{{ $pers->titulacion_id }}</td>
-                        @if($perfil == 'Administrador')
+                        @if($perfil != 'Colaborador')
                             <td>
                                 {{ link_to_route('personal.edit', ' ', array($pers->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del personal.')) }}
-                                {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('personal.destroy', $pers->id))) }}
-                                    {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del personal')) }}
-                                {{ Form::close() }}                                                                    
+                                @if($perfil == 'Administrador')
+                                    {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('personal.destroy', $pers->id))) }}
+                                        {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del personal')) }}
+                                    {{ Form::close() }}
+                                @endif
                             </td>
                         @endif
                     </tr>
