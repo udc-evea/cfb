@@ -26,7 +26,7 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
     public static $rules = array(
         'nombreyapellido' => 'required|between:6,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'username' => 'required|between:3,20|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
-        'password' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
+        'password' => 'required|between:2,20|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',
         'perfil' => 'required|between:6,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/'
     );
     
