@@ -78,9 +78,9 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p style="font-size: 18pt;"><b><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></b></p>
+            <p style="font-size: 18pt;"><strong><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></strong></p>
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
-            <p>asistió a <b style="font-size: 18pt;"> <?php echo $rows->oferta->nombre;?></b></p>
+            <p>asistió a <strong style="font-size: 18pt;"> <?php echo $rows->oferta->nombre;?></strong></p>
             <br>
             <p>Se extiende el presente certificado a los 
                 <?php echo date('d')?> días del mes de 

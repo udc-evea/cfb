@@ -2,6 +2,7 @@
     $liInscOfDatos = '';
     $liInscOfPreinsc = '';
     $liInscOfInscr = '';
+    $liInscOfAprob = '';
     $classDatos = 'class="tab-pane"';
     $classPreinscr = 'class="tab-pane"';
     $classInscr = 'class="tab-pane"';
@@ -68,6 +69,7 @@
                 break;
             case 15:
                 $classAprob = 'class="tab-pane active"';
+                $liInscOfAprob = 'class="active"';
                 break;
             default:
                 $classDatos = 'class="tab-pane active"';
@@ -188,7 +190,7 @@
                         <?php endif;?>
                     <?php endif;?>
                     <?php if(!(empty($aprobados))):?>
-                        <li><a title="Solo los Aprobados a la Oferta." href="#tab_aprobados" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-thumbs-up"></i> Aprobados <span class="badge"><?php echo sizeof($aprobados); ?></span></a></li>
+                        <li <?php echo $liInscOfAprob?>><a title="Solo los Aprobados a la Oferta." href="#tab_aprobados" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-thumbs-up"></i> Aprobados <span class="badge"><?php echo sizeof($aprobados); ?></span></a></li>
                     <?php endif;?>
                 </ul>
             </div>

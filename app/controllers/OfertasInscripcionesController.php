@@ -604,15 +604,16 @@ class OfertasInscripcionesController extends BaseController {
         if($inscripcion->getEsAprobado()){
             $inscripcion->setAprobado(0);
             $inscripcion->setCodigoVerificacion(null);
+            //Seteo el tab_activo de las inscripciones
+            Session::set('tab_activa_inscripciones',3);
             /* Aca se borrarian los datos del que deja de ser "aprobado" */
         }else{
             $inscripcion->setAprobado(1);
             $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
+            //Seteo el tab_activo de las inscripciones
+            Session::set('tab_activa_inscripciones',15);
         }
-        $inscripcion->save();
-        
-        //Seteo el tab_activo de las inscripciones
-        Session::set('tab_activa_inscripciones',3);
+        $inscripcion->save();                
         
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
