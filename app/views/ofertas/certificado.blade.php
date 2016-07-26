@@ -11,13 +11,13 @@
             }
             .certificado{
                 //border: 1px solid black;
+                font-family: "Segoe UI" !Important;
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
             #textoCertificado{
                 //border: solid 2px green;
-                font-family: "Segoe UI" !Important;
                 position: absolute;
                 width: 100%;
                 top: 140px;

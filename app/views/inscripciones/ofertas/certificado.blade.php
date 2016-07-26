@@ -4,13 +4,14 @@
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
         <style>            
             body {
-                //border: 1px solid red;
+                //border: 1px solid red;                
                 margin: -30px;
                 width: 100%;
                 height: 760px;                
             }
             .certificado{
-                //border: 1px solid black;                
+                //border: 1px solid black;
+                font-family: "Segoe UI" !Important;
                 width: 1085px;
                 height: 735px;
                 position: relative;
@@ -30,7 +31,7 @@
             }
             b{
                 font-size: 18pt;
-                font-weight: bold !important;
+                font-weight: bold;
                 font-style: inherit;
             }
             #cuv{
