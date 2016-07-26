@@ -29,7 +29,7 @@
                 line-height: 14px;
             }
             b{
-                font-family: "Times New Roman" !Important;
+                font-family: Arial !Important;
                 font-size: 18pt;
                 font-weight: bold;
                 font-style: inherit;
@@ -85,9 +85,9 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><strong><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></strong></p>
+            <p><strong style="font-weight: 900"><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></strong></p>
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
-            <p>ha aprobado el <strong> <?php echo $rows->oferta->nombre;?></strong></p>
+            <p>ha aprobado el <strong style="font-weight: 900"> <?php echo $rows->oferta->nombre;?></strong></p>
             <p>según Resolución Rectoral N° <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
             <p>Se extiende el presente certificado a los 
