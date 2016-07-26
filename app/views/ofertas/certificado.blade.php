@@ -11,7 +11,6 @@
             }
             .certificado{
                 //border: 1px solid black;
-                font-family: "Segoe UI" !Important;
                 width: 1085px;
                 height: 735px;
                 position: relative;
@@ -26,7 +25,11 @@
                 font-size: 16pt;
             }
             p{
+                font-family: "Segoe UI" !Important;
                 line-height: 15px;
+            }
+            b{
+                
             }
             #cuv{
                 position: absolute;
