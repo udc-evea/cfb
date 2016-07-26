@@ -28,9 +28,10 @@
             p{
                 line-height: 15px;
             }
-            .lineaResaltada{
+            b{
                 font-size: 18pt;
-                font-weight: 900 !important;
+                font-weight: bold !important;
+                font-style: inherit;
             }
             #cuv{
                 position: absolute;
@@ -82,9 +83,9 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p class="lineaResaltada"><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></p>
+            <p><b><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></b></p>
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
-            <p>asistió a <span class="lineaResaltada"> <?php echo $rows->oferta->nombre;?></span></p>
+            <p>asistió a <b> <?php echo $rows->oferta->nombre;?></b></p>
             <br>
             <p>Se extiende el presente certificado a los 
                 <?php echo date('d')?> días del mes de 
