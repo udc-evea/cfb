@@ -25,7 +25,7 @@
                 font-size: 16pt;
             }
             p{
-                font-family: "Segoe UI" !Important;
+                //font-family: "Segoe UI" !Important;
                 line-height: 14px;
             }
             b{
