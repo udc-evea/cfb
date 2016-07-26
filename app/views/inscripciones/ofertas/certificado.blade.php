@@ -17,7 +17,7 @@
             }
             #textoCertificado{
                 //border: solid 2px green;
-                font-family: "Segoe UI" !Important;
+                //font-family: "Segoe UI" !Important;
                 position: absolute;
                 width: 100%;
                 top: 160px;
