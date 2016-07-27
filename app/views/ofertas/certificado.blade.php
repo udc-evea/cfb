@@ -29,7 +29,8 @@
                 line-height: 15px;
             }
             b{
-                
+                font-size: 20pt;
+                font-weight: bold;
             }
             #cuv{
                 position: absolute;
