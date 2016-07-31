@@ -16,8 +16,8 @@
         <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarOfInscrIndex" onchange="verificarListaCompleta('inputBuscarOfInscrIndex','btnSubmitFormOfInscrIndex')"/>
         <button class="sort" data-sort="nroinsc" >Por Nro.</button>
         <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
-    <?php $listaIdInscriptos = array();?>
-    {{ Form::open(array(
+        <?php $listaIdInscriptos = array(); ?>
+        {{ Form::open(array(
                 'method' => 'POST',
                 'action' => array('OfertasInscripcionesController@cambiarEstadoDeRequisitos', $oferta->id))) }}
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">

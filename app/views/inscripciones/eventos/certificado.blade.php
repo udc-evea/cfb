@@ -19,14 +19,14 @@
                 //border: solid 2px green;
                 position: absolute;
                 width: 100%;
-                top: 160px;
+                top: 170px;
                 color: black;
                 text-align: center;
                 font-size: 16pt;
             }
             p{
                 font-family: "Segoe UI" !Important;
-                line-height: 15px;
+                line-height: 12px;
             }
             b{
                 font-size: 20pt;
@@ -91,8 +91,8 @@
                 <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
         </div>
-            <p id="cuv">Código Único de Verificación (CUV): <?php echo $rows->codigo_verificacion ?></p>
-            <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular</p>
+            <p id="cuv">Código Único de Verificación (CUV): <?php echo $rows->codigo_verificacion ?>.</p>
+            <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>

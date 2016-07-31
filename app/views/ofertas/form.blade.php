@@ -136,7 +136,7 @@ input[readonly] {
 {{ Former::checkbox('presentar_mas_doc')
         ->label('Debe presentar documentación extra?')
 	->addClass('checkbox')
-        ->placeholder('Checkear si es que para esta Oferta el inscripto debe presentar documentación extra a la solicitada en el formulario de inscripción.') 
+        ->placeholder('Chequear si es que para esta Oferta el inscripto debe presentar documentación extra a la solicitada en el formulario de inscripción.') 
         ->style('visibility: visible; margin-left: 3px')
         ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
 }}
@@ -177,7 +177,7 @@ input[readonly] {
     <hr>
     {{ Former::checkbox('lleva_tit_previa')
             ->label('Lleva titulación previa?')
-            ->help('Checkear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
+            ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
     }}

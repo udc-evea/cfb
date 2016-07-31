@@ -21,9 +21,10 @@
                 </tr>
             </thead>
             <tbody class="list">
+                    <?php $i = 1;?>
                    @foreach ($preinscripciones as $inscripcion)
                     <tr>
-                        <td class="nrodat">{{ $inscripcion->id }}</td>
+                        <td class="nrodat">{{ $i }}</td>
                         <td class="apellidodat">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
                         @if($perfil != "Colaborador")
                             <td>{{ $inscripcion->tipoydoc }}</td>
@@ -41,7 +42,8 @@
                             @endif
                         </td>
                         @endif
-                    </tr>                    
+                    </tr>
+                    <?php $i++;?>
 		@endforeach
 		</tbody>
 	</table>

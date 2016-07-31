@@ -40,7 +40,7 @@
                @foreach ($preinscripciones as $inscripcion)
                     <?php $listaIdPreinscriptos[] = $inscripcion->id; ?>
                     <tr>
-                        <td class="nro">{{ $inscripcion->id }}</td>
+                        <td class="nro">{{ $i }}</td>
                         <td class="apellido">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
                         <!-- <td>{{ $inscripcion->nombre }}</td> -->
                         @if($perfil != "Colaborador")

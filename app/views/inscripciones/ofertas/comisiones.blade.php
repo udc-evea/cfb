@@ -5,10 +5,10 @@
 @endif
 @if (count($com))
 <fieldset>
-    <div id="comisiones">
+    <div id="comisiones<?php echo $com[0]['comision_nro']?>">
         <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarOfComisIndex"/>
-        <button class="sort" data-sort="nrocom" >Por Nro.</button>
-        <button class="sort" data-sort="apellidocom" >Por Apellido</button>
+        <button class="sort" data-sort="nrocom<?php echo $com[0]['comision_nro']?>" >Por Nro.</button>
+        <button class="sort" data-sort="apellidocom<?php echo $com[0]['comision_nro']?>" >Por Apellido</button>
 	<table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
             <thead>
                 <tr>
@@ -41,8 +41,8 @@
                         $bkgcolor=$arreglo[1];
                    ?>                   
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
-                        <td class="nrocom">{{ $i }}</td>
-                        <td class="apellidocom">{{ $inscripcion->apellido }}</td>
+                        <td class="nrocom<?php echo $com[0]['comision_nro']?>">{{ $i }}</td>
+                        <td class="apellidocom<?php echo $com[0]['comision_nro']?>">{{ $inscripcion->apellido }}</td>
                         <td>{{ $inscripcion->nombre }}</td>
                         @if($perfil != "Colaborador")
                             <!-- <td>{{ $inscripcion->tipoydoc }}</td> -->
@@ -125,13 +125,14 @@
 <h2>Aún no hay inscriptos en esta oferta.</h2>
 <p><a href="{{ URL::action('ofertas.inscripciones.create', $oferta->id) }}" class="btn-btn-link">Formulario de inscripción</a> | <a href="{{ URL::route('ofertas.index') }}">Lista de ofertas</a></p>
 @endif
+<?php $nro_x = rand(1, 100);?>
 <script>
     function CargarAnterior(){
         window.history.go(-1);
     }
     
     var options = {
-      valueNames: [ 'apellidocom', 'nrocom' ]
+      valueNames: [ "apellidocom<?php echo $com[0]['comision_nro']?>", "nrocom<?php echo $com[0]['comision_nro']?>" ]
     };
-    var comisionesList = new List('comisiones', options);
+    var comisionesList = new List('comisiones<?php echo $com[0]['comision_nro']?>', options);
 </script>

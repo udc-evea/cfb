@@ -61,7 +61,7 @@
                                 }
                             ?>
                             <tr>
-                                <td <?php echo $colorBackground ?> class="nro">{{ $inscripcion->id }}</td>
+                                <td <?php echo $colorBackground ?> class="nro">{{ $i }}</td>
                                 <td class="apellido">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
                                 <!-- <td>{{ $inscripcion->nombre }}</td> -->
                                 @if($perfil != "Colaborador")

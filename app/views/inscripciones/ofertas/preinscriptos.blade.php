@@ -48,7 +48,7 @@
                         $listaIdPreinscriptos[] = $inscripcion->id;
                    ?>
                     <tr style="background-color: <?php echo $bkgcolor ?> !important; color: <?php echo $color ?> !important">
-                        <td class="nro">{{ $inscripcion->id }}</td>
+                        <td class="nro">{{ $i }}</td>
                         <td class="apellido">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
                         <!-- <td>{{ $inscripcion->nombre }}</td> -->
                         @if($perfil != "Colaborador")
