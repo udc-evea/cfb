@@ -800,6 +800,8 @@ class OfertasInscripcionesController extends BaseController {
 
             //return Redirect::to('/ofertas');
         //}
+            //Seteo el tab_activo de las inscripciones        
+            Session::set('tab_activa_inscripciones',3);
                         
             // incremento la cantidad de veces que se notifico al inscripto
             $inscripcion->seEnvioNotificacion();
@@ -807,6 +809,60 @@ class OfertasInscripcionesController extends BaseController {
             $final = $this->getEstiloMensajeFinal();
             return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
                     ->with('message',"$cabecera Se envió correctamente el mail informativo de la cuenta institucional! $final");
+    }
+    
+    public function enviarMailNuevoInscripto($oferta_id, $id){
+        //busco el inscripto ($id) segun la oferta ($oferta_id)
+        $oferta = Oferta::findorFail($oferta_id);
+        $insc_class = $oferta->inscripcionModelClass;
+        $inscripcion = $insc_class::findOrFail($id);
+        
+        
+        //########################################################################
+        //$oferta = Oferta::findOrFail($oferta_id);
+        //$inscripto = $oferta->inscripcionModel;
+        
+        //$input = Input::all();
+        
+        //$input_db = Input::except($inscripto::$rules_virtual);
+
+        //$validation = $inscripto->validarNuevo($input);
+
+        //if ($validation->passes()) {
+            
+            //$insc = $inscripto->create($input_db); 
+        
+            // verifico a cual correo se configura el 'replyTo()'
+            if($oferta->getEsOfertaAttribute()){
+                $mailReplyTo = "cursos@udc.edu.ar";
+            }elseif($oferta->getEsCarreraAttribute()){
+                $mailReplyTo = "alumnos@udc.edu.ar";
+            }else{
+                $mailReplyTo = "eventos@udc.edu.ar";
+            }
+
+            try {
+                Mail::send('emails.ofertas.notificacion_inscripto_udc', compact('inscripcion','oferta'), function($message) use($inscripcion, $mailReplyTo){
+                    $message
+                            ->to($inscripcion->email, $inscripcion->apellido.','.$inscripcion->nombre)
+                            ->subject('Correo Institucional creado')
+                            ->replyTo($mailReplyTo);
+                });
+            } catch (Swift_TransportException $e) {
+                Log::info("No se pudo enviar correo a " . $inscripcion->apellido.','.$inscripcion->nombre." <" . $inscripcion->email.">");
+            }
+
+            //return Redirect::to('/ofertas');
+        //}
+            //Seteo el tab_activo de las inscripciones        
+            Session::set('tab_activa_inscripciones',3);
+                        
+            // incremento la cantidad de veces que se notifico al inscripto
+            $inscripcion->seEnvioNotificacionInscripto();
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.inscripciones.index', array($oferta_id))
+                    ->with('message',"$cabecera Se envió correctamente el mail informativo al inscripto! $final");
     }
     
     public function limpiarPreinscripciones($id_oferta) {

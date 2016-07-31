@@ -31,8 +31,9 @@
                     <!-- <th>Email UDC</th> -->
                     <th>Requisitos</th>
                     <th>Comision Nro.</th>
-                    @if($perfil == "Administrador")
-                        <th>Notificado/a</th>
+                    @if(($perfil == "Administrador")||($perfil == "Coordinador"))
+                        <th>Not. como Inscripto</th>
+                        <th>Not. mail Institucional</th>
                     @endif
                     <!--<th>Acciones</th>-->
                 </tr>
@@ -96,7 +97,22 @@
                               @endif
                             @endif                                
                         </td>
-                        @if ($perfil == "Administrador")
+                        @if(($perfil == "Administrador")||($perfil == "Coordinador"))
+                        <td>
+                            @if ($inscripcion->getEsInscripto())
+                              @if(!$oferta->estaFinalizada())
+                                @if ($inscripcion->getCantNotificacionesInscripto() > 0)
+                                   {{ link_to_route('ofertas.inscripciones.enviarMailNuevoInscripto', $inscripcion->getCantNotificacionesInscripto().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail notificando que ya es Inscripto.')) }}
+                                @else
+                                   {{ link_to_route('ofertas.inscripciones.enviarMailNuevoInscripto', $inscripcion->getCantNotificacionesInscripto().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail notificando que ya es Inscripto.')) }}
+                                @endif
+                              @else
+                                {{ $inscripcion->getCantNotificacionesInscripto() }} veces
+                              @endif
+                            @else
+                                <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" style="width: 55px" title="No Corresponde"></button>
+                            @endif
+                        </td>
                         <td>
                             @if ($inscripcion->getEsInscripto())
                               @if(!$oferta->estaFinalizada())

@@ -30,6 +30,7 @@ class InscripcionCarrera extends Eloquent {
         'email'             => 'required|email|unique_with:inscripcion_carrera,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
+        'cant_notificaciones_inscripto' => 'integer|min:0',
         'domicilio_procedencia_tipo'  => 'required|in:CASA,DEPTO,PENSION,RESIDENCIA',
         'domicilio_procedencia_calle' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ0-9\.]+$/',
         'domicilio_procedencia_nro'   => 'required|integer|min:0',
@@ -534,6 +535,15 @@ class InscripcionCarrera extends Eloquent {
     
     public function seEnvioNotificacion(){
         $this->attributes['cant_notificaciones']++;
+        $this->save();
+    }
+    
+    public function getCantNotificacionesInscripto(){
+        return $this->attributes['cant_notificaciones_inscripto'];
+    }
+    
+    public function seEnvioNotificacionInscripto(){
+        $this->attributes['cant_notificaciones_inscripto']++;
         $this->save();
     }
     

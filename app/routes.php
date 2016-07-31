@@ -61,6 +61,11 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/notificar', 
       array('uses' => 'OfertasInscripcionesController@enviarMailInstitucional', 'as' => 'ofertas.inscripciones.enviarMailInstitucional')
     );
+    
+    //agregue esta ruta para enviar los mails de inscripcion a los preinscriptos
+    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/notificarinscripcion', 
+      array('uses' => 'OfertasInscripcionesController@enviarMailNuevoInscripto', 'as' => 'ofertas.inscripciones.enviarMailNuevoInscripto')
+    );
 
     Route::post('/ofertas/{oferta}/inscripciones/{inscripcion}/requisito', 
       array('uses' => 'OfertasInscripcionesController@presentarRequisito', 'as' => 'ofertas.inscripciones.requisito_presentar')

@@ -21,6 +21,7 @@ class InscripcionEvento extends Eloquent {
         'email'    => 'required|email|unique_with:inscripcion_evento,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
+        'cant_notificaciones_inscripto' => 'integer|min:0',
         'telefono'  => 'required|between:7,50|regex:/^[0-9+\(\)#\.\s\/ext-]+$/',//'integer|min:4000000',
         'como_te_enteraste' => 'required|exists:inscripcion_como_te_enteraste,id',
         'como_te_enteraste_otra' => 'between:5,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜ]+$/',
@@ -248,6 +249,15 @@ class InscripcionEvento extends Eloquent {
     
     public function seEnvioNotificacion(){
         $this->attributes['cant_notificaciones']++;
+        $this->save();
+    }
+    
+    public function getCantNotificacionesInscripto(){
+        return $this->attributes['cant_notificaciones_inscripto'];
+    }
+    
+    public function seEnvioNotificacionInscripto(){
+        $this->attributes['cant_notificaciones_inscripto']++;
         $this->save();
     }
     

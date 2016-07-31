@@ -42,7 +42,7 @@
         <div class="form-group">
             {{ Form::label('perfil', 'Perfil:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
-              <?php $tipoUser = array('Colaborador'=>'Colaborador','Creador'=>'Creador','Administrador'=>'Administrador'); ?>
+              <?php $tipoUser = array('Colaborador'=>'Colaborador','Creador'=>'Creador','Coordinador'=>'Coordinador','Administrador'=>'Administrador'); ?>
               {{ Form::select('perfil',$tipoUser); }}
               {{ Form::token('remember_token') }}
             </div>

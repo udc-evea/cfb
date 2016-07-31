@@ -35,8 +35,9 @@
                             <th>Email UDC</th>
                         @endif
                         <!-- <th>Inscriptos?</th> -->
-                        @if((!$oferta->estaFinalizada()) && ($perfil == "Administrador"))
-                            <th>Notificado/a</th>
+                        @if((!$oferta->estaFinalizada()) && (($perfil == "Administrador")||($perfil == "Coordinador")))
+                            <th>Not. como Inscripto</th>
+                            <th>Not. mail Institucional</th>
                         @endif
                         @if((!$oferta->estaFinalizada()) && ($perfil == "Administrador"))
                             <th>Asistio?</th>
@@ -69,17 +70,32 @@
                                 @endif
                                 </div>
                             </td> -->
-                            @if((!$oferta->estaFinalizada()) && ($perfil == "Administrador"))
+                            @if((!$oferta->estaFinalizada()) && (($perfil == "Administrador")||($perfil == "Coordinador")))
+                            <td>
+                                @if ($inscripcion->getEsInscripto())
+                                    @if ($inscripcion->getCantNotificacionesInscripto() > 0)
+                                       @if ($inscripcion->getCantNotificacionesInscripto() == 1)
+                                            {{ link_to_route('ofertas.inscripciones.enviarMailNuevoInscripto', $inscripcion->getCantNotificacionesInscripto().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail notificando que ya es Inscripto.')) }}
+                                       @else
+                                            {{ link_to_route('ofertas.inscripciones.enviarMailNuevoInscripto', $inscripcion->getCantNotificacionesInscripto().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail notificando que ya es Inscripto.')) }}
+                                       @endif
+                                    @else
+                                       {{ link_to_route('ofertas.inscripciones.enviarMailNuevoInscripto', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail notificando que ya es Inscripto.')) }}
+                                    @endif
+                                @else
+                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
+                                @endif
+                            </td>
                             <td>
                                 @if ($inscripcion->getEsInscripto())
                                     @if ($inscripcion->getCantNotificaciones() > 0)
                                        @if ($inscripcion->getCantNotificaciones() == 1)
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
+                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
                                        @else
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success')) }}
+                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
                                        @endif
                                     @else
-                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger')) }}
+                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
                                     @endif
                                 @else
                                     <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
