@@ -2,9 +2,23 @@
 <html lang="es-AR">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <!--<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
         <style>
+            @font-face {
+                font-family: 'Raleway';
+                font-style: normal;
+                font-weight: 400;
+                src: url(\'font-awesome/fonts/Raleway-Thin.ttf\');
+            }
+            @font-face {
+                font-family: 'Raleway-Bold';
+                font-style: normal;
+                font-weight: 600;
+                src: url(\'font-awesome/fonts/Raleway-Bold.ttf\');
+            }
             body {
                 //border: 1px solid red;
+                font-family: 'Raleway';
                 margin: -30px;
                 width: 100%;
                 height: 760px;
@@ -25,12 +39,13 @@
                 font-size: 16pt;
             }
             p{
-                font-family: "Segoe UI" !Important;
+                //font-family: "Segoe UI" !Important;
+                //font-family: 'Raleway';
                 line-height: 12px;
             }
-            b{
+            #negrita{
                 font-size: 20pt;
-                font-weight: bold;
+                font-weight: 500;
             }
             #cuv{
                 position: absolute;
@@ -86,10 +101,10 @@
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p style="font-size: 18pt;"><b><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></b></p>
+            <p id='negrita'><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></p>
             <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?>,</p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
-            <p style="font-size: 18pt;"><b><?php echo $rows->nombre;?></b></p>
+            <p id='negrita'><?php echo $rows->nombre;?></p>
             <p>según Resolución Rectoral N° <?php echo $rows->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->duracion_hs;?> horas reloj.</p>            
             <p>Se extiende el presente certificado a los 
@@ -102,18 +117,5 @@
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
-    
-    <!--<div class="certificado">
-        <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 735px;"/>
-        <p id="nombreCapacitador"><span><?php //echo $capacPersonal->nombre.", ".$capacPersonal->apellido; ?></span></p>
-        <p id="dniCapacitador"><span><?php //echo number_format($capacPersonal->dni, 0, ',', '.');?></span></p>
-        <p id="rolCapacitador"><span><?php //echo strtolower($capacRol->rol);?></span></p>
-        <p id="nombreOferta"><span><?php //echo strtoupper($rows->nombre);?></span></p>
-        <p id="resolucion"><?php //echo $rows->resolucion_nro;?></p>
-        <p id="cantidadHorasReloj"><?php //echo $rows->duracion_hs;?></p>
-        <p id="diaHoy"><?php //echo date('d')?></p>
-        <p id="mesHoy"><?php //echo strtoupper($aux) ?></p>
-    </div> -->
-    
 </body>
 </html>
