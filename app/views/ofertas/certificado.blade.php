@@ -4,18 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <!--<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
         <style>
-            @font-face {
-                font-family: 'Raleway';
-                font-style: normal;
-                font-weight: 400;
-                src: url(\'font-awesome/fonts/Raleway-Thin.ttf\');
-            }
-            @font-face {
-                font-family: 'Raleway-Bold';
-                font-style: normal;
-                font-weight: 600;
-                src: url(\'font-awesome/fonts/Raleway-Bold.ttf\');
-            }
+            
             body {
                 //border: 1px solid red;
                 font-family: 'Raleway';
@@ -43,7 +32,7 @@
                 //font-family: 'Raleway';
                 line-height: 12px;
             }
-            #negrita{
+            p b{
                 font-size: 20pt;
                 font-weight: bold;
             }
@@ -101,10 +90,10 @@
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p id='negrita'><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></p>
+            <p><b><?php echo strtoupper($capacPersonal->apellido).", ".$capacPersonal->nombre;?></b></p>
             <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?>,</p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
-            <p id='negrita'><?php echo $rows->nombre;?></p>
+            <p><b><?php echo $rows->nombre;?></b></p>
             <p>según Resolución Rectoral N° <?php echo $rows->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->duracion_hs;?> horas reloj.</p>            
             <p>Se extiende el presente certificado a los 

@@ -5,6 +5,7 @@
         <style>
             body {
                 //border: 1px solid red;
+                font-family: 'Raleway';
                 margin: -30px;
                 width: 100%;
                 height: 760px;
@@ -25,10 +26,10 @@
                 font-size: 16pt;
             }
             p{
-                font-family: "Segoe UI" !Important;
+                //font-family: "Segoe UI" !Important;
                 line-height: 12px;
             }
-            b{
+            p b{
                 font-size: 20pt;
                 font-weight: bold;
             }
