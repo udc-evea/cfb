@@ -5,7 +5,7 @@ return array(
 	'DOMPDF_PDF_BACKEND' => 'CPDF',
 	'DOMPDF_DEFAULT_MEDIA_TYPE' => 'screen',
 	'DOMPDF_DEFAULT_PAPER_SIZE' => 'A4',//'DOMPDF_DEFAULT_PAPER_SIZE' => 'letter',
-	'DOMPDF_DEFAULT_FONT' => 'my_font',
+	'DOMPDF_DEFAULT_FONT' => 'ralewayudc',
 	'DOMPDF_DPI' => 96,
 	'DOMPDF_ENABLE_PHP' => true,//false,
 	'DOMPDF_ENABLE_REMOTE' => true,//'DOMPDF_ENABLE_REMOTE' => false,

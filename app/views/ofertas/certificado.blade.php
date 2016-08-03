@@ -45,7 +45,7 @@
             }
             #negrita{
                 font-size: 20pt;
-                font-weight: 500;
+                font-weight: bold;
             }
             #cuv{
                 position: absolute;
