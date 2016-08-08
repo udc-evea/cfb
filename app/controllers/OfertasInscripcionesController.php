@@ -908,18 +908,27 @@ class OfertasInscripcionesController extends BaseController {
         $path_to_pdf = public_path("pdfs/$filename.pdf");
         File::put($path_to_pdf, $content);
         
-        //Envío el mail al mail institucional y al personal
-        Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){
-            $message->from('nico@gmail.com', 'NicoGmail');
-            $message->to('nicof05@gmail.com')->subject('Certificado en PDF');
-            $message->attach("pdfs/$filename.pdf", array('as'=>'Certif. UDC', 'mime'=>'application/pdf'));
-        });
+        try{
+            //Envío el mail al mail institucional y al personal
+            Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){                
+                $message->to($rows->email)->cc($rows->email_institucional)->subject('Certificado UDC');
+                $message->attach("pdfs/$filename.pdf", array('as'=>'Certif. UDC', 'mime'=>'application/pdf'));
+            });
+        } catch (Swift_TransportException $e) {
+            Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
+            //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
+            $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
+                            ->withoferta($oferta)
+                            ->with('message', "$cabecera No se pudo enviar el Certificado de $rows->nombre, $rows->apellido. Intente nuevamente más tarde. $final");
+        }                        
         
         //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
         $final = $this->getEstiloMensajeFinal();
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
-                        ->with('message', "$cabecera Se creo el PDF correctamente. $final");
+                        ->with('message', "$cabecera Se envió el Certificado de $rows->nombre, $rows->apellido correctamente. $final");
     }
 }
