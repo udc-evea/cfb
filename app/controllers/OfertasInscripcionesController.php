@@ -905,7 +905,7 @@ class OfertasInscripcionesController extends BaseController {
         //Creo el pdf y lo guardo en la carpeta /public/pdfs
         $pdf = new \Thujohn\Pdf\Pdf();
         $content = $pdf->load($html, 'A4', 'landscape')->output();
-        $path_to_pdf = public_path("/pdfs/$filename.pdf");
+        $path_to_pdf = public_path("pdfs/$filename.pdf");
         File::put($path_to_pdf, $content);
         
         //Envío el mail al mail institucional y al personal
