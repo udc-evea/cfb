@@ -96,6 +96,11 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/ofertas/{oferta}/desfinalizar', 
       array('uses' => 'OfertasController@desfinalizarOferta', 'as' => 'ofertas.desfinalizar')
     );
+    
+    //agregue esta ruta para enviar el certificado en PDF al mail del alumno
+    Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/enviarpdf', 
+      array('uses' => 'OfertasInscripcionesController@enviarPdf', 'as' => 'ofertas.inscripciones.enviarPdf')
+    );
             
     // especifico que todos los controladores para las Ofertas estan en OfertasController
     Route::resource('ofertas', 'OfertasController');

@@ -23,7 +23,7 @@
                 }}
                 {{ Former::sm_text('requisito')->required()->label('Descripción') }}
                 <input type="hidden" name="obligatorio" value="0"/>
-                {{ Former::checkbox('obligatorio')->label('Obligatorio')->check()->addClass('checkbox') }}
+                {{ Former::checkbox('obligatorio')->label('Obligatorio')->check()->addClass('checkbox')->style('visibility: visible; margin-left: 3px') }}
                 {{ Former::actions(Former::sm_primary_submit('Guardar'))}}
                 {{ Former::close() }}
             </div>
@@ -36,7 +36,7 @@
                 <ul class="list-unstyled requisitos">
                     <li class="nuevo hide"></li>
                     @foreach($oferta->requisitos as $item)
-                    @include('requisitos.item', array('oferta' => $oferta, 'req' => $item))
+                        @include('requisitos.item', array('oferta' => $oferta, 'req' => $item))
                     @endforeach
                 </ul>
             </div>

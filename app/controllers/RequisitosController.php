@@ -15,17 +15,17 @@ class RequisitosController extends BaseController {
 	 */
 	public function store($oferta_id)
 	{
-		$oferta    = Oferta::findOrFail($oferta_id);
-        $input    = Input::all();
+            $oferta    = Oferta::findOrFail($oferta_id);
+            $input    = Input::all();
 
-        $validation = Validator::make($input, Requisito::$rules);
+            $validation = Validator::make($input, Requisito::$rules);
 
-        if ($validation->fails())
-        	return Response::json(array('error' => 'Error al guardar'), 400);
-        
-    	$obj = new Requisito;
-    	$obj = $obj->create(array_merge($input, array('oferta_id' => $oferta_id)));
-    	return View::make('requisitos.item', array('oferta' => $oferta, 'req' => $obj));
+            if ($validation->fails())
+                    return Response::json(array('error' => 'Error al guardar'), 400);
+
+            $obj = new Requisito;
+            $obj = $obj->create(array_merge($input, array('oferta_id' => $oferta_id)));
+            return View::make('requisitos.item', array('oferta' => $oferta, 'req' => $obj));
 	}
 
 	/**

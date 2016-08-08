@@ -71,6 +71,7 @@
                             ?>
                             <?php if (($name != null)&&($resolucion != null)&&($duracionHoras != null)): ?>
                                 <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfa', 'alm' => $inscripcion->id )) }}" title="Certificado de Aprobación del alumnos"><i class="fa fa-file-pdf-o fa-3"></i></a>
+                                <a class="btn btn-xs btn-danger" href="{{ URL::Action('ofertas.inscripciones.enviarPdf', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails"><i class="fa fa-file-pdf-o fa-3"></i></a>
                             <?php else: ?>
                                 {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                             <?php endif; ?>

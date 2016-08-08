@@ -70,6 +70,12 @@ class OfertasInscripcionesController extends BaseController {
                     $aprobado = $oferta->aprobados->find($id_alumno);
                     Session::set('oferta',$oferta);
                     return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado');
+                case parent::ENV_PDFA:
+                    //traigo solo los datos de alumno APROBADO para descargar a pdf
+                    $id_alumno = Request::get('alm');
+                    $aprobado = $oferta->aprobados->find($id_alumno);
+                    Session::set('oferta',$oferta);
+                    return $this->enviarPDF($oferta->id.$id_alumno, $aprobado, 'inscripciones.'.$oferta->view.'.certificado');
                 case parent::EXPORT_PDFAS:
                     //traigo solo los datos de alumno ASISTENTE para exportar a pdf
                     $id_alumno = Request::get('alm');
@@ -881,5 +887,39 @@ class OfertasInscripcionesController extends BaseController {
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
                         ->with('message', "$cabecera Se eliminaron todos los preinscriptos correctamente. $final");
+    }
+    
+    public function enviarPdf($ofid, $alumnoid)
+    {      
+        //busco la oferta en la BD
+        $oferta = Oferta::findOrFail($ofid);
+        //busco los datos del alumnos inscripto
+        $insc_class = $oferta->inscripcionModelClass;
+        $rows = $insc_class::findOrFail($alumnoid);
+                            
+        //creo el nomre del archivo pdf
+        $filename = $ofid.$alumnoid;
+        //creo el certificado
+        $html = View::make('inscripciones.'.$oferta->view.'.certificado', compact('rows'));        
+        
+        //Creo el pdf y lo guardo en la carpeta /public/pdfs
+        $pdf = new \Thujohn\Pdf\Pdf();
+        $content = $pdf->load($html, 'A4', 'landscape')->output();
+        $path_to_pdf = public_path("/pdfs/$filename.pdf");
+        File::put($path_to_pdf, $content);
+        
+        //Envío el mail al mail institucional y al personal
+        Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){
+            $message->from('nico@gmail.com', 'NicoGmail');
+            $message->to('nicof05@gmail.com')->subject('Certificado en PDF');
+            $message->attach("pdfs/$filename.pdf", array('as'=>'Certif. UDC', 'mime'=>'application/pdf'));
+        });
+        
+        //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
+                        ->withoferta($oferta)
+                        ->with('message', "$cabecera Se creo el PDF correctamente. $final");
     }
 }

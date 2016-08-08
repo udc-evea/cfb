@@ -15,6 +15,7 @@ class BaseController extends Controller {
         const EXPORT_PDFAPDOS = 'pdfapdos'; //exportar a pdf todos los aprobados de un curso
         
         const EXPORT_PDFA = 'pdfa'; //exportar a pdf los datos del Aprobado (p/el certificado)
+        const ENV_PDFA = 'envpdfa'; //descargar a pdf los datos del Aprobado (p/el certificado)
         const EXPORT_PDFAS = 'pdfas'; //exportar a pdf los datos del Asistente (p/el certificado)
         const EXPORT_PDFCAP = 'pdfcap'; //exportar a pdf los datos del capacitador (p/el certificado)
         
@@ -62,7 +63,7 @@ class BaseController extends Controller {
 
         return PDF::load($html, 'A4', 'landscape')                
                 ->show($filename);
-    }
+    }        
     
     protected function obtenerElId($string) {
         $id = 0;

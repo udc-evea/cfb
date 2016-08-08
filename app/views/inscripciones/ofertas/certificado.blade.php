@@ -23,28 +23,24 @@
                 top: 170px;
                 color: black;
                 text-align: center;
-                font-size: 16pt;
+                font-size: 18pt;
             }
             p{
                 //font-family: "Segoe UI" !Important;
                 line-height: 12px;
             }
-            p b{
-                font-size: 20pt;
-                font-weight: bold;
-            }
             #cuv{
                 position: absolute;
                 top: 680px;
                 left: 100px;
-                font-size: 10pt !important;
+                font-size: 9pt !important;
                 text-align: left;
             }
             #cuvhelp{
                 position: absolute;
                 top: 700px;
                 left: 100px;
-                font-size: 10pt !important;
+                font-size: 9pt !important;
                 text-align: left;
             }
             #cuvqr{
@@ -83,10 +79,10 @@
     <div class="certificado">
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
-            <p>La UNIVERSIDAD DEL CHUBUT certifica que</p>
-            <p><b><?php echo strtoupper($apellidoBien).", ".$rows->nombre;?></b></p>
-            <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>,</p>
-            <p>ha aprobado el <b> <?php echo $rows->oferta->nombre;?></b></p>
+            <p>La <b>Universidad del Chubut </b>  certifica que</p>
+            <p><b style="font-size: 24pt"><?php echo $rows->nombre." ".strtoupper($apellidoBien)?></b></p>
+            <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?> </p>
+            <p>ha aprobado el <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
             <p>según Resolución Rectoral N° <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
             <p>Se extiende el presente certificado a los 
@@ -94,7 +90,7 @@
                 <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>
         </div>
-            <p id="cuv">Código Único de Verificación (CUV): <?php echo $rows->codigo_verificacion ?>.</p>
+            <p id="cuv">Código Único de Validación (CUV): <b>&nbsp;<?php echo "&nbsp;&nbsp;&nbsp;".$rows->codigo_verificacion ?></b>.</p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
