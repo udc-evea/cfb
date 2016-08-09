@@ -916,7 +916,7 @@ class OfertasInscripcionesController extends BaseController {
             });
         } catch (Swift_TransportException $e) {
             Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
-            //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
+            //devuelvo un mje erroneo y regreso a la inscripcion de la oferta
             $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
             $final = $this->getEstiloMensajeFinal();
             return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
@@ -930,5 +930,6 @@ class OfertasInscripcionesController extends BaseController {
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
                         ->with('message', "$cabecera Se envió el Certificado de $rows->nombre, $rows->apellido correctamente. $final");
-    }
+    }        
+    
 }

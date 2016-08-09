@@ -224,7 +224,7 @@
             <div <?php echo $classAprob ?> id="tab_aprobados">
                 @include('inscripciones.ofertas.aprobados', compact('aprobados'))
             </div>
-        </div>
+        </div>    
     <!-- <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a> -->
     <div id="fondo">
         <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>

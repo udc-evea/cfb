@@ -101,7 +101,12 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/enviarpdf', 
       array('uses' => 'OfertasInscripcionesController@enviarPdf', 'as' => 'ofertas.inscripciones.enviarPdf')
     );
-            
+    
+    //agregue esta ruta para enviar todos los certificados automaticamente al mail de los alumnos
+    Route::get('/ofertas/{oferta}/enviarTodosLosPdf', 
+      array('uses' => 'OfertasController@enviarTodosLosPdf', 'as' => 'ofertas.enviarTodosLosPdf')
+    );
+    
     // especifico que todos los controladores para las Ofertas estan en OfertasController
     Route::resource('ofertas', 'OfertasController');
     // especifico que todos los controladores para las Inscripciones estan en OfertasInscripcionesController

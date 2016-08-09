@@ -98,6 +98,11 @@
                     @endforeach
                 </tbody>
             </table>
+        @if(count($asistentes))
+        <div style="float: right">
+            <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarTodosLosPdf', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados <i class="fa fa-file-pdf-o"></i></a>
+        </div>
+        @endif
     </div>
     @else
         <br>

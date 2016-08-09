@@ -462,4 +462,55 @@ class OfertasController extends BaseController {
             return Redirect::route('ofertas.index')
                     ->with('message', "$cabecera La Oferta: $oferta->nombre se desfinalizó de manera correcta! Ya se pueden realizar cambios en ella.$final");
         }
+        
+        public function enviarTodosLosPdf($ofid)
+        {
+            //busco la oferta en la BD
+            $oferta = Oferta::findOrFail($ofid);
+
+            //si es Oferta traigo los aprobados
+            if($oferta->getEsOfertaAttribute()){
+                $inscripciones = $oferta->aprobados->all();
+            }elseif($oferta->getEsEventoAttribute()){
+                //si es Evento traigo los Asistentes
+                $inscripciones = $oferta->asistentes->all();
+            }
+
+            //recorro todos los alumnos (inscripciones) para generar el PDF y enviarlo a su mail
+            foreach ($inscripciones as $inscripto) {
+                
+                //busco los datos de los inscriptos
+                $insc_class = $oferta->inscripcionModelClass;
+                $rows = $insc_class::findOrFail($inscripto->id);
+                
+                //creo el nomre del archivo pdf
+                $filename = $ofid.$rows->id;
+                //creo el certificado
+                $html = View::make('inscripciones.'.$oferta->view.'.certificado', compact('rows'));
+                //Creo el pdf y lo guardo en la carpeta /public/pdfs
+                $pdf = new \Thujohn\Pdf\Pdf();                
+                $content = $pdf->load($html, 'A4', 'landscape')->output();
+                $path_to_pdf = public_path("pdfs/$filename.pdf");
+                File::put($path_to_pdf, $content);
+                
+                //envío los mails que se agregaron en public/pdfs
+                try{
+                    $view_mail = View::make('emails.ofertas.envio_certificado', compact('rows','oferta'));
+                    //Envío el mail al mail institucional y al personal
+                    Mail::queue($view_mail,compact('rows','oferta'), function ($message) use ($rows,$filename){
+                        $message->to($rows->email)->cc($rows->email_institucional)->subject('Certificado UDC');
+                        $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC', 'mime'=>'application/pdf'));
+                    });
+                } catch (Swift_TransportException $e) {
+                    Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
+                }
+            }
+            
+            //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
+                            ->withoferta($oferta)
+                            ->with('message', "$cabecera Los Certificados se enviarán automaticamente durante los próximo minutos. Mientras puede seguir utilizando el sistema. $final");
+        }
 }
