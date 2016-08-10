@@ -83,8 +83,7 @@
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?></p>
             <p>asistió a <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
             <br>
-            <p>Se extiende el presente certificado a los 
-                <?php echo date('d')?> días del mes de 
+            <p>Se extiende el presente certificado al <?php echo date('d')?> de 
                 <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
         </div>

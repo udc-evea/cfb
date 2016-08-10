@@ -85,8 +85,7 @@
             <p>ha aprobado el <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
             <p>según Resolución Rectoral N° <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
                 <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
-            <p>Se extiende el presente certificado a los 
-                <?php echo date('d')?> días del mes de 
+            <p>Se extiende el presente certificado al <?php echo date('d')?> de 
                 <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>
         </div>
