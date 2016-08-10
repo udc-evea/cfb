@@ -281,7 +281,7 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send($oferta->getVistaMail(), compact('oferta','insc'), function($message) use($oferta, $insc, $mailReplyTo) {
                     $message
                             ->to($insc->correo, $insc->inscripto)
-                            ->subject('UDC:: Recibimos tu inscripción a ' . $oferta->nombre)
+                            ->subject('UDC:: Recibimos tu Preinscripción a ' . $oferta->nombre)
                             ->replyTo($mailReplyTo);
                 });
             } catch (Swift_TransportException $e) {

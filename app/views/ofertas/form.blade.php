@@ -118,7 +118,7 @@ input[readonly] {
                 </span>
                 <input type="text" class="form-control" readonly>
             </div>
-            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+            <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual (el nombre del archivo no debe contener espacios).</span>
         </div>
     </div>
     <!-- {{ Former::text('mail_bienvenida_file_name')->label('Archivo de imágen seleccionado:') }} 
@@ -134,9 +134,9 @@ input[readonly] {
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
 <input type="hidden" name="presentar_mas_doc" value="0"/>
 {{ Former::checkbox('presentar_mas_doc')
-        ->label('Debe presentar documentación extra?')
+        ->label('Requisitos y Documentación Extra')
 	->addClass('checkbox')
-        ->placeholder('Chequear si es que para esta Oferta el inscripto debe presentar documentación extra a la solicitada en el formulario de inscripción.') 
+        ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
         ->style('visibility: visible; margin-left: 3px')
         ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
 }}
@@ -217,7 +217,7 @@ input[readonly] {
                     </span>
                     <input type="text" class="form-control" readonly>
                 </div>
-                <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+                <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual (el nombre del archivo no debe contener espacios).</span>
             </div>
         </div>
         <hr>
@@ -241,7 +241,7 @@ input[readonly] {
                     </span>
                     <input type="text" class="form-control" readonly>
                 </div>
-                <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual.</span>
+                <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual (el nombre del archivo no debe contener espacios).</span>
             </div>
         </div> 
     </div>
