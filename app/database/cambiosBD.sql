@@ -262,3 +262,22 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> ALTER TABLE `inscripcion_evento` ADD `cant_notificaciones_inscripto` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Registro de la cantidad de mail de inscripcion que se le envió al inscripto.' AFTER `cant_notificaciones`;
 /* agrego el campo `cant_notificaciones_inscripto` en Inscripcion_carrera */
 -> ALTER TABLE `inscripcion_carrera` ADD `cant_notificaciones_inscripto` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Registro de la cantidad de mail de inscripcion que se le envió al inscripto.' AFTER `cant_notificaciones`;
+
+
+/* ######  2016/08/10  ####################### */
+--    VERSION_BASE: 3.1.8 - VERSION_CODIGO: 3.1.15
+-- Función envio_certificado_aprobado (Of/Ca/Ev)
+/* 
+1) se cambia la versión del código a 3.1.15
+2) se cambia la versión de la base de datos a 3.1.8
+3) agrego el campo `cant_notificaciones_certificado` en Of/Ca/Ev
+*/
+-- la sintaxis es:
+/* Cambio en la base la versión de código del sistema, de 3.1.12 a 3.1.15 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.15' WHERE  `version_bd`.`version_codigo` =  '3.1.12' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.1.6 a 3.1.7 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.8' WHERE  `version_bd`.`version` =  '3.1.7' LIMIT 1 ;
+/* agrego el campo `cant_notificaciones_certificado` en Inscripcion_oferta */
+-> ALTER TABLE `inscripcion_oferta` ADD `cant_notificaciones_certificado` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Registro de la cantidad de mail con el Certificado que se le envió al aprobado.' AFTER `cant_notificaciones_inscripto`;
+/* agrego el campo `cant_notificaciones_inscripto` en Inscripcion_evento */
+-> ALTER TABLE `inscripcion_evento` ADD `cant_notificaciones_certificado` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Registro de la cantidad de mail con el Certificado que se le envió al asistente.' AFTER `cant_notificaciones_inscripto`;

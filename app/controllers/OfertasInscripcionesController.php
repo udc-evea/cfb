@@ -889,7 +889,7 @@ class OfertasInscripcionesController extends BaseController {
                         ->with('message', "$cabecera Se eliminaron todos los preinscriptos correctamente. $final");
     }
     
-    public function enviarPdf($ofid, $alumnoid)
+    public function enviarMailCertificado($ofid, $alumnoid)
     {      
         //busco la oferta en la BD
         $oferta = Oferta::findOrFail($ofid);
@@ -923,6 +923,9 @@ class OfertasInscripcionesController extends BaseController {
                             ->withoferta($oferta)
                             ->with('message', "$cabecera No se pudo enviar el Certificado de $rows->nombre, $rows->apellido. Intente nuevamente más tarde. $final");
         }                        
+        
+        //incremento la cantidad de veces que se le envió el mail con el certificado
+        $rows->seEnvioNotificacionConCertificado();
         
         //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');

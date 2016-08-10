@@ -270,6 +270,15 @@ class Inscripcion extends Eloquent {
         $this->save();
     }
     
+    public function getCantNotificacionesConCertificado(){
+        return $this->attributes['cant_notificaciones_certificado'];
+    }
+    
+    public function seEnvioNotificacionConCertificado(){
+        $this->attributes['cant_notificaciones_certificado']++;
+        $this->save();
+    }
+    
     public function sanear_string($string){
         
         $string = trim($string);

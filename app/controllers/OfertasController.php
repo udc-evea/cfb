@@ -463,7 +463,7 @@ class OfertasController extends BaseController {
                     ->with('message', "$cabecera La Oferta: $oferta->nombre se desfinalizó de manera correcta! Ya se pueden realizar cambios en ella.$final");
         }
         
-        public function enviarTodosLosPdf($ofid)
+        public function enviarMailsConCertificados($ofid)
         {
             //busco la oferta en la BD
             $oferta = Oferta::findOrFail($ofid);
@@ -501,10 +501,14 @@ class OfertasController extends BaseController {
                         $message->to($rows->email)->cc($rows->email_institucional)->subject('Certificado UDC');
                         $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC', 'mime'=>'application/pdf'));
                     });
+                    //incremento la cantidad de veces que se le envió el mail con el certificado
+                    $rows->seEnvioNotificacionConCertificado();
+                    
                 } catch (Swift_TransportException $e) {
                     Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
                 }
             }
+            
             
             //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
             $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
