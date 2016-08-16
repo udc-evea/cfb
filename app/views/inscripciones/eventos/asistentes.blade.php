@@ -78,8 +78,8 @@
                                         $duracionHoras = $oferta->duracion_hs;
                                     ?>
                                     <?php if (($name != null)&&($resolucion != null)&&($duracionHoras != null)): ?>
-                                        <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfas', 'alm' => $inscripcion->id )) }}" title="Certificado de Asistencia del alumno"><i class="fa fa-file-pdf-o fa-3"></i></a>
-                                        <a class="btn btn-xs btn-danger" href="{{ URL::Action('ofertas.inscripciones.enviarMailCertificado', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails">{{ $inscripcion->getCantNotificacionesConCertificado() }} <i class="fa fa-file-pdf-o fa-3"></i></a>
+                                        <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfas', 'alm' => $inscripcion->id )) }}" title="Certificado de Asistencia del alumno"> <span class='glyphicon glyphicon-download-alt'></span> <i class="fa fa-file-pdf-o fa-3"></i></a>
+                                        <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.inscripciones.enviarMailCertificado', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails">{{ $inscripcion->getCantNotificacionesConCertificado() }}  <span class='glyphicon glyphicon-envelope'></span></a>
                                     <?php else: ?>
                                         {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                                     <?php endif; ?>
@@ -100,7 +100,7 @@
             </table>
         @if(count($asistentes))
         <div style="float: right">
-            <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarMailsConCertificados', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados <i class="fa fa-file-pdf-o"></i></a>
+            <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarMailsConCertificados', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados <span class='glyphicon glyphicon-envelope'></span> </a>
         </div>
         @endif
     </div>

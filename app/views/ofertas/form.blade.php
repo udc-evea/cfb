@@ -113,7 +113,7 @@ input[readonly] {
             <div class="input-group">
                 <span class="input-group-btn">
                     <span class="btn btn-primary btn-file">
-                        Cargar <input type="file" id="mail_bienvenida" name="mail_bienvenida">                        
+                        Cargar <input type="file" id="mail_bienvenida" name="mail_bienvenida" onchange="validarNombreDeArchivo('mail_bienvenida')">
                     </span>
                 </span>
                 <input type="text" class="form-control" readonly>
@@ -212,7 +212,7 @@ input[readonly] {
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-primary btn-file">
-                            Cargar <input type="file" id="cert_base_alum" name="cert_base_alum">
+                            Cargar <input type="file" id="cert_base_alum" name="cert_base_alum" onchange="validarNombreDeArchivo('cert_base_alum')">
                         </span>
                     </span>
                     <input type="text" class="form-control" readonly>
@@ -236,7 +236,7 @@ input[readonly] {
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-primary btn-file">
-                            Cargar <input type="file" id="cert_base_cap" name="cert_base_cap">
+                            Cargar <input type="file" id="cert_base_cap" name="cert_base_cap"  onchange="validarNombreDeArchivo('cert_base_cap')">
                         </span>
                     </span>
                     <input type="text" class="form-control" readonly>
@@ -273,11 +273,11 @@ input[readonly] {
         });
     });
     
-    $(document).on('change', '.btn-file :file', function() {
+      $(document).on('change', '.btn-file :file', function() {
         var input = $(this),
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
+            input.trigger('fileselect', [numFiles, label]);
       });
 
       $(document).ready( function() {
@@ -294,6 +294,26 @@ input[readonly] {
 
           });
       });
+      
+    function validarNombreDeArchivo(campoId){
+        pathFile = document.getElementById(campoId).value;
+        nameFileConEspacios = pathFile.match(/[^\/\\]+\.(?:jpg|gif|png|bmp)$/i);        
+        nameFileConEspacios = nameFileConEspacios.toString().replace(/\.jpg$|\.gif$|\.png$|\.bmp$/i,"");
+        
+        if( (/['']|\s/i).test(nameFileConEspacios)){
+            alert('El nombre del archivo no debe contener espacios!!');
+            document.getElementById(campoId).value = null;
+            return document.getElementById(campoId).focus();
+        }
+        /*nameFileSinEspacios = reemplazar(nameFileConEspacios,' ','-');
+        pathFileOk = reemplazar(pathFile,nameFileConEspacios,nameFileSinEspacios);
+        alert('Nombre archivo: '+ pathFileOk);*/
+        return true;
+    }
+    
+    function reemplazar(texto,s1,s2){
+        return texto.split(s1).join(s2);
+    }
       
     function mostrar_ocultar(divId, checkboxId) {
         element = document.getElementById(divId);
