@@ -98,7 +98,9 @@
                                             <th>Rol</th>
                                             <th>Certificado</th>
                                             @if(!$oferta->estaFinalizada())
-                                                <th>Acciones</th>
+                                                @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                                                    <th>Acciones</th>
+                                                @endif
                                             @endif
                                         </thead>
                                         <tbody>                                      
@@ -122,22 +124,26 @@
                                                 <?php endif; ?>
                                             </td>
                                             @if(!$oferta->estaFinalizada())
-                                            <td>
-                                              {{ link_to_route('capacitador.edit', ' ', array($cap->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
-                                              {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $cap->id))) }}
-                                                <input id='mjeBorrar' value="¿Está seguro que desea eliminar esta Oferta?" type="hidden" />
-                                                {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del capacitador')) }}
-                                              {{ Form::close() }}
-                                            </td>
+                                                @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                                                <td>
+                                                  {{ link_to_route('capacitador.edit', ' ', array($cap->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del capacitador.')) }}
+                                                  {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'delete', 'route' => array('capacitador.destroy', $cap->id))) }}
+                                                    <input id='mjeBorrar' value="¿Está seguro que desea eliminar esta Oferta?" type="hidden" />
+                                                    {{ Form::submit('Borrar', array('class' => 'btn btn-xs btn-danger','title'=>'Eliminar los datos del capacitador')) }}
+                                                  {{ Form::close() }}
+                                                </td>
+                                                @endif
                                             @endif
                                           </tr>
                                           @endforeach                                      
                                         </tbody>
                                     </table>
                                     @if(!$oferta->estaFinalizada())
-                                        <div class='row-fluid'>
-                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"> Agregar más</button>
-                                        </div>
+                                        @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                                            <div class='row-fluid'>
+                                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"> Agregar más</button>
+                                            </div>
+                                        @endif
                                     @endif
                                 </fieldset>
                               </div>
@@ -153,8 +159,10 @@
                   <!-- Muestro el formulario para Agregar los capacitadores de esta oferta -->                                                    
                     <!-- Modal del Form para agregar Capacitadores a una Oferta -->
                         @if(!$oferta->estaFinalizada())
-                            <!-- Muestro el modal con un button -->
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                                <!-- Muestro el modal con un button -->
+                                <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                            @endif
                         @endif
                         <!-- Modal -->
                         <div id="modalNewCapacitador<?php echo $oferta->id ?>" class="modal fade" role="dialog">

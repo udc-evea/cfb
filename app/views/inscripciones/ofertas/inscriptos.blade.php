@@ -31,8 +31,10 @@
                     <!-- <th>Email UDC</th> -->
                     <th>Requisitos</th>
                     <th>Comision Nro.</th>
-                    @if(($perfil == "Administrador")||($perfil == "Coordinador"))
+                    @if($perfil != "Colaborador")
                         <th>Not. como Inscripto</th>
+                    @endif
+                    @if($perfil == "Administrador")
                         <th>Not. mail Institucional</th>
                     @endif
                     <!--<th>Acciones</th>-->
@@ -97,7 +99,7 @@
                               @endif
                             @endif                                
                         </td>
-                        @if(($perfil == "Administrador")||($perfil == "Coordinador"))
+                        @if($perfil != "Colaborador")
                         <td>
                             @if ($inscripcion->getEsInscripto())
                               @if(!$oferta->estaFinalizada())
@@ -113,6 +115,8 @@
                                 <button class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" style="width: 55px" title="No Corresponde"></button>
                             @endif
                         </td>
+                        @endif
+                        @if($perfil == "Administrador")
                         <td>
                             @if ($inscripcion->getEsInscripto())
                               @if(!$oferta->estaFinalizada())

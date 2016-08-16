@@ -20,10 +20,12 @@
                     @if($perfil != "Colaborador")
                         <th>Email UDC</th>
                         <th>Comision Nro.</th>
-                        <th>Aprobó?</th>
+                        @if($perfil == "Administrador")
+                            <th>Aprobó?</th>
+                        @endif
                     @endif
                     <th>Localidad</th>
-                    @if($perfil != "Colaborador")
+                    @if(($perfil == "Administrador")||($perfil == "Creador"))
                         <th>Certificado</th>
                     @endif
                 </tr>
@@ -45,6 +47,7 @@
                                     <strong>Sin Com.</strong>
                                 @endif
                             </td>
+                            @if($perfil == "Administrador")
                             <td>
                                 @if(!$oferta->estaFinalizada())
                                     @if ($inscripcion->getEsAprobado())
@@ -60,9 +63,10 @@
                                     @endif
                                 @endif
                             </td>
+                            @endif
                         @endif 
                         <td>{{ $inscripcion->localidad->la_localidad }}</td>
-                        @if($perfil != "Colaborador")
+                        @if(($perfil == "Administrador")||($perfil == "Creador"))
                         <td>
                             <?php 
                                 $name = $oferta->cert_base_alum_file_name;
@@ -83,9 +87,11 @@
 		</tbody>
 	</table>
     @if(count($aprobados))
-    <div style="float: right">
-        <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarMailsConCertificados', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados  <span class='glyphicon glyphicon-envelope'></span> </a>
-    </div>
+        @if(($perfil == "Administrador")||($perfil == "Creador"))
+            <div style="float: right">
+                <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarMailsConCertificados', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados  <span class='glyphicon glyphicon-envelope'></span> </a>
+            </div>
+        @endif
     @endif
 </fieldset>
 <hr>

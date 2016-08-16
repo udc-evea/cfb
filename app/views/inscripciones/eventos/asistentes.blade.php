@@ -24,7 +24,7 @@
                         @endif
                         <!-- <th>Localidad</th> -->
                         <th>Email Personal</th>
-                        @if($perfil != "Colaborador")
+                        @if(($perfil == "Administrador")||($perfil == "Creador"))
                             <th>Email UDC</th>
                             <!-- <th>Inscriptos ({{ count($asistentes) }})?</th>
                             <th>Notificado/a</th> -->
@@ -45,7 +45,7 @@
                             @endif
                             <!-- <td>{{ $inscripcion->localidad->la_localidad }}</td> -->
                             <td>{{{ $inscripcion->email }}}</td>
-                            @if($perfil != "Colaborador")
+                            @if(($perfil == "Administrador")||($perfil == "Creador"))
                                 <td>{{{ $inscripcion->email_institucional }}}</td>
                                 <!-- <td>
                                     <div class="slideTwo">
@@ -99,9 +99,11 @@
                 </tbody>
             </table>
         @if(count($asistentes))
-        <div style="float: right">
-            <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarMailsConCertificados', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados <span class='glyphicon glyphicon-envelope'></span> </a>
-        </div>
+            @if(($perfil == "Administrador")||($perfil == "Creador"))
+                <div style="float: right">
+                    <a class="btn btn-primary" href="{{ URL::Action('ofertas.enviarMailsConCertificados', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificado de Aprobación de los alumnos a sus mails">Enviar todos los Certificados <span class='glyphicon glyphicon-envelope'></span> </a>
+                </div>
+            @endif
         @endif
     </div>
     @else

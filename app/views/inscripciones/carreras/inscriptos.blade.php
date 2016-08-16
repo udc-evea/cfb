@@ -32,7 +32,9 @@
                         <!--<th>Email UDC</th>-->
                         <th>Inscripto ({{ count($inscriptos) }})</th>
                         <th>Not. como Inscripto</th>
-                        <th>Not. mail Institucional</th>
+                        @if($perfil == "Administrador")
+                            <th>Not. mail Institucional</th>
+                        @endif
                     @endif
                     <!--<th>Acciones</th>-->
                 </tr>
@@ -102,37 +104,39 @@
                                 @endif
                               @endif
                             </td>
-                            <td>
-                              @if(!$oferta->estaFinalizada())
-                                @if ($inscripcion->getEsInscripto())
-                                    @if ($inscripcion->getCantNotificaciones() > 0)
-                                       @if ($inscripcion->getCantNotificaciones() == 1)
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
-                                       @else
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
-                                       @endif
+                            @if($perfil == "Administrador")
+                                <td>
+                                  @if(!$oferta->estaFinalizada())
+                                    @if ($inscripcion->getEsInscripto())
+                                        @if ($inscripcion->getCantNotificaciones() > 0)
+                                           @if ($inscripcion->getCantNotificaciones() == 1)
+                                                {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                           @else
+                                                {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                           @endif
+                                        @else
+                                           {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                        @endif
                                     @else
-                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                        <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
-                                @else
-                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
-                                @endif
-                              @else
-                                @if ($inscripcion->getEsInscripto())
-                                    @if ($inscripcion->getCantNotificaciones() > 0)
-                                       @if ($inscripcion->getCantNotificaciones() == 1)
-                                            {{ $inscripcion->getCantNotificaciones() }} vez
-                                       @else
-                                            {{ $inscripcion->getCantNotificaciones() }} veces
-                                       @endif
+                                  @else
+                                    @if ($inscripcion->getEsInscripto())
+                                        @if ($inscripcion->getCantNotificaciones() > 0)
+                                           @if ($inscripcion->getCantNotificaciones() == 1)
+                                                {{ $inscripcion->getCantNotificaciones() }} vez
+                                           @else
+                                                {{ $inscripcion->getCantNotificaciones() }} veces
+                                           @endif
+                                        @else
+                                           nunca
+                                        @endif
                                     @else
-                                       nunca
+                                        <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
-                                @else
-                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
-                                @endif
-                              @endif
-                            </td>
+                                  @endif
+                                </td>
+                            @endif
                         @endif  
                         <!--<td>
                             {{ link_to_route('ofertas.inscripciones.edit', '', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-edit', 'title'=>'Editar datos del inscripto')) }}

@@ -35,11 +35,13 @@
                             <th>Email UDC</th>
                         @endif
                         <!-- <th>Inscriptos?</th> -->
-                        @if((!$oferta->estaFinalizada()) && (($perfil == "Administrador")||($perfil == "Coordinador")))
+                        @if((!$oferta->estaFinalizada()) && ($perfil != "Colaborador"))
                             <th>Not. como Inscripto</th>
-                            <th>Not. mail Institucional</th>
+                            @if($perfil == "Administrador")
+                                <th>Not. mail Institucional</th>
+                            @endif
                         @endif
-                        @if((!$oferta->estaFinalizada()) && ($perfil == "Administrador"))
+                        @if((!$oferta->estaFinalizada()) && (($perfil == "Administrador")||($perfil == "Creador")))
                             <th>Asistio?</th>
                         @endif
                         <!-- <th>Acciones</th> -->
@@ -70,7 +72,7 @@
                                 @endif
                                 </div>
                             </td> -->
-                            @if((!$oferta->estaFinalizada()) && (($perfil == "Administrador")||($perfil == "Coordinador")))
+                            @if((!$oferta->estaFinalizada()) && ($perfil != "Colaborador"))
                             <td>
                                 @if ($inscripcion->getEsInscripto())
                                     @if ($inscripcion->getCantNotificacionesInscripto() > 0)
@@ -86,23 +88,25 @@
                                     <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                 @endif
                             </td>
-                            <td>
-                                @if ($inscripcion->getEsInscripto())
-                                    @if ($inscripcion->getCantNotificaciones() > 0)
-                                       @if ($inscripcion->getCantNotificaciones() == 1)
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
-                                       @else
-                                            {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
-                                       @endif
+                                @if($perfil == "Administrador")
+                                <td>
+                                    @if ($inscripcion->getEsInscripto())
+                                        @if ($inscripcion->getCantNotificaciones() > 0)
+                                           @if ($inscripcion->getCantNotificaciones() == 1)
+                                                {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' vez', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                           @else
+                                                {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', $inscripcion->getCantNotificaciones().' veces', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-success','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                           @endif
+                                        @else
+                                           {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                        @endif
                                     @else
-                                       {{ link_to_route('ofertas.inscripciones.enviarMailInstitucional', 'nunca', array($oferta->id, $inscripcion->id), array('class' => 'btn btn-xs btn-danger','title'=>'Enviar mail con instrucciones de ingreso a cuenta institucional.')) }}
+                                        <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
                                     @endif
-                                @else
-                                    <button style="width: 50px" class="btn btn-xs btn-block glyphicon glyphicon-remove-sign disable" title="No Corresponde"></button>
+                                </td>
                                 @endif
-                            </td>
                             @endif
-                            @if((!$oferta->estaFinalizada()) && ($perfil == "Administrador"))
+                            @if((!$oferta->estaFinalizada()) && (($perfil == "Administrador")||($perfil == "Creador")))
                             <td>
                                 <div class="slideTwo">
                                     @if ($inscripcion->getEsAsistente())

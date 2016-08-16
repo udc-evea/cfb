@@ -25,7 +25,7 @@
                     <!-- <th>Requisitos</th>
                     <th>Inscripto</th> -->
                     <th>Comision Nro.</th>
-                    @if($perfil == "Administrador")
+                    @if(($perfil == "Administrador")||($perfil == "Creador"))
                         <th>Aprobó?</th>
                         <!-- <th>Notificado/a</th> -->
                     @endif
