@@ -103,26 +103,26 @@ class Oferta extends Eloquent implements StaplerableInterface {
                             ->hasMany('InscripcionCarrera', 'oferta_formativa_id')
                             ->with('localidad')
                             //->where('estado_inscripcion','LIKE',0)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
-                            //->orderBy('id');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre');
+                            ->orderBy('id');
         } elseif($this->esOferta) {
             return $this
                             ->hasMany('Inscripcion', 'oferta_formativa_id')
                             ->with('localidad', 'nivel_estudios', 'rel_como_te_enteraste')
                             //->where('estado_inscripcion','LIKE',0)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
-                            //->orderBy('id');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre');
+                            ->orderBy('id');
             
         } elseif($this->esEvento) {
             return $this
                             ->hasMany('InscripcionEvento', 'oferta_formativa_id')
                             ->with('localidad', 'rel_como_te_enteraste')
                             //->where('estado_inscripcion','LIKE',0)
-                            ->orderBy('apellido')
-                            ->orderBy('nombre');
-                            //->orderBy('id');
+                            //->orderBy('apellido')
+                            //->orderBy('nombre');
+                            ->orderBy('id');
         }
     }
     
@@ -494,8 +494,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
 
     public function getVistaMail() {
-        //compruebo si se ha pasado el cupo maximo (esto solo sucede en Eventos)
-        if(($this->count() > $this->cupo_maximo)&&($this->cupo_maximo != 0) && ($this->esEvento)){
+        //compruebo si se ha pasado el cupo maximo 
+        if(($this->preinscriptosOferta->count() > $this->cupo_maximo)&&($this->cupo_maximo > 0)){
             //si es así, envío mail dónde se aclara la lista de espera
             return 'emails.ofertas.bienvenida_evento_cupo_exedido';
         //Si no se exedió el cupo (Ofertas y Carreras)

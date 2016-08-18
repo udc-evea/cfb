@@ -54,14 +54,14 @@
                         @foreach ($preinscripciones as $inscripcion)
                             <?php 
                                 $listaIdPreinscriptos[] = $inscripcion->id;                            
-                                if($inscripcion->id <= $oferta->cupo_maximo){
+                                if($i <= $oferta->cupo_maximo){
                                       $colorBackground = 'style="background-color: '.$colorInscriptos.' !important"';
                                   }else{
                                       $colorBackground = 'style="background-color: '.$colorListaDeEspera.' !important"';
                                 }
                             ?>
                             <tr>
-                                <td <?php echo $colorBackground ?> class="nro">{{ $i }}</td>
+                                <td <?php echo $colorBackground ?> class="nro">{{ $i }} ({{$inscripcion->id}})</td>
                                 <td class="apellido">{{ $inscripcion->apellido }}, {{ $inscripcion->nombre }}</td>
                                 <!-- <td>{{ $inscripcion->nombre }}</td> -->
                                 @if($perfil != "Colaborador")
