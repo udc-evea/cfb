@@ -132,23 +132,106 @@ input[readonly] {
             ->placeholder('URL a la que apuntara la imagen.') }}
 <hr>
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
-<input type="hidden" name="presentar_mas_doc" value="0"/>
-{{ Former::checkbox('presentar_mas_doc')
-        ->label('Requisitos y Documentación Extra')
-	->addClass('checkbox')
-        ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
-        ->style('visibility: visible; margin-left: 3px')
-        ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
-}}
-<hr>
-<div id='DivDocAPresentar' style='display: none'>
-    {{ Former::textarea('doc_a_presentar')
-            ->label('Documentación Extra')
-            ->rows(8)
-            ->style('background-color: #EFFBFB')
+<div class="row-fluid"
+    <input type="hidden" name="presentar_mas_doc" value="0"/>
+    {{ Former::checkbox('presentar_mas_doc')
+            ->label('Requisitos y Documentación Extra')
+            ->addClass('checkbox')
+            ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
+            ->style('visibility: visible; margin-left: 3px')
+            ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
     }}
-    <hr>
-</div>
+
+    <div id='DivDocAPresentar'>
+        {{ Former::textarea('doc_a_presentar')
+                ->label('Documentación Extra')
+                ->rows(8)
+                ->style('background-color: #EFFBFB;');
+        }}
+        <?php        
+            if(!$newForm){
+                $docs = explode('|',$oferta->doc_a_presentar);
+                $i=0;
+            }
+            
+        ?>
+
+        <!-- #################################################################### -->
+        <div>
+        <?php if(!$newForm): ?>
+            <!-- Muestro el formulario para Editar los capacitadores de esta oferta -->
+            <!-- Modal del Form para editar los Capacitadores a una Oferta -->
+            <!-- Muestro el modal con un button -->
+            <button type="button" style="margin-left: 162px" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEditDocAPresentar<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-pencil'></i> Editar Documentación Requerida</button>
+            <!-- Modal -->
+            <div id="modalEditDocAPresentar<?php echo $oferta->id ?>" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Editar la documentacion extra a presentar para <b>{{ $oferta->nombre }}</b></h4>
+                  </div>
+                  <div class="modal-body">
+                        <?php foreach($docs as $doc): ?>
+                                <?php if($i==0):?>
+                                    Cabecera de la documentación: <input type='text' name='cabeceraDocAPresentar' id='cabeceraDocAPresentar' value='<?php echo $doc ?>'><br>
+                                    <ul>
+                                <?php else:?>
+                                    <?php if($doc != null):?>
+                                        <?php echo "$i) Doc. a presentar: " ?><input type='text' id='<?php echo $i ?>DocAPresentar' name='<?php echo $i ?>DocAPresentar' value='<?php echo $doc ?>'><br>
+                                    <?php else:?>
+                                        <?php echo "$i) Doc. a presentar: " ?><input type='text' id='<?php echo $i ?>DocAPresentar' name='<?php echo $i ?>DocAPresentar' value=''><br>
+                                    <?php endif;?>
+                                <?php endif;?>
+                                <?php $i++;?>
+                        <?php endforeach;?>
+                        </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="completarDocAPresentar()">Cerrar</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        <?php else: ?>
+            <!-- Muestro el formulario para Agregar los capacitadores de esta oferta -->                                                    
+            <!-- Modal del Form para agregar Capacitadores a una Oferta -->            
+            <!-- Muestro el modal con un button -->
+            <button type="button" style="margin-left: 162px" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewDocAPresentar"><i class='glyphicon glyphicon-plus-sign'></i> Agregar Documentación Requerida</button>
+            <!-- Modal -->
+            <div id="modalNewDocAPresentar" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Documentacion extra que debe presentar el inscripto!</h4>
+                  </div>
+                  <div class="modal-body">
+                      Ingrese la Cabecera de la documentación: <input type="text" name="cabeceraDocAPresentar" id="cabeceraDocAPresentar"><br>
+                      1) Doc. a presentar: <input type="text" id="1DocAPresentar" name="1DocAPresentar"><br>
+                      2) Doc. a presentar: <input type="text" id="2DocAPresentar" name="2DocAPresentar"><br>
+                      3) Doc. a presentar: <input type="text" id="3DocAPresentar" name="3DocAPresentar"><br>
+                      4) Doc. a presentar: <input type="text" id="4DocAPresentar" name="4DocAPresentar"><br>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="completarDocAPresentar()">Cerrar</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+        <!-- #################################################################### -->
+        <?php endif; ?>
+        
+    </div>
+</div>    
+<hr>
 <div id='ocultosDeCarrera'>
     <!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->    
     {{ Former::text('resolucion_nro')
@@ -353,5 +436,18 @@ input[readonly] {
         ocultarCamposEnCarrera();
         sanearFechaFinOferta();
     };
+    
+    function completarDocAPresentar(){
+        cabecera = document.getElementById('cabeceraDocAPresentar').value;
+        doc1 = document.getElementById('1DocAPresentar').value;
+        doc2 = document.getElementById('2DocAPresentar').value;
+        doc3 = document.getElementById('3DocAPresentar').value;
+        doc4 = document.getElementById('4DocAPresentar').value;
+        
+        texto = cabecera+"|"+doc1+"|"+doc2+"|"+doc3+"|"+doc4;
+        
+        //alert("Concatenado:"+texto);
+        document.getElementById('doc_a_presentar').value = texto;
+    }
     
 </script>

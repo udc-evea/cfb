@@ -17,12 +17,29 @@
         }else{
            $tipoOferta = "al Evento";
         }
+        if($oferta->PresentarMasDoc){
+            $docs = explode('|',$oferta->doc_a_presentar);
+            $i = 0;
+        }
      ?>
     <div>
         <h2>¡Preinscripción Exitosa!</h2>
         <p>Bienvenido\a, has completado la preinscripción <?php echo $tipoOferta ?>: <strong>{{ $oferta->nombre }}.</strong></p>
         @if($oferta->PresentarMasDoc)
-            {{ $oferta->doc_a_presentar }}
+            <?php 
+                foreach($docs as $doc){
+                    if($i==0){
+                        echo "<b>$doc</b><br>";
+                        echo "<ul>";                        
+                    }else{
+                        if($doc != null){
+                            echo "<li>$doc</li>";
+                        }
+                    }
+                    $i++;
+                }
+                echo "</ul>";
+            ?>
         @endif
         <p>En breve nos pondremos en contacto.</p>
         <p>Atentamente,</p>

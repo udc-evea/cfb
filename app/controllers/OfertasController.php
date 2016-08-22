@@ -26,14 +26,14 @@ class OfertasController extends BaseController {
                 $eventos  = Oferta::eventos()->get();
                 
                 foreach ($ofertas as $of) { //agrgado por nico
-                    $of->setCerrarOferta();
+                    $of->setCerrarOfertaOEvento();
                 }
                 foreach ($carreras as $ca) { //agrgado por nico
-                    $ca->setCerrarOferta();
+                    $ca->setCerrarCarrera();
                 }
                 foreach ($eventos as $ev) { //agrgado por nico
                     //$ev->setCerrarOferta();
-                    $ev->setCerrarEvento();
+                    $ev->setCerrarOfertaOEvento();
                 }
                 
                 //agegado por nico
@@ -176,7 +176,8 @@ class OfertasController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
+		//$input = Input::all();
+                $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar');
 		$this->oferta->agregarReglas($input);
                 $fechaFinOferta = Input::get('fecha_fin_oferta');
                 if($fechaFinOferta != null){
@@ -269,7 +270,8 @@ class OfertasController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
+		//$input = array_except(Input::all(), '_method');
+                $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar', '_method');
                 $fechaFinOferta = Input::get('fecha_fin_oferta');
                 if($fechaFinOferta != null){
                     $this->oferta->agregarReglas2($input);

@@ -229,13 +229,13 @@ class OfertasInscripcionesController extends BaseController {
         $eventos  = Oferta::eventos()->get();
                 
         foreach ($ofertas as $of) { //agregado por nico
-            $of->setCerrarOferta();
+            $of->setCerrarOfertaOEvento();
         }
         foreach ($carreras as $ca) { //agregado por nico
-            $ca->setCerrarOferta();
+            $ca->setCerrarCarrera();
         }
         foreach ($eventos as $ev) { //agregado por nico
-            $ev->setCerrarEvento();
+            $ev->setCerrarOfertaOEvento();
         }        
         
         $oferta = Oferta::find($oferta_id);

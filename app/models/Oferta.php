@@ -534,7 +534,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }        
     
     //Cambio estado de la inscripcion de "abierta" a "cerrada"
-    public function setCerrarOferta() {
+    public function setCerrarCarrera() {
         //$user = Auth::check();
         //if(!$user){
             if($this->fechasEnTermino() && $this->cupoSuficiente()){
@@ -549,8 +549,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
         $this->save();
     }
     
-    //Cambio estado de la inscripcion de "abierta" a "cerrada" solo para Eventos
-    public function setCerrarEvento() {
+    //Cambio estado de la inscripcion de "abierta" a "cerrada" solo para Ofertas y Eventos
+    public function setCerrarOfertaOEvento() {
         //$user = Auth::check();
         //if($user){
             if($this->fechasEnTermino()){
