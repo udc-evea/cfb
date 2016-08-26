@@ -78,4 +78,9 @@ $(function() {
             //alert("disabled FALSE+ "+inputBuscarSize);
         }
     }
-        
+     
+    
+    function copiarAlPortapapeles(idInput,texto){        
+        $('#'+idInput).val(texto).select();
+        document.execCommand('copy');
+    }

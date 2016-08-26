@@ -25,6 +25,15 @@
         }
     }
 ?>
+<?php 
+    function obtenerLinkPublico($linkPublico){
+        $linkCompleto = explode('-',$linkPublico);
+        $primeraParte = $linkCompleto[0];
+        $segundaParte = $linkCompleto[1];
+        $aux = explode('/',$segundaParte);
+        return $newSegundaParte = $primeraParte.'-'.$aux[0]."/inscripcion";
+    }
+?>
 @extends('layouts.scaffold')
 @section('title', 'Inscripciones On Line - Universidad del Chubut')
 @section('main')

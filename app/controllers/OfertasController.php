@@ -334,7 +334,9 @@ class OfertasController extends BaseController {
                 
                 //borro todos los capacitadores de esa oferta
                 $this->eliminarCapacitadores($oferta->id);
-                //borro la oferta de la Base de datos                
+                //borro cualquier imagen que se haya cargado a la Oferta
+                $this->eliminarImagenesDeOferta($oferta);
+                //borro la oferta de la Base de datos
                 $oferta->delete();
                 //devuelvo mje para el aire
                 $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
@@ -342,6 +344,58 @@ class OfertasController extends BaseController {
 		return Redirect::route('ofertas.index')
                         ->with('message', "$cabecera Se eliminó el registro correctamente!. $final");
 	}
+        
+        private function eliminarImagenesDeOferta($of) { //recibo la Oferta a borrar
+            //me fijo si tiene imagenes cargadas para el certificado de alumnos
+            $cert_base_alum = asset($of->cert_base_alum->url());
+            //me fijo si tiene imagenes cargadas para el certificado de capacitadores
+            $cert_base_cap = asset($of->cert_base_cap->url());
+            //me fijo si tiene imagenes cargadas para el mail de preinscripcion
+            $mail_bienv = asset($of->mail_bienvenida->url());
+            //Me fijo si hay imagenes de mail de bienvenida
+            if(@getimagesize($mail_bienv)){
+                $this->borrarDirectorio('mail_bienvenidas', $of->id);
+            }
+            //Me fijo si hay imagenes de certificado_base_alumnos
+            if(@getimagesize($cert_base_alum)){
+                $this->borrarDirectorio('cert_base_alums', $of->id);
+            }
+            //Me fijo si hay imagenes de certificado_base_capacitadores
+            if(@getimagesize($cert_base_cap)){
+                $this->borrarDirectorio('cert_base_caps', $of->id);
+            }
+        }
+
+        private function borrarDirectorio($dir, $ofId) {
+            //obtengo el nombre de la carpeta de la Oferta a borrar
+            $nombreCarpeta = $this->nombreDirectorioCorrecto($ofId);
+            //armo el nombre del directorio de la oferta a Borrar
+            $nomDirectorio = "system/Oferta/$dir/000/000/$nombreCarpeta";
+            //armo el nombre del directorio "original" dentro de la carpeta de la Oferta a borrar
+            $nomDirectorio_original = "system/Oferta/$dir/000/000/$nombreCarpeta/original";
+            //borro el archivo dentro de la carpeta
+            $archivos = scandir($nomDirectorio_original);//hace una lista de archivos del directorio "original"
+            $num = count($archivos); //los cuenta
+            //los borramos
+            for($i=2; $i<$num; $i++){
+                unlink($nomDirectorio_original.'/'.$archivos[$i]);
+            }
+            //borramos le directorio "original"
+            rmdir($nomDirectorio_original);
+            //borro el directorio de la Oferta a borrar
+            rmdir($nomDirectorio);
+                        
+        }
+
+        private function nombreDirectorioCorrecto($id_oferta) {
+            if($id_oferta < 10){
+                return "00".$id_oferta;
+            }elseif($id_oferta < 100){
+                return "0".$id_oferta;
+            }elseif($id_oferta < 1000){
+                return $id_oferta;
+            }
+        }
 
 	/**
 	 * Muestra el correo a enviar.

@@ -289,7 +289,7 @@ input[readonly] {
                 <?php else: ?>
                     <input class="form-control" id="cert_base_alum_file_name" type="text" name="cert_base_alum_file_name" value="<?php echo $oferta->cert_base_alum_file_name?>">
                 <?php endif;?>
-                <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
+                <span class="help-block">(*) Para dejar sin imágen base del certificado de alumnos sólo debe borrar el texto de arriba.</span>
             </div>
             <div class="col-lg-5 col-sm-8">            
                 <div class="input-group">
@@ -313,7 +313,7 @@ input[readonly] {
                 <?php else: ?>
                     <input class="form-control" id="cert_base_cap_file_name" type="text" name="cert_base_cap_file_name" value="<?php echo $oferta->cert_base_cap_file_name?>">
                 <?php endif;?>
-                <span class="help-block">(*) Para dejar sin imágen el mail sólo debe borrar el texto de arriba.</span>
+                <span class="help-block">(*) Para dejar sin imágen base del certificado de capacitadores sólo debe borrar el texto de arriba</span>
             </div>
             <div class="col-lg-5 col-sm-8">            
                 <div class="input-group">
@@ -413,7 +413,7 @@ input[readonly] {
         oferta_id = document.querySelector('input[name="tipo_oferta"]:checked').value;
         divAOcultar = document.getElementById('ocultosDeCarrera');
         //window.alert('(fuera del IF)Oferta tipo: '+oferta_id);
-        if(oferta_id == 1){ //si la Oferta es Carrera, oculto algunos campos
+        if(oferta_id === 1){ //si la Oferta es Carrera, oculto algunos campos
             //window.alert('(IF true) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='none';
         }else{

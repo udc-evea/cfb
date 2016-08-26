@@ -44,7 +44,40 @@
                         @if(!$item->estaFinalizada())
                             <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $item->stringAleatorio($item->id,15)) }}" target="_blank"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
                         @endif
-                     <?php //endif; ?>
+                    <?php //endif; ?>
+                    <!-- Muestro el modal con un button -->
+                    <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalCopyLink<?php echo $item->id ?>"><i class='glyphicon glyphicon-link'></i></button>
+                    <!-- Modal -->
+                    <div id="modalCopyLink<?php echo $item->id ?>" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Copiar el enlace al Formuario Público de Inscripción</h4>
+                          </div>
+                          <div class="modal-body">
+                            <fieldset>
+                                <div class="row-fluid">
+                                    <?php 
+                                        $texto = URL::action('ofertas.inscripciones.create', $item->stringAleatorio($item->id,15)); 
+                                        $linkPublico = obtenerLinkPublico($texto);
+                                        $idInput = "linkPublico".$item->id;
+                                    ?>
+                                    <!--<input style="width: 100%" id="linkPublico" value="<?php //echo $linkPublico?>"/><br>-->
+                                    <input style="width: 100%" id="<?php echo $idInput?>" value="<?php echo $linkPublico?>"/><br>
+                                    <button class="btn btn-xs btn-info" title="Obtener el link público del formulario de inscripción" onclick="copiarAlPortapapeles('<?php echo $idInput ?>','<?php echo $linkPublico ?>')" ><i class="glyphicon glyphicon-link"></i> Copiar link al portapapeles</button>
+                                </div>                                    
+                            </fieldset>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                 </td>
                 <!--<td>{{ ModelHelper::dateOrNull($item->inicio) }}</td>
                 <td>{{ ModelHelper::dateOrNull($item->fin) }}</td>

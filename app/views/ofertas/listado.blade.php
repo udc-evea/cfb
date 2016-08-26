@@ -1,5 +1,4 @@
-@if ($ofertas->count())    
-    
+@if ($ofertas->count())
 <div id='divOfertas'>
     <br>
     <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarOfertasIndex"/>
@@ -36,15 +35,49 @@
                     @if($oferta->inscriptos > 0)
                         <?php Session::set('tab_activa_inscripciones',1); ?>
                         <small><a href="{{ URL::route('ofertas.inscripciones.show', $oferta->id) }}">[Ver]</a></small>
-                    @endif
+                    @endif                    
                 </td>
                 <td>
                     {{ BS3::bool_to_label($oferta->permite_inscripciones) }}                
                     <?php //if(($userPerfil == "Administrador")||($item->user_id_creador == $userId)):?>
                         <?php if(!$oferta->estaFinalizada()): ?>
-                            <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info' href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}" target="_blank"><i class=" glyphicon glyphicon-list-alt"></i></a></small>
+                            <small><a title="Formulario de Inscripción a la Oferta" class='btn btn-xs btn-info link' href="{{ URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)) }}" target="_blank" ><i class=" glyphicon glyphicon-list-alt"></i></a></small>
                         <?php endif; ?>
-                     <?php //endif; ?>
+                     <?php //endif; ?>                     
+                     
+                        <!-- Muestro el modal con un button -->
+                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalCopyLink<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-link'></i></button>
+                        <!-- Modal -->
+                        <div id="modalCopyLink<?php echo $oferta->id ?>" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Copiar el enlace al Formuario Público de Inscripción</h4>
+                              </div>
+                              <div class="modal-body">
+                                <fieldset>
+                                    <div class="row-fluid">
+                                        <?php 
+                                            $texto = URL::action('ofertas.inscripciones.create', $oferta->stringAleatorio($oferta->id,15)); 
+                                            $linkPublico = obtenerLinkPublico($texto);
+                                            $idInput = "linkPublico".$oferta->id;
+                                        ?>
+                                        <!--<input style="width: 100%" id="linkPublico" value="<?php //echo $linkPublico?>"/><br>-->
+                                        <input style="width: 100%" id="<?php echo $idInput?>" value="<?php echo $linkPublico?>"/><br>
+                                        <button class="btn btn-xs btn-info" title="Obtener el link público del formulario de inscripción" onclick="copiarAlPortapapeles('<?php echo $idInput ?>','<?php echo $linkPublico ?>')" ><i class="glyphicon glyphicon-link"></i> Copiar link al portapapeles</button>
+                                    </div>                                    
+                                </fieldset>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
                 </td>
                 <!--<td>{{ ModelHelper::dateOrNull($oferta->inicio) }}</td>
                 <td>{{ ModelHelper::dateOrNull($oferta->fin) }}</td>
@@ -274,6 +307,7 @@
     var options = {
       valueNames: [ 'anio', 'nombre' ]
     };
-    var divOfertasList = new List('divOfertas', options);
-            
+    var divOfertasList = new List('divOfertas', options);        
+    
+    
 </script>
