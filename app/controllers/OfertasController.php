@@ -273,6 +273,9 @@ class OfertasController extends BaseController {
 		//$input = array_except(Input::all(), '_method');
                 $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar', '_method');
                 $fechaFinOferta = Input::get('fecha_fin_oferta');
+                $imagenMailBienvenida = Input::get('mail_bienvenida_file_name');
+                $imagenCertBaseAlum = Input::get('cert_base_alum_file_name');
+                $imagenCertBaseCapacitadores = Input::get('cert_base_cap_file_name');
                 if($fechaFinOferta != null){
                     $this->oferta->agregarReglas2($input);
                 }
@@ -280,11 +283,27 @@ class OfertasController extends BaseController {
 		$validation = Validator::make($input, Oferta::$rules);
                 
 		if ($validation->passes()){
+                        //busco los datos de la oferta en la Base de Datos
 			$oferta = $this->oferta->find($id);
+                        //lo completo con los datos ingresados en el formulario
                         $oferta->fill($input);
+                        //comparo los campos de Oferta e Input para ver si hay cambios en los campos de imagenes
+                        //comparo el campo de la imagen del mail
+                        if(($imagenMailBienvenida !== $oferta->mail_bienvenida_file_name)||($imagenMailBienvenida == null)){
+                            $this->borrarDirectorio('mail_bienvenidas', $oferta->id);
+                        }
+                        //comparo el campo de la imagen del certificado_base_alumnos
+                        if(($imagenCertBaseAlum !== $oferta->cert_base_alum_file_name)||($imagenCertBaseAlum == null)){
+                            $this->borrarDirectorio('cert_base_alums', $oferta->id);
+                        }
+                        //comparo el campo de la imagen del certificado_base_capacitadores
+                        if(($imagenCertBaseCapacitadores !== $oferta->cert_base_cap_file_name)||($imagenCertBaseCapacitadores == null)){
+                            $this->borrarDirectorio('cert_base_caps', $oferta->id);
+                        }
+                        
                         //agregado por nico
                         //Busco el usuario actual en la BD y obtengo el ID
-                        $userId = Auth::user()->id;                
+                        $userId = Auth::user()->id;
                         //agrego los datos de la modificación
                         $oferta->user_id_modif = $userId;
                         $oferta->fecha_modif = date('Y-m-d');
@@ -295,6 +314,7 @@ class OfertasController extends BaseController {
                         if($fechaFinOferta == null){
                             $oferta->setFechaFinOfertaAttribute(NULL);
                         }
+                        
                         //guardo los cambios                        
 			$oferta->save();
 			
@@ -373,18 +393,19 @@ class OfertasController extends BaseController {
             $nomDirectorio = "system/Oferta/$dir/000/000/$nombreCarpeta";
             //armo el nombre del directorio "original" dentro de la carpeta de la Oferta a borrar
             $nomDirectorio_original = "system/Oferta/$dir/000/000/$nombreCarpeta/original";
-            //borro el archivo dentro de la carpeta
-            $archivos = scandir($nomDirectorio_original);//hace una lista de archivos del directorio "original"
-            $num = count($archivos); //los cuenta
-            //los borramos
-            for($i=2; $i<$num; $i++){
-                unlink($nomDirectorio_original.'/'.$archivos[$i]);
+            if(file_exists($nomDirectorio)){
+                //borro el archivo dentro de la carpeta
+                $archivos = scandir($nomDirectorio_original);//hace una lista de archivos del directorio "original"
+                $num = count($archivos); //los cuenta
+                //los borramos
+                for($i=2; $i<$num; $i++){
+                    unlink($nomDirectorio_original.'/'.$archivos[$i]);
+                }
+                //borramos le directorio "original"
+                rmdir($nomDirectorio_original);
+                //borro el directorio de la Oferta a borrar
+                rmdir($nomDirectorio);
             }
-            //borramos le directorio "original"
-            rmdir($nomDirectorio_original);
-            //borro el directorio de la Oferta a borrar
-            rmdir($nomDirectorio);
-                        
         }
 
         private function nombreDirectorioCorrecto($id_oferta) {
