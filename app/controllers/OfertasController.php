@@ -289,15 +289,15 @@ class OfertasController extends BaseController {
                         $oferta->fill($input);
                         //comparo los campos de Oferta e Input para ver si hay cambios en los campos de imagenes
                         //comparo el campo de la imagen del mail
-                        if(($imagenMailBienvenida !== $oferta->mail_bienvenida_file_name)||($imagenMailBienvenida == null)){
+                        if(($imagenMailBienvenida !== $oferta->mail_bienvenida_file_name)||($imagenMailBienvenida == '')){                            
                             $this->borrarDirectorio('mail_bienvenidas', $oferta->id);
                         }
                         //comparo el campo de la imagen del certificado_base_alumnos
-                        if(($imagenCertBaseAlum !== $oferta->cert_base_alum_file_name)||($imagenCertBaseAlum == null)){
+                        if(($imagenCertBaseAlum !== $oferta->cert_base_alum_file_name)||($imagenCertBaseAlum == '')){
                             $this->borrarDirectorio('cert_base_alums', $oferta->id);
                         }
                         //comparo el campo de la imagen del certificado_base_capacitadores
-                        if(($imagenCertBaseCapacitadores !== $oferta->cert_base_cap_file_name)||($imagenCertBaseCapacitadores == null)){
+                        if(($imagenCertBaseCapacitadores !== $oferta->cert_base_cap_file_name)||($imagenCertBaseCapacitadores == '')){
                             $this->borrarDirectorio('cert_base_caps', $oferta->id);
                         }
                         
@@ -393,7 +393,7 @@ class OfertasController extends BaseController {
             $nomDirectorio = "system/Oferta/$dir/000/000/$nombreCarpeta";
             //armo el nombre del directorio "original" dentro de la carpeta de la Oferta a borrar
             $nomDirectorio_original = "system/Oferta/$dir/000/000/$nombreCarpeta/original";
-            if(file_exists($nomDirectorio)){
+            if((file_exists($nomDirectorio))&&(file_exists($nomDirectorio_original))){
                 //borro el archivo dentro de la carpeta
                 $archivos = scandir($nomDirectorio_original);//hace una lista de archivos del directorio "original"
                 $num = count($archivos); //los cuenta
