@@ -19,15 +19,15 @@
         }
      ?>
     <div>
-        <h2>¡Preinscripción Exitosa!</h2>
-        <p>Gracias por tu interés <?php if($insc->nombre != null){ echo $insc->nombre." ".$insc->apellido; }else{ echo "Nombre y Apellido";} ?>, has completado la preinscripción <?php echo $tipoOferta ?> <strong>{{ $oferta->nombre }}</strong>.</p>
-        <p>Tu solicitud quedará momentáneamente en lista de espera mientras analizamos
-            todas las postulaciones. En breve informaremos quiénes participan hasta completar el cupo.</p>
+        <h2>¡Pre-inscripción Exitosa!</h2>
+        <p>Gracias por tu interés <?php if($insc->nombre != null){ echo $insc->nombre." ".$insc->apellido; }else{ echo "Nombre y Apellido";} ?>, ya completaste la pre-inscripción en <strong>{{ $oferta->nombre }}</strong>.</p>
+        <p>Lamentamos informarte que se ha superado el cupo estipulado para participar, por lo que tu 
+            solicitud quedará momentáneamente en lista de espera mientras analizamos
+            todas las postulaciones. En breve informaremos quiénes integrarán el cupo final.</p>
         <br>
         <p>Nos pondremos nuevamente en contacto con vos para confirmar tu inscripción.</p><br>
-        <p>Atentamente,</p>
-        <p>&nbsp;</p>
-        <p>Universidad del Chubut</p>
+        <p>Muy cordialmente,</p>
+        <p>&nbsp;</p>        
         <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2015 UDC :: Derechos Reservados.<br>
 Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.<br>Tel.: (0280) 448-1866 / 448-1846.</p>
       </div>

@@ -509,6 +509,20 @@ class Oferta extends Eloquent implements StaplerableInterface {
         // linea de abajo es la original (de martin pentucci)
         //return empty($this->mail_bienvenida_file_name) ? 'emails.ofertas.bienvenida_generico' : 'emails.ofertas.bienvenida_oferta';
     }
+    
+    public function getAsuntoMail() {
+        //compruebo si se ha pasado el cupo maximo 
+        if(($this->preinscriptosOferta->count() > $this->cupo_maximo)&&($this->cupo_maximo > 0)){
+            //si es así, envío mail dónde se aclara la lista de espera en el asunto
+            return 'Universidad del Chubut :: Pre-inscripción Confirmada (sin cupo)';
+        //Si no se exedió el cupo        
+        }else{
+            //no importa si hay imagen cargada o no, se envia el asunto siguiente
+            return 'Universidad del Chubut :: Pre-inscripción Confirmada';
+        }
+        // linea de abajo es la original (de martin pentucci)
+        //return empty($this->mail_bienvenida_file_name) ? 'emails.ofertas.bienvenida_generico' : 'emails.ofertas.bienvenida_oferta';
+    }
 
     public function agregarReglas($input) {
         //fecha de inicio menor a fecha de fin
