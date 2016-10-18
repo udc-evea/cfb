@@ -281,7 +281,7 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send($oferta->getVistaMail(), compact('oferta','insc'), function($message) use($oferta, $insc, $mailReplyTo) {
                     $message
                             ->to($insc->correo, $insc->inscripto)
-                            ->subject($oferta->getAsuntoMail())
+                            ->subject('UDC:: Recibimos tu Preinscripción a ' . $oferta->nombre)
                             ->replyTo($mailReplyTo);
                 });
             } catch (Swift_TransportException $e) {
@@ -797,7 +797,7 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send('emails.ofertas.notificacion_correo_udc', compact('inscripcion'), function($message) use($inscripcion, $mailReplyTo){
                     $message
                             ->to($inscripcion->email, $inscripcion->apellido.','.$inscripcion->nombre)
-                            ->subject('Universidad del Chubut :: Datos de tu cuenta institucional')
+                            ->subject('Correo Institucional creado')
                             ->replyTo($mailReplyTo);
                 });
             } catch (Swift_TransportException $e) {
@@ -851,7 +851,7 @@ class OfertasInscripcionesController extends BaseController {
                 Mail::send('emails.ofertas.notificacion_inscripto_udc', compact('inscripcion','oferta'), function($message) use($inscripcion, $mailReplyTo){
                     $message
                             ->to($inscripcion->email, $inscripcion->apellido.','.$inscripcion->nombre)
-                            ->subject('Universidad del Chubut :: Inscripción Confirmada')
+                            ->subject('Correo Institucional creado')
                             ->replyTo($mailReplyTo);
                 });
             } catch (Swift_TransportException $e) {
