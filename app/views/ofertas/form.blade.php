@@ -148,11 +148,7 @@ input[readonly] {
                 ->rows(8)
                 ->style('background-color: #EFFBFB;');
         }}
-<<<<<<< HEAD
-        <?php        
-=======
         <?php                    
->>>>>>> d7388f7115beef7ffe18502162a885792258d9ba
             if(!$newForm){
                 $docs = explode('|',$oferta->doc_a_presentar);
                 $i=0;
