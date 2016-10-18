@@ -148,13 +148,13 @@ input[readonly] {
                 ->rows(8)
                 ->style('background-color: #EFFBFB;');
         }}
-        <?php        
-            if($oferta->doc_a_presentar == null){
-                $oferta->doc_a_presentar = "||||";
-            }
+        <?php                    
             if(!$newForm){
                 $docs = explode('|',$oferta->doc_a_presentar);
                 $i=0;
+                if($oferta->doc_a_presentar == null){
+                    $oferta->doc_a_presentar = "||||";
+                }
             }
             
         ?>
