@@ -148,13 +148,13 @@ input[readonly] {
                 ->rows(8)
                 ->style('background-color: #EFFBFB;');
         }}
-        <?php        
-            if($oferta->doc_a_presentar == null){
-                $oferta->doc_a_presentar = "||||";
-            }
+        <?php                    
             if(!$newForm){
                 $docs = explode('|',$oferta->doc_a_presentar);
                 $i=0;
+                if($oferta->doc_a_presentar == null){
+                    $oferta->doc_a_presentar = "||||";
+                }
             }
             
         ?>
@@ -162,8 +162,8 @@ input[readonly] {
         <!-- #################################################################### -->
         <div>
         <?php if(!$newForm): ?>
-            <!-- Muestro el formulario para Editar los requisitos Extra de esta oferta -->
-            <!-- Modal del Form para editar los requisitos Extra de esta Oferta -->
+            <!-- Muestro el formulario para Editar los capacitadores de esta oferta -->
+            <!-- Modal del Form para editar los Capacitadores a una Oferta -->
             <!-- Muestro el modal con un button -->
             <button type="button" style="margin-left: 162px" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEditDocAPresentar<?php echo $oferta->id ?>"><i class='glyphicon glyphicon-pencil'></i> Editar Documentación Requerida</button>
             <!-- Modal -->
@@ -179,8 +179,7 @@ input[readonly] {
                   <div class="modal-body">
                         <?php foreach($docs as $doc): ?>
                                 <?php if($i==0):?>
-                                    Cabecera de la documentación:
-                                    <textarea rows="2" style="width: 100%" name="cabeceraDocAPresentar" id="cabeceraDocAPresentar"></textarea><br>
+                                    Cabecera de la documentación: <input type='text' name='cabeceraDocAPresentar' id='cabeceraDocAPresentar' value='<?php echo $doc ?>'><br>
                                     <ul>
                                 <?php else:?>
                                     <?php if($doc != null):?>
@@ -201,8 +200,8 @@ input[readonly] {
               </div>
             </div>
         <?php else: ?>
-            <!-- Muestro el formulario para Agregar los requisitos Extra de esta oferta -->                                                    
-            <!-- Modal del Form para agregar los requisitos Extra de esta Oferta -->            
+            <!-- Muestro el formulario para Agregar los capacitadores de esta oferta -->                                                    
+            <!-- Modal del Form para agregar Capacitadores a una Oferta -->            
             <!-- Muestro el modal con un button -->
             <button type="button" style="margin-left: 162px" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewDocAPresentar"><i class='glyphicon glyphicon-plus-sign'></i> Agregar Documentación Requerida</button>
             <!-- Modal -->
@@ -213,11 +212,10 @@ input[readonly] {
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><b>Agregar Documentacion extra que debe presentar el inscripto!</b></h4>
+                    <h4 class="modal-title">Agregar Documentacion extra que debe presentar el inscripto!</h4>
                   </div>
                   <div class="modal-body">
-                      Ingrese la Cabecera de la documentación:<br> 
-                      <textarea rows="2" style="width: 100%" name="cabeceraDocAPresentar" id="cabeceraDocAPresentar"></textarea><br>
+                      Ingrese la Cabecera de la documentación: <input type="text" name="cabeceraDocAPresentar" id="cabeceraDocAPresentar"><br>
                       1) Doc. a presentar: <input type="text" id="1DocAPresentar" name="1DocAPresentar"><br>
                       2) Doc. a presentar: <input type="text" id="2DocAPresentar" name="2DocAPresentar"><br>
                       3) Doc. a presentar: <input type="text" id="3DocAPresentar" name="3DocAPresentar"><br>

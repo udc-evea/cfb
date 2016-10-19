@@ -23,8 +23,8 @@
         }
      ?>
     <div>
-        <h2>¡Pre-inscripción exitosa!</h2>
-        <p>Bienvenid@ ya completaste la pre-inscripción en <strong>{{ $oferta->nombre }}</strong>.</p>
+        <h2>¡Preinscripción Exitosa!</h2>
+        <p>Bienvenido\a, has completado la preinscripción <?php echo $tipoOferta ?>: <strong>{{ $oferta->nombre }}.</strong></p>
         @if($oferta->PresentarMasDoc)
             <?php 
                 foreach($docs as $doc){
@@ -41,10 +41,10 @@
                 echo "</ul>";
             ?>
         @endif
-        <p>En breve nos pondremos en contacto con vos.</p>
-        <p>Muy cordialemente,</p>
+        <p>En breve nos pondremos en contacto.</p>
+        <p>Atentamente,</p>
         <p>&nbsp;</p>
-        <br>
+        <p>Universidad del Chubut</p>
         <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2015 UDC :: Derechos Reservados.<br>
 Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.<br>Tel.: (0280) 448-1866 / 448-1846.</p>
       </div>

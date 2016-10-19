@@ -53,7 +53,7 @@
         <div class="listadoOpciones">
             <p><a href="{{ route('ofertas.index') }}" class="btn btn-lg btn-info" style='width: 300px' title="Ver todas las Ofertas"><i class="glyphicon glyphicon-list"></i> Todas las ofertas</a></p>
             <p><a href="{{ action('HomeController@verificarCertificado') }}" class="btn btn-lg btn-default" style='width: 300px' title="Verificar si un certificado es válido" target="_blank"><i class="glyphicon glyphicon-qrcode"></i> Verificar Certificado</a></p>
-            @if((Auth::user()->perfil == 'Administrador')||(Auth::user()->perfil == 'Creador'))
+            @if((Auth::user()->perfil == 'administrador')||(Auth::user()->perfil == 'creador'))
                 <p><a href="{{ route('personal.index') }}" class="btn btn-lg btn-success" style='width: 300px' title="Ver todo el Personal en condiciones de actuar como Capacitadores"><i class="glyphicon glyphicon-user"></i> Personal para Capacitaciones</a></p>
             @endif
             @if(Auth::user()->perfil == 'Administrador')
