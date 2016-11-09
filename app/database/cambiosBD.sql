@@ -281,3 +281,17 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> ALTER TABLE `inscripcion_oferta` ADD `cant_notificaciones_certificado` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Registro de la cantidad de mail con el Certificado que se le envió al aprobado.' AFTER `cant_notificaciones_inscripto`;
 /* agrego el campo `cant_notificaciones_inscripto` en Inscripcion_evento */
 -> ALTER TABLE `inscripcion_evento` ADD `cant_notificaciones_certificado` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Registro de la cantidad de mail con el Certificado que se le envió al asistente.' AFTER `cant_notificaciones_inscripto`;
+
+
+/* ######  2016/11/09  ####################### */
+--    VERSION_BASE: 3.1.8 - VERSION_CODIGO: 3.1.15
+-- Arreglo de bugs + Nuevo rol_capacitador
+/* 
+1) se mantiene la versión del código a 3.1.15
+2) se mantiene la versión de la base de datos a 3.1.8
+3) agrego el rol_capacitados en BD "Expositor"
+4) Arreglo la vista "Inicio" (no se veia el botón "Personal")
+*/
+-- la sintaxis es:
+/* Agrego el Rol_Capacitador en la Base de datos */
+-> INSERT INTO `cfb`.`rol_capacitador` (`id`, `rol`) VALUES (NULL, 'Expositor');
