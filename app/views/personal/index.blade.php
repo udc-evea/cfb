@@ -30,10 +30,11 @@
 		<tbody class="list">
                     @foreach ($personal as $pers)
                     <tr>
-                        <td class="apellido">{{ $pers->apellido }}, {{ $pers->nombre }}</td>
+                        <!--<td class="apellido">{{ $pers->apellido }}, {{ $pers->nombre }}</td>-->
+                        <td class="apellido">{{ $pers->getApellidoyNombre() }}</td>
                         <td class="dni">{{ $pers->dni }}</td>
 			<td>{{ $pers->email }}</td>
-                        <td>{{ $pers->titulacion_id }}</td>
+                        <td>{{ $pers->getTitulacionPersonal() }} (@if($pers->titulacion_id != 1) {{ $pers->getTitulacionPersonalAbreviada() }} @else - @endif)</td>
                         @if($perfil != 'Colaborador')
                             <td>
                                 {{ link_to_route('personal.edit', ' ', array($pers->id), array('class' => 'btn btn-xs btn-info glyphicon glyphicon-pencil','title'=>'Editar los datos del personal.')) }}
