@@ -86,7 +86,13 @@
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut</b>  &nbsp;certifica que</p>
-            <p><b style="font-size: 24pt"><?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
+            <?php if($capacPersonal->titulacion_id != 1):?>
+                <p>el/la<b style="font-size: 24pt">
+                    <?php echo $capacPersonal->getTitulacionPersonalAbreviada().". ";?>
+                    <?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
+            <?php else:?>
+                <p><b style="font-size: 24pt"><?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
+            <?php endif;?>
             <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?></p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
             <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>

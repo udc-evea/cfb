@@ -29,5 +29,13 @@ class Titulacion extends Eloquent implements UserInterface, RemindableInterface 
     );
         
     protected $fillable = array('nombre_titulacion','abreviatura_titulacion');
+    
+    public function getTitulacion() {
+        return $this->nombre_titulacion;
+    }
+    
+    public function getTitulacionAbreviado() {
+        return $this->abreviatura_titulacion;
+    }
 
 }

@@ -44,4 +44,14 @@ class Personal extends Eloquent implements UserInterface, RemindableInterface {
     public function getApellidoYNombre() {
         return $this->apellido.', '.$this->nombre;
     }
+    
+    public function getTitulacionPersonal() {
+        $tit_completa = Titulacion::find($this->titulacion_id);
+        return $tit_completa['nombre_titulacion'];
+    }
+    
+    public function getTitulacionPersonalAbreviada() {
+        $tit_completa = Titulacion::find($this->titulacion_id);
+        return $tit_completa['abreviatura_titulacion'];
+    }
 }
