@@ -93,7 +93,8 @@
             <?php else:?>
                 <p><b style="font-size: 24pt"><?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
             <?php endif;?>
-            <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?></p>
+            <!--<p>D.N.I. <?php //echo number_format($capacPersonal->dni, 0, ',', '.');?></p>-->
+            <p>D.N.I. <?php echo $capacPersonal->dni ;?></p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
             <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
             <p>según Resolución Rectoral N° <?php echo $rows->resolucion_nro;?>, con una acreditación de 

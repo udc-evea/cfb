@@ -26,7 +26,7 @@ class Personal extends Eloquent implements UserInterface, RemindableInterface {
     public static $rules = array(
         'apellido' => 'required|between:2,30|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'nombre' => 'required|between:2,30|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
-        'dni' => 'required|integer|between:1000000,99999999',
+        'dni' => 'required|between:7,10|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|between:1000000,99999999',
         'email' => 'required|between:2,200',
         'titulacion_id' => 'required|exists:titulacion,id'
     );
@@ -39,6 +39,10 @@ class Personal extends Eloquent implements UserInterface, RemindableInterface {
     
     public function getNombre() {
         return $this->nombre;
+    }
+    
+    public function getEmail() {
+        return $this->email;
     }
     
     public function getApellidoYNombre() {
