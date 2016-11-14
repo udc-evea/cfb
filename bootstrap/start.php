@@ -26,7 +26,11 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
+<<<<<<< HEAD
 	'local' => array('FliaFernCalf-PC', 'CMS1102444'),
+=======
+	'local' => array('FliaFernCalf-PC', 'generica', 'CMS110244'),
+>>>>>>> e334d45669e77f3b8a1f6d4ece647fa58b3a13d3
 
 ));
 
