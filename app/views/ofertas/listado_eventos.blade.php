@@ -111,7 +111,7 @@
                           <div class="modal-dialog">
 
                             <!-- Modal content -->
-                            <div class="modal-content">
+                            <div class="modal-content" style="width: 120%">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Modificar los Capacitadores para <b>{{ $item->nombre }}</b></h4>
@@ -129,6 +129,7 @@
                                         <thead>
                                             <th>Capacitador</th>
                                             <th>Rol</th>
+                                            <th>Email</th>
                                             <th>Certificado</th>
                                             @if(!$item->estaFinalizada())
                                                 @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
@@ -143,11 +144,12 @@
                                             <?php $capacPersonal = Personal::find($cap->personal_id); ?>
                                             <td><?php echo $capacPersonal->getApellidoYNombre() ?></td>
                                             <td><?php echo $capacRol->rol ?></td>
+                                            <td>@if($capacPersonal->getEmail() != null){{$capacPersonal->getEmail()}}@else {{'-'}}@endif</td>
                                             <td>
                                                 <?php $name = $item->cert_base_cap_file_name ?>
                                                 <?php if ($name != null): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
-                                                    <?php if ($capacPersonal->email != null): ?>
+                                                    <?php if ($capacPersonal->getEmail() != null): ?>
                                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador"><span class='glyphicon glyphicon-envelope'></span></a>
                                                     <?php endif;?>
                                                 <?php else: ?>
@@ -191,8 +193,13 @@
                     <!-- Modal del Form para agregar Capacitadores a una Oferta -->
                         @if(!$item->estaFinalizada())
                             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
-                                <!-- Muestro el modal con un button -->
-                                <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                                @if($capacitadores != null)
+                                    <!-- Muestro el modal con un button -->
+                                    <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i> Agregar otro</button>
+                                @else
+                                    <!-- Muestro el modal con un button -->
+                                    <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                                @endif
                             @endif
                         @endif
                         <!-- Modal -->
@@ -240,15 +247,15 @@
                                 </div>
                                 <hr>
                                 <div class="alert alert-info">
-                                    {{ Form::submit('Guardar', array('class' => 'btn btn-xg btn-primary')) }}
-                                    <button class="add_field_button btn btn-xg btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+                                    <button class="add_field_button btn btn-xg btn-success"><i class="glyphicon glyphicon-plus"> Agregar otro</i></button>
+                                    {{ Form::submit('Guardar', array('class' => 'btn btn-xg btn-primary')) }}                                    
                                 </div>
 
                                 {{ Form::close() }}
                                 </fieldset>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                               </div>
                             </div>
 

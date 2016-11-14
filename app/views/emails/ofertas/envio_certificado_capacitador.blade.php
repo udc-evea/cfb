@@ -10,12 +10,12 @@
             </div>
         </div>
         <div style="text-align: center">
-            <h2>Estimado/a {{ $rows->nombre }} {{ $rows->apellido }},</h2>
+            <h2>Estimado/a {{ $capacPersonal->nombre }} {{ $capacPersonal->apellido }},</h2>
         </div>
         <hr>
         <p>La <b>Universidad del Chubut</b> tiene el agrado de hacerle llegar por este medio <br>
             el Certificado correspondiente a la Oferta <b>{{ $oferta->nombre }}</b>
-            en la cuál has participado como {{ $capacRol->rol }} </p>
+            en la cuál has participado como <b>{{ $capacRol->rol }}</b>.</p>
         <hr>
         <p>Esperamos contar nuevamente con tu presencia en nuestra Institución proximamente.</p>
         <br><br>

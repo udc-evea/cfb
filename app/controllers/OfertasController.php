@@ -520,6 +520,7 @@ class OfertasController extends BaseController {
             //creo el nomre del archivo pdf
             $filename = "capacitador_".$oferta->id."_".$capacPersonal->getApellido()."_".$capacPersonal->getNombre();
             //creo el certificado
+            Session::set('cap',$capacitador);
             $html = View::make('ofertas.certificado', compact('rows'));        
 
             //Creo el pdf y lo guardo en la carpeta /public/pdfs
@@ -535,13 +536,15 @@ class OfertasController extends BaseController {
                     $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC.pdf', 'mime'=>'application/pdf'));
                 });
             } catch (Swift_TransportException $e) {
-                Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
+                //Log::info("No se pudo enviar correo a " . $capacPersonal->apellido.','.$capacPersonal->nombre." <" . $capacPersonal->email.">");
+                Log::info("No se pudo enviar correo al capacitador ");
                 //devuelvo un mje erroneo y regreso a la inscripcion de la oferta
                 $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
                 $final = $this->getEstiloMensajeFinal();
                 return Redirect::route('ofertas.index')
                                 ->withoferta($oferta)
-                                ->with('message', "$cabecera No se pudo enviar el Certificado de $rows->nombre, $rows->apellido. Intente nuevamente más tarde. $final");
+                                //->with('message', "$cabecera No se pudo enviar el Certificado de $capacPersonal->getNombre(), $capacPersonal->getApellido(). Intente nuevamente más tarde. $final");
+                                ->with('message', "$cabecera No se pudo enviar el Certificado del capacitador. Intente nuevamente más tarde. $final");
             }                        
 
             //incremento la cantidad de veces que se le envió el mail con el certificado
@@ -552,7 +555,8 @@ class OfertasController extends BaseController {
             $final = $this->getEstiloMensajeFinal();
             return Redirect::route('ofertas.index')
                             ->withoferta($oferta)
-                            ->with('message', "$cabecera Se envió el Certificado de $rows->nombre, $rows->apellido correctamente. $final");
+                            //->with('message', "$cabecera Se envió el Certificado de $capacPersonal->getNombre(), $capacPersonal->getApellido() correctamente. $final");
+                            ->with('message', "$cabecera Se envió el Certificado del capacitador correctamente. $final");
         }
         
         public function finalizarOferta($id_oferta){

@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h1>Editar Personal</h1>
-
+        
         @if ($errors->any())
         	<div class="alert alert-danger">
         	    <ul>
@@ -35,7 +35,7 @@
         <div class="form-group">
             {{ Form::label('dni', 'DNI de la Persona:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
-              {{ Form::number('dni', Input::old('dni'), array('class'=>'form-control', 'placeholder'=>'DNI de la Persona.')) }}
+              {{ Form::text('dni', Input::old('dni'), array('class'=>'form-control', 'placeholder'=>'DNI de la Persona.')) }}
             </div>
         </div>
 
@@ -44,14 +44,18 @@
             <div class="col-sm-5">
               {{ Form::email('email', Input::old('email'), array('class'=>'form-control', 'placeholder'=>'E-mail de la Persona.')) }}
             </div>
-        </div>                
+        </div>
         
         <div class="form-group">
             <label class="control-label col-lg-2 col-sm-4">Titulación</label>
             <div class="col-lg-10 col-sm-3">
                 <select class="form-control" name='titulacion_id'>
                     @foreach($titulaciones as $item)
-                        <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
+                        @if($personal->titulacion_id == $item->id)
+                            <option value="{{$item->id}}" selected>{{ $item->nombre_titulacion }}</option>
+                        @else
+                            <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -61,7 +65,7 @@
     <label class="col-sm-2 control-label">&nbsp;</label>
     <div class="col-sm-10">
       {{ Form::submit('Guardar', array('class' => 'btn btn-lg btn-primary')) }}
-      {{ link_to_route('titulacion.index', 'Cancel', null, array('class' => 'btn btn-lg btn-default')) }}
+      {{ link_to_route('personal.index', 'Cancelar', null, array('class' => 'btn btn-lg btn-default')) }}
     </div>
 </div>
 
