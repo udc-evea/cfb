@@ -49,7 +49,11 @@
             <div class="col-lg-10 col-sm-3">
                 <select class="form-control" name='rol_id'>
                     @foreach($roles as $item)
-                        <option value="{{$item->id}}">{{ $item->rol }}</option>
+                        @if($capacitador->rol_id == $item->id)
+                            <option value="{{$item->id}}" selected>{{ $item->rol }}</option>
+                        @else
+                            <option value="{{$item->id}}">{{ $item->rol }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>

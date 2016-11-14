@@ -35,7 +35,7 @@
         <div class="form-group">
             {{ Form::label('dni', 'DNI de la Persona:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
-              {{ Form::number('dni', Input::old('dni'), array('class'=>'form-control', 'placeholder'=>'DNI de la Persona.')) }}
+              {{ Form::text('dni', Input::old('dni'), array('class'=>'form-control', 'placeholder'=>'DNI de la Persona.')) }}
             </div>
         </div>
 

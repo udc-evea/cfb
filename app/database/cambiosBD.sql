@@ -287,11 +287,26 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 --    VERSION_BASE: 3.1.8 - VERSION_CODIGO: 3.1.15
 -- Arreglo de bugs + Nuevo rol_capacitador
 /* 
-1) se mantiene la versión del código a 3.1.15
-2) se mantiene la versión de la base de datos a 3.1.8
+1) se mantiene la versión del código en 3.1.15
+2) se mantiene la versión de la base de datos en 3.1.8
 3) agrego el rol_capacitados en BD "Expositor"
 4) Arreglo la vista "Inicio" (no se veia el botón "Personal")
 */
 -- la sintaxis es:
 /* Agrego el Rol_Capacitador en la Base de datos */
 -> INSERT INTO `cfb`.`rol_capacitador` (`id`, `rol`) VALUES (NULL, 'Expositor');
+
+
+
+/* ######  2016/11/13  ####################### */
+--    VERSION_BASE: 3.1.8 - VERSION_CODIGO: 3.1.15
+-- DNI capacitador con letras + envío de certif por mail a capacitador
+/* 
+1) se mantiene la versión del código en 3.1.15
+2) se mantiene la versión de la base de datos en 3.1.8
+3) cambio el tipo de campo DNI a text (varchar) para dnis extrajeros
+4) agrego envío del certificado del capacitador por mail
+*/
+-- la sintaxis es:
+/* Cambio el tipo de campo en la BD de integer(10) a varchar(10) */
+-> ALTER TABLE `personal` CHANGE `dni` `dni` VARCHAR(10) NOT NULL;

@@ -97,6 +97,11 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
       array('uses' => 'OfertasController@desfinalizarOferta', 'as' => 'ofertas.desfinalizar')
     );
     
+    //agregue esta ruta para enviar el certificado en PDF al mail del capacitador
+    Route::get('/ofertas/{oferta}/enviarMailCertificadoCapacitador', 
+      array('uses' => 'OfertasController@enviarMailCertificadoCapacitador', 'as' => 'ofertas.enviarMailCertificadoCapacitador')
+    );
+    
     //agregue esta ruta para enviar el certificado en PDF al mail del alumno
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/enviarMail', 
       array('uses' => 'OfertasInscripcionesController@enviarMailCertificado', 'as' => 'ofertas.inscripciones.enviarMailCertificado')

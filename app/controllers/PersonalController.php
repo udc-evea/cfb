@@ -128,7 +128,7 @@ class PersonalController extends BaseController {
                     $personal = $this->personal->find($id);
                     
                     //creo un array de las claves a insertar
-                    $claves = array('apellido','nombre','documento','email','titulacion_id');
+                    $claves = array('apellido','nombre','dni','email','titulacion_id');
                     //creo un array de los datos enviados por POST
                     $datos = array();
                     //extraigo el campo 'apellido' del POST
@@ -155,7 +155,7 @@ class PersonalController extends BaseController {
 		return Redirect::route('personal.edit', $id)
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'La Titulación no se actualizó!');
+			->with('message', 'El personal no se actualizó!');
 	}
 
 	/**
