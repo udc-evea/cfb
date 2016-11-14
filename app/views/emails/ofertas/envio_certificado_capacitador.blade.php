@@ -14,7 +14,7 @@
         </div>
         <hr>
         <p>La <b>Universidad del Chubut</b> tiene el agrado de hacerle llegar por este medio <br>
-            el Certificado correspondiente a la Oferta <b>{{ $oferta->nombre }}</b>
+            el Certificado correspondiente al <b>{{ $oferta->nombre }}</b>
             en la cuál has participado como <b>{{ $capacRol->rol }}</b>.</p>
         <hr>
         <p>Esperamos contar nuevamente con tu presencia en nuestra Institución proximamente.</p>
