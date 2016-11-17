@@ -247,7 +247,7 @@
                                 </div>
                                 <hr>
                                 <div class="alert alert-info">
-                                    <button class="add_field_button btn btn-xg btn-success"><i class="glyphicon glyphicon-plus"> Agregar otro</i></button>
+                                    <button class="add_field_button btn btn-xg btn-success"><i class="glyphicon glyphicon-plus"></i> Agregar otro</button>
                                     {{ Form::submit('Guardar', array('class' => 'btn btn-xg btn-primary')) }}                                    
                                 </div>
 

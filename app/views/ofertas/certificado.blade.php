@@ -97,8 +97,14 @@
             <p>D.N.I. <?php echo $capacPersonal->dni ;?></p>
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
             <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
-            <p>según Resolución Rectoral N° <?php echo $rows->resolucion_nro;?>, con una acreditación de 
-                <?php echo $rows->duracion_hs;?> horas reloj.</p>            
+            <?php if(($rows->resolucion_nro != null)&&($rows->duracion_hs!=null)):?>
+                <p>según <?php echo $rows->resolucion_nro;?>, con una acreditación de 
+                   <?php echo $rows->duracion_hs;?> horas reloj.</p>
+            <?php elseif(($rows->resolucion_nro == null)&&($rows->duracion_hs!=null)):?>
+                <p>con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
+            <?php elseif(($rows->resolucion_nro != null)&&($rows->duracion_hs==null)):?>
+                <p>según <?php echo $rows->resolucion_nro;?>,</p>
+            <?php endif;?>
             <p>Se extiende el presente certificado al <?php echo date('d')?> de 
                 <?php echo $mes_actual ?> de 2016</p>
             <p>en la ciudad de Rawson, Provincia del Chubut.</p>            

@@ -238,9 +238,10 @@ input[readonly] {
 <div id='ocultosDeCarrera'>
     <!-- Agrego los campos nuevos para la certificacion: resolucion_nro, lugar, duracion, lleva_tit_previa y titulacion_id -->    
     {{ Former::text('resolucion_nro')
-            ->label('Resolución Nro.')
-            ->help('Ingrese el Nro. de Resolución dispuesta por la UDC.')
-            ->class('span7')
+            ->label('Resolución/Expediente Nro.')
+            ->help('Ingrese el Nro. de Resolución/Expediente dispuesta por la UDC.')
+            ->placeholder('Ej.: Res./Expte. UDC-000/2016')
+            
     }}
     <hr>
     {{ Former::text('fecha_fin_oferta')
@@ -252,7 +253,6 @@ input[readonly] {
     {{ Former::text('lugar')
                 ->label('Lugar de encuentro') 
                 ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.')
-                ->class('span7')
     }}
     <hr>
     {{ Former::number('duracion_hs')
