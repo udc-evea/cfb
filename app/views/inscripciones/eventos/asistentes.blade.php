@@ -77,7 +77,7 @@
                                         $resolucion = $oferta->resolucion_nro;
                                         $duracionHoras = $oferta->duracion_hs;
                                     ?>
-                                    <?php if (($name != null)&&($resolucion != null)&&($duracionHoras != null)): ?>
+                                    <?php if ($name != null): ?>
                                         <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfas', 'alm' => $inscripcion->id )) }}" title="Certificado de Asistencia del alumno"> <span class='glyphicon glyphicon-download-alt'></span> <i class="fa fa-file-pdf-o fa-3"></i></a>
                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.inscripciones.enviarMailCertificado', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails">{{ $inscripcion->getCantNotificacionesConCertificado() }}  <span class='glyphicon glyphicon-envelope'></span></a>
                                     <?php else: ?>

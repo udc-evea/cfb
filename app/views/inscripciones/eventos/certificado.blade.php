@@ -82,6 +82,15 @@
             <p><b style="font-size: 24pt"><?php echo $rows->nombre." ".strtoupper($apellidoBien);?></b></p>
             <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?></p>
             <p>asistió a <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
+            <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
+            <?php if(($rows->oferta->resolucion_nro != null)&&($ConHoras==true)):?>
+                <p>según <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
+                   <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
+            <?php elseif(($rows->oferta->resolucion_nro == null)&&($ConHoras==true)):?>
+                <p>con una acreditación de <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
+            <?php elseif(($rows->oferta->resolucion_nro != null)&&($ConHoras==false)):?>
+                <p>según <?php echo $rows->oferta->resolucion_nro;?>.</p>
+            <?php endif;?>
             <br>
             <p>Se extiende el presente certificado al <?php echo date('d')?> de 
                 <?php echo $mes_actual ?> de 2016</p>
