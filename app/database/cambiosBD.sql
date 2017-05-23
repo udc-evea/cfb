@@ -310,3 +310,16 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -- la sintaxis es:
 /* Cambio el tipo de campo en la BD de integer(10) a varchar(10) */
 -> ALTER TABLE `personal` CHANGE `dni` `dni` VARCHAR(10) NOT NULL;
+
+
+/* ######  2017/05/22  ####################### */
+--    VERSION_BASE: 3.1.8 - VERSION_CODIGO: 3.1.16
+-- Se agrega el sistema de importación de Ofertas/cursos y Alumnos por archivo XLSX
+/* 
+1) se cambia la versión del código en 3.1.16
+2) se mantiene la versión de la base de datos en 3.1.8
+3) agrego importar Oferta/Evento mediante archivo XLSX
+4) agrego importar alumnos a Oferta/Evento mediante archivo XLSX
+
+/* Cambio en la base la versión de código del sistema, de 3.1.15 a 3.1.16 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.16' WHERE  `version_bd`.`version_codigo` =  '3.1.15' LIMIT 1 ;

@@ -1,9 +1,11 @@
 @if ($eventos->count())
 <div id='divEventos'>
     <br>
-    <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarEventosIndex"/>
+    <div class="btn-group">
+        <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarEventosIndex"/>
         <button class="sort" data-sort="anio" >Año</button>
         <button class="sort" data-sort="nombre" >Nombre</button>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -33,10 +35,7 @@
                             <span class="text-danger glyphicon glyphicon-warning-sign"></span>
                         @endif
                     @endif
-                        @if($item->inscriptos > 0)
-                            <?php Session::set('tab_activa_inscripciones',1); ?>
-                            <small><a href="{{ URL::route('ofertas.inscripciones.show', $item->id) }}">[Ver]</a></small>
-                        @endif
+                    <small><a href="{{ URL::route('ofertas.inscripciones.show', $item->id) }}">[Ver]</a></small>
                 </td>
                 <td>
                     {{ BS3::bool_to_label($item->permite_inscripciones) }}                

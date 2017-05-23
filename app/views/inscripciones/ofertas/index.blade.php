@@ -94,7 +94,7 @@
             </div>
         @endif
     </div>
-    <!-- <h2>Usuario: {{ $nomyape }} - {{ $userName }} ({{ $perfil }})</h2>
+    <!-- <h2>Usuario: <?php // echo $nomyape ?> - <?php //echo $userName ?> (<?php //echo $perfil ?>)</h2>
     <h2>
         <strong>Pre-Inscriptos</strong> -->
         <!-- <small class='text-muted'>|| <a class='text-muted' href="{{ URL::route('ofertas.index') }}">Volver</a></small> -->
@@ -122,13 +122,16 @@
         </table>
      </div>
      @endif -->
-    <div>
-        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+    <div class="btn-group">
+        <a class='btn btn-info' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+        @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)==0) && ($perfil == "Administrador"))
+            <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-primary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
+        @endif
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)) && ($perfil == "Administrador"))
-                {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
-                    <input id='mjeBorrar' value="¿Está seguro que desea borrar todos los preinscriptos a esta Oferta?" type="hidden" />
-                    {{ Form::submit('Borrar inscriptos de Oferta', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Oferta')) }}
-                {{ Form::close() }}
+            {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
+                <input id='mjeBorrar' value="¿Está seguro que desea borrar todos los preinscriptos a esta Oferta?" type="hidden" />
+                {{ Form::submit('Borrar inscriptos de Oferta', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos de la Oferta')) }}
+            {{ Form::close() }}
         @endif
     </div>
     <hr>
@@ -145,6 +148,7 @@
                             <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
                         </a>
                     </li>
+                    <?php if(!(empty($preinscripciones))):?>
                     <li <?php echo $liInscOfPreinsc?>>
                         <a title="Todos los Preinscriptos a la Oferta." href="#tab_preinscriptos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-align-justify"></i> 
@@ -152,6 +156,7 @@
                             <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
                         </a>
                     </li>
+                    <?php endif;?>
                     <?php if(!(empty($inscripciones))):?>
                         <li <?php echo $liInscOfInscr?>><a title="Solo los Inscriptos a la Oferta." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
                     <?php endif;?>

@@ -72,8 +72,11 @@
         </table>
      </div>
     @endif-->
-    <div>
-        <a class='btn btn-primary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+    <div class="btn-group">
+        <a class='btn btn-info' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+        @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)==0) && ($perfil == "Administrador"))
+            <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-primary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
+        @endif
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)) && ($perfil == "Administrador"))
                 {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
                     <input id='mjeBorrar' value="¿Está seguro que desea borrar todos los preinscriptos a esta Oferta?" type="hidden" />

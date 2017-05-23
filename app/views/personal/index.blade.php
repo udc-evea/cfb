@@ -1,5 +1,5 @@
 @extends('layouts.scaffold')
-
+@section('title', 'Inscripciones On Line - Personal')
 @section('main')
 <div align="center">
     <h1 style="background-color: black;border: solid 2px white; color: white;padding: 10px;border-radius: 5px;">Lista del Personal</h1>

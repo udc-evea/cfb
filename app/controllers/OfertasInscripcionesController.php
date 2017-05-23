@@ -933,6 +933,213 @@ class OfertasInscripcionesController extends BaseController {
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
                         ->with('message', "$cabecera Se envió el Certificado de $rows->nombre, $rows->apellido correctamente. $final");
-    }        
+    }
     
+    public function importarAlumnosDeArchivo($ofid)
+    {    
+        $oferta_id = $this->obtenerElId($ofid);
+        $oferta = Oferta::findorFail($oferta_id);
+
+        $MjeError = NULL;
+        $post = false;
+        $datos = NULL;
+        //me fijo si la vista se carga por GET
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            //cargo la vista con los argumentos necesarios
+            return View::make('inscripciones.'.$oferta->view.'.importarAlumnosDeArchivo')
+                    ->with('datos',$datos)
+                    ->with('ofid',$ofid)
+                    ->with('post',$post)
+                    ->with('oferta',$oferta)
+                    ->with('MjeError',$MjeError);
+        }else{
+            // Me fijo si es POST y si el $archivo es <> NULL
+            // realizo los pasos necesarios para la importación y lo guardo 
+            // en un array asociativo para mostrar por pantalla y luego
+            // decidir si se importa a la base o no
+
+            //$coloco la variable $post en TRUE para la condicion de la vista
+            $post = true;
+            //obtengo la ubicación real del archivo importado
+            $archivo = Input::file('archivo');
+            $realPath = Input::file('archivo')->getRealPath();
+            //Si el archivo existe, leo su contenido. Sino, muestro error.
+            if ($realPath != NULL) {
+                //obtengo todos los campos (columnas) con la información del archivo Excel
+                $datosArchivo = Excel::load($realPath, function($reader) {})->get();
+                //obtengo solo los datos de las columnas del archivo
+                $datos = $this->obtenerCabecerayDatos($datosArchivo);
+                //verifico si los datos cargados tienen algún error de validación
+                $MjeError = $this->verificarDatosValidos($datos);
+                //cargo la vista con los datos necesarios
+                $tipoDocumento = TipoDocumento::all();
+                $localidad = Localidad::all();
+                return View::make('inscripciones.'.$oferta->view.'.importarAlumnosDeArchivo')
+                    ->with('datos',$datos)
+                    ->with('post',$post)
+                    ->with('oferta',$oferta)
+                    ->with('tipoDocumento',$tipoDocumento)
+                    ->with('localidad',$localidad)
+                    ->with('MjeError',$MjeError);
+            }else{
+                $MjeError .= "<li> Verficar que el archivo contiene 1 sola fila con los datos de la Oferta a importar.</li>";
+                return View::make('inscripciones.'.$oferta->view.'.importarAlumnosDeArchivo')
+                    ->with('datos',$datos)
+                    ->with('ofid',$ofid)
+                    ->with('post',$post)
+                    ->with('oferta',$oferta)
+                    ->with('MjeError',$MjeError);
+            }
+        }
+    }
+    
+    private function obtenerCabecerayDatos($datosArchivo)
+        {   //funcion para obtener solo los datos de las columnas del archivo leido
+            
+            if ((!empty($datosArchivo))&&($datosArchivo->count()>0)){
+                //defino unas variables de ayuda
+                $datos = array();
+                $soloDatos = array();
+                $i = 0;
+                
+                //recorro fila por fila que contienen los datos (deberia
+                foreach ($datosArchivo as $fila) {
+                    //echo "<br> - Fila: ".$fila;
+                    if($fila->count() != 7){
+                        $datosCSV = array();                                
+                        return null;
+                    }
+                    foreach ($fila as $campo => $celda){                        
+                        $datos[$i][$campo] = $celda;
+                        array_push($soloDatos,$celda);
+                        //echo "<br> - campo: $campo - valor: $celda";
+                    }
+                    $i++;
+                }                                
+                return $datos;
+            }else{
+                $datos = null;
+                return null;
+            }
+        }
+        
+        private function verificarDatosValidos($datos) 
+        { //funcion que verifica algunos datos del alumno a importar
+            
+            //defino las variables a utilizar
+            $cantColumnas = sizeof($datos);
+        
+            $mje = "";
+            if($datos == null){
+                $mje .= "<li> El archivo no contiene datos de alumnos.</li>";
+                return $mje;
+            }
+            //recorro fila por fila que contienen los datos (deberia
+            $i = 1;
+            foreach ($datos as $fila) {
+                if(sizeof($fila)!=7){
+                    $mje .= "<li> Fila $i: La cantidad de columnas no es 7. Revisar el archivo nuevamente!.</li>";
+                }
+                if(($fila['tipo_documento']<1)||($fila['tipo_documento']>4)){
+                    $mje .= "<li> Fila $i: El Tipo de Documento debe ser uno de los siguientes codigos: 1-DNI, 2-LC, 3-LE o 4-Pasaporte.</li>";
+                }
+                if(($fila['documento']<99999)||($fila['documento']>99999999)){
+                    $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
+                }
+                if(strlen($fila['apellido'])<3){
+                    $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
+                }
+                if(strlen($fila['nombre'])<3){
+                    $mje .= "<li> Fila $i:  El nombre debe tener por lo menos 3 caracteres de longitud.</li>";
+                }
+                $anio = explode('/',$fila['fecha_de_nacimiento']->format('d/m/Y'));
+                if(($anio[2] < 1910) || ($anio[2] > (date('Y')-18))){
+                    $mje .= "<li> Fila $i:  La fecha de nacimiento no puede ser menor a 1910, ni mayor a ".(date('Y')-18)."</li>";
+                }
+                $arrayLocalidades = array('1','87','88','89','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114');
+                $localidadID = $fila['localidad_id'];
+                if(!in_array($localidadID,$arrayLocalidades)){
+                    $mje .= "<li> Fila $i:  El ID de localidad debe estar dentro de los valores estipulados.</li>";
+                }
+                if(strlen($fila['email'])<5){
+                    $mje .= "<li> Fila $i:  El mail debe tener por lo menos 5 caracteres de longitud.</li>";
+                }
+                $i++;
+            }
+            //devuelvo los mjes de error
+            return $mje;
+        }
+    
+        public function guardarAlumnosImportados($of_id) {            
+            
+            //busco la oferta en la Base de Datos
+            $oferta = Oferta::findOrFail($of_id);
+            if(Input::has('stringValue')){
+                $stringValue = Input::get('stringValue');
+            }else{
+                $stringValue = null;
+            }
+            if (strlen($stringValue) != null){
+                
+                $estadoInscripcion = Input::get('estado_inscripcion');
+                
+                $filas = explode(';', $stringValue);
+                                
+                foreach($filas as $fila){
+                    if(strlen($fila > 0)){
+                        //guardo los datos en la base de datos
+                        $this->guardarAlumnosEnBase($oferta,$fila,$estadoInscripcion);
+                    }
+                }
+                return Redirect::to('ofertas/'.$oferta->id.'/inscripciones');
+            }else{
+                return Redirect::to('ofertas/'.$oferta->id.'/inscripciones');
+            }
+        }
+        
+        private function guardarAlumnosEnBase($oferta,$fila,$estadoInscripcion)
+        {
+            //obtengo los datos de una fila del excel importado
+            list($tipoDoc, $doc, $ape, $nom, $fe_nac, $loc_id, $email) = explode(',',$fila);
+            
+            //creo un modelo del Inscripto con los campos a insertar
+            $inscripto = $oferta->inscripcionModel;
+            
+            $inscripto['oferta_formativa_id'] = $oferta->id;
+            if($estadoInscripcion < 2){
+                $inscripto['estado_inscripcion'] = $estadoInscripcion; //el estado_inscripcion 0: Preinscripto o 1: Inscripto
+            }else{
+                $inscripto['estado_inscripcion'] = 1; //el estado_inscripcion 0: Preinscripto o 1: Inscripto
+                $inscripto->setCodigoVerificacion($this->generarCodigoDeVerificacion());
+                if($oferta->tipo_oferta == 2){
+                    $inscripto['aprobado'] = 1; //coloco el 1 ya en en el formualario vino que todos los alumnos son aprobados
+                }else{
+                    $inscripto['asistente'] = 1; //coloco el 1 ya en en el formualario vino que todos los alumnos son asistentes
+                }
+            }
+            $inscripto['tipo_documento_cod'] = $tipoDoc;
+            $inscripto['documento'] = $doc;
+            $inscripto['apellido'] = $ape;
+            $inscripto['nombre'] = $nom;
+            $fechaNac = strtotime($fe_nac);
+            $fechaNacFormat = date('Y-m-d',$fechaNac);
+            $inscripto['fecha_nacimiento'] = $fechaNacFormat;
+            $inscripto['localidad_id'] = $loc_id;
+            $inscripto['email'] = $email;
+            $inscripto['como_te_enteraste'] = 12; //el 12 es porque es "Web Institucional" en la base de datos
+            //si la oferta es Oferta (curso) lleno otros campos más
+            if($oferta->tipo_oferta == 2){
+                $inscripto['localidad_anios_residencia'] = 0; //el 0 es porque no tiene un valor por defecto en la base de datos
+                $inscripto['nivel_estudios_id'] = 2; //el 2 es porque es NS/NC en la base de datos
+                if($estadoInscripcion > 0){
+                    $inscripto['presento_requisitos'] = 1; //el 2 es porque es NS/NC en la base de datos                
+                }
+            }
+            if($estadoInscripcion > 0){
+                //le creo el correo institucional
+                $inscripto->crearCorreoInstitucional();
+            }
+            $inscripto->save();
+            return;
+        }
 }

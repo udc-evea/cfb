@@ -112,6 +112,20 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
       array('uses' => 'OfertasController@enviarMailsConCertificados', 'as' => 'ofertas.enviarMailsConCertificados')
     );
     
+    //agregue esta ruta para importar una nueva Oferta por archivo (XLS/XLSX)
+    Route::any('/ofertas/importarOferta', 
+      array('uses' => 'OfertasController@importarOfertaDeArchivo', 'as' => 'ofertas.importarOfertaDeArchivo')
+    );
+    
+    //agregue esta ruta para importar alumnos a una Oferta por archivo (XLS/XLSX)
+    Route::any('/ofertas/{oferta}/inscripciones/importarAlumnos',
+      array('uses' => 'OfertasInscripcionesController@importarAlumnosDeArchivo', 'as' => 'ofertas.inscripciones.importarAlumnosDeArchivo')
+    );
+    //agregue esta ruta para guardar los alumnos importadosde una Oferta a la Base de Datos
+    Route::post('/ofertas/{oferta}/inscripciones/guardarAlumnosImportados',
+      array('uses' => 'OfertasInscripcionesController@guardarAlumnosImportados', 'as' => 'ofertas.inscripciones.guardarAlumnosImportados')
+    );
+    
     // especifico que todos los controladores para las Ofertas estan en OfertasController
     Route::resource('ofertas', 'OfertasController');
     // especifico que todos los controladores para las Inscripciones estan en OfertasInscripcionesController

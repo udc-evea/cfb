@@ -649,4 +649,137 @@ class OfertasController extends BaseController {
                             ->withoferta($oferta)
                             ->with('message', "$cabecera Los Certificados se enviarán automaticamente durante los próximo minutos. Mientras puede seguir utilizando el sistema. $final");
         }
+        
+        public function importarOfertaDeArchivo()
+        {
+            $MjeError = NULL;
+            $post = false;
+            //me fijo si la vista se carga por GET
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                //cargo la vista con los argumentos necesarios
+                return View::make('ofertas.importarOfertaArchivo')
+                        ->with('post',$post)
+                        ->with('MjeError',$MjeError);
+            }else{
+                // Me fijo si es POST y si el $archivo es <> NULL
+                // realizo los pasos necesarios para la importación y lo guardo 
+                // en un array asociativo para mostrar por pantalla y luego
+                // decidir si se importa a la base o no
+                
+                //$coloco la variable $post en TRUE para la condicion de la vista
+                $post = true;
+                //obtengo la ubicación real del archivo importado
+                $realPath = Input::file('archivo')->getRealPath();
+                //Si el archivo existe, leo su contenido. Sino, muestro error.
+                if ($realPath != NULL) {
+                    //obtengo todos los campos (columnas) con la información del archivo Excel
+                    $todoElInput = Input::all();                    
+                    $datosArchivo = Excel::load($realPath, function($reader) {})->get();
+                    //obtengo solo los datos de las columnas del archivo
+                    $datos = $this->obtenerCabecerayDatos($datosArchivo);
+                    //verifico si los datos cargados tienen algún error de validación
+                    $MjeError = $this->verificarDatosValidos($datos);
+                    //cargo la vista con los datos necesarios                    
+                    return View::make('ofertas.importarOfertaArchivo')
+                            ->with('post',$post)
+                            ->with('datos',$datos)
+                            ->with('MjeError',$MjeError);
+                }else{
+                    $MjeError .= "<li> Verficar que el archivo contiene 1 sola fila con los datos de la Oferta a importar.</li>";
+                    return View::make('ofertas.importarOfertaArchivo')
+                        ->with('post',$post)
+                        ->with('MjeError',$MjeError);
+                }
+            }
+            
+        }
+        
+        private function obtenerCabecerayDatos($datosArchivo)
+        {   //funcion para obtener solo los datos de las columnas del archivo leido
+            
+            if ((!empty($datosArchivo))&&($datosArchivo->count()==1)){
+                //defino unas variables de ayuda
+                $datos = array();
+                $soloDatos = array();
+                $i = 0;
+                
+                //recorro fila por fila que contienen los datos (deberia
+                foreach ($datosArchivo as $fila) {
+                        //echo "<br> - Fila: ".$fila;
+                        /*if($fila->count() != $cantCamposOferta){
+                            $datosCSV = array();                                
+                            return null;
+                        }*/
+                        
+                        foreach ($fila as $campo => $celda){
+                            $datos[$i][$campo] = $celda;
+                            array_push($soloDatos,$celda);
+                            //echo "<br> - campo: $campo - valor: $celda";
+                        }
+                        $i++;
+                        //array_push($arrayCeldas, $i);
+                        //echo "<br> - celdas: ".$celdas;
+                        //echo "<br> - cant: ".$celdas->count();
+                        //echo "<br>";
+                        //var_dump($value);
+                }
+                
+                //echo "<br> sub[0][otro]: ".$datosOfertaCSV[0]['cam01']."<br>";
+                //$fila1 = $datosOfertaCSV[0];
+                //$cabFila1 = array_keys($fila1);
+                //echo "<br> cabecera_xls: ".$cabFila1."<br>";
+                //var_dump($datosCSV);
+                //return $datosCSV;
+                return $soloDatos;
+
+            }else{
+                $datos = array();
+                return null;
+            }
+        }
+        
+        private function verificarDatosValidos($datos) 
+        { //funcion que verifica algunos datos de la oferta
+            
+            //defino las variables a utilizar
+            $cantColumnas = sizeof($datos);        
+            $nombre = $datos[0];
+            $anio = $datos[1];
+            $inicioInsc = $datos[2];
+            $finInsc = $datos[3];
+            $finOferta = $datos[4];
+        
+            $mje = "";
+            if($cantColumnas!=5){
+                $mje .= "<li> La cantidad de columnas no es 5. Revisar el archivo nuevamente!.</li>";
+                //devuelvo los mjes de error
+                return $mje;
+            }
+            if(strlen($nombre)<10){
+                $mje .= "<li> El nombre de la Oferta debe contener al menos 10 caracteres.</li>";
+            }
+            if(strlen($anio)<4){
+                $mje .= "<li> El año de la Oferta no puede ser Nulo o menor a 4 digitos.</li>";
+            }
+            if(($anio < 2010) || ($anio > (date('Y')+1) )){
+                $mje .= "<li> El año de la Oferta no puede ser menor a 2010, ni mayor a ".(date('Y')+1)."</li>";
+            }
+            if($inicioInsc == NULL){
+                $mje .= "<li> La fecha de Inicio de las inscripciones no puede ser nulo.</li>";
+            }
+            if($finInsc == null){
+                $mje .= "<li> La fecha de Fin de las inscripciones no puede ser nulo.</li>";
+            }
+            if( $inicioInsc >= $finInsc ){
+                $mje .= "<li> La fecha de inicio de inscripciones no puede ser mayor o igual a la fecha de fin de inscripciones.</li>";
+            }
+            if($finOferta == null){
+                $mje .= "<li> La fecha de Fin de la Oferta no puede ser nulo.</li>";
+            }
+            if( $finOferta <= $finInsc ){
+                $mje .= "<li> La fecha de Fin de la Oferta no puede ser menor o igual a la fecha de fin de las inscripciones.</li>";
+            }
+            //devuelvo los mjes de error
+            return $mje;
+        }
 }
