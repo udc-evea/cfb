@@ -44,6 +44,18 @@ input[readonly] {
             <a href="{{action('OfertasController@importarOfertaDeArchivo')}}" class="btn btn-primary" title="Importar Nueva Oferta desde Archivo CSV"><i class="glyphicon glyphicon-plus-sign"></i> Importar Nueva Oferta de Archivo</a>
         </div>
         @if (!$post)
+        <div class="well" style="margin-top: 20px">
+            <p>Por medio del siguiente formulario, se cargan desde un archivo los datos de una nueva 
+                Oferta (Curso/Evento) al Sistema de Inscripciones de la Universidad del Chubut.</p>
+            <p>
+                Se debe tener en cuenta que el sistema de importación está preparado para leer 
+                los archivos de Excel con cierta cantidad de columnas. 
+            </p>
+            <p>
+                Se puede descargar el archivo de ejemplo, que trae la forma correcta que debe estar la
+                información de la Oferta: <a href="../../../public/img/oferta.xlsx"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
+            </p>
+        </div>
         <div class="alert alert-info" style='margin-top: 20px'>
             {{ Form::open(array(
                     'method' => 'POST',
@@ -88,13 +100,13 @@ input[readonly] {
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="nombre"> Nombre</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="nombre" id="nombre" value="{{$datos[0]}}" readonly>
+                                <input type="text" class="form-control" name="nombre" id="nombre" value="{{$datos[0]}}" readonly required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4" for="anio"> Año</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="anio" id="anio" value="{{$datos[1]}}" readonly>
+                                <input type="text" class="form-control" name="anio" id="anio" value="{{$datos[1]}}" readonly required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -123,7 +135,11 @@ input[readonly] {
                             </div>
                         </div>
                     <div class="btn-group" style="padding-left: 25%">
-                        {{ Form::submit('Crear oferta', array('class' => 'btn btn-success', 'title'=>'Crear Oferta')) }}
+                        @if($MjeError)
+                            {{ Form::submit('Crear oferta', array('class' => 'btn btn-success', 'title'=>'Crear Oferta', 'disabled' => 'disabled')) }}
+                        @else
+                            {{ Form::submit('Crear oferta', array('class' => 'btn btn-success', 'title'=>'Crear Oferta')) }}
+                        @endif
                         <!--<a href="{{action('OfertasController@importarOfertaDeArchivo')}}" class="btn btn-primary" title="Importar Nueva Oferta desde Archivo CSV"><i class="glyphicon glyphicon-plus-sign"></i> Importar Nueva Oferta de Archivo</a>-->
                         {{ Form::close() }}
                     </div>
