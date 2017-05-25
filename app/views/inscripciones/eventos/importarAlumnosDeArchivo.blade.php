@@ -58,7 +58,7 @@ input[readonly] {
             <p> 
                 <b>Nota:</b> Para la correcta lectura del archivo, los campos "Tipo DNI" y "Localidad" deben contener
                 uno de los códigos que se especifican en los siguientes archivos:
-                <li><a href="{{ URL::to('img/alumnos.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Tipo DNI correcto.</a></li>
+                <li><a href="{{ URL::to('img/tipo_DNI.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Tipo DNI correcto.</a></li>
                 <li><a href="{{ URL::to('img/localidades.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Localidades correctas.</a></li>
             </p>
         </div>
