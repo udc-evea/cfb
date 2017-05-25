@@ -53,13 +53,13 @@ input[readonly] {
             </p>
             <p> 
                 Se puede descargar el archivo de ejemplo, que trae la forma correcta que debe estar la
-                información de los alumnos: <a href="{{ URL::to('img/alumnos.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
+                información de los alumnos: <a href="{{ URL::asset('img/alumnos.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
             </p>
             <p> 
                 <b>Nota:</b> Para la correcta lectura del archivo, los campos "Tipo DNI" y "Localidad" deben contener
                 uno de los códigos que se especifican en los siguientes archivos:
-                <li><a href="{{ URL::to('img/tipo_DNI.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Tipo DNI correcto.</a></li>
-                <li><a href="{{ URL::to('img/localidades.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Localidades correctas.</a></li>
+                <li><a href="{{ URL::asset('img/tipo_DNI.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Tipo DNI correcto.</a></li>
+                <li><a href="{{ URL::asset('img/localidades.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Localidades correctas.</a></li>
             </p>
         </div>
         <div class="alert alert-info" style='margin-top: 20px'>
