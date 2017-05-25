@@ -51,9 +51,9 @@ input[readonly] {
                 Se debe tener en cuenta que el sistema de importación está preparado para leer 
                 los archivos de Excel con cierta cantidad de columnas. 
             </p>
-            <p>
+            <p> <?php $pathFile = "../img/oferta.xlsx";?>
                 Se puede descargar el archivo de ejemplo, que trae la forma correcta que debe estar la
-                información de la Oferta: <a href="../../../public/img/oferta.xlsx"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
+                información de la Oferta: <a href="{{$pathFile}}"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
             </p>
         </div>
         <div class="alert alert-info" style='margin-top: 20px'>

@@ -51,15 +51,16 @@ input[readonly] {
                 Se debe tener en cuenta que el sistema de importación está preparado para leer 
                 los archivos de Excel con cierta cantidad de columnas. 
             </p>
-            <p>
+            <p> <?php $pathFileAlumnos = public_path()."\img\alumnos.xlsx";?>
                 Se puede descargar el archivo de ejemplo, que trae la forma correcta que debe estar la
-                información de los alumnos: <a href="../../../../public/img/alumnos.xlsx"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
+                información de los alumnos: <a href="{{$pathFileAlumnos}}"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
             </p>
-            <p>
+            <p> <?php $pathFileTipoDNI = public_path()."\img\tipo_DNI.xlsx";?>
+                <?php $pathFileLocalidades = public_path()."\img\localidades.xlsx";?>
                 <b>Nota:</b> Para la correcta lectura del archivo, los campos "Tipo DNI" y "Localidad" deben contener
                 uno de los códigos que se especifican en los siguientes archivos:
-                <li><a href="../../../../public/img/tipo_DNI.xlsx"><i class="fa fa-file-excel-o fa-3"></i> Tipo DNI correcto.</a></li>
-                <li><a href="../../../../public/img/localidades.xlsx"><i class="fa fa-file-excel-o fa-3"></i> Localidades correctas.</a></li>
+                <li><a href="{{$pathFileTipoDNI}}"><i class="fa fa-file-excel-o fa-3"></i> Tipo DNI correcto.</a></li>
+                <li><a href="{{$pathFileLocalidades}}"><i class="fa fa-file-excel-o fa-3"></i> Localidades correctas.</a></li>
             </p>
         </div>
         <div class="alert alert-info" style='margin-top: 20px'>
