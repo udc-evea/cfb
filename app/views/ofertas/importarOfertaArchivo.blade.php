@@ -53,7 +53,7 @@ input[readonly] {
             </p>
             <p> 
                 Se puede descargar el archivo de ejemplo, que trae la forma correcta que debe estar la
-                información de la Oferta: <a href="{{public_path()}}/public/img/oferta.xlsx"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
+                información de la Oferta: <a href="{{ URL::to('img/oferta.xlsx') }}"><i class="fa fa-file-excel-o fa-3"></i> Archivo de ejemplo.</a>
             </p>
         </div>
         <div class="alert alert-info" style='margin-top: 20px'>
