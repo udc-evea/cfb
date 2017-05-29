@@ -74,7 +74,7 @@
     @endif-->
     <div class="btn-group">
         <a class='btn btn-info' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
-        @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)==0) && ($perfil == "Administrador"))
+        @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)==0) && (($perfil == "Administrador")||($perfil == "Creador")))
             <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-primary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
         @endif
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)) && ($perfil == "Administrador"))
