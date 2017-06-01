@@ -92,9 +92,20 @@
                 <p>según <?php echo $rows->oferta->resolucion_nro;?>.</p>
             <?php endif;?>
             <br>
-            <p>Se extiende el presente certificado al <?php echo date('d')?> de 
-                <?php echo $mes_actual ?> de 2016</p>
-            <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
+            <?php
+                $dia = date('d');
+                $mes = date('m');
+                $anio = date('Y');
+                if($rows->oferta->fecha_fin_oferta != null){
+                    $fecha = explode('/',$rows->oferta->fecha_fin_oferta);
+                    $dia = $fecha[0];
+                    $mes = $fecha[1];
+                    $anio = $fecha[2];
+                }
+            ?>
+            <p>Se extiende el presente certificado al <?php echo $dia; ?> de
+                <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
+            <p>en la ciudad de Rawson, Provincia del Chubut.</p>
         </div>
             <p id="cuv">Código Único de Validación (CUV): <b>&nbsp;<?php echo "&nbsp;&nbsp;&nbsp;".$rows->codigo_verificacion ?></b>.</p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>
