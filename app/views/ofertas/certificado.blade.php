@@ -93,9 +93,13 @@
             <?php else:?>
                 <p><b style="font-size: 24pt"><?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
             <?php endif;?>
-            <!--<p>D.N.I. <?php //echo number_format($capacPersonal->dni, 0, ',', '.');?></p>-->
-            <p>D.N.I. <?php echo $capacPersonal->dni ;?></p>
-            <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en </p>
+            <?php if(ctype_digit($capacPersonal->dni)):?>
+                <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?></p>
+            <?php else:?>
+                <p>D.N.I. <?php echo $capacPersonal->dni;?></p>
+            <?php endif;?>
+            <!--<p>D.N.I. <?php //echo $capacPersonal->dni?></p>-->
+            <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
             <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
