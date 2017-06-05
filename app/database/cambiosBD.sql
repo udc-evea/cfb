@@ -323,3 +323,31 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 
 /* Cambio en la base la versión de código del sistema, de 3.1.15 a 3.1.16 */
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.16' WHERE  `version_bd`.`version_codigo` =  '3.1.15' LIMIT 1 ;
+
+
+/* ######  2017/05/22  ####################### */
+--    VERSION_BASE: 3.1.9 - VERSION_CODIGO: 3.1.17
+-- Se agrega el sexo del/la capacitador/a (en los certificado tambien)
+/* 
+1) se cambia la versión del código en 3.1.17
+2) se cambia la versión de la base de datos en 3.1.9
+3) agrego 1) Hombre 2)Mujer 3)Sin Especficar (por defecto)
+4) agrego el campo del sexo en "Personal p/Capacitaciones"
+5) cambio los certificados de capacitadores segun el sexo
+
+/* Cambio en la base la versión de código del sistema, de 3.1.16 a 3.1.17 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.17' WHERE  `version_bd`.`version_codigo` =  '3.1.16' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.1.7 a 3.1.8 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.9' WHERE  `version_bd`.`version` =  '3.1.8' LIMIT 1 ;
+/* Creo la Tabla sexo*/
+->  CREATE TABLE Sexo (
+        id int NOT NULL,
+        descripcion varchar(30) NOT NULL UNIQUE,
+        CONSTRAINT id_sexo_pk PRIMARY KEY (id)
+    );
+/* Agrego las filas 1) Hombre - 2) Mujer - 3) Sin Especificar (predeterminado) */
+-> INSERT INTO `cfb`.`Sexo` (`id`, `descripcion`) VALUES ('1', 'Hombre');
+-> INSERT INTO `cfb`.`Sexo` (`id`, `descripcion`) VALUES ('2', 'Mujer');
+-> INSERT INTO `cfb`.`Sexo` (`id`, `descripcion`) VALUES ('3', 'Sin Especificar');
+/* Agrego el campo de sexo en el personal para capacitaciones */
+-> ALTER TABLE `personal` ADD `sexo_id` INT NOT NULL DEFAULT '3' AFTER `email`;

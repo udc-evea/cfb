@@ -47,15 +47,22 @@
         </div>
         
         <div class="form-group">
-            <label class="control-label col-lg-2 col-sm-4">Titulación</label>
-            <div class="col-lg-10 col-sm-3">
+            <label class="control-label col-lg-2 col-sm-4">Sexo:</label>
+            <div class="col-lg-5 col-sm-3">
+                <select class="form-control" name='sexo_id'>
+                    @foreach($sexos as $item)
+                        <option value="{{$item->id}}">{{ $item->descripcion }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>        
+
+        <div class="form-group">
+            <label class="control-label col-lg-2 col-sm-4">Titulación:</label>
+            <div class="col-lg-5 col-sm-3">
                 <select class="form-control" name='titulacion_id'>
                     @foreach($titulaciones as $item)
-                        @if($personal->titulacion_id == $item->id)
-                            <option value="{{$item->id}}" selected>{{ $item->nombre_titulacion }}</option>
-                        @else
-                            <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
-                        @endif
+                        <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
                     @endforeach
                 </select>
             </div>

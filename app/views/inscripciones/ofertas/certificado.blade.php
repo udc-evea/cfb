@@ -87,6 +87,15 @@
                 <p>D.N.I. <?php echo $rows->documento;?> </p>
             <?php endif;?>
             <p>ha aprobado el <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
+            <?php if($rows->oferta->lugar != null):?>
+                <?php $fechaInicio = explode('/',$rows->oferta->inicio);
+                      $fechaFin = explode('/',$rows->oferta->fin);
+                ?>
+                <p>realizado en {{$rows->oferta->lugar}} del {{$fechaInicio[0]}} de 
+                    {{array_get($meses, $fechaInicio[1])}} al {{$fechaFin[0]}} de 
+                    {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
+                </p>
+            <?php endif;?>
             <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
             <?php if(($rows->oferta->resolucion_nro != null)&&($ConHoras==true)):?>
                 <p>según <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 

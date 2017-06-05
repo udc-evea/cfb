@@ -28,10 +28,11 @@ class Personal extends Eloquent implements UserInterface, RemindableInterface {
         'nombre' => 'required|between:2,30|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'dni' => 'required|between:7,10|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|between:1000000,99999999',
         'email' => 'required|between:2,200',
+        'sexo_id' => 'required|integer',
         'titulacion_id' => 'required|exists:titulacion,id'
     );
         
-    protected $fillable = array('apellido','nombre','dni','email','titulacion_id');
+    protected $fillable = array('apellido','nombre','dni','email','sexo_id','titulacion_id');
 
     public function getApellido() {
         return $this->apellido;
@@ -43,6 +44,11 @@ class Personal extends Eloquent implements UserInterface, RemindableInterface {
     
     public function getEmail() {
         return $this->email;
+    }
+    
+    public function getSexo() {
+        $sexo = Sexo::find($this->sexo_id);
+        return $sexo['descripcion'];
     }
     
     public function getApellidoYNombre() {

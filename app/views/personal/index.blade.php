@@ -21,6 +21,7 @@
                         <th>Apellido y Nombre</th>
                         <th>DNI</th>
                         <th>E-mail</th>
+                        <th>Sexo</th>
                         <th>Titulación</th>
                         @if($perfil != 'Colaborador')
                                 <th>Acciones</th>
@@ -34,6 +35,7 @@
                         <td class="apellido">{{ $pers->getApellidoyNombre() }}</td>
                         <td class="dni">{{ $pers->dni }}</td>
 			<td>{{ $pers->email }}</td>
+                        <td>{{ $pers->getSexo() }}</td>
                         <td>{{ $pers->getTitulacionPersonal() }} (@if($pers->titulacion_id != 1) {{ $pers->getTitulacionPersonalAbreviada() }} @else - @endif)</td>
                         @if($perfil != 'Colaborador')
                             <td>

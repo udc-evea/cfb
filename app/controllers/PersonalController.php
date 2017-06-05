@@ -45,7 +45,10 @@ class PersonalController extends BaseController {
 	{
             if(Auth::user()->perfil == 'Administrador'){
                 $titulaciones = Titulacion::all();
-		return View::make('personal.create')->with('titulaciones',$titulaciones);
+                $sexos = Sexo::all();
+		return View::make('personal.create')
+                        ->with('titulaciones',$titulaciones)
+                        ->with('sexos',$sexos);
             }else{
                 return Redirect::action('HomeController@bienvenido')
                             ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
@@ -100,11 +103,14 @@ class PersonalController extends BaseController {
             if(Auth::user()->perfil == 'Administrador'){
 		$personal = $this->personal->find($id);
                 $titulaciones = Titulacion::all();
+                $sexos = Sexo::all();
 		if (is_null($personal))
 		{
 			return Redirect::route('personal.index');
 		}
-		return View::make('personal.edit', compact('personal'))->with('titulaciones',$titulaciones);
+		return View::make('personal.edit', compact('personal'))
+                        ->with('titulaciones',$titulaciones)
+                        ->with('sexos',$sexos);
             }else{
                 return Redirect::action('HomeController@bienvenido')
                             ->with('message','No tiene los privilegios sufientes para acceder a esa sección!.');
@@ -128,7 +134,7 @@ class PersonalController extends BaseController {
                     $personal = $this->personal->find($id);
                     
                     //creo un array de las claves a insertar
-                    $claves = array('apellido','nombre','dni','email','titulacion_id');
+                    $claves = array('apellido','nombre','dni','email','sexo_id','titulacion_id');
                     //creo un array de los datos enviados por POST
                     $datos = array();
                     //extraigo el campo 'apellido' del POST
@@ -139,6 +145,8 @@ class PersonalController extends BaseController {
                     array_push($datos, $input['dni']);
                     //extraigo el campo 'email' del POST
                     array_push($datos, $input['email']);
+                    //extraigo el campo 'sexo_id' del POST
+                    array_push($datos, $input['sexo_id']);
                     //extraigo el campo 'titulacion_id' del POST
                     array_push($datos, $input['titulacion_id']);
                     

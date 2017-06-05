@@ -80,6 +80,13 @@
         $writer->writeFile($mje,$dir_to_save.$filename);
         //compruebo los caracteres del apellido y nombre
         $capacPersonal->apellido = HomeController::arreglarCaracteres($capacPersonal->apellido);
+        //compruebo si es hombre, mujer o sin espedificar
+        $pronombre = "el/la";
+        if($capacPersonal->sexo_id == 1){
+           $pronombre = "el";
+        }elseif($capacPersonal->sexo_id == 2){
+           $pronombre = "la";
+        }
     ?>  
     
     <div class="certificado">
@@ -87,7 +94,7 @@
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut</b>  &nbsp;certifica que</p>
             <?php if($capacPersonal->titulacion_id != 1):?>
-                <p>el/la<b style="font-size: 24pt">
+                <p>{{$pronombre}}<b style="font-size: 24pt">
                     <?php echo $capacPersonal->getTitulacionPersonalAbreviada().". ";?>
                     <?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
             <?php else:?>
