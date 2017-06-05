@@ -340,14 +340,14 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 /* Cambio en la base la versión del sistema, de 3.1.7 a 3.1.8 */
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.1.9' WHERE  `version_bd`.`version` =  '3.1.8' LIMIT 1 ;
 /* Creo la Tabla sexo*/
-->  CREATE TABLE Sexo (
+->  CREATE TABLE sexo (
         id int NOT NULL,
         descripcion varchar(30) NOT NULL UNIQUE,
         CONSTRAINT id_sexo_pk PRIMARY KEY (id)
     );
 /* Agrego las filas 1) Hombre - 2) Mujer - 3) Sin Especificar (predeterminado) */
--> INSERT INTO `cfb`.`Sexo` (`id`, `descripcion`) VALUES ('1', 'Hombre');
--> INSERT INTO `cfb`.`Sexo` (`id`, `descripcion`) VALUES ('2', 'Mujer');
--> INSERT INTO `cfb`.`Sexo` (`id`, `descripcion`) VALUES ('3', 'Sin Especificar');
+-> INSERT INTO `cfb`.`sexo` (`id`, `descripcion`) VALUES ('1', 'Hombre');
+-> INSERT INTO `cfb`.`sexo` (`id`, `descripcion`) VALUES ('2', 'Mujer');
+-> INSERT INTO `cfb`.`sexo` (`id`, `descripcion`) VALUES ('3', 'Sin Especificar');
 /* Agrego el campo de sexo en el personal para capacitaciones */
 -> ALTER TABLE `personal` ADD `sexo_id` INT NOT NULL DEFAULT '3' AFTER `email`;

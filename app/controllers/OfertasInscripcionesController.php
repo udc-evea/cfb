@@ -1046,6 +1046,9 @@ class OfertasInscripcionesController extends BaseController {
                 if(($fila['documento']<99999)||($fila['documento']>99999999)){
                     $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
                 }
+                if(ctype_space($fila['documento'])){
+                    $mje .= "<li> Fila $i:  El documento no debe contener espacios en blanco ni tabulaciones.</li>";
+                }
                 if(strlen($fila['apellido'])<3){
                     $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
                 }
