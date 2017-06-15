@@ -80,13 +80,13 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut </b>  certifica que</p>
-            <p><b style="font-size: 24pt"><?php echo $rows->nombre." ".strtoupper($apellidoBien)?></b></p>
+            <p><b style="font-size: 18pt"><?php echo $rows->nombre." ".strtoupper($apellidoBien);?></b> 
             <?php if(ctype_digit($rows->documento)):?>
-                <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?> </p>
+                , D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>
             <?php else:?>
-                <p>D.N.I. <?php echo $rows->documento;?> </p>
-            <?php endif;?>
-            <p>ha aprobado el <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
+                , D.N.I. <?php echo $rows->documento;?> 
+            <?php endif;?> </p>
+            <p>ha aprobado el <b style="font-size: 20pt"> <?php echo $rows->oferta->nombre;?></b></p>
             <?php if($rows->oferta->lugar != null):?>
                 <?php $fechaInicio = explode('/',$rows->oferta->inicio);
                       $fechaFin = explode('/',$rows->oferta->fin);

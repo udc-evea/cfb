@@ -79,21 +79,29 @@
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut</b>  &nbsp;certifica que</p>
-            <p><b style="font-size: 24pt"><?php echo $rows->nombre." ".strtoupper($apellidoBien);?></b></p>
+            <p><b><?php echo $rows->nombre." ".strtoupper($apellidoBien);?></b> 
             <?php if(ctype_digit($rows->documento)):?>
-                <p>D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?> </p>
+                , D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>
             <?php else:?>
-                <p>D.N.I. <?php echo $rows->documento;?> </p>
-            <?php endif;?>
-                <p>ha asistido al <b style="font-size: 22pt"> <?php echo $rows->oferta->nombre;?></b></p>
+                , D.N.I. <?php echo $rows->documento;?> 
+            <?php endif;?> </p>
+            <p>ha participado en calidad de asistente al </p>
+            <p><b style="font-size: 20pt"><?php echo $rows->oferta->nombre;?></b></p>
             <?php if($rows->oferta->lugar != null):?>
                 <?php $fechaInicio = explode('/',$rows->oferta->inicio);
                       $fechaFin = explode('/',$rows->oferta->fin);
+                      $mismoMes = $fechaInicio[1] == $fechaFin[1];
                 ?>
+                <?php if($mismoMes):?>
+                <p>realizado en {{$rows->oferta->lugar}} del {{$fechaInicio[0]}} al 
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
+                </p>
+                <?php else:?>
                 <p>realizado en {{$rows->oferta->lugar}} del {{$fechaInicio[0]}} de 
                     {{array_get($meses, $fechaInicio[1])}} al {{$fechaFin[0]}} de 
                     {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
                 </p>
+                <?php endif;?>
             <?php endif;?>
             <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
             <?php if(($rows->oferta->resolucion_nro != null)&&($ConHoras==true)):?>
@@ -115,9 +123,11 @@
                     $anio = $fecha[2];
                 }
             ?>
-            <p>Se extiende el presente certificado al <?php echo $dia; ?> de
-                <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
-            <p>en la ciudad de Rawson, Provincia del Chubut.</p>
+            <div style="font-size: 16pt">
+                <p>Se extiende el presente certificado al <?php echo $dia; ?> de
+                    <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
+                <p>en la ciudad de Rawson, Provincia del Chubut.</p>
+            </div>
         </div>
             <p id="cuv">Código Único de Validación (CUV): <b>&nbsp;<?php echo "&nbsp;&nbsp;&nbsp;".$rows->codigo_verificacion ?></b>.</p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>

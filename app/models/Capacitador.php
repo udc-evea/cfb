@@ -46,5 +46,14 @@ class Capacitador extends Eloquent implements UserInterface, RemindableInterface
     
     public function ObtenerNomYApeDelPersonal($idPersonal) {
         return DB::table('capacitador')->where('personal_id','=',$idPersonal)->get(array('apellido','nombre'));
-    }        
+    }
+    
+    public function getCantNotificacionesConCertificado(){
+        return $this->attributes['cant_notificaciones_certificado'];
+    }
+    
+    public function seEnvioNotificacionConCertificado(){
+        $this->attributes['cant_notificaciones_certificado']++;
+        $this->save();
+    }
 }

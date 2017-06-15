@@ -601,6 +601,6 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function setFinalizada($valor) {
         return $this->attributes['finalizada'] = $valor;
-    }
+    }        
     
 }

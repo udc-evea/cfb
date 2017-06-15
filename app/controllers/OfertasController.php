@@ -127,8 +127,8 @@ class OfertasController extends BaseController {
                 
                 if(!Session::has('tab_activa')){
                     Session::set('tab_activa', 'carreras');
-                }
-                                
+                }                                
+                
 		return View::make('ofertas.index', compact('ofertas', 'carreras', 'eventos'))
                         ->with('userId',$userId)
                         ->with('userPerfil',$userPerfil)
@@ -505,7 +505,7 @@ class OfertasController extends BaseController {
         }
         
         public function enviarMailCertificadoCapacitador($capid)
-        {      
+        {
             //busco la oferta en la BD
             $capacitador = Capacitador::find($capid);
             $oferta = Oferta::findOrFail($capacitador->oferta_id);
@@ -535,6 +535,7 @@ class OfertasController extends BaseController {
                     $message->to($capacPersonal->getEmail())->subject('Certificado UDC');
                     $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC.pdf', 'mime'=>'application/pdf'));
                 });
+                $capacitador->seEnvioNotificacionConCertificado();
             } catch (Swift_TransportException $e) {
                 //Log::info("No se pudo enviar correo a " . $capacPersonal->apellido.','.$capacPersonal->nombre." <" . $capacPersonal->email.">");
                 Log::info("No se pudo enviar correo al capacitador ");
@@ -557,6 +558,74 @@ class OfertasController extends BaseController {
                             ->withoferta($oferta)
                             //->with('message', "$cabecera Se envió el Certificado de $capacPersonal->getNombre(), $capacPersonal->getApellido() correctamente. $final");
                             ->with('message', "$cabecera Se envió el Certificado del capacitador correctamente. $final");
+        }
+        
+        public function enviarMailCertificadosCapacitadores($ofid)
+        {   
+            //busco la oferta en la BD
+            $oferta = Oferta::findOrFail($ofid);
+            //busco todos los capacitadores de la Oferta
+            $listaCapacitadores = Oferta::obtenerCapacitadoresDeLaOferta($ofid);
+            //$capacitadores = $this->datosCapacitadores($capAux);
+            
+            //busco la oferta en la BD
+            /*$capacitador = Capacitador::find($capid);*/
+            /*$oferta = Oferta::findOrFail($capacitador->oferta_id);*/
+            //busco los datos del capacitador
+            /*$capacRol = RolCapacitador::find($capacitador->rol_id);*/
+            /*$capacPersonal = Personal::find($capacitador->personal_id);*/
+            
+            //Creo la variable $rows para cargar el certificado            
+            $rows = $oferta;
+            
+            foreach($listaCapacitadores as $cap){
+                
+                $capacitador = Capacitador::find($cap->id);                
+                $capacRol = RolCapacitador::find($capacitador->rol_id);
+                $capacPersonal = Personal::find($capacitador->personal_id);
+                
+                //creo el nombre del archivo pdf
+                //$filename = "capacitador_".$oferta->id."_".$capacitador->getApellido()."_".$capacPersonal->getNombre();
+                $filename = "capacitador_".$oferta->id."_".$capacPersonal->getApellido()."_".$capacPersonal->getNombre();
+                
+                //creo el certificado
+                Session::set('cap',$capacitador);
+                $html = View::make('ofertas.certificado', compact('rows'));        
+
+                //Creo el pdf y lo guardo en la carpeta /public/pdfs
+                $pdf = new \Thujohn\Pdf\Pdf();
+                $content = $pdf->load($html, 'A4', 'landscape')->output();
+                $path_to_pdf = public_path("pdfs/$filename.pdf");
+                File::put($path_to_pdf, $content);
+                
+                try{
+                    //Envío el mail personal de cada Capacitador                    
+                    Mail::send('emails.ofertas.envio_certificado_capacitador',compact('rows','oferta','capacPersonal','capacRol'), function ($message) use ($rows,$filename,$capacPersonal,$capacRol){
+                        $message->to($capacPersonal->getEmail())->subject('Certificado UDC');
+                        $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC.pdf', 'mime'=>'application/pdf'));
+                    });
+                    $capacitador->seEnvioNotificacionConCertificado();
+                } catch (Swift_TransportException $e) {
+                    //Log::info("No se pudo enviar correo a " . $capacPersonal->apellido.','.$capacPersonal->nombre." <" . $capacPersonal->email.">");
+                    Log::info("No se pudo enviar correo al capacitador ");
+                    //devuelvo un mje erroneo y regreso a la inscripcion de la oferta
+                    /*$cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                    $final = $this->getEstiloMensajeFinal();
+                    return Redirect::route('ofertas.index')
+                                    ->withoferta($oferta)
+                                    //->with('message', "$cabecera No se pudo enviar el Certificado de $capacPersonal->getNombre(), $capacPersonal->getApellido(). Intente nuevamente más tarde. $final");
+                                    ->with('message', "$cabecera No se pudo enviar el Certificado del capacitador. Intente nuevamente más tarde. $final");*/
+                }
+                
+            //end foreach   
+            }
+            
+            //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
+            $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+            $final = $this->getEstiloMensajeFinal();
+            return Redirect::route('ofertas.index')
+                            ->withoferta($oferta)
+                            ->with('message', "$cabecera Se enviaron los Certificados de los Capacitadores correctamente. $final");
         }
         
         public function finalizarOferta($id_oferta){

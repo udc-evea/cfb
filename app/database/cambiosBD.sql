@@ -351,3 +351,22 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> INSERT INTO `cfb`.`sexo` (`id`, `descripcion`) VALUES ('3', 'Sin Especificar');
 /* Agrego el campo de sexo en el personal para capacitaciones */
 -> ALTER TABLE `personal` ADD `sexo_id` INT NOT NULL DEFAULT '3' AFTER `email`;
+
+
+/* ######  2017/06/15  ####################### */
+--    VERSION_BASE: 3.2.0 - VERSION_CODIGO: 3.1.18
+-- Se agrega el sexo del/la capacitador/a (en los certificado tambien)
+/* 
+1) se cambia la versión del código en 3.1.18
+2) se cambia la versión de la base de datos en 3.2.0
+3) Cambio en Certificados de Eventos
+4) Oferta: fecha_inicio_evento + fecha_fin_evento nuevos campos
+5) Tilde en Oferta/Carrera/evento para ver si se debe generar o no el certificado digital
+6) Envío de todos los certificados de una Oferta a los capacitadores (un solo boton)
+
+/* Cambio en la base la versión de código del sistema, de 3.1.17 a 3.1.18 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.18' WHERE  `version_bd`.`version_codigo` =  '3.1.17' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.1.9 a 3.2.0 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.0' WHERE  `version_bd`.`version` =  '3.1.9' LIMIT 1 ;
+/* agrego columna de contador de veces que se envia el Certificado al Capacitador*/
+-> ALTER TABLE `capacitador` ADD `cant_notificaciones_certificado` INT NOT NULL DEFAULT '0' COMMENT 'Cantidad de veces que se le ha enviado el mail con el certificado de Capacitador' AFTER `rol_id`;

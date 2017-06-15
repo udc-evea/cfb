@@ -139,6 +139,7 @@
                                         <tbody>                                      
                                           @foreach($capacitadores as $cap)
                                           <tr>
+                                            <?php $capacitador = Capacitador::find($cap->id); ?>
                                             <?php $capacRol = RolCapacitador::find($cap->rol_id); ?>
                                             <?php $capacPersonal = Personal::find($cap->personal_id); ?>
                                             <td><?php echo $capacPersonal->getApellidoYNombre() ?></td>
@@ -149,7 +150,7 @@
                                                 <?php if ($name != null): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                                     <?php if ($capacPersonal->getEmail() != null): ?>
-                                                        <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador"><span class='glyphicon glyphicon-envelope'></span></a>
+                                                        <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador">{{$capacitador->getCantNotificacionesConCertificado()}} <span class='glyphicon glyphicon-envelope'></span></a>
                                                     <?php endif;?>
                                                 <?php else: ?>
                                                     {{ link_to_route('ofertas.edit', '', array($item->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
@@ -174,6 +175,7 @@
                                         @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                             <div class='row-fluid'>
                                                 <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"> Agregar más</button>
+                                                <a class="btn btn-xs btn-info" href="{{ URL::Action('ofertas.enviarMailCertificadosCapacitadores', array('ofid' => $item->id)) }}" title="Enviar todos  los Certificados a los Capacitadores de esta Oferta a sus mails particulares.">Enviar todos los Certificados  <span class='glyphicon glyphicon-envelope'></span> </a>
                                             </div>
                                         @endif
                                     @endif

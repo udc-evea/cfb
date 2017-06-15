@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'smtp',
+	'driver' => 'smtp', //line original        
 
 	/*
 	|--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => 'tls', //linea original        
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,6 +122,6 @@ return array(
 	|
 	*/
 
-	'pretend' => false,
+	'pretend' => false, //linea original
 
 );

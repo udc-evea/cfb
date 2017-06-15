@@ -911,7 +911,7 @@ class OfertasInscripcionesController extends BaseController {
         try{
             //Envío el mail al mail institucional y al personal
             Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){                
-                $message->to($rows->email)->cc($rows->email_institucional)->subject('Certificado UDC');
+                $message->to($rows->email)/*->cc($rows->email_institucional)*/->subject('Certificado UDC');
                 $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC.pdf', 'mime'=>'application/pdf'));
             });
         } catch (Swift_TransportException $e) {
@@ -933,7 +933,7 @@ class OfertasInscripcionesController extends BaseController {
         return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                         ->withoferta($oferta)
                         ->with('message', "$cabecera Se envió el Certificado de $rows->nombre, $rows->apellido correctamente. $final");
-    }
+    }        
     
     public function importarAlumnosDeArchivo($ofid)
     {    
