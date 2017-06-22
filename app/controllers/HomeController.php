@@ -50,9 +50,10 @@ class HomeController extends BaseController {
         public function login()
 	{            
             //$usuarios = Usuario::all();
-            $usuarios = Usuario::getUsernames();
+            //$usuarios = Usuario::getUsernames();
             return View::make('inicio.login')
-                    ->with('usuarios',$usuarios);
+                    //->with('usuarios',$usuarios)
+                    ;
 	}
         
         public function acceso()

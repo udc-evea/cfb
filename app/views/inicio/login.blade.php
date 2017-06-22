@@ -46,7 +46,6 @@
                 {{ Form::close() }}
             </fieldset>
         </div>
-        <?php var_dump($usuarios)?>
     </body>
 </html>
 @stop
