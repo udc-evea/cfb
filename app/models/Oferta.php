@@ -18,7 +18,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     protected $guarded = array();
     
     protected $table = 'oferta_formativa';
-    protected $dates = array('inicio', 'fin', 'fecha_fin_oferta');
+    protected $dates = array('inicio', 'fin', 'fecha_inicio_oferta', 'fecha_fin_oferta');
     public $timestamps = false;
     public static $rules = array(
         'nombre' => 'required|between:2,100|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/', //regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',
@@ -32,11 +32,13 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'url_imagen_mail' => 'between:2,100',
         'fecha_modif' => 'date_format:d/m/Y',
         'resolucion_nro' => 'between:2,30|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|min:0',
+        'fecha_inicio_oferta' => 'date_format:d/m/Y',
         'fecha_fin_oferta' => 'date_format:d/m/Y',
         'lugar' => 'between:2,100',
         'duracion_hs' => 'integer|min:0',
         'lleva_tit_previa' => 'integer',
-        'titulacion_id' => 'required|exists:titulacion,id'
+        'titulacion_id' => 'required|exists:titulacion,id',
+        'certificado_digital' => 'integer'
     );
 
     public function __construct($attributes = array()) {
@@ -426,13 +428,21 @@ class Oferta extends Eloquent implements StaplerableInterface {
         $this->attributes['fin'] = ModelHelper::getFechaISO($fecha);
     }
     
+    public function getFechaInicioOfertaAttribute($fecha) {
+        return Carbon::parse($fecha)->format('d/m/Y');
+    }
+
+    public function setFechaInicioOfertaAttribute($fecha) {
+        $this->attributes['fecha_inicio_oferta'] = ModelHelper::getFechaISO($fecha);
+    }
+    
     public function getFechaFinOfertaAttribute($fecha) {
         return Carbon::parse($fecha)->format('d/m/Y');
     }
 
     public function setFechaFinOfertaAttribute($fecha) {
         $this->attributes['fecha_fin_oferta'] = ModelHelper::getFechaISO($fecha);
-    }
+    }    
 
     public function getPermiteInscripcionesAttribute() {
         return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);
@@ -515,9 +525,14 @@ class Oferta extends Eloquent implements StaplerableInterface {
         self::$rules['inicio'].='|before:' . $input['fin'];
     }
     
-    public function agregarReglas2($input) {        
-        //fecha de fin de inscripciones menor a fecha de fecha_fin_oferta
-        self::$rules['fin'].='|before:' . $input['fecha_fin_oferta'];
+    public function agregarReglas2($input) {
+        //fecha de fin de inscripciones menor a fecha de fecha_inicio_oferta
+        self::$rules['fin'].='|before:' . $input['fecha_inicio_oferta'];
+    }
+    
+    public function agregarReglas3($input) {        
+        //fecha_inicio_oferta menor a fecha_fin_oferta
+        self::$rules['fecha_inicio_oferta'].='|before:' . $input['fecha_fin_oferta'];
     }
 
     public function inferirFormatoFecha($fecha) {
@@ -601,6 +616,14 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function setFinalizada($valor) {
         return $this->attributes['finalizada'] = $valor;
-    }        
+    }
+    
+    public function getCertificadoDigital(){
+        return $this->attributes['certificado_digital'];
+    }
+    
+    public function esCertificadoTotalmenteDigital(){
+        return $this->attributes['certificado_digital'] == 1;
+    }
     
 }

@@ -1,3 +1,6 @@
+@extends('layouts.scaffold')
+@section('title', 'Inscripciones On Line - Universidad del Chubut')
+@section('main')
 <?php
     $TIPO_CARRERA = 1;
     $TIPO_CURSO = 2;
@@ -34,9 +37,7 @@
         return $newSegundaParte = $primeraParte.'-'.$aux[0]."/inscripcion";
     }
 ?>
-@section('title', 'Inscripciones On Line - Universidad del Chubut')
-@extends('layouts.scaffold')
-@section('main')
+
     <!-- Header -->
     <div class="row">
         <div style="text-align: center;">
@@ -71,26 +72,29 @@
         </div>
     </div>
     
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div <?php echo $classOf ?> id="tab_ofertas">
-            @include('ofertas.listado', compact('ofertas'))
-            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
-                {{ link_to_route('ofertas.create', 'Crear nueva Oferta', ['tab_activa' => 'ofertas'], array('class' => 'btn btn-primary')) }}
-            @endif
-        </div>
-        <div <?php echo $classCa ?> id="tab_carreras">
-            @include('ofertas.listado_carreras', compact('carreras'))
-            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
-                {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
-            @endif
-        </div>
-        <div <?php echo $classEv ?> id="tab_eventos">
-            @include('ofertas.listado_eventos', compact('eventos'))
-            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
-                {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
-            @endif
+    <div class="row">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div <?php echo $classOf ?> id="tab_ofertas">
+                @include('ofertas.listado', compact('ofertas'))
+                @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                    {{ link_to_route('ofertas.create', 'Crear nueva Oferta', ['tab_activa' => 'ofertas'], array('class' => 'btn btn-primary')) }}
+                @endif
+            </div>
+            <div <?php echo $classCa ?> id="tab_carreras">
+                @include('ofertas.listado_carreras', compact('carreras'))
+                @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                    {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
+                @endif
+            </div>
+            <div <?php echo $classEv ?> id="tab_eventos">
+                @include('ofertas.listado_eventos', compact('eventos'))
+                @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                    {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
+                @endif
+            </div>
         </div>
     </div>
-    <br><br>    
+    <br><br>
+</div>
 @stop

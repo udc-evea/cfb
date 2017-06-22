@@ -179,9 +179,13 @@ class OfertasController extends BaseController {
 		//$input = Input::all();
                 $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar');
 		$this->oferta->agregarReglas($input);
+                $fechaInicioOferta = Input::get('fecha_inicio_oferta');
                 $fechaFinOferta = Input::get('fecha_fin_oferta');
                 if($fechaFinOferta != null){
                     $this->oferta->agregarReglas2($input);
+                }
+                if($fechaInicioOferta != null){
+                    $this->oferta->agregarReglas3($input);
                 }
                 
 		$validation = Validator::make($input, Oferta::$rules);                                
@@ -272,13 +276,22 @@ class OfertasController extends BaseController {
 	{
 		//$input = array_except(Input::all(), '_method');
                 $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar', '_method');
+                $fechaInicioOferta = Input::get('fecha_inicio_oferta');
                 $fechaFinOferta = Input::get('fecha_fin_oferta');
                 $imagenMailBienvenida = Input::get('mail_bienvenida_file_name');
                 $imagenCertBaseAlum = Input::get('cert_base_alum_file_name');
                 $imagenCertBaseCapacitadores = Input::get('cert_base_cap_file_name');
-                if($fechaFinOferta != null){
-                    $this->oferta->agregarReglas2($input);
+                
+                if(($fechaInicioOferta != null)&&($fechaFinOferta != null)){
+                    if($fechaInicioOferta != $fechaFinOferta){
+                        $this->oferta->agregarReglas2($input);
+                        $this->oferta->agregarReglas3($input);
+                    }
                 }
+                
+                $presentarMasDoc = Input::get('presentar_mas_doc');
+                $llevaTitPrevia = Input::get('lleva_tit_previa');
+                $certificadoDigital = Input::get('certificado_digital');
                 
 		$validation = Validator::make($input, Oferta::$rules);
                 
@@ -310,11 +323,26 @@ class OfertasController extends BaseController {
                         //Si es carrera: guardo la fecha_fin_oferta en NULL
                         if($oferta->getEsCarreraAttribute()){
                             $oferta->setFechaFinOfertaAttribute(null);
+                            $oferta->setFechaInicioOfertaAttribute(null);
                         }
                         if($fechaFinOferta == null){
                             $oferta->setFechaFinOfertaAttribute(NULL);
                         }
-                        
+                        if($fechaInicioOferta == null){
+                            $oferta->setFechaInicioOfertaAttribute(NULL);
+                        }
+                        //compruebo si la oferta debe llevar más documentacion o no
+                        if($presentarMasDoc == NULL){
+                            $oferta->presentar_mas_doc = 0;
+                        }
+                        //compruebo si para la oferta el alumno debe tener cierta titulación previa
+                        if($llevaTitPrevia == NULL){
+                            $oferta->lleva_tit_previa = 0;
+                        }
+                        //compruebo si el certificado debe ser totalmente digital
+                        if($certificadoDigital == NULL){
+                            $oferta->certificado_digital = 0;
+                        }
                         //guardo los cambios                        
 			$oferta->save();
 			

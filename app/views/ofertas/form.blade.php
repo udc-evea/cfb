@@ -244,6 +244,12 @@ input[readonly] {
             
     }}
     <hr>
+    {{ Former::text('fecha_inicio_oferta')
+                ->label('Fecha de inicio de la Oferta')
+                ->addClass('fecha')
+                ->placeholder('Colocar la fecha de inicio de la Oferta.')
+    }}
+    <hr>
     {{ Former::text('fecha_fin_oferta')
                 ->label('Fecha de finalización de la Oferta')
                 ->addClass('fecha')
@@ -281,8 +287,16 @@ input[readonly] {
             </div>
         </div>    
     </div>
-    <hr>
-    <div class="alert alert-info" style="padding: 20px;">
+    
+    <hr>    
+    {{ Former::checkbox('certificado_digital')
+            ->label('El Certificado es totalmente Digital?')
+            ->help('Chequear si es que para esta Oferta se debe generar el Certificado Digital para enviar por mail.') 
+            ->style('visibility: visible; margin-left: 3px')
+            ->onclick("mostrar_ocultar('DivCargarBaseCertificados','certificado_digital')")
+    }}
+    <hr>    
+    <div class="alert alert-info" style="padding: 20px;" id="DivCargarBaseCertificados">
         <!-- Agrego el campo nuevo: certificado_base_alumnos -->
         <div class="form-group">
             <label for="cert_base_alum_file_name" class="control-label col-lg-2 col-sm-4">Certificado BASE para ALUMNOS:</label>
@@ -330,8 +344,8 @@ input[readonly] {
                 <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual (el nombre del archivo no debe contener espacios).</span>
             </div>
         </div> 
-    </div>
     <hr>
+    </div>    
 </div>
 <?php if($newForm): ?>
 {{ Former::actions(
@@ -413,15 +427,16 @@ input[readonly] {
     }
     
     function ocultarCamposEnCarrera(){
-        oferta_id = document.querySelector('input[name="tipo_oferta"]:checked').value;
+        oferta_tipo_id = document.querySelector('input[name="tipo_oferta"]:checked').value;
         divAOcultar = document.getElementById('ocultosDeCarrera');
         //window.alert('(fuera del IF)Oferta tipo: '+oferta_id);
-        if(oferta_id === 1){ //si la Oferta es Carrera, oculto algunos campos
+        if(oferta_tipo_id === 1){ //si la Oferta es Carrera, oculto algunos campos
             //window.alert('(IF true) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='none';
         }else{
             //window.alert('(IF false) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='block';
+            document.getElementById('fecha_inicio_oferta').required = true;
             document.getElementById('fecha_fin_oferta').required = true;
         }
     };
@@ -435,9 +450,21 @@ input[readonly] {
         }
     }
     
+    function sanearFechaInicioOferta(){
+        ffo = String(document.getElementById('fecha_inicio_oferta').value);
+        
+        if(ffo === '30/11/-0001'){            
+            document.getElementById('fecha_inicio_oferta').value = '';
+            //window.alert('Fecha: '+ffo);
+        }
+    }
+    
     window.onload = function (){
         ocultarCamposEnCarrera();
         sanearFechaFinOferta();
+        sanearFechaInicioOferta();
+        mostrar_ocultar('DivTitulacion','lleva_tit_previa');
+        mostrar_ocultar('DivCargarBaseCertificados','certificado_digital');
     };
     
     function completarDocAPresentar(){

@@ -129,7 +129,9 @@
                                             <th>Capacitador</th>
                                             <th>Rol</th>
                                             <th>Email</th>
+                                            <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
                                             <th>Certificado</th>
+                                            <?php endif; ?>
                                             @if(!$oferta->estaFinalizada())
                                                 @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                                     <th>Acciones</th>
@@ -145,6 +147,7 @@
                                             <td><?php echo $capacPersonal->getApellidoYNombre() ?></td>
                                             <td><?php echo $capacRol->rol ?></td>
                                             <td>@if($capacPersonal->getEmail() != null){{$capacPersonal->getEmail()}}@else {{'-'}}@endif</td>
+                                            <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
                                             <td>
                                                 <?php 
                                                     $nomb = $oferta->cert_base_cap_file_name;
@@ -161,6 +164,7 @@
                                                     {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                                                 <?php endif; ?>
                                             </td>
+                                            <?php endif; ?>
                                             @if(!$oferta->estaFinalizada())
                                                 @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                                 <td>
@@ -180,7 +184,9 @@
                                         @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                             <div class='row-fluid'>
                                                 <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $oferta->id ?>"> Agregar más</button>
+                                                <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
                                                 <a class="btn btn-xs btn-info" href="{{ URL::Action('ofertas.enviarMailCertificadosCapacitadores', array('ofid' => $oferta->id)) }}" title="Enviar todos  los Certificados a los Capacitadores de esta Oferta a sus mails particulares.">Enviar todos los Certificados  <span class='glyphicon glyphicon-envelope'></span> </a>
+                                                <?php endif; ?>
                                             </div>
                                         @endif
                                     @endif

@@ -370,3 +370,7 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.0' WHERE  `version_bd`.`version` =  '3.1.9' LIMIT 1 ;
 /* agrego columna de contador de veces que se envia el Certificado al Capacitador*/
 -> ALTER TABLE `capacitador` ADD `cant_notificaciones_certificado` INT NOT NULL DEFAULT '0' COMMENT 'Cantidad de veces que se le ha enviado el mail con el certificado de Capacitador' AFTER `rol_id`;
+/* Creo el campo "certificado_digital" que habilita/deshabilita la creación de los certificados digitales de esa oferta */
+-> ALTER TABLE `oferta_formativa` ADD `certificado_digital` TINYINT NOT NULL DEFAULT '0' AFTER `titulacion_id`;
+/* Agrego el campo "fecha_inicio_oferta" para poder determinar el inicio y el fin de cursada de la oferta (para el certificado) */
+-> ALTER TABLE `oferta_formativa` ADD `fecha_inicio_oferta` DATE NULL DEFAULT NULL COMMENT 'Fecha de Inicio de la Oferta (solo Eventos y Cursos). Se obtiene de la Resolución de creación de Oferta.' AFTER `resolucion_nro`;

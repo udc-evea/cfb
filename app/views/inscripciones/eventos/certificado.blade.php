@@ -87,12 +87,16 @@
             <?php endif;?> </p>
             <p>ha participado en calidad de asistente al </p>
             <p><b style="font-size: 20pt"><?php echo $rows->oferta->nombre;?></b></p>
-            <?php if($rows->oferta->lugar != null):?>
-                <?php $fechaInicio = explode('/',$rows->oferta->inicio);
-                      $fechaFin = explode('/',$rows->oferta->fin);
+            <?php if($rows->oferta->lugar != null):?>                
+                <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
+                      $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
                       $mismoMes = $fechaInicio[1] == $fechaFin[1];
                 ?>
-                <?php if($mismoMes):?>
+                <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
+                    <p>realizado en {{$rows->oferta->lugar}} el día {{$fechaInicio[0]}} 
+                       de {{array_get($meses,$fechaInicio[1])}} del {{$fechaInicio[2]}}.
+                    </p>
+                <?php elseif($mismoMes):?>
                 <p>realizado en {{$rows->oferta->lugar}} del {{$fechaInicio[0]}} al 
                     {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
                 </p>

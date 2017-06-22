@@ -32,7 +32,7 @@ class HomeController extends BaseController {
 	{
             $Inicio = Inicio::first();
             $versionDB = $Inicio->getVersionDB();
-            $versionCodigo = $Inicio->getVersionCodigo();
+            $versionCodigo = $Inicio->getVersionCodigo();            
             return View::make('inicio.inicio')
                     ->with('verDB',$versionDB)
                     ->with('verCodigo',$versionCodigo)
@@ -49,7 +49,10 @@ class HomeController extends BaseController {
         
         public function login()
 	{            
-            return View::make('inicio.login');
+            //$usuarios = Usuario::all();
+            $usuarios = Usuario::getUsernames();
+            return View::make('inicio.login')
+                    ->with('usuarios',$usuarios);
 	}
         
         public function acceso()
