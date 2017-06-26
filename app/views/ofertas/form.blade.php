@@ -270,6 +270,7 @@ input[readonly] {
     {{ Former::checkbox('lleva_tit_previa',"1")
             ->label('Lleva titulación previa?')
             ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
+            ->addClass('checkbox')
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
     }}
@@ -292,6 +293,7 @@ input[readonly] {
     {{ Former::checkbox('certificado_digital',"1")
             ->label('El Certificado es totalmente Digital?')
             ->help('Chequear si es que para esta Oferta se debe generar el Certificado Digital para enviar por mail.') 
+            ->addClass('checkbox')
             ->style('visibility: visible; margin-left: 3px')
     }}
     <hr>    
