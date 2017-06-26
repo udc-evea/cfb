@@ -48,11 +48,10 @@ class HomeController extends BaseController {
 	}
         
         public function login()
-	{            
-            //$usuarios = Usuario::all();
-            //$usuarios = Usuario::getUsernames();
+	{
+            //$users = $this->getNombreDeUsuarios();
             return View::make('inicio.login')
-                    //->with('usuarios',$usuarios)
+                    //->with('users',$users)
                     ;
 	}
         
@@ -73,7 +72,7 @@ class HomeController extends BaseController {
             return View::make('inicio.inicio');
 	}
         
-        public function verificarCertificado(){            
+        public function verificarCertificado(){
             
             //obtengo si vine por GET o por POST
             $method = Request::getMethod();
@@ -265,5 +264,14 @@ class HomeController extends BaseController {
                 $s1
             );
             return $s1;
+        }
+        
+        private function getNombreDeUsuarios(){
+            $todosLosUsuarios = Usuario::all();
+            $usernames = array();
+            foreach ($todosLosUsuarios as $usuario){
+                array_push($usernames, $usuario['username']);
+            }
+            return $usernames;
         }
 }

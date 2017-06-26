@@ -33,13 +33,5 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface {
     //protected $hidden = array('password', 'remember_token');
     //protected $hidden = 'remember_token';
     protected $fillable = array('nombreyapellido','username','password','perfil');
-
-    public function getUsernames(){
-        $todos = Usuario::all();
-        $usernames = array();
-        foreach ($todos as $user){
-            array_add($usernames, $user->username);
-        }
-        return $usernames;
-    }
+    
 }

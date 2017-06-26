@@ -78,6 +78,7 @@ ul.requisitos li:hover {background-color: #fdf59a;}
     border: solid black 1px;
     margin-left: 30%;
     padding: 50px;
+    box-shadow: 10px 10px 15px #999;
 }
 
 /* Estilo para los botones de IrAbajo e IrArriba de los listados */
