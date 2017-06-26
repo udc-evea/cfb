@@ -129,9 +129,7 @@
                                             <th>Capacitador</th>
                                             <th>Rol</th>
                                             <th>Email</th>
-                                            <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
                                             <th>Certificado</th>
-                                            <?php endif; ?>
                                             @if(!$oferta->estaFinalizada())
                                                 @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                                     <th>Acciones</th>
@@ -146,8 +144,7 @@
                                             <?php $capacPersonal = Personal::find($cap->personal_id); ?>
                                             <td><?php echo $capacPersonal->getApellidoYNombre() ?></td>
                                             <td><?php echo $capacRol->rol ?></td>
-                                            <td>@if($capacPersonal->getEmail() != null){{$capacPersonal->getEmail()}}@else {{'-'}}@endif</td>
-                                            <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
+                                            <td>@if($capacPersonal->getEmail() != null){{$capacPersonal->getEmail()}}@else {{'-'}}@endif</td>                                            
                                             <td>
                                                 <?php 
                                                     $nomb = $oferta->cert_base_cap_file_name;
@@ -157,14 +154,13 @@
                                                 ?>
                                                 <?php if (($nomb != null)&&($fechafinoferta != null)): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $oferta->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
-                                                    <?php if ($capacPersonal->getEmail() != null): ?>
+                                                    <?php if (($capacPersonal->getEmail() != null) && ($oferta->esCertificadoTotalmenteDigital())): ?>
                                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador">{{$capacitador->getCantNotificacionesConCertificado()}} <span class='glyphicon glyphicon-envelope'></span></a>
                                                     <?php endif;?>
                                                 <?php else: ?>
                                                     {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                                                 <?php endif; ?>
-                                            </td>
-                                            <?php endif; ?>
+                                            </td>                                            
                                             @if(!$oferta->estaFinalizada())
                                                 @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                                 <td>

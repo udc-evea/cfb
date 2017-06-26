@@ -293,7 +293,7 @@ input[readonly] {
             ->label('El Certificado es totalmente Digital?')
             ->help('Chequear si es que para esta Oferta se debe generar el Certificado Digital para enviar por mail.') 
             ->style('visibility: visible; margin-left: 3px')
-            ->onclick("mostrar_ocultar('DivCargarBaseCertificados','certificado_digital')")
+            //->onclick("mostrar_ocultar('DivCargarBaseCertificados','certificado_digital')")
     }}
     <hr>    
     <div class="alert alert-info" style="padding: 20px;" id="DivCargarBaseCertificados">
@@ -464,7 +464,7 @@ input[readonly] {
         sanearFechaFinOferta();
         sanearFechaInicioOferta();
         mostrar_ocultar('DivTitulacion','lleva_tit_previa');
-        mostrar_ocultar('DivCargarBaseCertificados','certificado_digital');
+        //mostrar_ocultar('DivCargarBaseCertificados','certificado_digital');
     };
     
     function completarDocAPresentar(){

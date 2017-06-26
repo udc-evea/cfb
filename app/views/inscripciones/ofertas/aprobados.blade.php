@@ -25,10 +25,8 @@
                         @endif
                     @endif
                     <th>Localidad</th>
-                    @if(($perfil == "Administrador")||($perfil == "Creador"))
-                        <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
+                    @if(($perfil == "Administrador")||($perfil == "Creador"))                        
                         <th>Certificado</th>
-                        <?php endif; ?>
                     @endif
                 </tr>
             </thead>
@@ -69,7 +67,6 @@
                         @endif 
                         <td>{{ $inscripcion->localidad->la_localidad }}</td>
                         @if(($perfil == "Administrador")||($perfil == "Creador"))
-                        <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
                         <td>
                             <?php 
                                 $name = $oferta->cert_base_alum_file_name;
@@ -78,12 +75,13 @@
                             ?>
                             <?php if ($name != null): ?>
                                 <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfa', 'alm' => $inscripcion->id )) }}" title="Certificado de Aprobación del alumnos"> <span class='glyphicon glyphicon-download-alt'></span> <i class="fa fa-file-pdf-o fa-3"></i></a>
-                                <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.inscripciones.enviarMailCertificado', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails">{{ $inscripcion->getCantNotificacionesConCertificado() }}  <span class='glyphicon glyphicon-envelope'></span> </a>
+                                <?php if ($oferta->esCertificadoTotalmenteDigital()): ?>
+                                    <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.inscripciones.enviarMailCertificado', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails">{{ $inscripcion->getCantNotificacionesConCertificado() }}  <span class='glyphicon glyphicon-envelope'></span> </a>
+                                <?php endif; ?>
                             <?php else: ?>
                                 {{ link_to_route('ofertas.edit', '', array($oferta->id), array('class' => 'btn btn-xs btn-success glyphicon glyphicon-paperclip', 'title'=>'Editar datos de la Oferta')) }}
                             <?php endif; ?>
                         </td>
-                        <?php endif; ?>
                         @endif
                     </tr>
                     <?php $i++;?>
