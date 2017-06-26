@@ -345,7 +345,7 @@ class OfertasController extends BaseController {
                         }
                         //guardo los cambios                        
 			$oferta->save();
-			
+			throw new Exception;
                         $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
                         $final = $this->getEstiloMensajeFinal();
                         return Redirect::route('ofertas.index')
