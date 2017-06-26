@@ -334,14 +334,20 @@ class OfertasController extends BaseController {
                         //compruebo si la oferta debe llevar más documentacion o no
                         if($presentarMasDoc == NULL){
                             $oferta->presentar_mas_doc = 0;
+                        }else{
+                            $oferta->presentar_mas_doc = 1;
                         }
                         //compruebo si para la oferta el alumno debe tener cierta titulación previa
                         if($llevaTitPrevia == NULL){
                             $oferta->lleva_tit_previa = 0;
+                        }else{
+                            $oferta->lleva_tit_previa = 1;
                         }
                         //compruebo si el certificado debe ser totalmente digital
                         if($certificadoDigital == NULL){
                             $oferta->certificado_digital = 0;
+                        }else{
+                            $oferta->certificado_digital = 1;
                         }
                         //guardo los cambios                        
 			$oferta->save();
