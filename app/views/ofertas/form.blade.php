@@ -132,9 +132,8 @@ input[readonly] {
             ->placeholder('URL a la que apuntara la imagen.') }}
 <hr>
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
-<div class="row-fluid"
-    <input type="hidden" name="presentar_mas_doc" value="1"/>
-    {{ Former::checkbox('presentar_mas_doc')
+<div class="row-fluid">
+    {{ Former::checkbox('presentar_mas_doc',"1")
             ->label('Requisitos y Documentación Extra')
             ->addClass('checkbox')
             ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
@@ -267,8 +266,8 @@ input[readonly] {
                 ->class('span7')
     }}
     <hr>
-    <input type="hidden" name="lleva_tit_previa" value="1"/>
-    {{ Former::checkbox('lleva_tit_previa')
+    
+    {{ Former::checkbox('lleva_tit_previa',"1")
             ->label('Lleva titulación previa?')
             ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
@@ -289,9 +288,8 @@ input[readonly] {
         </div>    
     </div>
     
-    <hr>
-    <input type="hidden" name="certificado_digital" value="1"/>
-    {{ Former::checkbox('certificado_digital')
+    <hr>    
+    {{ Former::checkbox('certificado_digital',"1")
             ->label('El Certificado es totalmente Digital?')
             ->help('Chequear si es que para esta Oferta se debe generar el Certificado Digital para enviar por mail.') 
             ->style('visibility: visible; margin-left: 3px')
