@@ -374,3 +374,7 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> ALTER TABLE `oferta_formativa` ADD `certificado_digital` TINYINT NOT NULL DEFAULT '0' AFTER `titulacion_id`;
 /* Agrego el campo "fecha_inicio_oferta" para poder determinar el inicio y el fin de cursada de la oferta (para el certificado) */
 -> ALTER TABLE `oferta_formativa` ADD `fecha_inicio_oferta` DATE NULL DEFAULT NULL COMMENT 'Fecha de Inicio de la Oferta (solo Eventos y Cursos). Se obtiene de la Resolución de creación de Oferta.' AFTER `resolucion_nro`;
+/* Modifico el campo creado anteriormente para saber si hay que enviar los certificado digitales a los alumnos o no*/
+-> ALTER TABLE `oferta_formativa` CHANGE `certificado_digital` `certificado_alumno_digital` TINYINT(4) NOT NULL DEFAULT '0';
+/* Creo el campo "certificado_capacitador_digital" que habilita/deshabilita el envío de los certificados digitales de esa oferta a los capacitadores*/
+-> ALTER TABLE `oferta_formativa` ADD `certificado_capacitador_digital` TINYINT NOT NULL DEFAULT '0' AFTER `certificado_alumno_digital`;

@@ -62,7 +62,7 @@
     </div><br>
     
     <!-- Nav tabs -->
-    <div class="row">
+    <div class="row-fluid">
         <div class="col-xs-12 col-md-12">
             <ul class="nav nav-tabs" id="tabs_ofertas" role="tablist">
                 <li <?php echo $liClassOferta ?>><a href="#tab_ofertas" role="tab" data-toggle="tab"><i class="fa fa-graduation-cap"></i> Ofertas ({{$ofertas->count()}})</a></li>
@@ -72,7 +72,7 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row-fluid">
         <!-- Tab panes -->
         <div class="tab-content">
             <div <?php echo $classOf ?> id="tab_ofertas">

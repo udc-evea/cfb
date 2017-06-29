@@ -289,12 +289,18 @@ input[readonly] {
     </div>
     
     <hr>    
-    {{ Former::checkbox('certificado_digital',"1")
-            ->label('El Certificado es totalmente Digital?')
-            ->help('Chequear si es que para esta Oferta se debe generar el Certificado Digital para enviar por mail.') 
+    {{ Former::checkbox('certificado_alumno_digital',"1")
+            ->label('Desea hablitar el envío de los certificados digitales a los alumnos?')
+            ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos.') 
             ->style('visibility: visible; margin-left: 3px')
     }}
     <hr>    
+    {{ Former::checkbox('certificado_capacitador_digital',"1")
+            ->label('Desea hablitar el envío de los certificados digitales a los capacitadores?')
+            ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores.') 
+            ->style('visibility: visible; margin-left: 3px')
+    }}
+    <hr>
     <div class="alert alert-info" style="padding: 20px;" id="DivCargarBaseCertificados">
         <!-- Agrego el campo nuevo: certificado_base_alumnos -->
         <div class="form-group">
@@ -342,8 +348,7 @@ input[readonly] {
                 </div>
                 <span class="help-block">(*) Cargar una nueva imágen, o cambiar la actual (el nombre del archivo no debe contener espacios).</span>
             </div>
-        </div> 
-    <hr>
+        </div>
     </div>    
 </div>
 <?php if($newForm): ?>

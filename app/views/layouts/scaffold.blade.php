@@ -18,6 +18,91 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
+        <!--<div>
+            <div class="navbar navbar-header navbar-fixed-top">
+              <div class="navbar-inner">
+                <div class="container-fluid">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                  <div class="nav-collapse">
+                      <a style="color: white" class="brand" href="#">Inicio</a>
+                      <ul class="nav">
+                          
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimientos<b class="caret"></b></a>
+                              <ul class="dropdown-menu">                          
+                                  <li><a href="#"><i class="icon icon-road"></i> Mover producto/s</a></li>
+                              </ul>
+                          </li>
+                          
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Productos<b class="caret"></b></a>
+                              <ul class="dropdown-menu">                                  
+                                  <li><a href="#"><i class="icon icon-plus-sign"></i> Agregar Productos</a></li>
+                                  <li><a href="#"><i class="icon icon-list"></i> Todos los Productos</a></li>
+                                  <li><a href="#"><i class="icon icon-search"></i> Buscar un/os Producto/s</a></li>
+                                  <li><a href="#"><i class="icon icon-barcode"></i> Imprimir Etiquetas</a></li>
+                              </ul>
+                          </li>
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Listados y Filtros<b class="caret"></b></a> 
+                              <ul class="dropdown-menu" role="menu">
+                                  <li class="dropdown-submenu">
+                                      <a tabindex="-1" href="#"><i class="icon icon-list-alt"></i> Puntos de Venta</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a href="#"><i class="icon icon-chevron-right"></i> Stock por punto de venta</a></li>
+                                          <li><a href="#"><i class="icon icon-chevron-right"></i> Listado de Prod. por punto de venta</a></li>
+                                      </ul>
+                                  </li>
+                                  <li class="divider"></li>
+                                  <li><a href="#"><i class="icon icon-share-alt"></i> Filtrado de productos</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="#"><i class="icon icon-share-alt"></i> Filtrado de movimientos</a></li>
+                              </ul>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones Básicas<b class="caret"></b></a> 
+                             <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#"><i class="icon icon-share"></i> Artesanos</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#"><i class="icon icon-plus-sign"></i> Agregar Artesano</a></li>                                            
+                                            <li><a href="#"><i class="icon icon-list"></i> Listado de Artesanos</a></li>
+                                        </ul>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="#"><i class="icon icon-tag"></i> Localidades</a></li>
+                                <li><a href="#"><i class="icon icon-tag"></i> Puntos de Venta</a></li>
+                                <li><a href="#"><i class="icon icon-tag"></i> Rubros</a></li>
+                                <li><a href="#"><i class="icon icon-tag"></i> Materia Primas</a></li>
+                                <li><a href="#"><i class="icon icon-tag"></i> Técnicas</a></li>
+                                <li><a href="#"><i class="icon icon-tag"></i> Interes de cultura</a></li>
+                             </ul>
+                          </li>                  
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<b class="caret"></b></a> 
+                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="#"><i class="icon icon-user"></i> Ingresar / Salir</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                  <a tabindex="-1" href="#"><i class="icon icon-share"></i> Mas Opciones de usuarios</a>
+                                  <ul class="dropdown-menu">
+                                       <li><a href="#"><i class="icon icon-plus-sign"></i> Agregar usuario</a></li>
+                                       <li class="divider"></li>
+                                     <li><a href="#"><i class="icon icon-list"></i> Listado de usuarios</a></li>
+                                  </ul>
+                                </li>                        
+                             </ul>
+                          </li>
+                      </ul>              
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div> -->
         <div class="container">
           <div class="row">
             <div class="col-md-12">

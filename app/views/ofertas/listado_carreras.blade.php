@@ -1,5 +1,5 @@
 @if ($carreras->count())
-<div id='divCarreras'>
+<div id='divCarreras' style="margin-top: 30px">
     <br>
     <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarCarrerasIndex"/>
         <button class="sort" data-sort="anio" >Año</button>
@@ -44,7 +44,7 @@
                         @endif
                     <?php //endif; ?>
                     <!-- Muestro el modal con un button -->
-                    <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalCopyLink<?php echo $item->id ?>"><i class='glyphicon glyphicon-link'></i></button>
+                    <button type="button" title="Obtener el link público del formulario de inscripción a la Oferta" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalCopyLink<?php echo $item->id ?>"><i class='glyphicon glyphicon-link'></i></button>
                     <!-- Modal -->
                     <div id="modalCopyLink<?php echo $item->id ?>" class="modal fade" role="dialog">
                       <div class="modal-dialog">
@@ -100,7 +100,7 @@
                         <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Más
                         <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-header">Datos de la Oferta</li>
+                            <li class="dropdown-header">Fecha preinscripciones</li>
                             <li style="padding: 3px 20px;">Inicio: {{ $item->inicio }}</li>
                             <li style="padding: 3px 20px;">Fin: {{ $item->fin }}</li>
                             <li class="divider"></li>

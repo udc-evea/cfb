@@ -1,5 +1,5 @@
 @if ($eventos->count())
-<div id='divEventos'>
+<div id='divEventos' style="margin-top: 30px">
     <br>
     <div class="btn-group">
         <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarEventosIndex"/>
@@ -45,7 +45,7 @@
                         @endif
                     <?php //endif; ?>
                     <!-- Muestro el modal con un button -->
-                    <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalCopyLink<?php echo $item->id ?>"><i class='glyphicon glyphicon-link'></i></button>
+                    <button type="button" title="Obtener el link público del formulario de inscripción a la Oferta" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalCopyLink<?php echo $item->id ?>"><i class='glyphicon glyphicon-link'></i></button>
                     <!-- Modal -->
                     <div id="modalCopyLink<?php echo $item->id ?>" class="modal fade" role="dialog">
                       <div class="modal-dialog">
@@ -104,7 +104,7 @@
                     <!-- Modal del Form para editar los Capacitadores a una Oferta -->
 
                         <!-- Muestro el modal con un button -->
-                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEditCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-pencil'></i></button>
+                        <button type="button" title="Editar los datos de los capacitadores de la Oferta" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEditCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-pencil'></i></button>
                         <!-- Modal -->
                         <div id="modalEditCapacitador<?php echo $item->id ?>" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -149,7 +149,7 @@
                                                 <?php $name = $item->cert_base_cap_file_name ?>
                                                 <?php if ($name != null): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
-                                                    <?php if (($capacPersonal->getEmail() != null)&&($item->esCertificadoTotalmenteDigital())): ?>
+                                                    <?php if (($capacPersonal->getEmail() != null)&&($item->enviarCertificadoCapacitadorDigital())): ?>
                                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador">{{$capacitador->getCantNotificacionesConCertificado()}} <span class='glyphicon glyphicon-envelope'></span></a>
                                                     <?php endif;?>
                                                 <?php else: ?>
@@ -175,7 +175,7 @@
                                         @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                             <div class='row-fluid'>
                                                 <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"> Agregar más</button>
-                                                <?php if ($item->esCertificadoTotalmenteDigital()): ?>
+                                                <?php if ($item->enviarCertificadoCapacitadorDigital()): ?>
                                                 <a class="btn btn-xs btn-info" href="{{ URL::Action('ofertas.enviarMailCertificadosCapacitadores', array('ofid' => $item->id)) }}" title="Enviar todos  los Certificados a los Capacitadores de esta Oferta a sus mails particulares.">Enviar todos los Certificados  <span class='glyphicon glyphicon-envelope'></span> </a>
                                                 <?php endif; ?>
                                             </div>
@@ -198,10 +198,10 @@
                             @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
                                 @if($capacitadores != null)
                                     <!-- Muestro el modal con un button -->
-                                    <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i> Agregar otro</button>
+                                    <button type="button" title="Agregar un nuevo capacitador a la Oferta" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
                                 @else
                                     <!-- Muestro el modal con un button -->
-                                    <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
+                                    <button type="button" title="Agregar un nuevo capacitador a la Oferta" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalNewCapacitador<?php echo $item->id ?>"><i class='glyphicon glyphicon-plus-sign'></i></button>
                                 @endif
                             @endif
                         @endif
@@ -272,7 +272,7 @@
                         <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Más
                         <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-header">Datos de la Oferta</li>
+                            <li class="dropdown-header">Fecha preinscripciones</li>
                             <li style="padding: 3px 20px;">Inicio: {{ $item->inicio }}</li>
                             <li style="padding: 3px 20px;">Fin: {{ $item->fin }}</li>
                             <li class="divider"></li>

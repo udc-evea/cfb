@@ -188,6 +188,11 @@ class OfertasController extends BaseController {
                     $this->oferta->agregarReglas3($input);
                 }
                 
+                $presentarMasDoc = Input::get('presentar_mas_doc');
+                $llevaTitPrevia = Input::get('lleva_tit_previa');
+                $certificadoAlumnoDigital = Input::get('certificado_alumno_digital');
+                $certificadoCapacitadorDigital = Input::get('certificado_capacitador_digital');
+                
 		$validation = Validator::make($input, Oferta::$rules);                                
                 
 		if ($validation->passes()){
@@ -204,6 +209,30 @@ class OfertasController extends BaseController {
                   //Si es carrera: guardo la fecha_fin_oferta en NULL
                   if($this->oferta->getEsCarreraAttribute()){
                       $this->oferta->setFechaFinOfertaAttribute(null);
+                  }
+                  //compruebo si la oferta debe llevar más documentacion o no
+                  if($presentarMasDoc == NULL){
+                        $this->oferta->presentar_mas_doc = 0;
+                  }else{
+                        $this->oferta->presentar_mas_doc = 1;
+                  }
+                  //compruebo si para la oferta el alumno debe tener cierta titulación previa
+                  if($llevaTitPrevia == NULL){
+                        $this->oferta->lleva_tit_previa = 0;
+                  }else{
+                        $this->oferta->lleva_tit_previa = 1;
+                  }
+                  //compruebo si el certificado se debe enviar al alumno
+                  if($certificadoAlumnoDigital == NULL){
+                        $this->oferta->setCertificadoAlumnoDigital(0);
+                  }else{
+                        $this->oferta->setCertificadoAlumnoDigital(1);
+                  }
+                  //compruebo si el certificado se debe enviar al capacitador
+                  if($certificadoCapacitadorDigital == NULL){
+                        $this->oferta->setCertificadoCapacitadorDigital(0);
+                  }else{
+                        $this->oferta->setCertificadoCapacitadorDigital(1);
                   }
                   //guardo los cambios antes de redirigir
                   $this->oferta->save();
@@ -291,7 +320,8 @@ class OfertasController extends BaseController {
                 
                 $presentarMasDoc = Input::get('presentar_mas_doc');
                 $llevaTitPrevia = Input::get('lleva_tit_previa');
-                $certificadoDigital = Input::get('certificado_digital');
+                $certificadoAlumnoDigital = Input::get('certificado_alumno_digital');
+                $certificadoCapacitadorDigital = Input::get('certificado_capacitador_digital');
                 
 		$validation = Validator::make($input, Oferta::$rules);
                 
@@ -343,11 +373,17 @@ class OfertasController extends BaseController {
                         }else{
                             $oferta->lleva_tit_previa = 1;
                         }
-                        //compruebo si el certificado debe ser totalmente digital
-                        if($certificadoDigital == NULL){
-                            $oferta->certificado_digital = 0;
+                        //compruebo si el certificado se debe enviar al alumno
+                        if($certificadoAlumnoDigital == NULL){
+                            $oferta->setCertificadoAlumnoDigital(0);
                         }else{
-                            $oferta->certificado_digital = 1;
+                            $oferta->setCertificadoAlumnoDigital(1);
+                        }
+                        //compruebo si el certificado se debe enviar al capacitador
+                        if($certificadoCapacitadorDigital == NULL){
+                            $oferta->setCertificadoCapacitadorDigital(0);
+                        }else{
+                            $oferta->setCertificadoCapacitadorDigital(1);
                         }
                         //guardo los cambios                        
 			$oferta->save();

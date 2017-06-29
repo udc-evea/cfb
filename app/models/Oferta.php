@@ -38,7 +38,8 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'duracion_hs' => 'integer|min:0',
         'lleva_tit_previa' => 'integer',
         'titulacion_id' => 'required|exists:titulacion,id',
-        'certificado_digital' => 'integer'
+        'certificado_alumno_digital' => 'integer',
+        'certificado_capacitador_digital' => 'integer'
     );
 
     public function __construct($attributes = array()) {
@@ -618,12 +619,28 @@ class Oferta extends Eloquent implements StaplerableInterface {
         return $this->attributes['finalizada'] = $valor;
     }
     
-    public function getCertificadoDigital(){
-        return $this->attributes['certificado_digital'];
+    public function getCertificadoAlumnoDigital(){
+        return $this->attributes['certificado_alumno_digital'];
     }
     
-    public function esCertificadoTotalmenteDigital(){
-        return $this->attributes['certificado_digital'] == 1;
+    public function setCertificadoAlumnoDigital($valor){
+        return $this->attributes['certificado_alumno_digital'] = $valor;
+    }
+    
+    public function getCertificadoCapacitadorDigital(){
+        return $this->attributes['certificado_capacitador_digital'];
+    }
+    
+    public function setCertificadoCapacitadorDigital($valor){
+        return $this->attributes['certificado_capacitador_digital'] = $valor;
+    }
+    
+    public function enviarCertificadoAlumnoDigital(){
+        return $this->attributes['certificado_alumno_digital'] == 1;
+    }
+    
+    public function enviarCertificadoCapacitadorDigital(){
+        return $this->attributes['certificado_capacitador_digital'] == 1;
     }
     
 }
