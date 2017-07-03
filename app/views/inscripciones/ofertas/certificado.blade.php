@@ -98,11 +98,13 @@
             <?php endif;?> 
                 </p>
             <p>ha aprobado el <p>
-            <?php if(strlen($nombreOferta) < 40):?>
+            @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b>
-            <?php else:?>
+            @elseif(strlen($nombreOferta) < 50)
                 <p><b style="font-size: 18pt">{{$nombreOferta}}</b>
-            <?php endif?> </p>
+            @else
+                <p><b style="font-size: 14pt">{{$nombreOferta}}</b>
+            @endif
             <?php if($rows->oferta->lugar != null):?>
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                       $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);

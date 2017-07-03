@@ -83,11 +83,13 @@
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
             ?>
-            <?php if(strlen($nomyape) < 31):?>
+            @if(strlen($nombreOferta) < 30)
                 <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
-            <?php else:?>
-                <p style="font-size: 17pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
-            <?php endif?>
+            @elseif(strlen($nombreOferta) < 50)
+                <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+            @else
+                <p style="font-size: 14pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+            @endif
             <?php if(ctype_digit($rows->documento)):?>
                 <?php echo number_format($rows->documento, 0, ',', '.');?>                    
                 <?php $dni = number_format($rows->documento, 0, ',', '.');?>
