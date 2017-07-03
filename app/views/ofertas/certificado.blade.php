@@ -109,8 +109,10 @@
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
             @if(strlen($rows->nombre) < 30)
                 <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
-            @else
+            @elseif(strlen($rows->nombre) < 60)
                 <p><b style="font-size: 18pt"><?php echo $rows->nombre;?></b></p>
+            @else
+                <p><b style="font-size: 14pt"><?php echo $rows->nombre;?></b></p>
             @endif
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
