@@ -87,7 +87,7 @@
             <?php if(strlen($nomyape) < 30):?>
                 <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php else:?>
-                <p style="font-size: 17pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+                <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php endif?>
             <?php if(ctype_digit($rows->documento)):?>
                 <?php echo number_format($rows->documento, 0, ',', '.');?>                    
@@ -99,11 +99,11 @@
                 </p>
             <p>ha aprobado el <p>
             @if(strlen($nombreOferta) < 30)
-                <p><b style="font-size: 20pt">{{$nombreOferta}}</b>
-            @elseif(strlen($nombreOferta) < 50)
-                <p><b style="font-size: 18pt">{{$nombreOferta}}</b>
+                <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
+            @elseif(strlen($nombreOferta) < 60)
+                <p><b style="font-size: 18pt">{{$nombreOferta}}</b></p>
             @else
-                <p><b style="font-size: 14pt">{{$nombreOferta}}</b>
+                <p><b style="font-size: 14pt">{{$nombreOferta}}</b></p>
             @endif
             <?php if($rows->oferta->lugar != null):?>
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);

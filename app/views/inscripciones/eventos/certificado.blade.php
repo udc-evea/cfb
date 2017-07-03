@@ -83,13 +83,11 @@
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
             ?>
-            @if(strlen($nombreOferta) < 30)
+            <?php if(strlen($nomyape) < 31):?>
                 <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
-            @elseif(strlen($nombreOferta) < 50)
+            <?php else:?>
                 <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
-            @else
-                <p style="font-size: 14pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
-            @endif
+            <?php endif?>
             <?php if(ctype_digit($rows->documento)):?>
                 <?php echo number_format($rows->documento, 0, ',', '.');?>                    
                 <?php $dni = number_format($rows->documento, 0, ',', '.');?>
@@ -99,11 +97,13 @@
             <?php endif;?> 
                 </p>
             <p>ha participado en calidad de asistente al </p>
-            <?php if(strlen($nombreOferta) < 31):?>
+            @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
-            <?php else:?>
+            @elseif(strlen($nombreOferta) < 60)
                 <p><b style="font-size: 18pt">{{$nombreOferta}}</b></p>
-            <?php endif?>
+            @else
+                <p><b style="font-size: 14pt">{{$nombreOferta}}</b></p>
+            @endif
             <?php if($rows->oferta->lugar != null):?>                
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                       $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
