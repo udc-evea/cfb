@@ -447,7 +447,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function getPermiteInscripcionesAttribute() {
         return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);
-    }        
+    }
 
     public function chequearDisponibilidad() 
     {

@@ -78,15 +78,30 @@
     <div class="certificado">
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut</b>  &nbsp;certifica que</p>
-            <p><b><?php echo $rows->nombre." ".strtoupper($apellidoBien);?></b> 
-            <?php if(ctype_digit($rows->documento)):?>
-                , D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>
+            <p>La <b>Universidad del Chubut</b>&nbsp; certifica que</p>
+            <?php 
+                $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
+                $nombreOferta = $rows->oferta->nombre;;
+            ?>
+            <?php if(strlen($nomyape) < 31):?>
+                <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php else:?>
-                , D.N.I. <?php echo $rows->documento;?> 
-            <?php endif;?> </p>
+                <p style="font-size: 17pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+            <?php endif?>
+            <?php if(ctype_digit($rows->documento)):?>
+                <?php echo number_format($rows->documento, 0, ',', '.');?>                    
+                <?php $dni = number_format($rows->documento, 0, ',', '.');?>
+            <?php else:?>
+                <?php echo $rows->documento;?> 
+                <?php $dni = $rows->documento;?>
+            <?php endif;?> 
+                </p>
             <p>ha participado en calidad de asistente al </p>
-            <p><b style="font-size: 20pt"><?php echo $rows->oferta->nombre;?></b></p>
+            <?php if(strlen($nombreOferta) < 31):?>
+                <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
+            <?php else:?>
+                <p><b style="font-size: 18pt">{{$nombreOferta}}</b></p>
+            <?php endif?>
             <?php if($rows->oferta->lugar != null):?>                
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                       $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);

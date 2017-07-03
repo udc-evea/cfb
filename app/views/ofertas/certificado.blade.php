@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-AR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
         <!--<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
         <style>
             
@@ -92,13 +92,13 @@
     <div class="certificado">
         <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut</b>  &nbsp;certifica que</p>
+            <p>La <b>Universidad del Chubut</b>&nbsp; certifica que</p>
             <?php if($capacPersonal->titulacion_id != 1):?>
-                <p>{{$pronombre}}<b style="font-size: 24pt">
+                <p>{{$pronombre}}<b style="font-size: 20pt">
                     <?php echo $capacPersonal->getTitulacionPersonalAbreviada().". ";?>
                     <?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
             <?php else:?>
-                <p><b style="font-size: 24pt"><?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
+                <p><b style="font-size: 20pt"><?php echo $capacPersonal->nombre." ".strtoupper($capacPersonal->apellido);?></b></p>
             <?php endif;?>
             <?php if(ctype_digit($capacPersonal->dni)):?>
                 <p>D.N.I. <?php echo number_format($capacPersonal->dni, 0, ',', '.');?></p>
@@ -107,7 +107,11 @@
             <?php endif;?>
             <!--<p>D.N.I. <?php //echo $capacPersonal->dni?></p>-->
             <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
-            <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
+            @if(strlen($rows->nombre) < 30)
+                <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
+            @else
+                <p><b style="font-size: 18pt"><?php echo $rows->nombre;?></b></p>
+            @endif
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
                 <p>según <?php echo $rows->resolucion_nro;?>, con una acreditación de 
@@ -128,9 +132,11 @@
                     $anio = $fecha[2];
                 }
             ?>
-            <p>Se extiende el presente certificado al <?php echo $dia; ?> de
-                <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
-            <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
+            <div style="font-size: 16pt">
+                <p>Se extiende el presente certificado al <?php echo $dia; ?> de
+                    <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
+                <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
+            </div>
         </div>
             <p id="cuv">Código Único de Validación (CUV): <b>&nbsp;<?php echo "&nbsp;&nbsp;&nbsp;".$cap->codigo_verificacion ?></b>.</p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>

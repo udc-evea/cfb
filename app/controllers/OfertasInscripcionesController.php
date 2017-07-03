@@ -276,18 +276,19 @@ class OfertasInscripcionesController extends BaseController {
             }
             
             $insc = $inscripto->create($input_db);
-
-            try {
-                Mail::send($oferta->getVistaMail(), compact('oferta','insc'), function($message) use($oferta, $insc, $mailReplyTo) {
-                    $message
-                            ->to($insc->correo, $insc->inscripto)
-                            ->subject('UDC:: Recibimos tu Preinscripción a ' . $oferta->nombre)
-                            ->replyTo($mailReplyTo);
-                });
-            } catch (Swift_TransportException $e) {
-                Log::info("No se pudo enviar correo a " . $insc->inscripto . " <" . $insc->correo . ">");
+            
+            if($oferta->getPermiteInscripcionesAttribute()){
+                try {
+                    Mail::send($oferta->getVistaMail(), compact('oferta','insc'), function($message) use($oferta, $insc, $mailReplyTo) {
+                        $message
+                                ->to($insc->correo, $insc->inscripto)
+                                ->subject('UDC:: Recibimos tu Preinscripción a ' . $oferta->nombre)
+                                ->replyTo($mailReplyTo);
+                    });
+                } catch (Swift_TransportException $e) {
+                    Log::info("No se pudo enviar correo a " . $insc->inscripto . " <" . $insc->correo . ">");
+                }
             }
-
             return Redirect::to('/inscripcion_ok');
         }
         //dd($validation);

@@ -79,14 +79,30 @@
     <div class="certificado">
         <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut </b>  certifica que</p>
-            <p><b style="font-size: 18pt"><?php echo $rows->nombre." ".strtoupper($apellidoBien);?></b> 
-            <?php if(ctype_digit($rows->documento)):?>
-                , D.N.I. <?php echo number_format($rows->documento, 0, ',', '.');?>
+            <p>La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
+            <?php 
+                $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
+                $nombreOferta = $rows->oferta->nombre;;
+            ?>
+            <?php if(strlen($nomyape) < 30):?>
+                <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php else:?>
-                , D.N.I. <?php echo $rows->documento;?> 
-            <?php endif;?> </p>
-            <p>ha aprobado el <b style="font-size: 20pt"> <?php echo $rows->oferta->nombre;?></b></p>
+                <p style="font-size: 17pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+            <?php endif?>
+            <?php if(ctype_digit($rows->documento)):?>
+                <?php echo number_format($rows->documento, 0, ',', '.');?>                    
+                <?php $dni = number_format($rows->documento, 0, ',', '.');?>
+            <?php else:?>
+                <?php echo $rows->documento;?> 
+                <?php $dni = $rows->documento;?>
+            <?php endif;?> 
+                </p>
+            <p>ha aprobado el <p>
+            <?php if(strlen($nombreOferta) < 40):?>
+                <p><b style="font-size: 20pt">{{$nombreOferta}}</b>
+            <?php else:?>
+                <p><b style="font-size: 18pt">{{$nombreOferta}}</b>
+            <?php endif?> </p>
             <?php if($rows->oferta->lugar != null):?>
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                       $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
@@ -127,9 +143,11 @@
                     $anio = $fecha[2];
                 }
             ?>
-            <p>Se extiende el presente certificado al <?php echo $dia; ?> de
-                <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
-            <p>en la ciudad de Rawson, Provincia del Chubut.</p>
+            <div style="font-size: 16pt">
+                <p>Se extiende el presente certificado al <?php echo $dia; ?> de
+                    <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
+                <p>en la ciudad de Rawson, Provincia del Chubut.</p>
+            </div>
         </div>
             <p id="cuv">Código Único de Validación (CUV): <b>&nbsp;<?php echo "&nbsp;&nbsp;&nbsp;".$rows->codigo_verificacion ?></b>.</p>
             <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>
