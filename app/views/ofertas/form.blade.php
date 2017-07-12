@@ -135,14 +135,13 @@ input[readonly] {
     <div class="form-group">
         <label for="presentar_mas_doc" class="control-label col-lg-2 col-sm-4">
             Requisitos y Documentación Extra</label>
-        <div class="col-lg-10 col-sm-8">
-            <div class="checkbox">
-                @if($oferta->presentar_mas_doc == 1)
-                    <input class="checkbox" placeholder="Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción." style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')" id="presentar_mas_doc" type="checkbox" checked name="presentar_mas_doc" value="1">
-                @else
-                    <input class="checkbox" placeholder="Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción." style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')" id="presentar_mas_doc" type="checkbox" name="presentar_mas_doc" value="0">
-                @endif
-            </div>
+        <div class="col-lg-10 col-sm-8">        
+            @if($oferta->presentar_mas_doc == 1)
+                <input class="checkbox" style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')" id="presentar_mas_doc" type="checkbox" checked name="presentar_mas_doc" value="1">
+            @else
+                <input class="checkbox" style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')" id="presentar_mas_doc" type="checkbox" name="presentar_mas_doc" value="0">
+            @endif
+            <span class="help-block">Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.</span>
         </div>
     </div>    
     <!--{{ Former::checkbox('presentar_mas_doc')
@@ -282,10 +281,11 @@ input[readonly] {
             Se requiere una Titulación Previa para pre-inscribirse a esta Oferta?</label>
         <div class="col-lg-10 col-sm-8">
             @if($oferta->lleva_tit_previa == 1)
-                <input style="visibility: visible; margin-left: 3px" placeholder="Chequear si es que para esta Oferta el inscripto debe tener un mínimo nivel educativo." onclick="mostrar_ocultar('DivTitulacion','lleva_tit_previa')" id="lleva_tit_previa" type="checkbox" checked name="lleva_tit_previa" value="1">
+                <input style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivTitulacion','lleva_tit_previa')" id="lleva_tit_previa" type="checkbox" checked name="lleva_tit_previa" value="1">
             @else
-                <input style="visibility: visible; margin-left: 3px" placeholder="Chequear si es que para esta Oferta el inscripto debe tener un mínimo nivel educativo." onclick="mostrar_ocultar('DivTitulacion','lleva_tit_previa')" id="lleva_tit_previa" type="checkbox" name="lleva_tit_previa" value="0">
+                <input style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivTitulacion','lleva_tit_previa')" id="lleva_tit_previa" type="checkbox" name="lleva_tit_previa" value="0">
             @endif
+            <span class="help-block">Chequear si es que para esta Oferta el inscripto debe tener un mínimo nivel educativo.</span>
         </div>
     </div>    
     <div id='DivTitulacion' style='display: none'>
@@ -312,10 +312,11 @@ input[readonly] {
             Desea hablitar el envío de los certificados digitales a los alumnos?</label>
         <div class="col-lg-10 col-sm-8">
             @if($oferta->certificado_alumno_digital == 1)
-                <input style="visibility: visible; margin-left: 3px" placeholder="Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos." id="certificado_alumno_digital" type="checkbox" checked name="certificado_alumno_digital" value="1">
+                <input style="visibility: visible; margin-left: 3px" id="certificado_alumno_digital" type="checkbox" checked name="certificado_alumno_digital" value="1">
             @else
-                <input style="visibility: visible; margin-left: 3px" placeholder="Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos." id="certificado_alumno_digital" type="checkbox" name="certificado_alumno_digital" value="0">
+                <input style="visibility: visible; margin-left: 3px" id="certificado_alumno_digital" type="checkbox" name="certificado_alumno_digital" value="0">
             @endif
+            <span class="help-block">Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos.</span>
         </div>
     </div>
     <!--{{ Former::checkbox('certificado_alumno_digital')
@@ -330,10 +331,11 @@ input[readonly] {
             Desea hablitar el envío de los certificados digitales a los capacitadores?</label>
         <div class="col-lg-10 col-sm-8">
             @if($oferta->certificado_capacitador_digital == 1)
-                <input style="visibility: visible; margin-left: 3px" placeholder="Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores." id="certificado_capacitador_digital" type="checkbox" checked name="certificado_capacitador_digital" value="1">
+                <input style="visibility: visible; margin-left: 3px" id="certificado_capacitador_digital" type="checkbox" checked name="certificado_capacitador_digital" value="1">
             @else
-                <input style="visibility: visible; margin-left: 3px" placeholder="Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores." id="certificado_capacitador_digital" type="checkbox" name="certificado_capacitador_digital" value="0">
+                <input style="visibility: visible; margin-left: 3px" id="certificado_capacitador_digital" type="checkbox" name="certificado_capacitador_digital" value="0">
             @endif
+            <span class="help-block">Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores.</span>
         </div>
     </div>
     <!--{{ Former::checkbox('certificado_capacitador_digital')
@@ -466,8 +468,7 @@ input[readonly] {
         check = document.getElementById(checkboxId);
         if (check.checked) {
             element.style.display='block';
-        }
-        else {
+        }else{
             element.style.display='none';
         }
     }
