@@ -269,17 +269,10 @@ input[readonly] {
     {{ Former::checkbox('lleva_tit_previa',"1")
             ->label('Lleva titulación previa?')
             ->addClass('checkbox')
-            ->placeholder('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
-            ->style('visibility: visible; margin-left: 3px')
-            ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
-    }}<!--
-    {{ Former::checkbox('lleva_tit_previa',"1")
-            ->label('Lleva titulación previa?')
             ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
-    }}-->
-
+    }}
     <div id='DivTitulacion' style='display: none'>
         <hr>
         <div class="form-group"> 
@@ -294,18 +287,30 @@ input[readonly] {
         </div>    
     </div>
     
-    <hr>    
+    <hr>
     {{ Former::checkbox('certificado_alumno_digital',"1")
             ->label('Desea hablitar el envío de los certificados digitales a los alumnos?')
+            ->addClass('checkbox')
             ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos.') 
             ->style('visibility: visible; margin-left: 3px')
     }}
-    <hr>    
+    <!--{{ Former::checkbox('certificado_alumno_digital',"1")
+            ->label('Desea hablitar el envío de los certificados digitales a los alumnos?')
+            ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos.') 
+            ->style('visibility: visible; margin-left: 3px')
+    }}-->
+    <hr>
     {{ Former::checkbox('certificado_capacitador_digital',"1")
             ->label('Desea hablitar el envío de los certificados digitales a los capacitadores?')
+            ->addClass('checkbox')
             ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores.') 
             ->style('visibility: visible; margin-left: 3px')
     }}
+    <!--{{ Former::checkbox('certificado_capacitador_digital',"1")
+            ->label('Desea hablitar el envío de los certificados digitales a los capacitadores?')
+            ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores.') 
+            ->style('visibility: visible; margin-left: 3px')
+    }}-->
     <hr>
     <div class="alert alert-info" style="padding: 20px;" id="DivCargarBaseCertificados">
         <!-- Agrego el campo nuevo: certificado_base_alumnos -->
