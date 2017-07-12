@@ -266,13 +266,19 @@ input[readonly] {
                 ->class('span7')
     }}
     <hr>
-    
+    {{ Former::checkbox('lleva_tit_previa',"1")
+            ->label('Lleva titulación previa?')
+            ->addClass('checkbox')
+            ->placeholder('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
+            ->style('visibility: visible; margin-left: 3px')
+            ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
+    }}<!--
     {{ Former::checkbox('lleva_tit_previa',"1")
             ->label('Lleva titulación previa?')
             ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
-    }}
+    }}-->
 
     <div id='DivTitulacion' style='display: none'>
         <hr>
