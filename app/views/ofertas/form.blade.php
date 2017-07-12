@@ -132,7 +132,7 @@ input[readonly] {
 <hr>
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
 <div class="row-fluid">
-    {{ Former::checkbox('presentar_mas_doc',1, )
+    {{ Former::checkbox('presentar_mas_doc',1)
             ->label('Requisitos y Documentación Extra')
             ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
             ->style('visibility: visible; margin-left: 3px')
