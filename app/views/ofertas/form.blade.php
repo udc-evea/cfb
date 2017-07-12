@@ -296,7 +296,11 @@ input[readonly] {
             <div class="col-lg-10 col-sm-3">
                 <select class="form-control" name='titulacion_id'>
                     @foreach($titulaciones as $item)
-                        <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
+                        @if($item->id == $oferta->titulacion_id)
+                            <option value="{{$item->id}}" selected>{{ $item->nombre_titulacion }}</option>
+                        @else
+                            <option value="{{$item->id}}" selected>{{ $item->nombre_titulacion }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
