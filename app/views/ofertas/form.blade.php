@@ -135,7 +135,6 @@ input[readonly] {
 <div class="row-fluid">
     {{ Former::checkbox('presentar_mas_doc',"1")
             ->label('Requisitos y Documentación Extra')
-            ->addClass('checkbox')
             ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
@@ -268,7 +267,6 @@ input[readonly] {
     <hr>
     {{ Former::checkbox('lleva_tit_previa',"1")
             ->label('Lleva titulación previa?')
-            ->addClass('checkbox')
             ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
@@ -290,7 +288,6 @@ input[readonly] {
     <hr>
     {{ Former::checkbox('certificado_alumno_digital',"1")
             ->label('Desea hablitar el envío de los certificados digitales a los alumnos?')
-            ->addClass('checkbox')
             ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los alumnos.') 
             ->style('visibility: visible; margin-left: 3px')
     }}
@@ -302,7 +299,6 @@ input[readonly] {
     <hr>
     {{ Former::checkbox('certificado_capacitador_digital',"1")
             ->label('Desea hablitar el envío de los certificados digitales a los capacitadores?')
-            ->addClass('checkbox')
             ->help('Chequear si es que para esta Oferta se pueda generar y enviar por mail los Certificados Digitales a los capacitadores.') 
             ->style('visibility: visible; margin-left: 3px')
     }}
