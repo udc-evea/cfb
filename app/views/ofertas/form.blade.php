@@ -299,7 +299,7 @@ input[readonly] {
                         @if($item->id == $oferta->titulacion_id)
                             <option value="{{$item->id}}" selected>{{ $item->nombre_titulacion }}</option>
                         @else
-                            <option value="{{$item->id}}" selected>{{ $item->nombre_titulacion }}</option>
+                            <option value="{{$item->id}}">{{ $item->nombre_titulacion }}</option>
                         @endif
                     @endforeach
                 </select>
