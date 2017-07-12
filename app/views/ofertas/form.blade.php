@@ -132,13 +132,27 @@ input[readonly] {
 <hr>
 <!-- Agrego los campos nuevos: presentar_mas_doc y doc_a_presentar -->
 <div class="row-fluid">
-    {{ Former::checkbox('presentar_mas_doc')
+    <div class="form-group">
+        <label for="presentar_mas_doc" class="control-label col-lg-2 col-sm-4">
+            Requisitos y Documentación Extra</label>
+        <div class="col-lg-10 col-sm-8">
+            <div class="checkbox">
+                @if($oferta->presentar_mas_doc == 1)
+                    <input class="checkbox" style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')" id="presentar_mas_doc" type="checkbox" checked name="presentar_mas_doc" value="1">
+                @else
+                    <input class="checkbox" style="visibility: visible; margin-left: 3px" onclick="mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')" id="presentar_mas_doc" type="checkbox" name="presentar_mas_doc" value="0">
+                @endif
+            </div>
+        </div>
+    </div>
+    
+    <!--{{ Former::checkbox('presentar_mas_doc')
             ->label('Requisitos y Documentación Extra')
             ->addClass('checkbox')
             ->placeholder('Chequear si es que para esta Oferta el inscripto debe completar requisitos y/o presentar documentación extra a la solicitada en el formulario de inscripción.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivDocAPresentar','presentar_mas_doc')")
-    }}
+    }}-->
     <div id='DivDocAPresentar'>
         {{ Former::textarea('doc_a_presentar')
                 ->label('Documentación Extra')
@@ -264,13 +278,24 @@ input[readonly] {
                 ->class('span7')
     }}
     <hr>
-    {{ Former::checkbox('lleva_tit_previa')
+    <div class="form-group">
+        <label for="lleva_tit_previa" class="control-label col-lg-2 col-sm-4">
+            Requisitos y Documentación Extra</label>
+        <div class="col-lg-10 col-sm-8">
+            @if($oferta->lleva_tit_previa == 1)
+                <input style="visibility: visible; margin-left: 3px; color: red" onclick="mostrar_ocultar('DivTitulacion','lleva_tit_previa')" id="lleva_tit_previa" type="checkbox" checked name="lleva_tit_previa" value="1">
+            @else
+                <input style="visibility: visible; margin-left: 3px; color: green" onclick="mostrar_ocultar('DivTitulacion','lleva_tit_previa')" id="lleva_tit_previa" type="checkbox" name="lleva_tit_previa" value="0">
+            @endif
+        </div>
+    </div>
+    <!--{{ Former::checkbox('lleva_tit_previa')
             ->label('Lleva titulación previa?')
             ->addClass('checkbox')
             ->help('Chequear si es que para esta Oferta el inscripto debe poseer una Titulación previa.') 
             ->style('visibility: visible; margin-left: 3px')
             ->onclick("mostrar_ocultar('DivTitulacion','lleva_tit_previa')")
-    }}
+    }}-->
     <div id='DivTitulacion' style='display: none'>
         <hr>
         <div class="form-group"> 
@@ -286,6 +311,7 @@ input[readonly] {
     </div>
     
     <hr>
+    <input type="hidden" name="certificado_alumno_digital" value="0"/>
     {{ Former::checkbox('certificado_alumno_digital')
             ->label('Desea hablitar el envío de los certificados digitales a los alumnos?')
             ->addClass('checkbox')
@@ -298,6 +324,7 @@ input[readonly] {
             ->style('visibility: visible; margin-left: 3px')
     }}-->
     <hr>
+    <input type="hidden" name="certificado_capacitador_digital" value="0"/>
     {{ Former::checkbox('certificado_capacitador_digital')
             ->label('Desea hablitar el envío de los certificados digitales a los capacitadores?')
             ->addClass('checkbox')
