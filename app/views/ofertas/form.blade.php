@@ -292,7 +292,7 @@ input[readonly] {
     <div id='DivTitulacion' style='display: none'>
         <hr>
         <div class="form-group"> 
-            <label class="control-label col-lg-2 col-sm-4">Titulación</label>
+            <label class="control-label col-lg-2 col-sm-4">Titulación {{$oferta->titulacion_id}}</label>
             <div class="col-lg-10 col-sm-3">
                 <select class="form-control" name='titulacion_id'>
                     @foreach($titulaciones as $item)
