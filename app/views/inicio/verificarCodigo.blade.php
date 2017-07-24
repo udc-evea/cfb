@@ -78,8 +78,12 @@
                             <ul>
                                 <li>Nombre: {{ $oferta[0]->nombre }}</li>
                                 <li>Finalización: {{ $oferta[0]->fecha_fin_oferta }}</li>
-                                <li>Duración (en horas): {{ $oferta[0]->duracion_hs }}</li>
-                                <li>Resolución interna: {{ $oferta[0]->resolucion_nro }}</li>
+                                @if ($oferta[0]->duracion_hs > 0)
+                                    <li>Duración (en horas): {{$oferta[0]->duracion_hs}}</li>
+                                @endif
+                                @if ($oferta[0]->resolucion_nro != null)
+                                    <li>Resolución interna: {{ $oferta[0]->resolucion_nro }}</li>
+                                @endif
                             </ul>                    
                         @endif
                         @if($personal[0] != null)
