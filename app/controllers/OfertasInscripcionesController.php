@@ -171,6 +171,7 @@ class OfertasInscripcionesController extends BaseController {
                 ->with('nomyape',$NomYApe)
                 ->with('perfil',$perfil)
                 ->with('tipoOferta',$tipoOferta)
+                ->with('mjeError',"")
                 ->with('aprobados',$aprobados);
         
       }elseif($oferta->getEsEventoAttribute()){ //solo si es un Evento
@@ -974,7 +975,7 @@ class OfertasInscripcionesController extends BaseController {
                 $MjeError = $this->verificarDatosValidos($datos);
                 //cargo la vista con los datos necesarios
                 $tipoDocumento = TipoDocumento::all();
-                $localidad = Localidad::all();
+                $localidad = Localidad::all();                
                 return View::make('inscripciones.'.$oferta->view.'.importarAlumnosDeArchivo')
                     ->with('datos',$datos)
                     ->with('post',$post)
@@ -1005,9 +1006,8 @@ class OfertasInscripcionesController extends BaseController {
                 
                 //recorro fila por fila que contienen los datos (deberia
                 foreach ($datosArchivo as $fila) {
-                    //echo "<br> - Fila: ".$fila;
+                    //echo "<br> - Fila $i: ".$fila;
                     if($fila->count() != 7){
-                        $datosCSV = array();                                
                         return null;
                     }
                     foreach ($fila as $campo => $celda){                        
@@ -1016,10 +1016,10 @@ class OfertasInscripcionesController extends BaseController {
                         //echo "<br> - campo: $campo - valor: $celda";
                     }
                     $i++;
-                }                                
+                }                
                 return $datos;
-            }else{
-                $datos = null;
+            }else{                
+                //$datos = null;
                 return null;
             }
         }
@@ -1031,6 +1031,7 @@ class OfertasInscripcionesController extends BaseController {
             $cantColumnas = sizeof($datos);
         
             $mje = "";
+            $arrayDNI = array();
             if($datos == null){
                 $mje .= "<li> El archivo no contiene datos de alumnos.</li>";
                 return $mje;
@@ -1038,35 +1039,71 @@ class OfertasInscripcionesController extends BaseController {
             //recorro fila por fila que contienen los datos (deberia
             $i = 1;
             foreach ($datos as $fila) {
-                if(sizeof($fila)!=7){
-                    $mje .= "<li> Fila $i: La cantidad de columnas no es 7. Revisar el archivo nuevamente!.</li>";
+                $cabecera_ok = true;
+                if(!key_exists('tipo_documento', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 1 (del tipo de DNI) debe llamarse <b>tipo documento</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                if(($fila['tipo_documento']<1)||($fila['tipo_documento']>4)){
-                    $mje .= "<li> Fila $i: El Tipo de Documento debe ser uno de los siguientes codigos: 1-DNI, 2-LC, 3-LE o 4-Pasaporte.</li>";
+                if(!key_exists('documento', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 2 (del DNI) debe llamarse <b>documento</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                if(($fila['documento']<99999)||($fila['documento']>99999999)){
-                    $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
+                if(!key_exists('apellido', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 3 (del APELLIDO) debe llamarse <b>apellido</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                if(ctype_space($fila['documento'])){
-                    $mje .= "<li> Fila $i:  El documento no debe contener espacios en blanco ni tabulaciones.</li>";
+                if(!key_exists('nombre', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 4 (del NOMBRE) debe llamarse <b>nombre</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                if(strlen($fila['apellido'])<3){
-                    $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
+                if(!key_exists('fecha_de_nacimiento', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 5 (de la FECHA DE NACIMIENTO) debe llamarse <b>fecha de nacimiento</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                if(strlen($fila['nombre'])<3){
-                    $mje .= "<li> Fila $i:  El nombre debe tener por lo menos 3 caracteres de longitud.</li>";
+                if(!key_exists('localidad_id', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 6 (de la LOCALIDAD ID) debe llamarse <b>localidad id</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                $anio = explode('/',$fila['fecha_de_nacimiento']->format('d/m/Y'));
-                if(($anio[2] < 1910) || ($anio[2] > (date('Y')-18))){
-                    $mje .= "<li> Fila $i:  La fecha de nacimiento no puede ser menor a 1910, ni mayor a ".(date('Y')-18)."</li>";
+                if(!key_exists('email', $fila)&&($i==1)){
+                    $mje .= "<li>La columna 7 (del EMAIL) debe llamarse <b>email</b></li>";
+                    $cabecera_ok = FALSE;
                 }
-                $arrayLocalidades = array('1','87','88','89','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114');
-                $localidadID = $fila['localidad_id'];
-                if(!in_array($localidadID,$arrayLocalidades)){
-                    $mje .= "<li> Fila $i:  El ID de localidad debe estar dentro de los valores estipulados.</li>";
-                }
-                if(strlen($fila['email'])<5){
-                    $mje .= "<li> Fila $i:  El mail debe tener por lo menos 5 caracteres de longitud.</li>";
+                if($cabecera_ok){
+                    if(sizeof($fila)!=7){
+                        $mje .= "<li> Fila $i: La cantidad de columnas no es 7. Revisar el archivo nuevamente!.</li>";
+                    }
+                    if(($fila['tipo_documento']<1)||($fila['tipo_documento']>4)){
+                        $mje .= "<li> Fila $i: El Tipo de Documento debe ser uno de los siguientes codigos: 1-DNI, 2-LC, 3-LE o 4-Pasaporte.</li>";
+                    }
+                    $dni = $fila['documento'];                    
+                    if(($dni<99999)||($dni>99999999)){
+                        $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
+                    }
+                    if (($i>1)&&(in_array($dni,$arrayDNI))){
+                        $mje .= "<li> Fila $i:  El documento ya existe en este listado de alumnos, verifique!.</li>";
+                    }
+                    array_push($arrayDNI, $dni);
+                    if(ctype_space($fila['documento'])){
+                        $mje .= "<li> Fila $i:  El documento no debe contener espacios en blanco ni tabulaciones.</li>";
+                    }
+                    if(strlen($fila['apellido'])<3){
+                        $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
+                    }
+                    if(strlen($fila['nombre'])<3){
+                        $mje .= "<li> Fila $i:  El nombre debe tener por lo menos 3 caracteres de longitud.</li>";
+                    }
+                    $anio = explode('/',$fila['fecha_de_nacimiento']->format('d/m/Y'));
+                    if(($anio[2] < 1910) || ($anio[2] > (date('Y')-18))){
+                        $mje .= "<li> Fila $i:  La fecha de nacimiento no puede ser menor a 1910, ni mayor a ".(date('Y')-18)."</li>";
+                    }
+                    $arrayLocalidades = array('1','87','88','89','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114');
+                    $localidadID = $fila['localidad_id'];
+                    if(!in_array($localidadID,$arrayLocalidades)){
+                        $mje .= "<li> Fila $i:  El ID de localidad debe estar dentro de los valores estipulados.</li>";
+                    }
+                    if(strlen($fila['email'])<5){
+                        $mje .= "<li> Fila $i:  El mail debe tener por lo menos 5 caracteres de longitud.</li>";
+                    }
                 }
                 $i++;
             }
@@ -1087,16 +1124,25 @@ class OfertasInscripcionesController extends BaseController {
                 
                 $estadoInscripcion = Input::get('estado_inscripcion');
                 
-                $filas = explode(';', $stringValue);
-                                
+                $filas = explode(';', $stringValue);                                
+                
+                DB::beginTransaction();
+                
                 foreach($filas as $fila){
-                    if(strlen($fila > 0)){
-                        //guardo los datos en la base de datos
-                        $this->guardarAlumnosEnBase($oferta,$fila,$estadoInscripcion);
+                    if(strlen($fila > 0)){                        
+                        try{
+                            //guardo los datos en la base de datos
+                            $this->guardarAlumnosEnBase($oferta,$fila,$estadoInscripcion);
+                        } catch (Exception $ex) {                            
+                            DB::rollBack();
+                            Session::set('imperror',"<h2>Error al importar el archivo. Contáctese con el área de Sistemas de la UDC.</h2><h3>Error:</h3><br>$ex.");
+                            return Redirect::to('ofertas/'.$oferta->id.'/inscripciones');
+                        }                       
                     }
                 }
+                DB::commit();                
                 return Redirect::to('ofertas/'.$oferta->id.'/inscripciones');
-            }else{
+            }else{                
                 return Redirect::to('ofertas/'.$oferta->id.'/inscripciones');
             }
         }

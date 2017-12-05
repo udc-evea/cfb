@@ -21,6 +21,7 @@ class Inscripcion extends Eloquent {
         'localidad_anios_residencia'    => 'required|integer|min:1',
         'nivel_estudios_id' => 'required|exists:repo_nivel_estudios,id',        
         'email'    => 'required|email|unique_with:inscripcion_oferta,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
+        //'email'    => 'required|email', //le quité el unique del email por pedido de guillermo el 04-12-2017
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
         'cant_notificaciones_inscripto' => 'integer|min:0',

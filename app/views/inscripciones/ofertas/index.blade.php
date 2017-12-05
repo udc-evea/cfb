@@ -87,7 +87,7 @@
 </div>
 <div id="arriba" class="container">
     <div class="alert alert-info" align="center">
-        <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>
+        <h1>{{ $tipoOferta }}: <strong>"{{ $oferta->nombre }}"</strong></h1>        
         @if($oferta->estaFinalizada())
             <div class='alert alert-danger'>
                 <h2>Esta {{ $tipoOferta }} se encuentra <strong>Finalizada</strong></h2>

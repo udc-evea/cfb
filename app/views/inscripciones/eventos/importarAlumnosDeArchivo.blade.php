@@ -87,7 +87,7 @@ input[readonly] {
             </div>
         </div>
         @else
-            @if($datos != null)
+            @if(($datos != null)&&(!$MjeError))
                 {{ Form::open(array(
                                 'method' => 'POST',
                                 'enctype'=> 'multipart/form-data',
@@ -161,11 +161,11 @@ input[readonly] {
                     </div>
                     <input type="hidden" name="stringValue" value="<?php echo $stringValues ?>">
                 @if($MjeError)
-                {{ Form::submit('Importar alumnos', array('class' => 'btn btn-success', 'title'=>'Importar alumnos a la carrera', 'disabled' => 'disabled')) }}
+                    {{ Form::submit('Importar alumnos', array('class' => 'btn btn-success', 'title'=>'Importar alumnos a la carrera', 'disabled' => 'disabled')) }}
                 @else
-                {{ Form::submit('Importar alumnos', array('class' => 'btn btn-success', 'title'=>'Importar alumnos a la carrera')) }}
+                    {{ Form::submit('Importar alumnos', array('class' => 'btn btn-success', 'title'=>'Importar alumnos a la carrera')) }}
                 @endif
-                {{ Form::close() }}
+                    {{ Form::close() }}
                 <?php //echo "<br>$stringValues</br>"?>
             @else
                 <div class="alert alert-danger" style="margin-top: 20px">

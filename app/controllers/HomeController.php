@@ -42,8 +42,8 @@ class HomeController extends BaseController {
         public function salir()
 	{		                
             Auth::logout();
-            Session::flush();
-            
+            //Session::flush();
+            Session::clear();
             return Redirect::to('/');
 	}
         
