@@ -273,5 +273,5 @@ class HomeController extends BaseController {
                 array_push($usernames, $usuario['username']);
             }
             return $usernames;
-        }
+        }                
 }

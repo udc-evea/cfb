@@ -106,5 +106,5 @@ class BaseController extends Controller {
         }
         $codigo .= $this->cadena_random(4);
         return $codigo;
-    }        
+    }             
 }

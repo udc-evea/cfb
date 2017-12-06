@@ -181,12 +181,12 @@ class OfertasController extends BaseController {
 		$this->oferta->agregarReglas($input);
                 $fechaInicioOferta = Input::get('fecha_inicio_oferta');
                 $fechaFinOferta = Input::get('fecha_fin_oferta');
-                if($fechaFinOferta != null){
+                /*if($fechaFinOferta != null){
                     $this->oferta->agregarReglas2($input);
                 }
                 if($fechaInicioOferta != null){
                     $this->oferta->agregarReglas3($input);
-                }
+                }*/
                 
                 $presentarMasDoc = Input::get('presentar_mas_doc');
                 $llevaTitPrevia = Input::get('lleva_tit_previa');
@@ -310,13 +310,14 @@ class OfertasController extends BaseController {
                 $imagenMailBienvenida = Input::get('mail_bienvenida_file_name');
                 $imagenCertBaseAlum = Input::get('cert_base_alum_file_name');
                 $imagenCertBaseCapacitadores = Input::get('cert_base_cap_file_name');
+                $this->oferta->agregarReglas($input);
                 
-                if(($fechaInicioOferta != null)&&($fechaFinOferta != null)){
+                /*if(($fechaInicioOferta != null)&&($fechaFinOferta != null)){
                     if($fechaInicioOferta != $fechaFinOferta){
                         $this->oferta->agregarReglas2($input);
                         $this->oferta->agregarReglas3($input);
                     }
-                }
+                }*/
                 
                 $presentarMasDoc = Input::get('presentar_mas_doc');
                 $llevaTitPrevia = Input::get('lleva_tit_previa');

@@ -522,19 +522,42 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
 
     public function agregarReglas($input) {
-        //fecha de inicio menor a fecha de fin
-        self::$rules['inicio'].='|before:' . $input['fin'];
+        //fecha de inicio_preinscripciones menor o igual a fecha de fin_preinscripciones
+        list($day,$mon,$year) = explode('/',$input['fin']);
+        $diaDespuesFinPreinscripciones = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
+        self::$rules['inicio'].='|before:' . $diaDespuesFinPreinscripciones;
+        
+        //fecha de inicio_oferta menor o igual a fecha de fin_oferta
+        list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
+        $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
+        self::$rules['fecha_inicio_oferta'].='|before:' . $diaDespuesFinOferta;
+        
+        //fecha de inicio_oferta mayor o igual a fecha de inicio_preinscripciones
+        list($day,$mon,$year) = explode('/',$input['inicio']);
+        $diaAntesInicioPreinscripcion = date('d/m/Y',mktime(0,0,0,$mon,$day-1,$year));
+        self::$rules['fecha_inicio_oferta'].='|after:' . $diaAntesInicioPreinscripcion;
+        
+        //fecha de fin_preinscripciones menor o igual a fecha de fin_oferta
+        list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
+        $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
+        self::$rules['fin'].='|before:' . $diaDespuesFinOferta;
+        
     }
     
-    public function agregarReglas2($input) {
-        //fecha de fin de inscripciones menor a fecha de fecha_inicio_oferta
-        self::$rules['fin'].='|before:' . $input['fecha_inicio_oferta'];
+    /*public function agregarReglas2($input) {
+        //obtengo el dia posterior al dia de fin de la oferta/evento
+        list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
+        $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
+                
+        //fecha de fin de inscripciones menor a fecha_fin_oferta
+        //self::$rules['fin'].='|before:' . $input['fecha_inicio_oferta'];
+        self::$rules['fin'].='|before:' . $diaDespuesFinOferta;        
     }
     
     public function agregarReglas3($input) {        
         //fecha_inicio_oferta menor a fecha_fin_oferta
         self::$rules['fecha_inicio_oferta'].='|before:' . $input['fecha_fin_oferta'];
-    }
+    }*/
 
     public function inferirFormatoFecha($fecha) {
         if (strpos($fecha, '/') !== FALSE) {
