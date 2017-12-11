@@ -914,7 +914,7 @@ class OfertasInscripcionesController extends BaseController {
             //Envío el mail al mail institucional y al personal
             Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){                
                 $message->to($rows->email)/*->cc($rows->email_institucional)*/->subject('Certificado UDC');
-                $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC.pdf', 'mime'=>'application/pdf'));
+                $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado_UDC.pdf', 'mime'=>'application/pdf'));
             });
         } catch (Swift_TransportException $e) {
             Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
