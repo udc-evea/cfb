@@ -27,7 +27,8 @@ class InscripcionCarrera extends Eloquent {
         'localidad_pais_id'  => 'required|exists:repo_pais,id',
         'telefono_fijo'   => 'required|between:7,50|regex:/^[0-9+\(\)#\.\s\/ext-]+$/', //'integer|min:4000000',
         'telefono_celular'   => 'required|between:7,45|regex:/^[0-9+\(\)#\.\s\/ext-]+$/', //'integer|min:150000000',
-        'email'             => 'required|email|unique_with:inscripcion_carrera,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
+        //'email'             => 'required|email|unique_with:inscripcion_carrera,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
+        'email'             => 'required|email', //tenia el |unique_with:email - se lo saque por pedido de guillermo el 11-12-2017
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
         'cant_notificaciones_inscripto' => 'integer|min:0',

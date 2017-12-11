@@ -18,7 +18,8 @@ class InscripcionEvento extends Eloquent {
         'nombre' => 'required|between:2,100|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'fecha_nacimiento' => 'required|date_format:d/m/Y',
         'localidad_id' => 'required|exists:repo_localidad,id',       
-        'email'    => 'required|email|unique_with:inscripcion_evento,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
+        //'email'    => 'required|email|unique_with:inscripcion_evento,oferta_formativa_id,email', //tenia el |confirmed - se lo saque por pedido de guillermo el 20-04-2016
+        'email'    => 'required|email', //tenia el |unique_with:email - se lo saque por pedido de guillermo el 11-12-2017
         'email_institucional' => 'between:2,200|regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ]+$/',
         'cant_notificaciones'  => 'integer|min:0',
         'cant_notificaciones_inscripto' => 'integer|min:0',
@@ -149,7 +150,7 @@ class InscripcionEvento extends Eloquent {
     {
         //parche para validators de unique y unique_with
         self::$rules['documento'] = sprintf("%s,%s", self::$rules['documento'], $this->id);
-        self::$rules['email'] = sprintf("%s,%s", self::$rules['email'], $this->id);
+        //self::$rules['email'] = sprintf("%s,%s", self::$rules['email'], $this->id);
 
         return $this->validarNuevo($input);
     }

@@ -770,8 +770,8 @@ class OfertasController extends BaseController {
                     $view_mail = View::make('emails.ofertas.envio_certificado', compact('rows','oferta'));
                     //Envío el mail al mail institucional y al personal
                     Mail::queue($view_mail,compact('rows','oferta'), function ($message) use ($rows,$filename){
-                        $message->to($rows->email)->cc($rows->email_institucional)->subject('Certificado UDC');
-                        $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado UDC.pdf', 'mime'=>'application/pdf'));
+                        $message->to($rows->email)/*->cc($rows->email_institucional)*/->subject('Certificado UDC');
+                        $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado_UDC.pdf', 'mime'=>'application/pdf'));
                     });
                     //incremento la cantidad de veces que se le envió el mail con el certificado
                     $rows->seEnvioNotificacionConCertificado();
