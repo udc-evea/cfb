@@ -590,16 +590,19 @@ class OfertasController extends BaseController {
 
             //creo el nomre del archivo pdf
             $filename = "capacitador_".$oferta->id."_".$capacPersonal->getApellido()."_".$capacPersonal->getNombre();
-            //creo el certificado
-            Session::set('cap',$capacitador);
-            $html = View::make('ofertas.certificado', compact('rows'));        
+            
+            if (!file_exists(public_path("pdfs/$filename.pdf"))){
+                //creo el certificado
+                Session::set('cap',$capacitador);
+                $html = View::make('ofertas.certificado', compact('rows'));        
 
-            //Creo el pdf y lo guardo en la carpeta /public/pdfs
-            $pdf = new \Thujohn\Pdf\Pdf();
-            $content = $pdf->load($html, 'A4', 'landscape')->output();
-            $path_to_pdf = public_path("pdfs/$filename.pdf");
-            File::put($path_to_pdf, $content);
-
+                //Creo el pdf y lo guardo en la carpeta /public/pdfs
+                $pdf = new \Thujohn\Pdf\Pdf();
+                $content = $pdf->load($html, 'A4', 'landscape')->output();
+                $path_to_pdf = public_path("pdfs/$filename.pdf");
+                File::put($path_to_pdf, $content);
+            }
+            
             try{
                 //Envío el mail al mail institucional y al personal
                 Mail::send('emails.ofertas.envio_certificado_capacitador',compact('rows','oferta','capacPersonal','capacRol'), function ($message) use ($rows,$filename,$capacPersonal,$capacRol){
@@ -659,16 +662,18 @@ class OfertasController extends BaseController {
                 //$filename = "capacitador_".$oferta->id."_".$capacitador->getApellido()."_".$capacPersonal->getNombre();
                 $filename = "capacitador_".$oferta->id."_".$capacPersonal->getApellido()."_".$capacPersonal->getNombre();
                 
-                //creo el certificado
-                Session::set('cap',$capacitador);
-                $html = View::make('ofertas.certificado', compact('rows'));        
+                if (!file_exists(public_path("pdfs/$filename.pdf"))){
+                    //creo el certificado
+                    Session::set('cap',$capacitador);
+                    $html = View::make('ofertas.certificado', compact('rows'));        
 
-                //Creo el pdf y lo guardo en la carpeta /public/pdfs
-                $pdf = new \Thujohn\Pdf\Pdf();
-                $content = $pdf->load($html, 'A4', 'landscape')->output();
-                $path_to_pdf = public_path("pdfs/$filename.pdf");
-                File::put($path_to_pdf, $content);
-                
+                    //Creo el pdf y lo guardo en la carpeta /public/pdfs
+                    $pdf = new \Thujohn\Pdf\Pdf();
+                    $content = $pdf->load($html, 'A4', 'landscape')->output();
+                    $path_to_pdf = public_path("pdfs/$filename.pdf");
+                    File::put($path_to_pdf, $content);
+                }
+                    
                 try{
                     //Envío el mail personal de cada Capacitador                    
                     Mail::send('emails.ofertas.envio_certificado_capacitador',compact('rows','oferta','capacPersonal','capacRol'), function ($message) use ($rows,$filename,$capacPersonal,$capacRol){
