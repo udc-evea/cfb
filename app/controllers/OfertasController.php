@@ -749,8 +749,8 @@ class OfertasController extends BaseController {
             }
 
             //recorro todos los alumnos (inscripciones) para generar el PDF y enviarlo a su mail
-            echo "<br>Totoal certificados: ".count($inscripciones);
-            $i = 1;
+            //echo "<br>Totoal certificados: ".count($inscripciones);
+            //$i = 1;
             
             // creo todos los certificados en PDF primero, luego envío los mails
             foreach ($inscripciones as $inscripto) {                
@@ -760,15 +760,18 @@ class OfertasController extends BaseController {
                 
                 //creo el nomre del archivo pdf
                 $filename = $ofid.$rows->id;
-                //creo el certificado
-                $html = View::make('inscripciones.'.$oferta->view.'.certificado', compact('rows'));
-                //Creo el pdf y lo guardo en la carpeta /public/pdfs
-                $pdf = new \Thujohn\Pdf\Pdf();                
-                $content = $pdf->load($html, 'A4', 'landscape')->output();
-                $path_to_pdf = public_path("pdfs/$filename.pdf");
-                File::put($path_to_pdf, $content);                                
+                
+                if (!file_exists(public_path("pdfs/$filename.pdf"))){
+                    //creo el certificado
+                    $html = View::make('inscripciones.'.$oferta->view.'.certificado', compact('rows'));
+                    //Creo el pdf y lo guardo en la carpeta /public/pdfs
+                    $pdf = new \Thujohn\Pdf\Pdf();                
+                    $content = $pdf->load($html, 'A4', 'landscape')->output();
+                    $path_to_pdf = public_path("pdfs/$filename.pdf");
+                    File::put($path_to_pdf, $content);                                
+                }
             }
-            echo "<br>Se creadon los ".count($inscripciones)." pdfs";
+            //echo "<br>Se creadon los ".count($inscripciones)." pdfs";
             // envío los mails con el certificado adjunto
             foreach ($inscripciones as $inscripto) {
                 //busco los datos de los inscriptos
@@ -780,23 +783,23 @@ class OfertasController extends BaseController {
                 
                 //envío los mails que se agregaron en public/pdfs
                 try{
-                    echo "<br>Envío mail al Inscripto $i ($rows->apellido): ".$rows->email;                        
-                    /*Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){                
+                    //echo "<br>Envío mail al Inscripto $i ($rows->apellido): ".$rows->email;                        
+                    Mail::send('emails.ofertas.envio_certificado',compact('rows','oferta'), function ($message) use ($rows,$filename){                
                         $message->to($rows->email)
                             //->cc($rows->email_institucional)
                             ->subject('Certificado UDC');
                         $message->attach("pdfs/$filename.pdf", array('as'=>'Certificado_UDC.pdf', 'mime'=>'application/pdf'));
-                    });*/
+                    });
                     //incremento la cantidad de veces que se le envió el mail con el certificado
                     $rows->seEnvioNotificacionConCertificado();
                     
                 } catch (Swift_TransportException $e) {
-                    echo "<br>Error en $i";
+                    //echo "<br>Error en $i";
                     Log::info("No se pudo enviar correo a " . $rows->apellido.','.$rows->nombre." <" . $rows->email.">");
                 }
-                $i++;
+                //$i++;
             }
-            echo "<br><b>Sali del Foreach</b>";
+            //echo "<br><b>Sali del Foreach</b>";
             
             /* for each original
             foreach ($inscripciones as $inscripto) {                
@@ -834,9 +837,9 @@ class OfertasController extends BaseController {
             //devuelvo un mje exitoso y regreso a la inscripcion de la oferta
             $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
             $final = $this->getEstiloMensajeFinal();
-            /*return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
+            return Redirect::route('ofertas.inscripciones.index', array($oferta->id))
                             ->with('oferta',$oferta)
-                            ->with('message', "$cabecera Los Certificados se enviarán automaticamente durante los próximo minutos. Mientras puede seguir utilizando el sistema. $final");*/
+                            ->with('message', "$cabecera Los Certificados se enviarán automaticamente durante los próximo minutos. Mientras puede seguir utilizando el sistema. $final");
         }
         
         public function importarOfertaDeArchivo()
