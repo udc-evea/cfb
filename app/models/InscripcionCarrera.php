@@ -437,7 +437,7 @@ class InscripcionCarrera extends Eloquent {
     {
         //parche para validators de unique y unique_with
         self::$rules['documento'] = sprintf("%s,%s", self::$rules['documento'], $this->id);
-        self::$rules['email'] = sprintf("%s,%s", self::$rules['email'], $this->id);
+        //self::$rules['email'] = sprintf("%s,%s", self::$rules['email'], $this->id);
         
         return $this->validarNuevo($input);
     }
