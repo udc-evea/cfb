@@ -151,7 +151,8 @@
             </div>
         </div>
             <p id="cuv">Código Único de Validación (CUV): <b>&nbsp;<?php echo "&nbsp;&nbsp;&nbsp;".$rows->codigo_verificacion ?></b>.</p>
-            <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>
+            <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php// echo URL::to('http://udc.edu.ar/cuv');?> o escaneá el código QR con tu celular.</p>-->
+            <p id="cuvhelp">Para verificar el certificado accedé a <?php echo URL::to('http://udc.edu.ar/sicert');?> o escaneá el código QR con tu celular.</p>
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
