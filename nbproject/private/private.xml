@@ -12,11 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/universidad/devel/cfb/app/models/Oferta.php</file>
-            <file>file:/home/universidad/devel/cfb/app/controllers/OfertasInscripcionesController.php</file>
-            <file>file:/home/universidad/devel/cfb/app/models/Inscripcion.php</file>
-            <file>file:/home/universidad/devel/cfb/composer.json</file>
-            <file>file:/home/universidad/devel/cfb/app/controllers/BaseController.php</file>
+            <file>file:/C:/xampp/htdocs/cfb/app/views/inscripciones/eventos/certificado.blade.php</file>
+            <file>file:/C:/xampp/htdocs/cfb/app/views/inscripciones/ofertas/certificado.blade.php</file>
+            <file>file:/C:/xampp/htdocs/cfb/app/controllers/OfertasController.php</file>
+            <file>file:/C:/xampp/htdocs/cfb/app/views/ofertas/certificado.blade.php</file>
         </group>
     </open-files>
 </project-private>
