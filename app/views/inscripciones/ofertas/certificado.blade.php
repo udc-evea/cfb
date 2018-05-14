@@ -2,6 +2,7 @@
 <html lang='es-AR'>
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+        <link rel="shortcut icon" href="{{ asset('public/favicon.png') }}" type="image/x-icon">
         <style>            
             body {
                 //border: 1px solid red;
@@ -77,9 +78,10 @@
         
     ?>    
     <div class="certificado">
-        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
+        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
+            <img src="{{ asset('img/LOGO-200x60px.png') }}" width="150"/>
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
@@ -97,7 +99,7 @@
                 <?php $dni = $rows->documento;?>
             <?php endif;?> 
                 </p>
-            <p>ha aprobado el <p>
+            <p>ha cursado y aprobado el <p>
             @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
             @elseif(strlen($nombreOferta) < 60)
