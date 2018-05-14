@@ -1,24 +1,25 @@
 <<<<<<< HEAD
 <!DOCTYPE html>
-<html lang='es-AR'>
+<html lang="es-AR">
     <head>
-        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>        
-        <style>            
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" href="{{ asset('public/favicon.png') }}" type="image/x-icon">
+        <style>
             body {
                 //border: 1px solid red;
                 font-family: 'Raleway';
                 margin: -30px;
                 width: 100%;
-                height: 760px;                
+                height: 760px;
             }
             .certificado{
-                //border: 1px solid black;                
+                //border: 1px solid black;
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
             #textoCertificado{
-                //border: solid 2px green;                
+                //border: solid 2px green;
                 position: absolute;
                 width: 100%;
                 top: 170px;
@@ -52,10 +53,9 @@
                 width: 100%;
             }
         </style>
-    </head>    
+    </head>
 <body>
     <?php
-        //$oferta = Session::get('oferta');
         //guardo en un array todos los meses - sirve para luego buscar el mes actual en string
         $meses = array('01' => 'enero','02' => 'febrero','03' => 'marzo','04' => 'abril',
                 '05' => 'mayo','06' => 'junio','07' => 'julio','08' => 'agosto',
@@ -70,23 +70,22 @@
         if(!is_dir($dir_to_save)){
             mkdir($dir_to_save);
         }
-        $filename = "of_".$rows->oferta->id; $filename .= "_insc_".$rows->id; $filename .= ".png";
-        $mje = URL::to("/verificar-certificado?cuv=").$rows->codigo_verificacion;
+        $filename = "ev_".$rows->oferta->id; $filename .= "_insc_".$rows->id; $filename .= ".png";
+        $mje = URL::to("/verificar-certificado?cuv=").$rows->codigo_verificacion;        
         $writer->writeFile($mje,$dir_to_save.$filename);
         //compruebo los caracteres del apellido y nombre
         $apellidoBien = HomeController::arreglarCaracteres($rows->apellido);
-        
     ?>    
+           
     <div class="certificado">
-        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
+        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>        
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
-            <img src="<?php echo public_path()."/img/LOGO-200x60px.png" ?>" width="150"/>
+            <p>La <b>Universidad del Chubut</b>&nbsp; certifica que</p>
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
             ?>
-            <?php if(strlen($nomyape) < 30):?>
+            <?php if(strlen($nomyape) < 31):?>
                 <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php else:?>
                 <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
@@ -99,7 +98,7 @@
                 <?php $dni = $rows->documento;?>
             <?php endif;?> 
                 </p>
-            <p>ha cursado y aprobado el <p>
+            <p>ha participado en calidad de asistente al </p>
             @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
             @elseif(strlen($nombreOferta) < 60)
@@ -107,7 +106,7 @@
             @else
                 <p><b style="font-size: 14pt">{{$nombreOferta}}</b></p>
             @endif
-            <?php if($rows->oferta->lugar != null):?>
+            <?php if($rows->oferta->lugar != null):?>                
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                       $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
                       $mismoMes = $fechaInicio[1] == $fechaFin[1];
@@ -158,28 +157,30 @@
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
+    
 </body>
 =======
 <!DOCTYPE html>
-<html lang='es-AR'>
+<html lang="es-AR">
     <head>
-        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>        
-        <style>            
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" href="{{ asset('public/favicon.png') }}" type="image/x-icon">
+        <style>
             body {
                 //border: 1px solid red;
                 font-family: 'Raleway';
                 margin: -30px;
                 width: 100%;
-                height: 760px;                
+                height: 760px;
             }
             .certificado{
-                //border: 1px solid black;                
+                //border: 1px solid black;
                 width: 1085px;
                 height: 735px;
                 position: relative;
             }
             #textoCertificado{
-                //border: solid 2px green;                
+                //border: solid 2px green;
                 position: absolute;
                 width: 100%;
                 top: 170px;
@@ -213,10 +214,9 @@
                 width: 100%;
             }
         </style>
-    </head>    
+    </head>
 <body>
     <?php
-        //$oferta = Session::get('oferta');
         //guardo en un array todos los meses - sirve para luego buscar el mes actual en string
         $meses = array('01' => 'enero','02' => 'febrero','03' => 'marzo','04' => 'abril',
                 '05' => 'mayo','06' => 'junio','07' => 'julio','08' => 'agosto',
@@ -231,8 +231,8 @@
         if(!is_dir($dir_to_save)){
             mkdir($dir_to_save);
         }
-        $filename = "of_".$rows->oferta->id; $filename .= "_insc_".$rows->id; $filename .= ".png";
-        $mje = URL::to("/verificar-certificado?cuv=").$rows->codigo_verificacion;
+        $filename = "ev_".$rows->oferta->id; $filename .= "_insc_".$rows->id; $filename .= ".png";
+        $mje = URL::to("/verificar-certificado?cuv=").$rows->codigo_verificacion;        
         $writer->writeFile($mje,$dir_to_save.$filename);
         //compruebo los caracteres del apellido y nombre
         $apellidoBien = HomeController::arreglarCaracteres($rows->apellido);
@@ -246,17 +246,17 @@
         }
         $urlImagen = public_path(); $urlImagen .= "/system/Oferta/cert_base_alums/000/000/"; $urlImagen .= $idOferta; $urlImagen .= "/original/"; $urlImagen .= $imagenFondoCertificado;
     ?>    
+           
     <div class="certificado">
-        <!--<img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
-        <img src="<?php echo $urlImagen ?>" alt="Certificado base aprobados" style="width: 1085px;height: 760px;"/>
+        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
+        <!--<img src="<?php //echo $urlImagen ?>" alt="Certificado base asistentes" style="width: 1085px;height: 760px;"/>-->
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
-            <!--<img src="<?php //echo $urlImagen ?>" width="150"/>-->
+            <p>La <b>Universidad del Chubut</b>&nbsp; certifica que</p>
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
             ?>
-            <?php if(strlen($nomyape) < 30):?>
+            <?php if(strlen($nomyape) < 31):?>
                 <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php else:?>
                 <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
@@ -269,7 +269,7 @@
                 <?php $dni = $rows->documento;?>
             <?php endif;?> 
                 </p>
-            <p>ha cursado y aprobado el <p>
+            <p>ha participado en calidad de asistente al </p>
             @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
             @elseif(strlen($nombreOferta) < 60)
@@ -277,7 +277,7 @@
             @else
                 <p><b style="font-size: 14pt">{{$nombreOferta}}</b></p>
             @endif
-            <?php if($rows->oferta->lugar != null):?>
+            <?php if($rows->oferta->lugar != null):?>                
                 <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                       $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
                       $mismoMes = $fechaInicio[1] == $fechaFin[1];
@@ -328,6 +328,7 @@
             <!--<p id="cuvhelp">Para verificar el certificado accedé a <?php //echo URL::to('/verificar-certificado');?> o escaneá el código QR con tu celular</p>-->
             <div id='cuvqr'><img src="<?php echo $dir_to_save.$filename ?>" alt="Código QR" style="width: 100px;height: 100px;"/></div>
     </div>
+    
 </body>
 >>>>>>> 3a8a6fb4a8c9354d7d160de2a0f13577ca546511
 </html>
