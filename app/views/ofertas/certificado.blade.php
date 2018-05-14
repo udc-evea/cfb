@@ -88,10 +88,20 @@
         }elseif($capacPersonal->sexo_id == 2){
            $pronombre = "la";
         }
+        if ($rows->id < 10){
+            $idOferta = "00".$rows->id;
+        }elseif($rows->id < 100){
+            $idOferta = "0".$rows->id;
+        }else{
+            $idOferta = $rows->id;
+        }
+        $imagenFondoCertificado = $rows->cert_base_cap_file_name;
+        $urlImagen = public_path(); $urlImagen .= "/system/Oferta/cert_base_caps/000/000/"; $urlImagen .= $idOferta; $urlImagen .= "/original/"; $urlImagen .= $imagenFondoCertificado;
     ?>  
     
     <div class="certificado">
-        <img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
+        <!--<img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
+        <img src="<?php echo $urlImagen ?>" alt="Certificado base capacitadores" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut</b>&nbsp; certifica que</p>
             <?php if($capacPersonal->titulacion_id != 1):?>

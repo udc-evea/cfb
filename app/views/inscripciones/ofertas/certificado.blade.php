@@ -74,13 +74,22 @@
         $writer->writeFile($mje,$dir_to_save.$filename);
         //compruebo los caracteres del apellido y nombre
         $apellidoBien = HomeController::arreglarCaracteres($rows->apellido);
-        
+        $imagenFondoCertificado = $rows->oferta->cert_base_alum_file_name;
+        if ($rows->oferta->id < 10){
+            $idOferta = "00".$rows->oferta->id;
+        }elseif($rows->oferta->id < 100){
+            $idOferta = "0".$rows->oferta->id;
+        }else{
+            $idOferta = $rows->oferta->id;
+        }
+        $urlImagen = public_path(); $urlImagen .= "/system/Oferta/cert_base_alums/000/000/"; $urlImagen .= $idOferta; $urlImagen .= "/original/"; $urlImagen .= $imagenFondoCertificado;
     ?>    
     <div class="certificado">
-        <img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>
+        <!--<img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
+        <img src="<?php echo $urlImagen ?>" alt="Certificado base aprobados" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
             <p>La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
-            <img src="<?php echo public_path()."/img/LOGO-200x60px.png" ?>" width="150"/>
+            <!--<img src="<?php //echo $urlImagen ?>" width="150"/>-->
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
