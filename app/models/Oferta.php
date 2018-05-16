@@ -34,6 +34,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'resolucion_nro' => 'between:2,30|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|min:0',
         'fecha_inicio_oferta' => 'date_format:d/m/Y',
         'fecha_fin_oferta' => 'date_format:d/m/Y',
+        'fecha_expedicion_cert' => 'required|date_format:d/m/Y',
         'lugar' => 'between:2,100',
         'duracion_hs' => 'integer|min:0',
         'lleva_tit_previa' => 'integer',
@@ -443,7 +444,15 @@ class Oferta extends Eloquent implements StaplerableInterface {
 
     public function setFechaFinOfertaAttribute($fecha) {
         $this->attributes['fecha_fin_oferta'] = ModelHelper::getFechaISO($fecha);
-    }    
+    }
+    
+    public function getFechaExpedicionCertAttribute($fecha) {
+        return Carbon::parse($fecha)->format('d/m/Y');
+    }
+
+    public function setFechaExpedicionCertAttribute($fecha) {
+        $this->attributes['fecha_expedicion_cert'] = ModelHelper::getFechaISO($fecha);
+    }
 
     public function getPermiteInscripcionesAttribute() {
         return ModelHelper::trueOrNull($this->attributes['permite_inscripciones']);
@@ -527,21 +536,43 @@ class Oferta extends Eloquent implements StaplerableInterface {
         $diaDespuesFinPreinscripciones = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
         self::$rules['inicio'].='|before:' . $diaDespuesFinPreinscripciones;
         
-        //fecha de inicio_oferta menor o igual a fecha de fin_oferta
-        list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
-        $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
-        self::$rules['fecha_inicio_oferta'].='|before:' . $diaDespuesFinOferta;
+        //si hay fecha_inicio_oferta debe haber fecha_fin_oferta y viceversa        
+        if (($input['fecha_inicio_oferta'] != null)||($input['fecha_fin_oferta'] != null)){
+            self::$rules['fecha_inicio_oferta'] .= '|required';
+            self::$rules['fecha_fin_oferta'] .= '|required';       
+        }
         
-        //fecha de inicio_oferta mayor o igual a fecha de inicio_preinscripciones
-        list($day,$mon,$year) = explode('/',$input['inicio']);
-        $diaAntesInicioPreinscripcion = date('d/m/Y',mktime(0,0,0,$mon,$day-1,$year));
-        self::$rules['fecha_inicio_oferta'].='|after:' . $diaAntesInicioPreinscripcion;
+        //fecha de inicio_oferta menor o igual a fecha de fin_oferta
+        if ($input['fecha_inicio_oferta'] != null){            
+            list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
+            $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
+            self::$rules['fecha_inicio_oferta'].='|before:' . $diaDespuesFinOferta;
+        }
+        
+        //fecha de inicio_oferta mayor o igual a fecha de fin_preinscripciones
+        if ($input['fecha_inicio_oferta'] != null){
+            list($day,$mon,$year) = explode('/',$input['fin']);
+            $diaAntesFinPreinscripcion = date('d/m/Y',mktime(0,0,0,$mon,$day-1,$year));
+            self::$rules['fecha_inicio_oferta'].='|after:' . $diaAntesFinPreinscripcion;
+        }
         
         //fecha de fin_preinscripciones menor o igual a fecha de fin_oferta
-        list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
-        $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
-        self::$rules['fin'].='|before:' . $diaDespuesFinOferta;
+        //if ($input['fecha_fin_oferta'] != null){
+        //    list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
+        //    $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
+        //    self::$rules['fin'].='|before:' . $diaDespuesFinOferta;
+        //}
         
+        //fecha_expedicion_cert mayor o igual a fecha de fin_fin_oferta o fecha fin_preinscripciones
+        if ($input['fecha_fin_oferta'] != null){
+            list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
+            $diaAntesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day-1,$year));
+            self::$rules['fecha_expedicion_cert'].='|after:' . $diaAntesFinOferta;
+        }else{
+            list($day,$mon,$year) = explode('/',$input['fin']);
+            $diaAntesFinPreinscripciones = date('d/m/Y',mktime(0,0,0,$mon,$day-1,$year));
+            self::$rules['fecha_expedicion_cert'].='|after:' . $diaAntesFinPreinscripciones;
+        }
     }
     
     /*public function agregarReglas2($input) {

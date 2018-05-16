@@ -128,5 +128,5 @@ var OfertasModule = {
         
         //alert("Concatenado:"+texto);
         document.getElementById('doc_a_presentar').value = texto;
-    }
+    }       
 };

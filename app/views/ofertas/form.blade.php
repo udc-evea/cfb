@@ -258,31 +258,37 @@ input[readonly] {
     {{ Former::text('resolucion_nro')
             ->label('Resolución/Expediente Nro.')
             ->help('Ingrese el Nro. de Resolución/Expediente dispuesta por la UDC.')
-            ->placeholder('Ej.: Res./Expte. UDC-000/2016')
-            
+            ->placeholder('Ej.: Res./Expte. UDC-000/2016');            
     }}
     <hr>
     {{ Former::text('fecha_inicio_oferta')
                 ->label('Fecha de inicio de la Oferta')
                 ->addClass('fecha')
-                ->placeholder('Colocar la fecha de inicio de la Oferta.')
+                ->placeholder('Colocar la fecha de inicio de la Oferta.');                
     }}
     <hr>
     {{ Former::text('fecha_fin_oferta')
                 ->label('Fecha de finalización de la Oferta')
                 ->addClass('fecha')
-                ->placeholder('Colocar la fecha de finalización de la Oferta.')
+                ->placeholder('Colocar la fecha de finalización de la Oferta.');                
+    }}
+    <hr>
+    {{ Former::text('fecha_expedicion_cert')
+                ->label('Fecha de expedicion de los Certificados')
+                ->addClass('fecha')
+                ->placeholder('Colocar la fecha de expedición de los certificados.')
+                ->required();
     }}
     <hr>
     {{ Former::text('lugar')
                 ->label('Lugar de encuentro') 
-                ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.')
+                ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.');
     }}
     <hr>
     {{ Former::number('duracion_hs')
                 ->label('Duración de la Oferta (en HS.)')
                 ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
-                ->class('span7')
+                ->class('span7');
     }}
     <hr>
     <div class="form-group">
@@ -521,8 +527,9 @@ input[readonly] {
         }else{
             //window.alert('(IF false) Oferta tipo: '+oferta_id);
             divAOcultar.style.display='block';
-            document.getElementById('fecha_inicio_oferta').required = true;
-            document.getElementById('fecha_fin_oferta').required = true;
+            /* quito el required de fecha_inicio_oferta y fecha_fin_oferta s/mail de guillermo del 2018-05-14 */
+            //document.getElementById('fecha_inicio_oferta').required = true;
+            //document.getElementById('fecha_fin_oferta').required = true;
         }
     };
     
@@ -564,5 +571,5 @@ input[readonly] {
         //alert("Concatenado:"+texto);
         document.getElementById('doc_a_presentar').value = texto;
     }
-    
+        
 </script>

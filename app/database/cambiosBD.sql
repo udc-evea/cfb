@@ -378,3 +378,21 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> ALTER TABLE `oferta_formativa` CHANGE `certificado_digital` `certificado_alumno_digital` TINYINT(4) NOT NULL DEFAULT '0';
 /* Creo el campo "certificado_capacitador_digital" que habilita/deshabilita el envío de los certificados digitales de esa oferta a los capacitadores*/
 -> ALTER TABLE `oferta_formativa` ADD `certificado_capacitador_digital` TINYINT NOT NULL DEFAULT '0' AFTER `certificado_alumno_digital`;
+
+
+/* ######  2018/05/15  ####################### */
+--    VERSION_BASE: 3.2.1 - VERSION_CODIGO: 3.1.19
+/* 
+1) se cambia la versión del código en 3.1.19
+2) se cambia la versión de la base de datos en 3.2.1
+3) se agrega el campo fecha_expedicion_cert en ofertas/eventos
+4) se deshabilita el require de fecha_inicio y fecha_fin de oferte/evento
+5) se cambian los 3 certificados (aprobados, asistentes y capacitadores)
+
+
+/* Cambio en la base la versión de código del sistema, de 3.1.18 a 3.1.19 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.19' WHERE  `version_bd`.`version_codigo` =  '3.1.18' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.2.0 a 3.2.1 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.1' WHERE  `version_bd`.`version` =  '3.2.0' LIMIT 1 ;
+/* Agrego el campo "fecha_expedicion_cert" para poner en los certificados */
+-> ALTER TABLE `oferta_formativa` ADD `fecha_expedicion_cert` DATE NULL DEFAULT NULL COMMENT 'Fecha de expedicion del certificado. Es para que figure esta fecha en los certificados.' AFTER `fecha_fin_oferta`;

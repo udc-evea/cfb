@@ -2,7 +2,6 @@
 <html lang="es-AR">
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-        <link rel="shortcut icon" href="{{ asset('public/favicon.png') }}" type="image/x-icon">
         <!--<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
         <style>
             
@@ -139,7 +138,7 @@
                 $mes = date('m');
                 $anio = date('Y');
                 if($rows->fecha_fin_oferta != null){
-                    $fecha = explode('/',$rows->fecha_fin_oferta);
+                    $fecha = explode('/',$rows->fecha_expedicion_cert);
                     $dia = $fecha[0];
                     $mes = $fecha[1];
                     $anio = $fecha[2];

@@ -116,23 +116,28 @@
                 <p><b style="font-size: 14pt">{{$nombreOferta}}</b></p>
             @endif
             <?php if($rows->oferta->lugar != null):?>                
-                <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
-                      $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
-                      $mismoMes = $fechaInicio[1] == $fechaFin[1];
-                ?>
-                <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
-                    <p>realizado en {{$rows->oferta->lugar}} el día {{$fechaInicio[0]}} 
-                       de {{array_get($meses,$fechaInicio[1])}} del {{$fechaInicio[2]}}.
-                    </p>
-                <?php elseif($mismoMes):?>
-                <p>realizado en {{$rows->oferta->lugar}} del {{$fechaInicio[0]}} al 
-                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
-                </p>
+                <p>realizado en {{$rows->oferta->lugar}}
+                <?php if(($rows->oferta->fecha_inicio_oferta != '30/11/-0001')&&($rows->oferta->fecha_fin_oferta != '30/11/-0001')):?>
+                    <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
+                          $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
+                          $mismoMes = $fechaInicio[1] == $fechaFin[1];
+                    ?>
+                    <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
+                        el día {{$fechaInicio[0]}} 
+                        de {{array_get($meses,$fechaInicio[1])}} del {{$fechaInicio[2]}}.
+                        </p>
+                    <?php elseif($mismoMes):?>
+                        del {{$fechaInicio[0]}} al 
+                        {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
+                        </p>
+                    <?php else:?>
+                        del {{$fechaInicio[0]}} de 
+                        {{array_get($meses, $fechaInicio[1])}} al {{$fechaFin[0]}} de 
+                        {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
+                        </p>
+                    <?php endif;?>
                 <?php else:?>
-                <p>realizado en {{$rows->oferta->lugar}} del {{$fechaInicio[0]}} de 
-                    {{array_get($meses, $fechaInicio[1])}} al {{$fechaFin[0]}} de 
-                    {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
-                </p>
+                    </p>
                 <?php endif;?>
             <?php endif;?>
             <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
@@ -149,7 +154,7 @@
                 $mes = date('m');
                 $anio = date('Y');
                 if($rows->oferta->fecha_fin_oferta != null){
-                    $fecha = explode('/',$rows->oferta->fecha_fin_oferta);
+                    $fecha = explode('/',$rows->oferta->fecha_expedicion_cert);
                     $dia = $fecha[0];
                     $mes = $fecha[1];
                     $anio = $fecha[2];

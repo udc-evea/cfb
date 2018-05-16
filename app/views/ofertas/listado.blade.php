@@ -152,7 +152,8 @@
                                                     $resol = $oferta->resolucion_nro;
                                                     $fechafinoferta = $oferta->fecha_fin_oferta;
                                                 ?>
-                                                <?php if (($nomb != null)&&($fechafinoferta != null)): ?>
+                                                <?php //if (($nomb != null)&&($fechafinoferta != null)): ?>
+                                                <?php if ($nomb != null): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $oferta->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                                     <?php if (($capacPersonal->getEmail() != null) && ($oferta->enviarCertificadoCapacitadorDigital())): ?>
                                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador">{{$capacitador->getCantNotificacionesConCertificado()}} <span class='glyphicon glyphicon-envelope'></span></a>

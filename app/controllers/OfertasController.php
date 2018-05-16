@@ -176,11 +176,11 @@ class OfertasController extends BaseController {
 	 */
 	public function store()
 	{
-		//$input = Input::all();
+		//$input = Input::all();                
                 $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar');
 		$this->oferta->agregarReglas($input);
-                $fechaInicioOferta = Input::get('fecha_inicio_oferta');
-                $fechaFinOferta = Input::get('fecha_fin_oferta');
+                //$fechaInicioOferta = Input::get('fecha_inicio_oferta');
+                //$fechaFinOferta = Input::get('fecha_fin_oferta');
                 /*if($fechaFinOferta != null){
                     $this->oferta->agregarReglas2($input);
                 }
