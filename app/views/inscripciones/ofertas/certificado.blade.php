@@ -100,14 +100,14 @@
                 <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php endif?>
             <?php if(ctype_digit($rows->documento)):?>
-                <?php echo number_format($rows->documento, 0, ',', '.');?>                    
+                <?php echo number_format($rows->documento, 0, ',', '.').",";?>                    
                 <?php $dni = number_format($rows->documento, 0, ',', '.');?>
             <?php else:?>
-                <?php echo $rows->documento;?> 
+                <?php echo $rows->documento.",";?> 
                 <?php $dni = $rows->documento;?>
             <?php endif;?> 
                 </p>
-            <p>ha cursado y aprobado el <p>
+            <p>cursó y aprobó <p>
             @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
             @elseif(strlen($nombreOferta) < 60)
