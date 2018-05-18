@@ -77,7 +77,10 @@
                             <span><b>{{ $tipoOferta }}: </b></span>
                             <ul>
                                 <li>Nombre: {{ $oferta[0]->nombre }}</li>
-                                <li>Finalización: {{ $oferta[0]->fecha_fin_oferta }}</li>
+                                @if($oferta[0]->fecha_fin_oferta != null)
+                                    <li>Finalización: {{ $oferta[0]->fecha_fin_oferta }}</li>
+                                @endif
+                                <li>Fecha expedición del certificado: {{ $oferta[0]->fecha_expedicion_cert }}</li>
                                 @if ($oferta[0]->duracion_hs > 0)
                                     <li>Duración (en horas): {{$oferta[0]->duracion_hs}}</li>
                                 @endif
