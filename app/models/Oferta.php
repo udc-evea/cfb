@@ -543,7 +543,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         }
         
         //fecha de inicio_oferta menor o igual a fecha de fin_oferta
-        if ($input['fecha_inicio_oferta'] != null){            
+        if (($input['fecha_inicio_oferta'] != null)&&($input['fecha_fin_oferta'] != null)){
             list($day,$mon,$year) = explode('/',$input['fecha_fin_oferta']);
             $diaDespuesFinOferta = date('d/m/Y',mktime(0,0,0,$mon,$day+1,$year));
             self::$rules['fecha_inicio_oferta'].='|before:' . $diaDespuesFinOferta;
