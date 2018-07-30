@@ -89,7 +89,7 @@
         <!--<img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
         <img src="<?php echo $urlImagen ?>" alt="Certificado base asistentes" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut</b>&nbsp; certifica que</p>
+            <p>La <b>Universidad del Chubut</b>&nbsp;&nbsp; certifica que</p>
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
