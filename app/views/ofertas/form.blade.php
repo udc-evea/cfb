@@ -89,7 +89,8 @@ input[readonly] {
 <hr>
 {{ Former::number('cupo_maximo')
             ->label('Cupo máximo')
-            ->placeholder('0 o vacío: sin cupo.') 
+            ->placeholder('0: sin cupo.')
+            ->required();
 }}
 <hr>
 {{ Former::textarea('terminos')
@@ -290,7 +291,8 @@ input[readonly] {
     {{ Former::number('duracion_hs')
                 ->label('Duración de la Oferta (en HS.)')
                 ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
-                ->class('span7');                
+                ->class('span7')
+                ->required();
     }}
     <hr>
     <div class="form-group">
