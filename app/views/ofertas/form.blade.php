@@ -96,6 +96,7 @@ input[readonly] {
             ->label('Reglamento')
             ->rows(8)
             ->placeholder('Ingrese el texto que se mostrará como REGLAMENTO en la inscripción.')
+            ->required();
 }}
 <hr>
     <div class="form-group">
@@ -288,7 +289,8 @@ input[readonly] {
     {{ Former::number('duracion_hs')
                 ->label('Duración de la Oferta (en HS.)')
                 ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
-                ->class('span7');
+                ->class('span7')
+                ->required();
     }}
     <hr>
     <div class="form-group">
