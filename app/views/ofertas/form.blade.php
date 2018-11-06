@@ -95,8 +95,7 @@ input[readonly] {
 {{ Former::textarea('terminos')
             ->label('Reglamento')
             ->rows(8)
-            ->placeholder('Ingrese el texto que se mostrará como REGLAMENTO en la inscripción.')
-            ->required();
+            ->placeholder('Ingrese el texto que se mostrará como REGLAMENTO en la inscripción.')            
 }}
 <hr>
     <div class="form-group">
@@ -265,13 +264,15 @@ input[readonly] {
     {{ Former::text('fecha_inicio_oferta')
                 ->label('Fecha de inicio de la Oferta')
                 ->addClass('fecha')
-                ->placeholder('Colocar la fecha de inicio de la Oferta.');                
+                ->placeholder('Colocar la fecha de inicio de la Oferta.')
+                ->required();
     }}
     <hr>
     {{ Former::text('fecha_fin_oferta')
                 ->label('Fecha de finalización de la Oferta')
                 ->addClass('fecha')
-                ->placeholder('Colocar la fecha de finalización de la Oferta.');                
+                ->placeholder('Colocar la fecha de finalización de la Oferta.')
+                ->required();                
     }}
     <hr>
     {{ Former::text('fecha_expedicion_cert')
@@ -289,8 +290,7 @@ input[readonly] {
     {{ Former::number('duracion_hs')
                 ->label('Duración de la Oferta (en HS.)')
                 ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
-                ->class('span7')
-                ->required();
+                ->class('span7');                
     }}
     <hr>
     <div class="form-group">

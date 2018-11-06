@@ -210,6 +210,14 @@ class OfertasController extends BaseController {
                   if($this->oferta->getEsCarreraAttribute()){
                       $this->oferta->setFechaFinOfertaAttribute(null);
                   }
+                  //compruebo si cupo_maximo es 0 o NULL
+                  if(($this->oferta->cupo_maximo == NULL)||($this->oferta->cupo_maximo == 0)){
+                        $this->oferta->cupo_maximo = 0;
+                  }
+                  //compruebo si la duracion_hs es 0 o NULL
+                  if(($this->oferta->duracion_hs == NULL)||($this->oferta->duracion_hs == 0)){
+                        $this->oferta->duracion_hs = 0;
+                  }
                   //compruebo si la oferta debe llevar más documentacion o no
                   if($presentarMasDoc == NULL){
                         $this->oferta->presentar_mas_doc = 0;
