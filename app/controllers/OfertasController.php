@@ -216,6 +216,7 @@ class OfertasController extends BaseController {
                   }
                   //compruebo si la duracion_hs es 0 o NULL
                   if(($this->oferta->duracion_hs == NULL)||($this->oferta->duracion_hs == 0)){
+                      throw new Exception();
                         $this->oferta->duracion_hs = 0;
                   }
                   //compruebo si la oferta debe llevar más documentacion o no
