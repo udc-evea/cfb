@@ -92,7 +92,7 @@
             <!--<img src="<?php //echo $urlImagen ?>" width="150"/>-->
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
-                $nombreOferta = $rows->oferta->nombre;;
+                $nombreOferta = $rows->oferta->nombre;
             ?>
             <?php if(strlen($nomyape) < 30):?>
                 <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
@@ -107,7 +107,8 @@
                 <?php $dni = $rows->documento;?>
             <?php endif;?> 
                 </p>
-            <p>cursó y aprobó <p>
+            <!--<p>cursó y aprobó <p>-->
+            <p>{{ $rows->oferta->condicion_en_certificado }}</p>
             @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
             @elseif(strlen($nombreOferta) < 60)

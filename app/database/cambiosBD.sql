@@ -362,7 +362,7 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 3) Cambio en Certificados de Eventos
 4) Oferta: fecha_inicio_evento + fecha_fin_evento nuevos campos
 5) Tilde en Oferta/Carrera/evento para ver si se debe generar o no el certificado digital
-6) Envío de todos los certificados de una Oferta a los capacitadores (un solo boton)
+6) Envío de todos los certificados de una Oferta a los capacitadores (un solo boton) */
 
 /* Cambio en la base la versión de código del sistema, de 3.1.17 a 3.1.18 */
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.18' WHERE  `version_bd`.`version_codigo` =  '3.1.17' LIMIT 1 ;
@@ -389,10 +389,37 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 4) se deshabilita el require de fecha_inicio y fecha_fin de oferte/evento
 5) se cambian los 3 certificados (aprobados, asistentes y capacitadores)
 
-
 /* Cambio en la base la versión de código del sistema, de 3.1.18 a 3.1.19 */
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.19' WHERE  `version_bd`.`version_codigo` =  '3.1.18' LIMIT 1 ;
 /* Cambio en la base la versión del sistema, de 3.2.0 a 3.2.1 */
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.1' WHERE  `version_bd`.`version` =  '3.2.0' LIMIT 1 ;
 /* Agrego el campo "fecha_expedicion_cert" para poner en los certificados */
 -> ALTER TABLE `oferta_formativa` ADD `fecha_expedicion_cert` DATE NULL DEFAULT NULL COMMENT 'Fecha de expedicion del certificado. Es para que figure esta fecha en los certificados.' AFTER `fecha_fin_oferta`;
+
+
+/* ######  2018/11/20  ####################### */
+--    VERSION_BASE: 3.2.1 - VERSION_CODIGO: 3.1.19
+/* 
+1) se coloca el campo 'telefono' de inscripcion_oferta como NULL, para que no salga error en la importación de alumnos por archivo 
+2)  se coloca el campo 'telefono' de inscripcion_evento como NULL, para que no salga error en la importación de alumnos por archivo */
+/* Campo 'telefono' de inscripcion_oferta a NULL */
+-> ALTER TABLE `inscripcion_oferta` CHANGE `telefono` `telefono` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+/* Campo 'telefono' de inscripcion_evento a NULL */
+-> ALTER TABLE `inscripcion_evento` CHANGE `telefono` `telefono` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+
+/* ######  2018/11/20  ####################### */
+--    VERSION_BASE: 3.2.2 - VERSION_CODIGO: 3.1.20
+/* 
+1) se cambia la versión del código en 3.1.20
+2) se cambia la versión de la base de datos en 3.2.2
+3) se agrega el campo 'condicion_en_certificado' en Oferrtas/Evento donde describe el "ha cursado y aprobado/asistido" en el certificado */
+
+/* Cambio en la base la versión de código del sistema, de 3.1.18 a 3.1.19 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.20' WHERE  `version_bd`.`version_codigo` =  '3.1.19' LIMIT 1 ;
+/* Cambio en la base la versión del sistema, de 3.2.0 a 3.2.1 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.2' WHERE  `version_bd`.`version` =  '3.2.1' LIMIT 1 ;
+/* agrego el campo 'condicion_en_certificado' donde se especifica si el inscripto aprobo/asistio al curso/evento */
+-> ALTER TABLE `oferta_formativa` ADD `condicion_en_certificado` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ha cursado/aprobado' COMMENT 'Campo donde se especifica lo que sale en el certificado cuando el inscripto aprueba/asiste a un curso/evento.' AFTER `titulacion_id`;
+
+

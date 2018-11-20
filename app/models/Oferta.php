@@ -39,6 +39,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'duracion_hs' => 'required|integer|min:0',
         'lleva_tit_previa' => 'integer',
         'titulacion_id' => 'required|exists:titulacion,id',
+        'condicion_en_certificado' => 'required|between:10,100|regex:/^[0-9+\(\)#\.\,\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',
         'certificado_alumno_digital' => 'integer',
         'certificado_capacitador_digital' => 'integer'
     );

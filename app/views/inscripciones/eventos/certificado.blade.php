@@ -106,8 +106,9 @@
                 <?php echo $rows->documento;?> 
                 <?php $dni = $rows->documento;?>
             <?php endif;?> 
-                </p>
-            <p>ha participado en calidad de asistente al </p>
+                </p>            
+            <!--<p>ha participado en calidad de asistente al </p>-->
+            <p>{{ $rows->oferta->condicion_en_certificado }}</p>
             @if(strlen($nombreOferta) < 30)
                 <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
             @elseif(strlen($nombreOferta) < 60)

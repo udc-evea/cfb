@@ -339,7 +339,13 @@ input[readonly] {
             </div>
         </div>    
     </div>
-    
+    <hr>
+    {{ Former::text('condicion_en_certificado')
+                ->label('Condición para el Certificado:')
+                ->help('Especifique aqui lo que va a parecer en el certificado ("ha cursado y aprobado | ha participado en calidad de asistente")') 
+                //->class('span7')
+                ->required();
+    }}
     <hr>
     <div class="form-group">
         <label for="certificado_alumno_digital" class="control-label col-lg-2 col-sm-4">        
