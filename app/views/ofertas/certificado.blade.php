@@ -102,7 +102,7 @@
         <!--<img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
         <img src="<?php echo $urlImagen ?>" alt="Certificado base capacitadores" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut</b> &nbsp; &nbsp; certifica que </p>
+            <p>La <b>Universidad del Chubut</b> &nbsp;&nbsp;certifica que </p>
             <?php if($capacPersonal->titulacion_id != 1):?>
                 <p>{{$pronombre}}<b style="font-size: 20pt">
                     <?php echo $capacPersonal->getTitulacionPersonalAbreviada().". ";?>
