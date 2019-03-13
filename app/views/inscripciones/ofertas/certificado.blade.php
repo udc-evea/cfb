@@ -142,12 +142,12 @@
             </p>
             <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
             <?php if(($rows->oferta->resolucion_nro != null)&&($ConHoras==true)):?>
-                <p>según <?php echo $rows->oferta->resolucion_nro;?>, con una acreditación de 
-                   <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
+            <p>según <b><?php echo $rows->oferta->resolucion_nro;?></b>,</p>
+            <p> con una acreditación de <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->oferta->resolucion_nro == null)&&($ConHoras==true)):?>
                 <p>con una acreditación de <?php echo $rows->oferta->duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->oferta->resolucion_nro != null)&&($ConHoras==false)):?>
-                <p>según <?php echo $rows->oferta->resolucion_nro;?>.</p>
+                <p>según <b><?php echo $rows->oferta->resolucion_nro;?></b>.</p>
             <?php endif;?>
             <?php
                 $dia = date('d');

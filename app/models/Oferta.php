@@ -31,7 +31,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'doc_a_presentar' => 'between:2,2000',
         'url_imagen_mail' => 'between:2,100',
         'fecha_modif' => 'date_format:d/m/Y',
-        'resolucion_nro' => 'between:2,50|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|min:0',
+        'resolucion_nro' => 'between:2,255|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',//'required|integer|min:0',
         'fecha_inicio_oferta' => 'required|date_format:d/m/Y',
         'fecha_fin_oferta' => 'required|date_format:d/m/Y',
         'fecha_expedicion_cert' => 'required|date_format:d/m/Y',

@@ -423,3 +423,13 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> ALTER TABLE `oferta_formativa` ADD `condicion_en_certificado` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ha cursado/aprobado' COMMENT 'Campo donde se especifica lo que sale en el certificado cuando el inscripto aprueba/asiste a un curso/evento.' AFTER `titulacion_id`;
 
 
+/* ######  2019/03/13  ####################### */
+--    VERSION_BASE: 3.2.3 - VERSION_CODIGO: 3.1.20
+/* 
+1) se cambia la versión de la base de datos en 3.2.3
+3) se cambia el tamaño del campo 'resolucion_nro' a 255 caracteres en Ofertas/Evento */
+
+/* Cambio en la base la versión del sistema, de 3.2.2 a 3.2.3 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.3' WHERE  `version_bd`.`version` =  '3.2.2' LIMIT 1 ;
+/* cambia el tamaño del campo 'resolucion_nro' a 255 caracteres */
+-> ALTER TABLE `oferta_formativa` CHANGE `resolucion_nro` `resolucion_nro` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'Es el Nro. de Resolución interna con la cuál se aprueba la creación de esta Oferta';

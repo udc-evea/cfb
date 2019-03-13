@@ -126,12 +126,12 @@
             @endif
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
-                <p>según <?php echo $rows->resolucion_nro;?>, con una acreditación de 
-                   <?php echo $rows->duracion_hs;?> horas reloj.</p>
+            <p>según <b><?php echo $rows->resolucion_nro;?></b>,</p>
+            <p> con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro == null)&&($ConHoras==true)):?>
                 <p>con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro != null)&&($ConHoras==false)):?>
-                <p>según <?php echo $rows->resolucion_nro;?>.</p>
+                <p>según <b><?php echo $rows->resolucion_nro;?></b>.</p>
             <?php endif;?>
             <?php
                 $dia = date('d');
