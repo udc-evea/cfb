@@ -116,14 +116,13 @@
                 <p>D.N.I. <?php echo $capacPersonal->dni;?></p>
             <?php endif;?>
             <!--<p>D.N.I. <?php //echo $capacPersonal->dni?></p>-->
-            <p>ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
-            @if(strlen($rows->nombre) < 30)
-                <p><b style="font-size: 22pt"><?php echo $rows->nombre;?></b></p>
-            @elseif(strlen($rows->nombre) < 60)
-                <p><b style="font-size: 18pt"><?php echo $rows->nombre;?></b></p>
-            @else
-                <p><b style="font-size: 14pt"><?php echo $rows->nombre;?></b></p>
-            @endif
+            <p style="margin-top: -5px">ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
+            <?php $nombreOferta = $rows->nombre; ?>
+            <!-- Nombre de la Oferta/Evento -->
+            <?php if(strlen($nombreOferta) < 60){$interlineado="3px";}else{$interlineado="25px";}?>
+            <div class="row-fluid" style="padding: 0px 90px 0px 30px; margin-top: -20px">
+                <p style="font-size: 18pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
+            </div>
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
             <p>según <b><?php echo $rows->resolucion_nro;?></b>,</p>

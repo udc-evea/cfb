@@ -107,7 +107,8 @@ class OfertasController extends BaseController {
                             $capacPersonal = Personal::find($capacitador->personal_id);
                             Session::set('cap', $capacitador);
                             //Session::set('of', $oferta);
-                            return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
+                            //return $this->exportarPDF($oferta->nombre." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
+                            return $this->exportarPDF($oferta->id." - Certificado_del_Capacitador - ".$capacPersonal->apellido."_".$capacPersonal->nombre, $oferta, 'ofertas.certificado');
                         case parent::EXPORT_XLSCAPES:
                             $id_oferta = Request::get('ofid');
                             $oferta = DB::table('oferta_formativa')->where('id','=',$id_oferta)->get();

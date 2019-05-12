@@ -57,7 +57,8 @@ input[readonly] {
     {{ Former::text('nombre')
                 ->required()
                 ->onGroupAddClass('form-group-lg') 
-                ->placeholder('Ingrese el nombre de la Oferta (Sin números)')
+                ->maxlength(200)
+                ->placeholder('Ingrese el nombre de la Oferta')
     }}    
     <hr>
     {{ Former::number('anio')
@@ -90,6 +91,7 @@ input[readonly] {
 {{ Former::number('cupo_maximo')
             ->label('Cupo máximo')
             ->placeholder('0: sin cupo.')
+            //->value(0)
             ->required();
 }}
 <hr>

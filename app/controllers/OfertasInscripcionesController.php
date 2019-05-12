@@ -1,5 +1,7 @@
 <?php
 
+use \Carbon\Carbon as Carbon;
+
 class OfertasInscripcionesController extends BaseController {
 
     /**
@@ -47,29 +49,34 @@ class OfertasInscripcionesController extends BaseController {
                     Session::set('titulo','Inscriptos');
                     //traigo solos los inscriptos para exportar a excel
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarXLS($oferta->nombre."_inscriptos_XLS", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    //return $this->exportarXLS($oferta->nombre."_inscriptos_XLS", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    return $this->exportarXLS($oferta->id."_inscriptos_XLS", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFP:
                     //pongo el titulo del cuadro en la session
                     Session::set('titulo','Preinscriptos');
                     //traigo solos los preinscriptos para exportar a pdf
                     $preinscripciones = $oferta->inscripciones->all();
-                    return $this->exportarPDF($oferta->nombre."_preinscriptos_PDF", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    //return $this->exportarPDF($oferta->nombre."_preinscriptos_PDF", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    return $this->exportarPDF($oferta->id."_preinscriptos_PDF", $preinscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFI:
                     //pongo el titulo del cuadro en la session
                     Session::set('titulo','Inscriptos');
                     //traigo solos los inscriptos para exportar a pdf
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarPDF($oferta->nombre."_inscriptos_PDF", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    //return $this->exportarPDF($oferta->nombre."_inscriptos_PDF", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    return $this->exportarPDF($oferta->id."_inscriptos_PDF", $inscripciones, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_CSV:
                     //traigo solos los inscriptos para exportar a cvs
                     $inscripciones = $oferta->inscriptosOferta->all();
-                    return $this->exportarCSV($oferta->nombre."_inscriptos_CSV", $inscripciones, 'inscripciones.'.$oferta->view.'.csv')->with('tipoOferta',$tipoOferta);
+                    //return $this->exportarCSV($oferta->nombre."_inscriptos_CSV", $inscripciones, 'inscripciones.'.$oferta->view.'.csv')->with('tipoOferta',$tipoOferta);
+                    return $this->exportarCSV($oferta->id."_inscriptos_CSV", $inscripciones, 'inscripciones.'.$oferta->view.'.csv')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFA:
                     //traigo solo los datos de alumno APROBADO para exportar a pdf
                     $id_alumno = Request::get('alm');
                     $aprobado = $oferta->aprobados->find($id_alumno);
                     Session::set('oferta',$oferta);
-                    return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado');
+                    //return $this->exportarPDF($oferta->nombre." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado');
+                    return $this->exportarPDF($oferta->id." - Certificado_de_Aprobacion - ".$aprobado->apellido.'_'.$aprobado->nombre, $aprobado, 'inscripciones.'.$oferta->view.'.certificado');
                 case parent::ENV_PDFA:
                     //traigo solo los datos de alumno APROBADO para descargar a pdf
                     $id_alumno = Request::get('alm');
@@ -80,31 +87,36 @@ class OfertasInscripcionesController extends BaseController {
                     //traigo solo los datos de alumno ASISTENTE para exportar a pdf
                     $id_alumno = Request::get('alm');
                     $alumnoAsistente = $oferta->asistentes->find($id_alumno);
-                    return $this->exportarPDF($oferta->nombre." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
+                    //return $this->exportarPDF($oferta->nombre." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
+                    return $this->exportarPDF($oferta->id." - Certif_Asistencia - ".$alumnoAsistente->apellido.'_'.$alumnoAsistente->nombre, $alumnoAsistente, 'inscripciones.'.$oferta->view.'.certificado')->with('oferta',$oferta);
                 case parent::EXPORT_PDFASIST:
                     //pongo el titulo del cuadro en la session
                     Session::set('titulo','Asistentes');
                     //traigo todos los asistentes del evento para exportar a pdf                    
                     $asistentes = $oferta->asistentes->all();
-                    return $this->exportarPDF($oferta->nombre."_asistentes",$asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                    //return $this->exportarPDF($oferta->nombre."_asistentes",$asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                    return $this->exportarPDF($oferta->id."_asistentes",$asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
                 case parent::EXPORT_XLSAS:
                     //pongo el titulo del cuadro en la session
                     Session::set('titulo','Asistentes');
                     //traigo solos los asistentes al evento para exportar a excel
                     $asistentes = $oferta->asistentes->all();
-                    return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    //return $this->exportarXLS($oferta->nombre."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    return $this->exportarXLS($oferta->id."_asistentes_XLS", $asistentes, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
                 case parent::EXPORT_PDFAPDOS:
                     //pongo el titulo del cuadro en la session
                     Session::set('titulo','Aprobados');
                     //traigo todos los aprobados de la oferta para exportar a pdf
                     $aprobados = $oferta->aprobados->all();
-                    return $this->exportarPDF($oferta->nombre."_aprobados",$aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                    //return $this->exportarPDF($oferta->nombre."_aprobados",$aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
+                    return $this->exportarPDF($oferta->id."_aprobados",$aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('oferta',$oferta);
                 case parent::EXPORT_XLSAPDOS:
                     //pongo el titulo del cuadro en la session
                     Session::set('titulo','Aprobados');
                     //traigo todos los aprobados de la oferta para exportar a excel
                     $aprobados = $oferta->aprobados->all();
-                    return $this->exportarXLS($oferta->nombre."_aprobados_XLS", $aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    //return $this->exportarXLS($oferta->nombre."_aprobados_XLS", $aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
+                    return $this->exportarXLS($oferta->id."_aprobados_XLS", $aprobados, 'inscripciones.'.$oferta->view.'.excel')->with('tipoOferta',$tipoOferta);
             }
       }
       
@@ -1070,41 +1082,53 @@ class OfertasInscripcionesController extends BaseController {
                     $mje .= "<li>La columna 7 (del EMAIL) debe llamarse <b>email</b></li>";
                     $cabecera_ok = FALSE;
                 }
-                if($cabecera_ok){
+                if($cabecera_ok){                    
                     if(sizeof($fila)!=7){
                         $mje .= "<li> Fila $i: La cantidad de columnas no es 7. Revisar el archivo nuevamente!.</li>";
                     }
-                    if(($fila['tipo_documento']<1)||($fila['tipo_documento']>4)){
-                        $mje .= "<li> Fila $i: El Tipo de Documento debe ser uno de los siguientes codigos: 1-DNI, 2-LC, 3-LE o 4-Pasaporte.</li>";
-                    }
-                    $dni = $fila['documento'];                    
-                    if(($dni<99999)||($dni>99999999)){
-                        $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
-                    }
-                    if (($i>1)&&(in_array($dni,$arrayDNI))){
-                        $mje .= "<li> Fila $i:  El documento ya existe en este listado de alumnos, verifique!.</li>";
-                    }
-                    array_push($arrayDNI, $dni);
-                    if(ctype_space($fila['documento'])){
-                        $mje .= "<li> Fila $i:  El documento no debe contener espacios en blanco ni tabulaciones.</li>";
-                    }
-                    if(strlen($fila['apellido'])<3){
-                        $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
-                    }
-                    if(strlen($fila['nombre'])<3){
-                        $mje .= "<li> Fila $i:  El nombre debe tener por lo menos 3 caracteres de longitud.</li>";
-                    }
-                    $anio = explode('/',$fila['fecha_de_nacimiento']->format('d/m/Y'));
-                    if(($anio[2] < 1910) || ($anio[2] > (date('Y')-18))){
-                        $mje .= "<li> Fila $i:  La fecha de nacimiento no puede ser menor a 1910, ni mayor a ".(date('Y')-18)."</li>";
-                    }
-                    $arrayLocalidades = array('1','87','88','89','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114');
-                    $localidadID = $fila['localidad_id'];
-                    if(!in_array($localidadID,$arrayLocalidades)){
-                        $mje .= "<li> Fila $i:  El ID de localidad debe estar dentro de los valores estipulados.</li>";
-                    }
-                    if(strlen($fila['email'])<5){
-                        $mje .= "<li> Fila $i:  El mail debe tener por lo menos 5 caracteres de longitud.</li>";
+                    if(($fila['tipo_documento']==null)&&($fila['tipo_documento']=="")){
+                        $mje .= "<li> Fila $i: La fila esta vacia. Elimine esta fila del archivo XLS para poder importar correctamente!.</li>";
+                    }else{
+                        if(($fila['tipo_documento']<1)||($fila['tipo_documento']>4)){
+                            $mje .= "<li> Fila $i: El Tipo de Documento debe ser uno de los siguientes codigos: 1-DNI, 2-LC, 3-LE o 4-Pasaporte.</li>";
+                        }
+                        $dni = $fila['documento'];                    
+                        if(($dni<99999)||($dni>99999999)){
+                            $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
+                        }
+                        if (($i>1)&&(in_array($dni,$arrayDNI))){
+                            $mje .= "<li> Fila $i:  El documento ($dni) ya existe en este listado de alumnos, verifique!.</li>";
+                        }
+                        array_push($arrayDNI, $dni);
+                        if(ctype_space($fila['documento'])){
+                            $mje .= "<li> Fila $i:  El documento no debe contener espacios en blanco ni tabulaciones.</li>";
+                        }
+                        if(strlen($fila['apellido'])<3){
+                            $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
+                        }
+                        if(strlen($fila['nombre'])<3){
+                            $mje .= "<li> Fila $i:  El nombre debe tener por lo menos 3 caracteres de longitud.</li>";
+                        }                    
+                        //$anio = explode('/',(new Carbon($fila['fecha_de_nacimiento']))->format('d/m/Y'));
+                        $anio = explode('/',(new Carbon($fila['fecha_de_nacimiento']))->format('d/m/Y'));
+                        if (count($anio)>=3){
+                            $anio = explode('/',$fila['fecha_de_nacimiento']->format('d/m/Y'));
+                        }else{
+                            $anio[0]="01";$anio[1]="01";$anio[2]="1910";
+                            $mje .= "Count(anio):".count($anio);
+                            $mje .= "<li> Fila $i: Error en la fecha de nacimiento - REVISAR! - La fecha original era: ".$fila['fecha_de_nacimiento']."</li>";
+                        }                    
+                        if(($anio[2] < 1910) || ($anio[2] > (date('Y')-18))){
+                            $mje .= "<li> Fila $i: La fecha de nacimiento no puede ser menor a 1910, ni mayor a ".(date('Y')-18)."</li>";
+                        }
+                        $arrayLocalidades = array('1','87','88','89','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114');
+                        $localidadID = $fila['localidad_id'];
+                        if(!in_array($localidadID,$arrayLocalidades)){
+                            $mje .= "<li> Fila $i:  El ID de localidad debe estar dentro de los valores estipulados.</li>";
+                        }
+                        if(strlen($fila['email'])<5){
+                            $mje .= "<li> Fila $i:  El mail debe tener por lo menos 5 caracteres de longitud.</li>";
+                        }
                     }
                 }
                 $i++;
@@ -1162,7 +1186,14 @@ class OfertasInscripcionesController extends BaseController {
                 $inscripto['estado_inscripcion'] = $estadoInscripcion; //el estado_inscripcion 0: Preinscripto o 1: Inscripto
             }else{
                 $inscripto['estado_inscripcion'] = 1; //el estado_inscripcion 0: Preinscripto o 1: Inscripto
-                $inscripto->setCodigoVerificacion($this->generarCodigoDeVerificacion());
+                $codigoDeVerificacionExitente = false;
+                while (!$codigoDeVerificacionExitente){
+                    $nuevoCodigo = $this->generarCodigoDeVerificacion();
+                    if ($inscripto->setCodigoVerificacion($nuevoCodigo)){
+                        $codigoDeVerificacionExitente = true;
+                    }
+                }
+                //$inscripto->setCodigoVerificacion($this->generarCodigoDeVerificacion());
                 if($oferta->tipo_oferta == 2){
                     $inscripto['aprobado'] = 1; //coloco el 1 ya en en el formualario vino que todos los alumnos son aprobados
                 }else{

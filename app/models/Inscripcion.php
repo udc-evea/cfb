@@ -494,6 +494,6 @@ class Inscripcion extends Eloquent {
     
     public function setCodigoVerificacion($codigo){
         //gusrdo en la base el código de verificación
-        $this->attributes['codigo_verificacion'] = $codigo;
+        return $this->attributes['codigo_verificacion'] = $codigo;
     }
 }

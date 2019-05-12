@@ -21,7 +21,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     protected $dates = array('inicio', 'fin', 'fecha_inicio_oferta', 'fecha_fin_oferta');
     public $timestamps = false;
     public static $rules = array(
-        'nombre' => 'required|between:2,100|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/', //regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',
+        'nombre' => 'required|between:2,200',//|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/', //regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',
         'anio' => 'required|integer',
         'inicio' => 'required|date_format:d/m/Y',
         'fin' => 'required|date_format:d/m/Y',

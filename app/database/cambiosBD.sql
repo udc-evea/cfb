@@ -433,3 +433,18 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.3' WHERE  `version_bd`.`version` =  '3.2.2' LIMIT 1 ;
 /* cambia el tamaño del campo 'resolucion_nro' a 255 caracteres */
 -> ALTER TABLE `oferta_formativa` CHANGE `resolucion_nro` `resolucion_nro` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'Es el Nro. de Resolución interna con la cuál se aprueba la creación de esta Oferta';
+
+
+/* ######  2019/05/09  ####################### */
+--    VERSION_BASE: 3.2.4 - VERSION_CODIGO: 3.1.21
+/* 
+1) se cambia la versión de la base de datos en 3.2.4
+2) se cambia la versión del código en 3.1.21
+3) se cambia el tamaño del campo 'nombre' a 200 caracteres en Ofertas/Evento */
+
+/* Cambio en la base la versión del sistema, de 3.2.3 a 3.2.4 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.4' WHERE  `version_bd`.`version` =  '3.2.3' LIMIT 1 ;
+/* Cambio en la base la versión de código del sistema, de 3.1.20 a 3.1.21 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.21' WHERE  `version_bd`.`version_codigo` =  '3.1.20' LIMIT 1 ;
+/* se cambia el tamaño del campo 'nombre' a 200 caracteres en Ofertas/Evento */
+-> ALTER TABLE `oferta_formativa` CHANGE `nombre` `nombre` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

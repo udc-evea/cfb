@@ -94,10 +94,10 @@
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
                 $nombreOferta = $rows->oferta->nombre;;
             ?>
-            <?php if(strlen($nomyape) < 31):?>
-                <p style="font-size: 20pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+            <?php if(strlen($nomyape) < 30):?>
+                <p style="font-size: 20pt; margin-top: -5px"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php else:?>
-                <p style="font-size: 18pt"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
+                <p style="font-size: 18pt; margin-top: -5px"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php endif?>
             <?php if(ctype_digit($rows->documento)):?>
                 <?php echo number_format($rows->documento, 0, ',', '.');?>                    
@@ -108,14 +108,12 @@
             <?php endif;?> 
                 </p>            
             <!--<p>ha participado en calidad de asistente al </p>-->
-            <p>{{ $rows->oferta->condicion_en_certificado }}</p>
-            @if(strlen($nombreOferta) < 30)
-                <p><b style="font-size: 20pt">{{$nombreOferta}}</b></p>
-            @elseif(strlen($nombreOferta) < 60)
-                <p><b style="font-size: 18pt">{{$nombreOferta}}</b></p>
-            @else
-                <p><b style="font-size: 14pt">{{$nombreOferta}}</b></p>
-            @endif
+            <p style="margin-top: -5px">{{ $rows->oferta->condicion_en_certificado }}</p>
+            <!-- Nombre de la Oferta/Evento -->
+            <?php if(strlen($nombreOferta) < 60){$interlineado="3px";}else{$interlineado="25px";}?>
+            <div class="row-fluid" style="padding: 0px 90px 0px 30px; margin-top: -10px">
+                <p style="font-size: 20pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
+            </div>
             <?php if($rows->oferta->lugar != null):?>
                  <p>realizado en {{$rows->oferta->lugar}}
             <?php endif;?>

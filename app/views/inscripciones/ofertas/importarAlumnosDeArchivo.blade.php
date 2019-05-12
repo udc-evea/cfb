@@ -1,6 +1,7 @@
 @extends('layouts.scaffold')
 @section('title', 'Importar Alumnos - Universidad del Chubut')
 @section('main')
+<?php use \Carbon\Carbon as Carbon; ?>
 
 <style>
 .btn-file {
@@ -138,7 +139,12 @@ input[readonly] {
                                     <td <?php if(!$fila['documento']){ echo 'style="background-color: red"';}?>><?php echo $fila['documento']; ?></td>
                                     <td <?php if(!$fila['apellido']){ echo 'style="background-color: red"';}?>><?php echo $fila['apellido']; ?></td>
                                     <td <?php if(!$fila['nombre']){ echo 'style="background-color: red"';}?>><?php echo $fila['nombre']; ?></td>
-                                    <td><?php echo $fila['fecha_de_nacimiento']->format('d/m/Y'); ?></td>
+                                    <?php $anio = explode('/',(new Carbon($fila['fecha_de_nacimiento']))->format('d/m/Y'));?>
+                                    <?php if (count($anio)>=3): ?>
+                                        <td><?php echo $anio[0]."/".$anio[1]."/".$anio[2]; ?></td>
+                                    <?php else:?>
+                                        <td style="color: red"><?php echo "01/01/1900 (".$fila['fecha_de_nacimiento'].")"; ?></td>
+                                    <?php endif?>
                                     <?php $localidadID = $fila['localidad_id'];
                                         $existeLocalidad = false;
                                         foreach ($localidad as $loc){
