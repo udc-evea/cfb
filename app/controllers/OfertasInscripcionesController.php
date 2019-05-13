@@ -1187,12 +1187,9 @@ class OfertasInscripcionesController extends BaseController {
             }else{
                 $inscripto['estado_inscripcion'] = 1; //el estado_inscripcion 0: Preinscripto o 1: Inscripto
                 $codigoDeVerificacionExitente = false;
-                while (!$codigoDeVerificacionExitente){
-                    $nuevoCodigo = $this->generarCodigoDeVerificacion();
-                    if ($inscripto->setCodigoVerificacion($nuevoCodigo)){
-                        $codigoDeVerificacionExitente = true;
-                    }
-                }
+                do{
+                    $codigoDeVerificacionExitente = ($inscripto->setCodigoVerificacion($this->generarCodigoDeVerificacion()));
+                }while (!$codigoDeVerificacionExitente);
                 //$inscripto->setCodigoVerificacion($this->generarCodigoDeVerificacion());
                 if($oferta->tipo_oferta == 2){
                     $inscripto['aprobado'] = 1; //coloco el 1 ya en en el formualario vino que todos los alumnos son aprobados
