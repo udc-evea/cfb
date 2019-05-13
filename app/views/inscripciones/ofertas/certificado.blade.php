@@ -88,7 +88,7 @@
         <!--<img src="{{ asset($rows->oferta->cert_base_alum->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
         <img src="<?php echo $urlImagen ?>" alt="Certificado base aprobados" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
+            <p style="padding-top: -30px">La <b>Universidad del Chubut </b>&nbsp; certifica que</p>
             <!--<img src="<?php //echo $urlImagen ?>" width="150"/>-->
             <?php 
                 $nomyape = $rows->nombre." ".strtoupper($apellidoBien);
@@ -111,11 +111,11 @@
             <p style="margin-top: -5px">{{ $rows->oferta->condicion_en_certificado }}</p>
             <!-- Nombre de la Oferta/Evento -->
             <?php if(strlen($nombreOferta) < 60){$interlineado="3px";}else{$interlineado="25px";}?>
-            <div class="row-fluid" style="padding: 0px 90px 0px 30px; margin-top: -10px">
+            <div class="row-fluid" style="padding: -30px 90px 0px 30px; margin-top: -10px">
                 <p style="font-size: 20pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>
             <?php if($rows->oferta->lugar != null):?>
-                 <p>realizado en {{$rows->oferta->lugar}}
+                 <p style="padding-top: -30px">realizado en {{$rows->oferta->lugar}}
             <?php endif;?>
             <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                 $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
@@ -123,7 +123,7 @@
             ?>
             <?php if(($rows->oferta->fecha_inicio_oferta != '30/11/-0001')&&($rows->oferta->fecha_fin_oferta != '30/11/-0001')):?>
                 <?php if($rows->oferta->lugar == null):?>
-                    <p>realizado 
+                    <p style="padding-top: -30px">realizado 
                 <?php endif;?>     
                 <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
                     el día {{$fechaInicio[0]}} 
@@ -158,7 +158,7 @@
                     $anio = $fecha[2];
                 }
             ?>
-            <div style="font-size: 16pt">
+            <div style="font-size: 16pt; padding-top: -30px">
                 <p>Se extiende el presente certificado al <?php echo $dia; ?> de
                     <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
                 <p>en la ciudad de Rawson, Provincia del Chubut.</p>

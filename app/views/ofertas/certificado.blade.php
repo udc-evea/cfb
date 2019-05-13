@@ -102,7 +102,7 @@
         <!--<img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
         <img src="<?php echo $urlImagen ?>" alt="Certificado base capacitadores" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
-            <p>La <b>Universidad del Chubut</b> &nbsp;&nbsp;certifica que </p>
+            <p style="padding-top: -30px">La <b>Universidad del Chubut</b> &nbsp;&nbsp;certifica que </p>
             <?php if($capacPersonal->titulacion_id != 1):?>
                 <p>{{$pronombre}}<b style="font-size: 20pt">
                     <?php echo $capacPersonal->getTitulacionPersonalAbreviada().". ";?>
@@ -125,12 +125,12 @@
             </div>
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
-            <p>según <b><?php echo $rows->resolucion_nro;?></b>,</p>
+            <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>,</p>
             <p> con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro == null)&&($ConHoras==true)):?>
                 <p>con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro != null)&&($ConHoras==false)):?>
-                <p>según <b><?php echo $rows->resolucion_nro;?></b>.</p>
+                <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>.</p>
             <?php endif;?>
             <?php
                 $dia = date('d');
@@ -144,7 +144,7 @@
                 }
             ?>
             <div style="font-size: 16pt">
-                <p>Se extiende el presente certificado al <?php echo $dia; ?> de
+                <p style="padding-top: -30px">Se extiende el presente certificado al <?php echo $dia; ?> de
                     <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
                 <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
             </div>
