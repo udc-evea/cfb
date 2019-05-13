@@ -110,8 +110,8 @@
             <!--<p>ha participado en calidad de asistente al </p>-->
             <p style="margin-top: -5px">{{ $rows->oferta->condicion_en_certificado }}</p>
             <!-- Nombre de la Oferta/Evento -->
-            <?php if(strlen($nombreOferta) < 60){$interlineado="3px";}else{$interlineado="25px";}?>
-            <div class="row-fluid" style="padding: 0px 90px 0px 30px; margin-top: -10px">
+            <?php if(strlen($nombreOferta) < 60){$interlineado="20px";}else{$interlineado="25px";}?>
+            <div class="row-fluid" style="padding: -30px 90px 0px 30px; margin-top: -10px">
                 <p style="font-size: 20pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>
             <?php if($rows->oferta->lugar != null):?>
