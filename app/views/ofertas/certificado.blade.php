@@ -125,10 +125,10 @@
             </div>
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
-            <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>,</p>
-            <p> con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
+                <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>,</p>
+                <p> con una acreditación de <?php echo number_format($rows->duracion_hs, 1, ",", ".");?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro == null)&&($ConHoras==true)):?>
-                <p>con una acreditación de <?php echo $rows->duracion_hs;?> horas reloj.</p>
+                <p> con una acreditación de <?php echo number_format($rows->duracion_hs, 1, ",", ".");?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro != null)&&($ConHoras==false)):?>
                 <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>.</p>
             <?php endif;?>

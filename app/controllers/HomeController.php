@@ -239,7 +239,8 @@ class HomeController extends BaseController {
 
             $s1 = str_replace(
                 array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-                array('Ú', 'Ú', 'U', 'U', 'Ú', 'Ú', 'U', 'U'),
+                //array('Ú', 'Ú', 'U', 'U', 'Ú', 'Ú', 'U', 'U'),
+                array('Ú', 'Ú', 'Ü', 'U', 'Ú', 'Ú', 'U', 'Ü'), //alt+129=ü, alt+154=Ü
                 $s1
             );
 
