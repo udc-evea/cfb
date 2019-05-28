@@ -448,3 +448,16 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.21' WHERE  `version_bd`.`version_codigo` =  '3.1.20' LIMIT 1 ;
 /* se cambia el tamaño del campo 'nombre' a 200 caracteres en Ofertas/Evento */
 -> ALTER TABLE `oferta_formativa` CHANGE `nombre` `nombre` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+
+/* ######  2019/05/27  ####################### */
+--    VERSION_BASE: 3.2.5 - VERSION_CODIGO: 3.1.21
+/* 
+1) se cambia la versión de la base de datos en 3.2.5
+2) continua la versión del código en 3.1.21
+3) se cambia el tipo del campo 'duracion_hs' a FLOAT(4,1) en Ofertas/Eventos */
+
+/* Cambio en la base la versión del sistema, de 3.2.4 a 3.2.5 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.5' WHERE  `version_bd`.`version` =  '3.2.4' LIMIT 1 ;
+/* se cambia el tamaño del campo 'duracion_hs' a FLOAT(4,1) en Ofertas/Eventos */
+-> ALTER TABLE `oferta_formativa` CHANGE `duracion_hs` `duracion_hs` FLOAT UNSIGNED NULL DEFAULT '0.0' COMMENT 'La cantidad de horas reloj que involucra la Oferta.';

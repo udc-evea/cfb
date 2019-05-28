@@ -290,12 +290,25 @@ input[readonly] {
                 ->help('Especificar el lugar de encuentro dónde se llevará a cabo la Oferta.');
     }}
     <hr>
-    {{ Former::number('duracion_hs')
+    <!--{{ Former::number('duracion_hs')
                 ->label('Duración de la Oferta (en HS.)')
                 ->help('Ingrese la cantidad de horas reloj dispuesta para esta Oferta.') 
                 ->class('span7')
                 ->required();
-    }}
+    }}-->
+    <div class="form-group required">
+        <label for="duracion_hs" class="control-label col-lg-2 col-sm-4">Duración de la Oferta (en HS.)<sup>*</sup></label>
+        <div class="col-lg-10 col-sm-8">
+            <?php if(!$newForm): ?>
+                <!--<input class="span7" step="0.0" required="true" id="duracion_hs" type="number" pattern="[0-9]+([\.,][0-9]+)?" name="duracion_hs" value="{{$oferta->duracion_hs}}">-->
+                <input class="span7" type="text" inputmode="numeric" pattern="[-+]?[0-9]*[.,]?[0-9]+" name="duracion_hs" value="{{$oferta->duracion_hs}}">
+            <?php else: ?>
+                <!--<input class="span7" step="0.0" required="true" id="duracion_hs" type="number" pattern="[0-9]+([\.,][0-9]+)?" name="duracion_hs" value="0.0">-->
+                <input class="span7" type="text" inputmode="numeric" pattern="[-+]?[0-9]*[.,]?[0-9]+" name="duracion_hs" value="0.0">
+            <?php endif; ?>
+            <span class="help-block">Ingrese la cantidad de horas reloj dispuesta para esta Oferta.</span>
+        </div>
+    </div>
     <hr>
     <div class="form-group">
         <label for="lleva_tit_previa" class="control-label col-lg-2 col-sm-4">

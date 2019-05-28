@@ -36,7 +36,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'fecha_fin_oferta' => 'required|date_format:d/m/Y',
         'fecha_expedicion_cert' => 'required|date_format:d/m/Y',
         'lugar' => 'between:2,100',
-        'duracion_hs' => 'required|integer|min:0',
+        'duracion_hs' => 'required', //'required|integer|min:0',
         'lleva_tit_previa' => 'integer',
         'titulacion_id' => 'required|exists:titulacion,id',
         'condicion_en_certificado' => 'required|between:10,100|regex:/^[0-9+\(\)#\.\,\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',
