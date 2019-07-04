@@ -96,6 +96,13 @@
         }
         $imagenFondoCertificado = $rows->cert_base_cap_file_name;
         $urlImagen = public_path(); $urlImagen .= "/system/Oferta/cert_base_caps/000/000/"; $urlImagen .= $idOferta; $urlImagen .= "/original/"; $urlImagen .= $imagenFondoCertificado;
+        /* obtengo la cantidad de horas de duración del curso */
+        $duracion_hs = number_format($rows->duracion_hs, 1, ",", ".");
+        $hs = (string)number_format($rows->duracion_hs, 1, ",", ".");
+        $s_hs = explode(",",$hs);
+        if($s_hs[1] == "0"){
+            $duracion_hs = $s_hs[0];
+        }        
     ?>  
     
     <div class="certificado">
@@ -126,9 +133,9 @@
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
                 <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>,</p>
-                <p> con una acreditación de <?php echo number_format($rows->duracion_hs, 1, ",", ".");?> horas reloj.</p>
+                <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro == null)&&($ConHoras==true)):?>
-                <p> con una acreditación de <?php echo number_format($rows->duracion_hs, 1, ",", ".");?> horas reloj.</p>
+                <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro != null)&&($ConHoras==false)):?>
                 <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>.</p>
             <?php endif;?>

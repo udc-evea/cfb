@@ -83,6 +83,13 @@
             $idOferta = $rows->oferta->id;
         }
         $urlImagen = public_path(); $urlImagen .= "/system/Oferta/cert_base_alums/000/000/"; $urlImagen .= $idOferta; $urlImagen .= "/original/"; $urlImagen .= $imagenFondoCertificado;
+        /* obtengo la cantidad de horas de duración del curso */
+        $duracion_hs = number_format($rows->oferta->duracion_hs, 1, ",", ".");
+        $hs = (string)number_format($rows->oferta->duracion_hs, 1, ",", ".");
+        $s_hs = explode(",",$hs);
+        if($s_hs[1] == "0"){
+            $duracion_hs = $s_hs[0];
+        }
     ?>    
            
     <div class="certificado">
@@ -127,23 +134,23 @@
                 <?php endif;?>     
                 <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
                     el día {{$fechaInicio[0]}} 
-                    de {{array_get($meses,$fechaInicio[1])}} del {{$fechaInicio[2]}}.
+                    de {{array_get($meses,$fechaInicio[1])}} de {{$fechaInicio[2]}}.
                 <?php elseif($mismoMes):?>
                     del {{$fechaInicio[0]}} al 
-                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
                 <?php else:?>
                     del {{$fechaInicio[0]}} de 
                     {{array_get($meses, $fechaInicio[1])}} al {{$fechaFin[0]}} de 
-                    {{array_get($meses,$fechaFin[1])}} del {{$fechaFin[2]}}.
+                    {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
                 <?php endif;?>
             <?php endif;?>
             </p>
             <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
             <?php if(($rows->oferta->resolucion_nro != null)&&($ConHoras==true)):?>
                 <p>según <b><?php echo $rows->oferta->resolucion_nro;?></b>,</p>                
-                <p> con una acreditación de <?php echo number_format($rows->oferta->duracion_hs, 1, ",", ".");?> horas reloj.</p>
+                <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->oferta->resolucion_nro == null)&&($ConHoras==true)):?>
-                <p> con una acreditación de <?php echo number_format($rows->oferta->duracion_hs, 1, ",", ".");?> horas reloj.</p>
+                <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->oferta->resolucion_nro != null)&&($ConHoras==false)):?>
                 <p>según <b><?php echo $rows->oferta->resolucion_nro;?></b>.</p>
             <?php endif;?>
