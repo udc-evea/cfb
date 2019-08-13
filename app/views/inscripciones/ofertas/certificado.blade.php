@@ -117,7 +117,7 @@
             <!--<p>cursó y aprobó <p>-->
             <p style="margin-top: -5px">{{ $rows->oferta->condicion_en_certificado }}</p>
             <!-- Nombre de la Oferta/Evento -->
-            <?php if(strlen($nombreOferta) < 60){$interlineado="3px";}else{$interlineado="25px";}?>
+            <?php if(strlen($nombreOferta) < 60){$interlineado="18px";}else{$interlineado="25px";}?>
             <div class="row-fluid" style="padding: -30px 90px 0px 30px; margin-top: -10px">
                 <p style="font-size: 20pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>

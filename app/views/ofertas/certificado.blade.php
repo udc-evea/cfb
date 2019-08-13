@@ -126,7 +126,7 @@
             <p style="margin-top: -5px">ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
             <?php $nombreOferta = $rows->nombre; ?>
             <!-- Nombre de la Oferta/Evento -->
-            <?php if(strlen($nombreOferta) < 60){$interlineado="3px";}else{$interlineado="25px";}?>
+            <?php if(strlen($nombreOferta) < 60){$interlineado="18px";}else{$interlineado="25px";}?>
             <div class="row-fluid" style="padding: 0px 90px 0px 30px; margin-top: -20px">
                 <p style="font-size: 18pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>
