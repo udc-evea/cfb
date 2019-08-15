@@ -122,6 +122,6 @@ return array(
 	|
 	*/
 
-	'pretend' => false, //linea original
+	'pretend' => false, //linea original "false"
 
 );

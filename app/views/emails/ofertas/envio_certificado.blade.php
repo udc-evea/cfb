@@ -13,13 +13,13 @@
             <h2>Estimado/a {{ $rows->nombre }} {{ $rows->apellido }},</h2>
         </div>
         <hr>
-        <p>La <b>Universidad del Chubut</b> tiene el agrado de hacerle llegar por este medio <br>
-            el Certificado correspondiente a la Oferta <b>{{ $oferta->nombre }}</b></p>
+        <p>La Universidad del Chubut tiene el agrado de hacerle llegar por este medio
+            el Certificado correspondiente a la actividad <b>{{ $oferta->nombre }}</b> 
+            realizada en nuestra institucion.</p>
         <hr>
-        <p>Esperamos contar nuevamente con tu presencia en nuestra Institución proximamente.</p>
-        <br><br>
-        <p>Muy Atentamente,</p>
-        <p>&nbsp;</p>
+        <p>Agradecemos su participación y esperamos contar nuevamente con su presencia en
+            nuevas propuestas.</p>
+        <p>Saludamos atentamente.</p>
         <p>Universidad del Chubut</p>
         <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2015 UDC :: Derechos Reservados.<br>
             Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.<br>Tel.: (0280) 448-1866 / 448-1846.</p>
