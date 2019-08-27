@@ -385,21 +385,21 @@ class Oferta extends Eloquent implements StaplerableInterface {
     public function scopeCursos($query) {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_CURSO)
-                        ->orderBy('anio', 'desc')
+                        ->orderBy('fecha_modif','desc')//->orderBy('anio', 'desc')
                         ->orderBy('id');//->orderBy('nombre');
     }
 
     public function scopeCarreras($query) {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_CARRERA)
-                        ->orderBy('anio', 'desc')
+                        ->orderBy('fecha_modif','desc')//->orderBy('anio', 'desc')
                         ->orderBy('id');//->orderBy('nombre');
     }
     
     public function scopeEventos($query) {
         return $query
                         ->where('tipo_oferta', '=', self::TIPO_EVENTO)
-                        ->orderBy('anio', 'desc')
+                        ->orderBy('fecha_modif','desc')//->orderBy('anio', 'desc')
                         ->orderBy('id');//->orderBy('nombre');
     }
 

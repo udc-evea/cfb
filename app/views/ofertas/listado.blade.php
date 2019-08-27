@@ -15,7 +15,7 @@
                 <th>Inscribiendo</th>
                 <!--<th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
-                <th>Acciones</th>-->
+                <th>Acciones</th>-->                
                 <th>Ultima Modif.</th>
                 <th>Capacitador/es</th>
                 <th>Opciones</th>
@@ -94,7 +94,7 @@
                 @else
                     <small>No tiene permisos para esta oferta</small>
                 @endif
-                </td>-->
+                </td>-->                
                 <td>{{ $oferta->ultimaModificacion->nombreyapellido }} ({{ ($oferta->fecha_modif) }})</td>
                 <td>
                   <?php $capacitadores = $oferta->obtenerCapacitadoresDeLaOferta($oferta->id);?>
@@ -151,9 +151,12 @@
                                                     $hs = $oferta->duracion_hs;
                                                     $resol = $oferta->resolucion_nro;
                                                     $fechafinoferta = $oferta->fecha_fin_oferta;
+                                                    $sep = DIRECTORY_SEPARATOR; //me fijo el separador de directorio segun el sistema operativo
+                                                    $id = $oferta->id; $id = ($id < 10) ? "00".$id : ($id < 100) ? "0".$id : $id; //ontengo el id de la oferta (con el 00 o 0 depende si es menor o no a 10 o 100 respectivamente
+                                                    $pathImagen = public_path(); $pathImagen .= $sep."system".$sep."Oferta".$sep."cert_base_caps".$sep."000".$sep."000".$sep.$id.$sep."original".$sep.$nomb; //armo todo el path donde esta el archivo de imagen de fondo
                                                 ?>
-                                                <?php //if (($nomb != null)&&($fechafinoferta != null)): ?>
-                                                <?php if ($nomb != null): ?>
+                                                <?php //if (($nomb != null)&&($fechafinoferta != null)): ?>                                                
+                                                <?php if (($nomb != null) && (file_exists($pathImagen))): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $oferta->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                                     <?php if (($capacPersonal->getEmail() != null) && ($oferta->enviarCertificadoCapacitadorDigital())): ?>
                                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador">{{$capacitador->getCantNotificacionesConCertificado()}} <span class='glyphicon glyphicon-envelope'></span></a>

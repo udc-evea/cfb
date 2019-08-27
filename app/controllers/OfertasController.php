@@ -196,7 +196,7 @@ class OfertasController extends BaseController {
                 
 		$validation = Validator::make($input, Oferta::$rules);                                
                 
-		if ($validation->passes()){
+		if ($validation->passes()){                  
                   $this->oferta = $this->oferta->create($input);
                     
                   //agregado por nico
@@ -234,7 +234,7 @@ class OfertasController extends BaseController {
                         $this->oferta->setCertificadoCapacitadorDigital(0);
                   }else{
                         $this->oferta->setCertificadoCapacitadorDigital(1);
-                  }
+                  }                                                      
                   //guardo los cambios antes de redirigir
                   $this->oferta->save();
 

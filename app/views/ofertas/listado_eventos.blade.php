@@ -146,8 +146,13 @@
                                             <td><?php echo $capacRol->rol ?></td>
                                             <td>@if($capacPersonal->getEmail() != null){{$capacPersonal->getEmail()}}@else {{'-'}}@endif</td>
                                             <td>
-                                                <?php $name = $item->cert_base_cap_file_name ?>
-                                                <?php if ($name != null): ?>
+                                                <?php 
+                                                    $name = $item->cert_base_cap_file_name ;
+                                                    $sep = DIRECTORY_SEPARATOR; //me fijo el separador de directorio segun el sistema operativo
+                                                    $id = $item->id; $id = ($id < 10) ? "00".$id : ($id < 100) ? "0".$id : $id; //ontengo el id de la oferta (con el 00 o 0 depende si es menor o no a 10 o 100 respectivamente
+                                                    $pathImagen = public_path(); $pathImagen .= $sep."system".$sep."Oferta".$sep."cert_base_caps".$sep."000".$sep."000".$sep.$id.$sep."original".$sep.$name; //armo todo el path donde esta el archivo de imagen de fondo    
+                                                ?>
+                                                <?php if (($name != null) && (file_exists($pathImagen))): ?>
                                                     <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.index', array('ofid' => $item->id, 'exp' => 'pdfcap', 'cap' => $cap->id )) }}" title="Certificado para el Capacitador"><i class="fa fa-file-pdf-o fa-3"></i></a>
                                                     <?php if (($capacPersonal->getEmail() != null)&&($item->enviarCertificadoCapacitadorDigital())): ?>
                                                         <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.enviarMailCertificadoCapacitador', array('capid' => $cap->id )) }}" title="Enviar el certificado por mail al Capacitador">{{$capacitador->getCantNotificacionesConCertificado()}} <span class='glyphicon glyphicon-envelope'></span></a>

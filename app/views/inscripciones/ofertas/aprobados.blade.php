@@ -72,8 +72,11 @@
                                 $name = $oferta->cert_base_alum_file_name;
                                 $resolucion = $oferta->resolucion_nro;
                                 $duracionHoras = $oferta->duracion_hs;
+                                $sep = DIRECTORY_SEPARATOR; //me fijo el separador de directorio segun el sistema operativo
+                                $id = $oferta->id; $id = ($id < 10) ? "00".$id : ($id < 100) ? "0".$id : $id; //ontengo el id de la oferta (con el 00 o 0 depende si es menor o no a 10 o 100 respectivamente
+                                $pathImagen = public_path(); $pathImagen .= $sep."system".$sep."Oferta".$sep."cert_base_alums".$sep."000".$sep."000".$sep.$id.$sep."original".$sep.$name; //armo todo el path donde esta el archivo de imagen de fondo
                             ?>
-                            <?php if ($name != null): ?>
+                            <?php if (($name != null) && (file_exists($pathImagen))): ?>
                                 <a target="_blank" class="btn btn-xs btn-warning" href="{{ URL::Route('ofertas.inscripciones.index', array('oferta_id' => $oferta->id, 'exp' => 'pdfa', 'alm' => $inscripcion->id )) }}" title="Certificado de Aprobación del alumnos"> <span class='glyphicon glyphicon-download-alt'></span> <i class="fa fa-file-pdf-o fa-3"></i></a>
                                 <?php if ($oferta->enviarCertificadoAlumnoDigital()): ?>
                                     <a class="btn btn-xs btn-primary" href="{{ URL::Action('ofertas.inscripciones.enviarMailCertificado', array('ofid' => $oferta->id, 'alumnoid' => $inscripcion->id )) }}" title="Enviar el certificado de Aprobación del alumno a sus mails">{{ $inscripcion->getCantNotificacionesConCertificado() }}  <span class='glyphicon glyphicon-envelope'></span> </a>
