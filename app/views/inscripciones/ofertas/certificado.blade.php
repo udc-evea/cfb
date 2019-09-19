@@ -121,27 +121,38 @@
             <div class="row-fluid" style="padding: -30px 90px 0px 30px; margin-top: -10px">
                 <p style="font-size: 20pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>
-            <?php if($rows->oferta->lugar != null):?>
-                 <p style="padding-top: -30px">realizado en {{$rows->oferta->lugar}}
-            <?php endif;?>
             <?php $fechaInicio = explode('/',$rows->oferta->fecha_inicio_oferta);
                 $fechaFin = explode('/',$rows->oferta->fecha_fin_oferta);
                 $mismoMes = $fechaInicio[1] == $fechaFin[1];
+                $mismoAño = $fechaInicio[2] == $fechaFin[2];
             ?>
+            <?php if($rows->oferta->lugar != null):?>
+                <?php if($mismoAño):?>
+                    <p style="padding-top: -30px">realizado en {{$rows->oferta->lugar}}
+                <?php else:?>
+                    <p style="padding-top: -30px; padding-left: -30px">realizado en {{$rows->oferta->lugar}}
+                <?php endif;?>
+            <?php endif;?>
             <?php if(($rows->oferta->fecha_inicio_oferta != '30/11/-0001')&&($rows->oferta->fecha_fin_oferta != '30/11/-0001')):?>
-                <?php if($rows->oferta->lugar == null):?>
-                    <p style="padding-top: -30px">realizado 
-                <?php endif;?>     
+                <?php if($rows->oferta->lugar == null):?>                    
+                    <?php if($mismoAño):?>
+                        <p style="padding-top: -30px">realizado
+                    <?php else:?>
+                        <p style="padding-top: -30px; padding-left: -50px">realizado
+                    <?php endif;?>
+                <?php endif;?>
                 <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
                     el día {{$fechaInicio[0]}} 
                     de {{array_get($meses,$fechaInicio[1])}} de {{$fechaInicio[2]}}.
-                <?php elseif($mismoMes):?>
+                <?php elseif(($mismoMes) && ($mismoAño)):?>
                     del {{$fechaInicio[0]}} al 
                     {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
+                <?php elseif($mismoAño):?>
+                    del {{$fechaInicio[0]}} de {{array_get($meses,$fechaInicio[1])}} al 
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
                 <?php else:?>
-                    del {{$fechaInicio[0]}} de 
-                    {{array_get($meses, $fechaInicio[1])}} al {{$fechaFin[0]}} de 
-                    {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
+                    del {{$fechaInicio[0]}} de {{array_get($meses, $fechaInicio[1])}} de {{$fechaInicio[2]}} 
+                    al {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
                 <?php endif;?>
             <?php endif;?>
             </p>
