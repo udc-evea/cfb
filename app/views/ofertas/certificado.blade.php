@@ -4,7 +4,6 @@
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
         <!--<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>-->
         <style>
-            
             body {
                 //border: 1px solid red;
                 font-family: 'Raleway';
