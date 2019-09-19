@@ -127,10 +127,18 @@
                 $mismoAño = $fechaInicio[2] == $fechaFin[2];
             ?>
             <?php if($rows->oferta->lugar != null):?>
-                <?php if($mismoAño):?>
-                    <p style="padding-top: -30px">realizado en {{$rows->oferta->lugar}}
+                <?php if (strlen($rows->oferta->lugar)>15):?>
+                    <?php if($mismoAño):?>
+                        <p style="padding-top: -30px">realizado en {{$rows->oferta->lugar}}<p><p>
+                    <?php else:?>
+                        <p style="padding-top: -30px; padding-left: -50px">realizado en {{$rows->oferta->lugar}}<p><p>
+                    <?php endif;?>
                 <?php else:?>
-                    <p style="padding-top: -30px; padding-left: -30px">realizado en {{$rows->oferta->lugar}}
+                    <?php if($mismoAño):?>
+                        <p style="padding-top: -30px">realizado en {{$rows->oferta->lugar}}
+                    <?php else:?>
+                        <p style="padding-top: -30px; padding-left: -50px">realizado en {{$rows->oferta->lugar}}
+                    <?php endif;?>
                 <?php endif;?>
             <?php endif;?>
             <?php if(($rows->oferta->fecha_inicio_oferta != '30/11/-0001')&&($rows->oferta->fecha_fin_oferta != '30/11/-0001')):?>
