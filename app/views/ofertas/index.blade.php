@@ -27,6 +27,7 @@
             $liClassEvento = 'class="active"';
         }
     }
+    Session::set('tab_activa_inscripciones',1);
 ?>
 <?php 
     function obtenerLinkPublico($linkPublico){

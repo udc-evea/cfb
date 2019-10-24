@@ -122,7 +122,7 @@
                 <p>D.N.I. <?php echo $capacPersonal->dni;?></p>
             <?php endif;?>
             <!--<p>D.N.I. <?php //echo $capacPersonal->dni?></p>-->
-            <p style="margin-top: -5px">ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en el</p>
+            <p style="margin-top: -5px">ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en</p>
             <?php $nombreOferta = $rows->nombre; ?>
             <!-- Nombre de la Oferta/Evento -->
             <?php if(strlen($nombreOferta) < 60){$interlineado="18px";}else{$interlineado="25px";}?>

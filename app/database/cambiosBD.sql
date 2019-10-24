@@ -461,3 +461,22 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.5' WHERE  `version_bd`.`version` =  '3.2.4' LIMIT 1 ;
 /* se cambia el tamaño del campo 'duracion_hs' a FLOAT(4,1) en Ofertas/Eventos */
 -> ALTER TABLE `oferta_formativa` CHANGE `duracion_hs` `duracion_hs` FLOAT UNSIGNED NULL DEFAULT '0.0' COMMENT 'La cantidad de horas reloj que involucra la Oferta.';
+
+
+/* ######  2019/10/23  ####################### */
+--    VERSION_BASE: 3.2.6 - VERSION_CODIGO: 3.1.22
+/* 
+1) se cambia la versión de la base de datos en 3.2.6
+2) se cambia la versión del código en 3.1.22
+3) se coloca el nombre de la oferta como UNIQUE junto al año y tipo oferta (no puede haber dos ofertas que se llamen igual el mismo año)
+4) se cambia el 'documento' en ofertas (cursos/eventos/carreras) de int(10) a varchar(15)
+5) se quita la palabra "el" en el certificado de capacitadores cuando dice "ha participado como .... en el".
+
+/* Cambio en la base la versión del sistema, de 3.2.5 a 3.2.6 */
+-> UPDATE  `cfb`.`version_bd` SET  `version` =  '3.2.6' WHERE  `version_bd`.`version` =  '3.2.5' LIMIT 1 ;
+/* Cambio en la base la versión de código del sistema, de 3.1.20 a 3.1.22 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.22' WHERE  `version_bd`.`version_codigo` =  '3.1.21' LIMIT 1 ;
+/* cambio 'documento' de int(10) a varchar(15) en ofertas/eventos/carreras */
+-> ALTER TABLE `inscripcion_oferta` CHANGE `documento` `documento` VARCHAR(15) NOT NULL;
+-> ALTER TABLE `inscripcion_evento` CHANGE `documento` `documento` VARCHAR(15) NOT NULL;
+-> ALTER TABLE `inscripcion_carrera` CHANGE `documento` `documento` VARCHAR(15) NOT NULL;

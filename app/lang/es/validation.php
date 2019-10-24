@@ -72,6 +72,7 @@ return array(
     ),
     "unique"           => ":attribute ya ha sido registrado.",
     "url"              => "El formato :attribute es inválido.",
+    "unique_with"   => ":attribute ya ha sido registrado. Revise los datos ingresados",
 
     /*
     |--------------------------------------------------------------------------

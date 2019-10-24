@@ -21,7 +21,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     protected $dates = array('inicio', 'fin', 'fecha_inicio_oferta', 'fecha_fin_oferta');
     public $timestamps = false;
     public static $rules = array(
-        'nombre' => 'required|between:2,200',//|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/', //regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',
+        'nombre' => 'required|between:2,200',//|regex:/^[0-9+\(\)#\.\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/', //regex:/^[\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\.]+$/',  --> |unique_with:oferta_formativa,nombre,anio,tipo_oferta
         'anio' => 'required|integer',
         'inicio' => 'required|date_format:d/m/Y',
         'fin' => 'required|date_format:d/m/Y',
@@ -42,7 +42,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
         'condicion_en_certificado' => 'required|between:10,100|regex:/^[0-9+\(\)#\.\,\s\'\pLñÑáéíóúÁÉÍÓÚüÜçÇ\/ext-]+$/',
         'certificado_alumno_digital' => 'integer',
         'certificado_capacitador_digital' => 'integer'
-    );
+    );        
 
     public function __construct($attributes = array()) {
         $this->hasAttachedFile('mail_bienvenida');
@@ -529,6 +529,10 @@ class Oferta extends Eloquent implements StaplerableInterface {
         }
         // linea de abajo es la original (de martin pentucci)
         //return empty($this->mail_bienvenida_file_name) ? 'emails.ofertas.bienvenida_generico' : 'emails.ofertas.bienvenida_oferta';
+    }
+    
+    public function agregarReglas2($input) {
+        self::$rules['nombre'].='|unique_with:oferta_formativa,nombre,anio,tipo_oferta';
     }
 
     public function agregarReglas($input) {

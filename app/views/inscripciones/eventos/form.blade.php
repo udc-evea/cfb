@@ -27,7 +27,8 @@
             ->label('Tipo doc.')
             ->value(TipoDocumento::TIPODOC_DNI)
             ->required() }}
-        {{ Former::number('documento')->required() }}
+        <!--{{ Former::number('documento')->required() }} -->
+        {{ Former::text('documento')->required() }}
         {{ Former::text('fecha_nacimiento')->required()->label('Fecha nacimiento')->class('form-control fecha') }}
     </div>
 </div>

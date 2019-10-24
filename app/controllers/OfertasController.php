@@ -180,6 +180,8 @@ class OfertasController extends BaseController {
 		//$input = Input::all();                
                 $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar');
 		$this->oferta->agregarReglas($input);
+                //Como la oferta es nueva, agrego que no se pueda crear si ya esta el nombre año y tipo_oferta
+                $this->oferta->agregarReglas2($input);
                 //$fechaInicioOferta = Input::get('fecha_inicio_oferta');
                 //$fechaFinOferta = Input::get('fecha_fin_oferta');
                 /*if($fechaFinOferta != null){

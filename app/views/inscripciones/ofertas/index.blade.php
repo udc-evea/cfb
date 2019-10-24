@@ -152,7 +152,7 @@
                     <li <?php echo $liInscOfPreinsc?>>
                         <a title="Todos los Preinscriptos a la Oferta." href="#tab_preinscriptos" role="tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-align-justify"></i> 
-                            Presinscriptos 
+                            Preinscriptos 
                             <span class="badge"><?php echo sizeof($preinscripciones); ?></span>
                         </a>
                     </li>
