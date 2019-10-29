@@ -91,7 +91,8 @@ class InscripcionEvento extends Eloquent {
     
     public function getTipoydocAttribute()
     {
-        return sprintf("%s %s", $this->tipo_documento, number_format($this->documento, 0, ",", "."));
+        //return sprintf("%s %s", $this->tipo_documento, number_format($this->documento, 0, ",", "."));
+        return sprintf("%s %s", $this->tipo_documento, $this->documento);
     }
     
     public function getInscriptoAttribute()

@@ -1093,8 +1093,11 @@ class OfertasInscripcionesController extends BaseController {
                             $mje .= "<li> Fila $i: El Tipo de Documento debe ser uno de los siguientes codigos: 1-DNI, 2-LC, 3-LE o 4-Pasaporte.</li>";
                         }
                         $dni = $fila['documento'];                    
-                        if(($dni<99999)||($dni>99999999)){
-                            $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
+                        //if(($dni<99999)||($dni>99999999)){
+                        //    $mje .= "<li> Fila $i:  El documento debe estar entre los nros. 99.999 y 99.999.999.</li>";
+                        //}
+                        if((strlen($dni)<7)||(strlen($dni)>15)){
+                            $mje .= "<li> Fila $i:  El documento debe tener entre 7 y 15 caracteres.</li>";
                         }
                         if (($i>1)&&(in_array($dni,$arrayDNI))){
                             $mje .= "<li> Fila $i:  El documento ($dni) ya existe en este listado de alumnos, verifique!.</li>";
