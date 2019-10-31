@@ -47,7 +47,7 @@
             }
             #cuvqr{
                 position: absolute;
-                top: 650px;                
+                top: 645px;                
                 text-align: right;
                 right: 50px;
                 width: 100%;
@@ -108,7 +108,7 @@
         <!--<img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
         <img src="<?php echo $urlImagen ?>" alt="Certificado base capacitadores" style="width: 1085px;height: 760px;"/>
         <div id='textoCertificado'>
-            <p style="padding-top: -30px">La <b>Universidad del Chubut</b> &nbsp;&nbsp;certifica que </p>
+            <p style="padding-top: -20px">La <b>Universidad del Chubut</b> &nbsp;&nbsp;certifica que </p>
             <?php if($capacPersonal->titulacion_id != 1):?>
                 <p>{{$pronombre}}<b style="font-size: 20pt">
                     <?php echo $capacPersonal->getTitulacionPersonalAbreviada().". ";?>
@@ -125,8 +125,8 @@
             <p style="margin-top: -5px">ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en</p>
             <?php $nombreOferta = $rows->nombre; ?>
             <!-- Nombre de la Oferta/Evento -->
-            <?php if(strlen($nombreOferta) < 60){$interlineado="18px";}else{$interlineado="25px";}?>
-            <div class="row-fluid" style="padding: 0px 90px 0px 30px; margin-top: -20px">
+            <?php if(strlen($nombreOferta) < 60){$interlineado="18px";}else{$interlineado="20px";}?>
+            <div class="row-fluid" style="padding: 0px 90px 0px 25px; margin-top: -20px">
                 <p style="font-size: 18pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
@@ -150,7 +150,7 @@
                 }
             ?>
             <div style="font-size: 16pt">
-                <p style="padding-top: -30px">Se extiende el presente certificado al <?php echo $dia; ?> de
+                <p style="padding-top: -25px">Se extiende el presente certificado al <?php echo $dia; ?> de
                     <?php echo array_get($meses, $mes) ?> de {{$anio}}</p>
                 <p>en la ciudad de Rawson, Provincia del Chubut.</p>            
             </div>
