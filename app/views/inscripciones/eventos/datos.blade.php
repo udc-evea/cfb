@@ -5,7 +5,7 @@
             <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarEvDatosIndex"/>
             <button class="sort" data-sort="nrodatos" >Por Nro.</button>
             <button class="sort" data-sort="apellidodatos" >Por Apellido</button>
-                <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
+                <table class="table table-hover" style="border-top: 2px black solid; border-bottom: 2px black solid">
                     <thead>
                         <tr>
                             <th>Nro.</th>
