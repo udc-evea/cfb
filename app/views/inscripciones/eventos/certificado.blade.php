@@ -129,7 +129,7 @@
             <?php if($rows->oferta->lugar != null):?>
                 <?php if (strlen($rows->oferta->lugar)>15):?>
                     <?php if($mismoAño):?>
-                        <p style="padding-top: -25px">realizado en {{$rows->oferta->lugar}}<p><p>
+                        <p style="padding-top: -24px">realizado en {{$rows->oferta->lugar}}<p><p>
                     <?php else:?>
                         <p style="padding-top: -25px; padding-left: -50px">realizado en {{$rows->oferta->lugar}}<p><p>
                     <?php endif;?>

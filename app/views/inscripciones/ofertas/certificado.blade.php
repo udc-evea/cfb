@@ -144,7 +144,7 @@
             <?php if(($rows->oferta->fecha_inicio_oferta != '30/11/-0001')&&($rows->oferta->fecha_fin_oferta != '30/11/-0001')):?>
                 <?php if($rows->oferta->lugar == null):?>                    
                     <?php if($mismoAño):?>
-                        <p style="padding-top: -25px">realizado
+                        <p style="padding-top: -24px">realizado
                     <?php else:?>
                         <p style="padding-top: -25px; padding-left: -50px">realizado
                     <?php endif;?>
