@@ -103,7 +103,11 @@
             $duracion_hs = $s_hs[0];
         }        
     ?>  
-    
+    <?php $fechaInicio = explode('/',$rows->fecha_inicio_oferta);
+        $fechaFin = explode('/',$rows->fecha_fin_oferta);
+        $mismoMes = $fechaInicio[1] == $fechaFin[1];
+        $mismoAño = $fechaInicio[2] == $fechaFin[2];
+    ?>
     <div class="certificado">
         <!--<img src="{{ asset($rows->cert_base_cap->url()) }}" alt="Certificado base" style="width: 1085px;height: 760px;"/>-->
         <img src="<?php echo $urlImagen ?>" alt="Certificado base capacitadores" style="width: 1085px;height: 760px;"/>
@@ -125,19 +129,36 @@
             <p style="margin-top: -5px">ha participado en calidad de <?php echo strtolower($capacRol->rol);?>, en</p>
             <?php $nombreOferta = $rows->nombre; ?>
             <!-- Nombre de la Oferta/Evento -->
-            <?php if(strlen($nombreOferta) < 60){$interlineado="18px";}else{$interlineado="20px";}?>
+            <?php if(strlen($nombreOferta) < 60){$interlineado="13px";}else{$interlineado="20px";}?>
             <div class="row-fluid" style="padding: 0px 90px 0px 25px; margin-top: -20px">
                 <p style="font-size: 18pt; line-height: {{$interlineado}}"><b>{{$nombreOferta}}</b></p>
             </div>
+            <p style="padding-top: -25px">
+            <?php if(($rows->fecha_inicio_oferta != '30/11/-0001')&&($rows->fecha_fin_oferta != '30/11/-0001')):?>
+                <?php if($rows->fecha_inicio_oferta == $rows->fecha_fin_oferta):?>
+                    el día {{$fechaInicio[0]}} 
+                    de {{array_get($meses,$fechaInicio[1])}} de {{$fechaInicio[2]}}
+                <?php elseif(($mismoMes) && ($mismoAño)):?>
+                    del {{$fechaInicio[0]}} al 
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}
+                <?php elseif($mismoAño):?>
+                    del {{$fechaInicio[0]}} de {{array_get($meses,$fechaInicio[1])}} al 
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}
+                <?php else:?>
+                    del {{$fechaInicio[0]}} de {{array_get($meses, $fechaInicio[1])}} de {{$fechaInicio[2]}} 
+                    al {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}
+                <?php endif;?>
+            <?php endif;?>
+            </p>
             <?php $ConHoras = (($rows->duracion_hs != null)&&($rows->duracion_hs != 0));?>
             <?php if(($rows->resolucion_nro != null)&&($ConHoras==true)):?>
-                <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>,</p>
+                <p style="padding-top: -5px">según <b><?php echo $rows->resolucion_nro;?></b>,</p>
                 <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro == null)&&($ConHoras==true)):?>
                 <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->resolucion_nro != null)&&($ConHoras==false)):?>
                 <p style="padding-top: -25px">según <b><?php echo $rows->resolucion_nro;?></b>.</p>
-            <?php endif;?>
+            <?php endif;?>            
             <?php
                 $dia = date('d');
                 $mes = date('m');
