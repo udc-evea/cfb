@@ -2,6 +2,7 @@
     $liInscEvDatos = '';
     $liInscEvPreinsc = '';
     $liInscEvInscr = '';
+    $liAsistEvInscr = '';
     $classDatos = 'class="tab-pane"';
     $classPreinscr = 'class="tab-pane"';
     $classInscr = 'class="tab-pane"';
@@ -21,8 +22,9 @@
                 $classInscr = 'class="tab-pane active"';
                 $liInscEvInscr = 'class="active"';
                 break;
-            case 3:
+            case 4:
                 $classAsist = 'class="tab-pane active"';
+                $liAsistEvInscr = 'class="active"';
                 break;
             default:
                 $classDatos = 'class="tab-pane active"';
@@ -72,10 +74,10 @@
         </table>
      </div>
     @endif-->
-    <div class="btn-group">
-        <a class='btn btn-info' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+    <div class="btn-group" role="group">
+        <a class='btn btn-info btn-secondary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)==0) && (($perfil == "Administrador")||($perfil == "Creador")))
-            <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-primary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
+            <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-secondary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
         @endif
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)) && ($perfil == "Administrador"))
                 {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
@@ -83,7 +85,7 @@
                     {{ Form::submit('Borrar inscriptos de Evento', array('class' => 'btn btn-danger','title'=>'Eliminar todos los preinscriptos del Evento')) }}
                 {{ Form::close() }}
         @endif
-    </div>
+    </div>    
     <hr>
         <!-- Nav tabs -->
         <div class="row">
@@ -95,7 +97,7 @@
                         <li <?php echo $liInscEvInscr ?>><a title="Solo los Inscriptos al evento." href="#tab_inscriptos" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-tag"></i> Inscriptos <span class="badge"><?php echo sizeof($inscripciones); ?></span></a></li>
                     <?php endif;?>
                     <?php if(!(empty($asistentes))):?>
-                        <li><a title="Solo los Asistentes al Evento." href="#tab_asistentes" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-thumbs-up"></i> Asistentes <span class="badge"><?php echo sizeof($asistentes); ?></span></a></li>
+                        <li <?php echo $liAsistEvInscr ?>><a title="Solo los Asistentes al Evento." href="#tab_asistentes" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-thumbs-up"></i> Asistentes <span class="badge"><?php echo sizeof($asistentes); ?></span></a></li>
                     <?php endif;?>
                 </ul>
             </div>
@@ -114,6 +116,9 @@
             <div <?php echo $classAsist ?> id="tab_asistentes">
                 @include('inscripciones.eventos.asistentes', compact('asistentes'))
             </div>
+        </div>
+        <div id="fondo">
+            <a class='btn btn-info' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
         </div>
 </div>
 <script>

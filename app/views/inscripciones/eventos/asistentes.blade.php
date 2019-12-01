@@ -13,6 +13,9 @@
         <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarEvAsistIndex"/>
         <button class="sort" data-sort="nroasis" >Por Nro.</button>
         <button class="sort" data-sort="apellidoasis" >Por Apellido</button>
+        <div class="btn-group" role="group" style="float:right">
+            <a href="{{URL::route('ofertas.inscripciones.quitarTodasLasCertificaciones', $oferta->id)}}" class="btn btn-warning btn-secondary" title="Quitar a todos los asistentes al evento"><i class="glyphicon glyphicon-minus-sign"></i> Quitar Asistentes</a>
+        </div>
             <table class="table table-condensed" style="border-top: 2px black solid; border-bottom: 2px black solid">
                 <thead>
                     <tr>

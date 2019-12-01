@@ -30,7 +30,7 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     //agregue esta ruta para cambiar el estado de asistencia a un evento del preinscripto
     Route::get('/ofertas/{oferta}/inscripciones/{inscripcion}/asistente', 
       array('uses' => 'OfertasInscripcionesController@cambiarAsistente', 'as' => 'ofertas.inscripciones.cambiarAsistente')
-    );
+    );        
             
     //Ruta para cambiar el listado de pre a inscriptos de una sola vez
     Route::any('/ofertas/{oferta}/inscripciones/cambiar',
@@ -129,6 +129,26 @@ Route::group(array('before' => 'auth.basic', 'except' => array('ofertas.inscripc
     //agregue esta ruta para guardar los alumnos importadosde una Oferta a la Base de Datos
     Route::post('/ofertas/{oferta}/inscripciones/guardarAlumnosImportados',
       array('uses' => 'OfertasInscripcionesController@guardarAlumnosImportados', 'as' => 'ofertas.inscripciones.guardarAlumnosImportados')
+    );
+    
+    //agregue esta ruta para cambiar a todos los pre-inscriptos a inscriptos
+    Route::any('/ofertas/{oferta}/inscripciones/inscribirTodos',
+        array('uses' => 'OfertasInscripcionesController@inscribirTodosLosAlumnos' , 'as' => 'ofertas.inscripciones.inscribirTodosLosAlumnos')
+    );
+    
+    //agregue esta ruta para quitar a todos los inscriptos (los pasa a pre-inscriptos)
+    Route::any('/ofertas/{oferta}/inscripciones/quitarInscripciones',
+        array('uses' => 'OfertasInscripcionesController@quitarTodasLasInscripciones' , 'as' => 'ofertas.inscripciones.quitarTodasLasInscripciones')
+    );
+    
+    //agregue esta ruta para cambiar a todos los inscriptos como asistentes/aprobados
+    Route::any('/ofertas/{oferta}/inscripciones/certificarTodos',
+        array('uses' => 'OfertasInscripcionesController@certificarTodosLosAlumnos' , 'as' => 'ofertas.inscripciones.certificarTodosLosAlumnos')
+    );
+    
+    //agregue esta ruta para quitar a todos las certificaciones (dejan de ser aprobados/asistentes y los pasa a inscriptos)
+    Route::any('/ofertas/{oferta}/inscripciones/quitarCertificaciones',
+        array('uses' => 'OfertasInscripcionesController@quitarTodasLasCertificaciones' , 'as' => 'ofertas.inscripciones.quitarTodasLasCertificaciones')
     );
     
     // especifico que todos los controladores para las Ofertas estan en OfertasController

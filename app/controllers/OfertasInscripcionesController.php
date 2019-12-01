@@ -631,7 +631,7 @@ class OfertasInscripcionesController extends BaseController {
             $inscripcion->setAprobado(1);
             $inscripcion->setCodigoVerificacion($this->generarCodigoDeVerificacion());
             //Seteo el tab_activo de las inscripciones
-            Session::set('tab_activa_inscripciones',15);
+            Session::set('tab_activa_inscripciones',4);
         }
         $inscripcion->save();                
         
@@ -1225,4 +1225,163 @@ class OfertasInscripcionesController extends BaseController {
             $inscripto->save();
             return;
         }
+        
+    public function inscribirTodosLosAlumnos($ofid)
+    {    
+        //busco la oferta segun el $id
+        $oferta = Oferta::findorFail($ofid);
+        //traigo todos los pre-inscriptos de la oferta seleccionada
+        $lista = $oferta->preinscriptosOferta->all();
+        
+        //recorro todos los preinscriptos los cambio a insciptos a quienes no esten en esa condicion
+        foreach($lista as $preIncr){
+            //si ya esta inscripto lo dejo, sino lo paso a inscripto
+            if(!$preIncr->getEstadoInscripcion()){
+                //le asigno el campo inscripcion a 1
+                $preIncr->setEstadoInscripcion(1);
+                //le creo el correo institucional
+                $preIncr->crearCorreoInstitucional();                
+            }                                    
+            //guardo los cambios en la BD
+            $preIncr->save();
+        }        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',3);
+        
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($ofid))
+            ->with('message',"$cabecera Se inscribieron correctamente todos los pre-inscriptos $final");
+    }
+    
+    public function quitarTodasLasInscripciones($ofid)
+    {    
+        //busco la oferta segun el $id
+        $oferta = Oferta::findorFail($ofid);
+        //traigo todos los inscriptos de la oferta seleccionada
+        $lista = $oferta->inscriptosOferta->all();
+        
+        //recorro todos los inscriptos los cambio a pre-insciptos
+        foreach($lista as $incr){
+            //si ya esta inscripto lo paso a pre-inscripto
+            if($incr->getEstadoInscripcion()){
+                //le asigno el campo inscripcion a 0
+                $incr->setEstadoInscripcion(0);
+                //vacio la cantidad de notificaciones que se le envió
+                $incr->vaciarCantNotificaciones();
+                $incr->vaciarCantNotificacionesInscripto();
+                //vacio el correo institucional
+                $incr->vaciarCorreoInstitucional();
+                
+                //me fijo si es evento u oferta
+                if($oferta->getEsEventoAttribute()){
+                    //le asigno el campo asistio a 0
+                    $incr->setAsistente(0);
+                }elseif($oferta->getEsOfertaAttribute()){
+                    //le asigno el campo aprobo a 0
+                    $incr->setAprobado(0);
+                    //reinicio comision nro.
+                    $incr->setComisionNro(0);
+                    //reinicio presento_requisitos en FALSE
+                    $incr->setRequisitosCompletos(FALSE);
+                }
+            }                        
+            //guardo los cambios en la BD
+            $incr->save();
+        }        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',2);
+        
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($ofid))
+            ->with('message',"$cabecera Se quitaron todas las inscripciones correctamente $final");
+    }
+    
+    public function certificarTodosLosAlumnos($ofid)
+    {    
+        //busco la oferta segun el $id
+        $oferta = Oferta::findorFail($ofid);
+        //traigo todos los inscriptos de la oferta seleccionada
+        $lista = $oferta->inscriptosOferta->all();                
+                        
+        $tabNro = $oferta->getEsEventoAttribute()?4:15;
+        
+        //recorro todos los inscriptos los cambio a asistentes/aprobados a quienes no esten en esa condicion
+        foreach($lista as $inscr){
+            //Me fijo si estoy en Evento o en Ofertas
+            if($oferta->getEsEventoAttribute()){
+                //si ya esta como asistente lo dejo, sino lo paso a asistente                
+                if(!$inscr->getAsistente()){
+                    //le asigno el campo asistio a 1
+                    $inscr->setAsistente(1);
+                }
+            }elseif($oferta->getEsOfertaAttribute()){
+                //si ya esta como aprobado lo dejo, sino lo paso a aprobado
+                if(!$inscr->getAprobado()){
+                    //le asigno el campo aprobo a 1
+                    $inscr->setAprobado(1);
+                }
+            }
+            //genero un nuevo codigo de validacion para el certificado
+            $inscr->setCodigoVerificacion($this->generarCodigoDeVerificacion());
+            //guardo los cambios en la BD
+            $inscr->save();
+        }
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',$tabNro);
+        
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($ofid))
+            ->with('message',"$cabecera Se inscribieron correctamente todos los pre-inscriptos $final");
+    }
+    
+    public function quitarTodasLasCertificaciones($ofid)
+    {    
+        //busco la oferta segun el $id
+        $oferta = Oferta::findorFail($ofid);
+        
+        $tabNro = 4;
+        
+        //Me fijo si es Oferta o Evento y traigo los aprobados/asistentes
+        if($oferta->getEsEventoAttribute()){
+            //Si es Evento, traigo a los asistentes
+            $lista = $oferta->asistentes->all();
+            //recorro todos los alumnos y los cambio a insciptos
+            foreach($lista as $inscr){
+                //le asigno el campo asistente a 0
+                $inscr->setAsistente(0);
+                //borro el codigo de validacion para el certificado
+                $inscr->setCodigoVerificacion(null);
+                //vacio la cantidad de notificaciones que se le envió
+                $inscr->vaciarCantNotificacionesConCertificado();
+                //guardo los cambios en la BD
+                $inscr->save();
+            }
+        }elseif($oferta->getEsOfertaAttribute()){
+            //Si es Oferta, traigo a los aprobados
+            $lista = $oferta->aprobados->all();
+            //recorro todos los alumnos y los cambio a insciptos
+            foreach($lista as $inscr){
+                //le asigno el campo aprobado a 0
+                $inscr->setAprobado(0);
+                //borro el codigo de validacion para el certificado
+                $inscr->setCodigoVerificacion(null);
+                //vacio la cantidad de notificaciones que se le envió
+                $inscr->vaciarCantNotificacionesConCertificado();
+                //guardo los cambios en la BD
+                $inscr->save();
+            }
+        }
+        
+        //Seteo el tab_activo de las inscripciones
+        Session::set('tab_activa_inscripciones',$tabNro);
+        
+        $cabecera = $this->getEstiloMensajeCabecera('success', 'glyphicon glyphicon-ok');
+        $final = $this->getEstiloMensajeFinal();
+        return Redirect::route('ofertas.inscripciones.index', array($ofid))
+            ->with('message',"$cabecera Se quitaron todas las certificaciones correctamente $final");
+    }
 }

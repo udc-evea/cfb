@@ -6,6 +6,11 @@
         <button class="sort" data-sort="anio" >Año</button>
         <button class="sort" data-sort="nombre" >Nombre</button>
     </div>
+    <div style="float: right">
+        @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+            {{ link_to_route('ofertas.create', 'Crear nuevo Evento', ['tab_activa' => 'eventos'], array('class' => 'btn btn-primary')) }}
+        @endif
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>

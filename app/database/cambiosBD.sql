@@ -480,3 +480,19 @@ ALTER TABLE `capacitador` ADD UNIQUE `unique_capacitador_index`(`oferta_id`, `pe
 -> ALTER TABLE `inscripcion_oferta` CHANGE `documento` `documento` VARCHAR(15) NOT NULL;
 -> ALTER TABLE `inscripcion_evento` CHANGE `documento` `documento` VARCHAR(15) NOT NULL;
 -> ALTER TABLE `inscripcion_carrera` CHANGE `documento` `documento` VARCHAR(15) NOT NULL;
+
+
+/* ######  2019/11/29  ####################### */
+--    VERSION_BASE: 3.2.6 - VERSION_CODIGO: 3.1.30
+/* 
+1) se cambia la versión del código en 3.1.30
+2) se agrega el botón para pasar a todos los pre-inscriptos a inscriptos
+3) se abrega el botón para quitar a todos los inscriptos
+4) se agrega el botón para pasar a todos los inscriptos a aprobados/asistentes
+5) se agrega el botón para quitar a todos los aprobados/asistentes
+6) se arreglan bugs con el boton "abajo" y "arriba"
+7) se corre el boton de crear oferta/carrera/evento hacia el inicio de la pagina
+8) se corrige el funcionamiento de los tabs dentro las inscripciones
+
+/* Cambio en la base la versión de código del sistema, de 3.1.22 a 3.1.23 */
+-> UPDATE  `cfb`.`version_bd` SET  `version_codigo` =  '3.1.30' WHERE  `version_bd`.`version_codigo` =  '3.1.22' LIMIT 1 ;

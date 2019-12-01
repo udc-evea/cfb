@@ -12,6 +12,7 @@
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('bootstrap-extras/bootbox.min.js') }}"></script>
 <script src="{{ asset('jquery-ui-1.11.1.custom/jquery-ui.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <script src="{{ asset('js/rails.js') }}"></script>
 

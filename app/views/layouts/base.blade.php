@@ -10,6 +10,7 @@
         <div id="container" class="container">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="loader"></div>
                     @yield('main')
                 </div>
             </div>
@@ -23,4 +24,9 @@ Lewis Jones 248 (9103) - Rawson, Chubut, Patagonia Argentina.</p></div>
       </div>
     </div>
     </body>
+    <script>        
+        $(window).load(function() {
+            $(".loader").fadeOut("slow");
+        });
+    </script>
 </html>

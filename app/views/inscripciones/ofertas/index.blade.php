@@ -2,6 +2,7 @@
     $liInscOfDatos = '';
     $liInscOfPreinsc = '';
     $liInscOfInscr = '';
+    $liInscOfInscSinCom = '';
     $liInscOfAprob = '';
     $classDatos = 'class="tab-pane"';
     $classPreinscr = 'class="tab-pane"';
@@ -36,6 +37,7 @@
                 break;
             case 4:
                 $classSinCom = 'class="tab-pane active"';
+                $liInscOfInscSinCom = 'class="active"';
                 break;
             case 5:
                 $classCom1_9 = 'class="tab-pane active"';
@@ -123,9 +125,9 @@
      </div>
      @endif -->
     <div class="btn-group">
-        <a class='btn btn-info' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
+        <a class='btn btn-info btn-secondary' href="{{ URL::route('ofertas.index') }}" title="Volver al listado de Ofertas" >Volver</a>
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)==0) && (($perfil == "Administrador")||($perfil == "Creador")))
-            <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-primary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
+            <a href="{{URL::route('ofertas.inscripciones.importarAlumnosDeArchivo', $oferta->id)}}" class="btn btn-primary btn-secondary" title="Importar alumnos de Archivo"><i class="glyphicon glyphicon-plus-sign"></i> Importar Alumnos de Archivo</a>
         @endif
         @if((!$oferta->estaFinalizada()) && (sizeof($preinscripciones)) && ($perfil == "Administrador"))
             {{ Form::open(array('class' => 'confirm-delete', 'style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('ofertas.inscripciones.limpiar', $oferta->id))) }}
@@ -164,7 +166,7 @@
                         <?php if(sizeof($comisiones)>1):?>
                             <?php foreach($comisiones as $com):?>
                                      <?php if($com[0]['comision_nro'] == 0):?>
-                                        <li><a title="Inscriptos sin Comision asignada." href="#tab_sincomision" role="tab" data-toggle="tab">
+                                        <li <?php echo $liInscOfInscSinCom?>><a title="Inscriptos sin Comision asignada." href="#tab_sincomision" role="tab" data-toggle="tab">
                                         <?php echo "Sin Com.";?>
                                         <span class="badge"><?php echo sizeof($com); ?></span></a></li>
                                      <?php elseif($com[0]['comision_nro'] != 10):?>
@@ -179,7 +181,7 @@
                         <?php else:?>
                             <?php foreach($comisiones as $comis):?>
                                   <?php if($comis[0]['comision_nro'] == 0):?>
-                                        <li><a title="Inscriptos sin Comision asignada." href="#tab_sincomision" role="tab" data-toggle="tab">
+                                        <li <?php echo $liInscOfInscSinCom?>><a title="Inscriptos sin Comision asignada." href="#tab_sincomision" role="tab" data-toggle="tab">
                                         <?php echo "Sin Com.";?>
                                         <span class="badge"><?php echo sizeof($comis); ?></span></a></li>
                                   <?php elseif($comis[0]['comision_nro'] != 10):?>

@@ -2,8 +2,13 @@
 <div id='divCarreras' style="margin-top: 30px">
     <br>
     <input class="search" placeholder="Buscar por Año o Nombre" id="inputBuscarCarrerasIndex"/>
-        <button class="sort" data-sort="anio" >Año</button>
-        <button class="sort" data-sort="nombre" >Nombre</button>
+    <button class="sort" data-sort="anio" >Año</button>
+    <button class="sort" data-sort="nombre" >Nombre</button>
+    <div style="float:right">
+        @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+            {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
+        @endif
+    </div>    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -136,7 +141,14 @@
     </table>
 </div>
 @else
-    <div class="alert alert-info">Sin resultados.</div>
+    <div id='divCarreras' style="margin-top: 40px">
+        <div style="float:right">
+            @if(($userPerfil == "Administrador")||($userPerfil == "Creador"))
+                {{ link_to_route('ofertas.create', 'Crear nueva Carrera', ['tab_activa' => 'carreras'], array('class' => 'btn btn-primary')) }}
+            @endif
+        </div>
+        <div class="alert alert-info">Sin resultados.</div>
+    </div>
 @endif
 
 <script>

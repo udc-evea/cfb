@@ -22,6 +22,11 @@
             <input class="search" placeholder="Buscar por Nro. o Apellido" id='inputBuscarOfPreinscrIndex' onchange="verificarListaCompleta('inputBuscarOfPreinscrIndex','btnSubmitFormOfPreinscrIndex')"/>
             <button class="sort" data-sort="nro" >Por Nro.</button>
             <button class="sort" data-sort="apellido" >Por Apellido</button>
+            <div class="btn-group" role="group" style="float:right">
+                @if (count($preinscripciones) != count($inscripciones))
+                    <a href="{{URL::route('ofertas.inscripciones.inscribirTodosLosAlumnos', $oferta->id)}}" class="btn btn-success btn-secondary" title="Inscribir a todos los alumnos pre-inscriptos"><i class="glyphicon glyphicon-check"></i> Inscribir a todos</a>                
+                @endif
+            </div>
         <?php $listaIdPreinscriptos = array();?>
         {{ Form::open(array(
                     'method' => 'POST',
@@ -132,9 +137,11 @@
             <?php $listaEnString = implode('-',$listaIdPreinscriptos); ?>
             <input type="hidden" id="listaIdPreinscriptos" name="listaIdPreinscriptos" value="<?php echo $listaEnString ?>">
             @if(!$oferta->estaFinalizada())
-                {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormOfPreinscrIndex')) }}
-                {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
+            <div class="btn-group" role="group" style="float: right">
+                {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success btn-secondary', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormOfPreinscrIndex')) }}
+                {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning btn-secondary'])}}
                 {{ Form::close() }}
+            </div>
             @endif
         </div>
       </fieldset>

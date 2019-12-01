@@ -264,6 +264,11 @@ class Inscripcion extends Eloquent {
         $this->save();
     }
     
+    public function vaciarCantNotificaciones(){
+        $this->attributes['cant_notificaciones'] = 0;
+        $this->save();
+    }
+    
     public function getCantNotificacionesInscripto(){
         return $this->attributes['cant_notificaciones_inscripto'];
     }
@@ -273,12 +278,22 @@ class Inscripcion extends Eloquent {
         $this->save();
     }
     
+    public function vaciarCantNotificacionesInscripto(){
+        $this->attributes['cant_notificaciones_inscripto'] = 0;
+        $this->save();
+    }
+    
     public function getCantNotificacionesConCertificado(){
         return $this->attributes['cant_notificaciones_certificado'];
     }
     
     public function seEnvioNotificacionConCertificado(){
         $this->attributes['cant_notificaciones_certificado']++;
+        $this->save();
+    }
+    
+    public function vaciarCantNotificacionesConCertificado(){
+        $this->attributes['cant_notificaciones_certificado'] = 0;
         $this->save();
     }
     

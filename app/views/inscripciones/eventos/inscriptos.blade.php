@@ -16,6 +16,10 @@
         <input class="search" placeholder="Buscar por Nro. o Apellido" id="inputBuscarEvInscrIndex" onchange="verificarListaCompleta('inputBuscarEvInscrIndex','btnSubmitFormEvInscrIndex')"/>
         <button class="sort" data-sort="nroinsc" >Por Nro.</button>
         <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
+        <div class="btn-group" role="group" style="float:right">
+            <a href="{{URL::route('ofertas.inscripciones.certificarTodosLosAlumnos', $oferta->id)}}" class="btn btn-success btn-secondary" title="Colocar a todos los inscriptos como Asistentes"><i class="glyphicon glyphicon-check"></i> Asistieron todos</a>
+            <a href="{{URL::route('ofertas.inscripciones.quitarTodasLasInscripciones', $oferta->id)}}" class="btn btn-warning btn-secondary" title="Quitar a todos los alumnos inscriptos (también los quita si asistieron o no al evento)"><i class="glyphicon glyphicon-minus-sign"></i> Quitar inscripciones</a>
+        </div>
         <?php $listaIdInscriptos = array();?>
         {{ Form::open(array(
                     'method' => 'POST',
@@ -134,9 +138,11 @@
             <?php $listaEnString = implode('-',$listaIdInscriptos); ?>
             <input type="hidden" id="listaIdInscriptos" name="listaIdInscriptos" value="<?php echo $listaEnString ?>">
             @if((!$oferta->estaFinalizada()) && ($perfil == "Administrador"))
-                    {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success', 'style'=>'float: right', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvInscrIndex')) }}
-                    {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning', 'style'=>'float: right' ])}}
-                    {{ Form::close() }}
+            <div class="btn-group" role="group" style="float: right">
+                {{ Form::submit('Guardar cambios', array('class' => 'btn btn-success btn-secondary', 'title'=>'Guardar cambios.', 'id'=>'btnSubmitFormEvInscrIndex')) }}
+                {{ Form::reset('Descartar cambios', ['class' => 'form-button btn btn-warning btn-secondary'])}}
+                {{ Form::close() }}
+            </div>
             @endif
     </div>
     @else
