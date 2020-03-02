@@ -11,8 +11,12 @@
             <button class="sort" data-sort="nrocom<?php echo $com[0]['comision_nro']?>" >Por Nro.</button>
             <button class="sort" data-sort="apellidocom<?php echo $com[0]['comision_nro']?>" >Por Apellido</button>
             <div class="btn-group" role="group" style="float:right">
-                <a href="{{URL::route('ofertas.inscripciones.certificarTodosLosAlumnos', $oferta->id)}}" class="btn btn-success btn-secondary" title="Colocar a todos los inscriptos como Aprobados"><i class="glyphicon glyphicon-check"></i> Aprobaron todos</a>
-                <a href="{{URL::route('ofertas.inscripciones.quitarTodasLasInscripciones', $oferta->id)}}" class="btn btn-warning btn-secondary" title="Quitar a todos los alumnos inscriptos (también los quita si aprobaron o no la oferta)"><i class="glyphicon glyphicon-minus-sign"></i> Quitar inscripciones</a>
+                @if (count($inscripciones) != count($aprobados))
+                    <a href="{{URL::route('ofertas.inscripciones.certificarTodosLosAlumnos', $oferta->id)}}" class="btn btn-success btn-secondary" title="Colocar a todos los inscriptos como Aprobados"><i class="glyphicon glyphicon-check"></i> Aprobaron todos</a>
+                @endif
+                @if (count($inscripciones)>0)
+                    <a href="{{URL::route('ofertas.inscripciones.quitarTodasLasInscripciones', $oferta->id)}}" class="btn btn-warning btn-secondary" title="Quitar a todos los alumnos inscriptos (también los quita si aprobaron o no la oferta)"><i class="glyphicon glyphicon-minus-sign"></i> Quitar inscripciones</a>
+                @endif
             </div>
             <table class="table" style="border-top: 2px black solid; border-bottom: 2px black solid">
                 <thead>

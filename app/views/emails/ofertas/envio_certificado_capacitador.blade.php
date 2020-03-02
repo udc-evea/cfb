@@ -13,13 +13,13 @@
             <h2>Estimado/a {{ $capacPersonal->nombre }} {{ $capacPersonal->apellido }},</h2>
         </div>
         <hr>
-        <p>La <b>Universidad del Chubut</b> tiene el agrado de hacerle llegar por este medio <br>
-            el Certificado correspondiente al <b>{{ $oferta->nombre }}</b>
+        <p>La <b>Universidad del Chubut</b> tiene el agrado de hacerle llegar por este medio 
+            el Certificado correspondiente a la actividad <b>{{ $oferta->nombre }}</b>
             en la cuál has participado como <b>{{ $capacRol->rol }}</b>.</p>
         <hr>
-        <p>Esperamos contar nuevamente con tu presencia en nuestra Institución proximamente.</p>
+        <p>Agradecemos su participación y esperamos contar nuevamente con su presencia en nuevas propuestas.</p>
         <br><br>
-        <p>Muy Atentamente,</p>
+        <p>Saludamos atentamente,</p>
         <p>&nbsp;</p>
         <p>Universidad del Chubut</p>
         <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2015 UDC :: Derechos Reservados.<br>

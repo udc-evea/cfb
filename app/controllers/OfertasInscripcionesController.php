@@ -1343,7 +1343,7 @@ class OfertasInscripcionesController extends BaseController {
         //busco la oferta segun el $id
         $oferta = Oferta::findorFail($ofid);
         
-        $tabNro = 4;
+        $tabNro = $oferta->getEsEventoAttribute()?3:4;
         
         //Me fijo si es Oferta o Evento y traigo los aprobados/asistentes
         if($oferta->getEsEventoAttribute()){

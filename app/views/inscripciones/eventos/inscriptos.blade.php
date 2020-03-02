@@ -17,8 +17,12 @@
         <button class="sort" data-sort="nroinsc" >Por Nro.</button>
         <button class="sort" data-sort="apellidoinsc" >Por Apellido</button>
         <div class="btn-group" role="group" style="float:right">
-            <a href="{{URL::route('ofertas.inscripciones.certificarTodosLosAlumnos', $oferta->id)}}" class="btn btn-success btn-secondary" title="Colocar a todos los inscriptos como Asistentes"><i class="glyphicon glyphicon-check"></i> Asistieron todos</a>
-            <a href="{{URL::route('ofertas.inscripciones.quitarTodasLasInscripciones', $oferta->id)}}" class="btn btn-warning btn-secondary" title="Quitar a todos los alumnos inscriptos (también los quita si asistieron o no al evento)"><i class="glyphicon glyphicon-minus-sign"></i> Quitar inscripciones</a>
+            @if (count($inscripciones) != count($asistentes))
+                <a href="{{URL::route('ofertas.inscripciones.certificarTodosLosAlumnos', $oferta->id)}}" class="btn btn-success btn-secondary" title="Colocar a todos los inscriptos como Asistentes"><i class="glyphicon glyphicon-check"></i> Asistieron todos</a>
+            @endif
+            @if (count($inscripciones) > 0)
+                <a href="{{URL::route('ofertas.inscripciones.quitarTodasLasInscripciones', $oferta->id)}}" class="btn btn-warning btn-secondary" title="Quitar a todos los alumnos inscriptos (también los quita si asistieron o no al evento)"><i class="glyphicon glyphicon-minus-sign"></i> Quitar inscripciones</a>
+            @endif
         </div>
         <?php $listaIdInscriptos = array();?>
         {{ Form::open(array(
