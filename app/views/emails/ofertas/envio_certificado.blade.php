@@ -17,8 +17,9 @@
             el Certificado correspondiente a la actividad <b>{{ $oferta->nombre }}</b> 
             realizada en nuestra institucion.</p>
         <hr>
-        <p>Agradecemos su participación y esperamos contar nuevamente con su presencia en
+        <p>Agradecemos su participación y esperamos contar con su presencia en
             nuevas propuestas.</p>
+        <br><br>
         <p>Saludamos atentamente.</p>
         <p>Universidad del Chubut</p>
         <p style="font-size: small"><a href="http://udc.edu.ar" target="_blank"><img src="{{asset('img/UDC-120-37-gray.png')}}" width="60"></a>. © 2015 UDC :: Derechos Reservados.<br>

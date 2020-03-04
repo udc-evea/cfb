@@ -17,7 +17,7 @@
             el Certificado correspondiente a la actividad <b>{{ $oferta->nombre }}</b>
             en la cuál has participado como <b>{{ $capacRol->rol }}</b>.</p>
         <hr>
-        <p>Agradecemos su participación y esperamos contar nuevamente con su presencia en nuevas propuestas.</p>
+        <p>Agradecemos su participación y esperamos contar con su presencia en nuevas propuestas.</p>
         <br><br>
         <p>Saludamos atentamente,</p>
         <p>&nbsp;</p>
