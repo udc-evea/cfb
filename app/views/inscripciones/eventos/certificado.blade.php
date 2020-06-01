@@ -107,7 +107,7 @@
                 <p style="font-size: 18pt; margin-top: -5px"><b>{{$nomyape.", "}}&nbsp;&nbsp;</b>  &nbsp;D.N.I.
             <?php endif?>
             <?php if(ctype_digit($rows->documento)):?>
-                <?php echo number_format($rows->documento, 0, ',', '.');?>                    
+                <?php echo number_format($rows->documento, 0, ',', '.');?>
                 <?php $dni = number_format($rows->documento, 0, ',', '.');?>
             <?php else:?>
                 <?php echo $rows->documento;?> 
@@ -151,27 +151,33 @@
                 <?php endif;?>
                 <?php if($rows->oferta->fecha_inicio_oferta == $rows->oferta->fecha_fin_oferta):?>
                     el día {{$fechaInicio[0]}} 
-                    de {{array_get($meses,$fechaInicio[1])}} de {{$fechaInicio[2]}}.
+                    de {{array_get($meses,$fechaInicio[1])}} de {{$fechaInicio[2]}}
                 <?php elseif(($mismoMes) && ($mismoAño)):?>
                     del {{$fechaInicio[0]}} al 
-                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}
                 <?php elseif($mismoAño):?>
                     del {{$fechaInicio[0]}} de {{array_get($meses,$fechaInicio[1])}} al 
-                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
+                    {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}
                 <?php else:?>
                     del {{$fechaInicio[0]}} de {{array_get($meses, $fechaInicio[1])}} de {{$fechaInicio[2]}} 
-                    al {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}.
+                    al {{$fechaFin[0]}} de {{array_get($meses,$fechaFin[1])}} de {{$fechaFin[2]}}
                 <?php endif;?>
             <?php endif;?>
             </p>
             <?php $ConHoras = (($rows->oferta->duracion_hs != null)&&($rows->oferta->duracion_hs != 0));?>
             <?php if(($rows->oferta->resolucion_nro != null)&&($ConHoras==true)):?>
-                <p>según <b><?php echo $rows->oferta->resolucion_nro;?></b>,</p>                
-                <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
+                <?php if(strlen($rows->oferta->resolucion_nro) < 50){$interlineado="18px";}else{$interlineado="25px";}?>
+                <div class="row-fluid" style="padding: -30px 90px 0px 30px; margin-top: -10px">
+                    <p style="font-size: 20pt; line-height: {{$interlineado}}">según <b><?php echo $rows->oferta->resolucion_nro;?></b>,</p>
+                    <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
+                </div>
             <?php elseif(($rows->oferta->resolucion_nro == null)&&($ConHoras==true)):?>
                 <p> con una acreditación de <?php echo $duracion_hs;?> horas reloj.</p>
             <?php elseif(($rows->oferta->resolucion_nro != null)&&($ConHoras==false)):?>
-                <p>según <b><?php echo $rows->oferta->resolucion_nro;?></b>.</p>
+                <?php if(strlen($rows->oferta->resolucion_nro) < 50){$interlineado="18px";}else{$interlineado="25px";}?>
+                <div class="row-fluid" style="padding: -30px 90px 0px 30px; margin-top: -10px">
+                    <p style="font-size: 20pt; line-height: {{$interlineado}}">según <b><?php echo $rows->oferta->resolucion_nro;?></b>.</p>
+                </div>                
             <?php endif;?>
             <?php
                 $dia = date('d');
