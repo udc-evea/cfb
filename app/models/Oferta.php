@@ -532,7 +532,7 @@ class Oferta extends Eloquent implements StaplerableInterface {
     }
     
     public function agregarReglas2($input) {
-        self::$rules['nombre'].='|unique_with:oferta_formativa,nombre,anio,tipo_oferta';
+        //self::$rules['nombre'].='|unique_with:oferta_formativa,nombre,anio,tipo_oferta';
     }
 
     public function agregarReglas($input) {
