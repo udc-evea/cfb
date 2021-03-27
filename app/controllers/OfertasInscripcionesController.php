@@ -1106,8 +1106,8 @@ class OfertasInscripcionesController extends BaseController {
                         if(ctype_space($fila['documento'])){
                             $mje .= "<li> Fila $i:  El documento no debe contener espacios en blanco ni tabulaciones.</li>";
                         }
-                        if(strlen($fila['apellido'])<3){
-                            $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 3 caracteres de longitud.</li>";
+                        if(strlen($fila['apellido'])<2){
+                            $mje .= "<li> Fila $i:  El apellido debe tener por lo menos 2 caracteres de longitud.</li>";
                         }
                         if(strlen($fila['nombre'])<3){
                             $mje .= "<li> Fila $i:  El nombre debe tener por lo menos 3 caracteres de longitud.</li>";
