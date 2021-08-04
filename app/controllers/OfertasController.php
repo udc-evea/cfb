@@ -169,6 +169,18 @@ class OfertasController extends BaseController {
                         ->with(compact('tipos_oferta'))
                         ->with('titulaciones',$titulaciones);
 	}
+        
+        private function cambiarDateToString($fechaDate){            
+            $fechaArray = explode('-', $fechaDate);
+            $fechaString = $fechaArray[2].'/'.$fechaArray[1].'/'.$fechaArray[0];
+            return $fechaString;
+        }
+        
+        private function cambiarStringToDate($fechaString){            
+            $fechaArray = explode('/', $fechaString);
+            $fechaDate = $fechaArray[2].'/'.$fechaArray[1].'/'.$fechaArray[0];
+            return $fechaDate;
+        }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -176,10 +188,18 @@ class OfertasController extends BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
+	{                
 		//$input = Input::all();                
                 $input = Input::except('cabeceraDocAPresentar','1DocAPresentar','2DocAPresentar','3DocAPresentar','4DocAPresentar');
-		$this->oferta->agregarReglas($input);
+                                
+                $input['inicio'] = $this->cambiarDateToString($input['inicio']);
+                $input['fin'] = $this->cambiarDateToString($input['fin']);
+                
+                $input['fecha_inicio_oferta'] = $this->cambiarDateToString($input['fecha_inicio_oferta']);
+                $input['fecha_fin_oferta'] = $this->cambiarDateToString($input['fecha_fin_oferta']);
+                $input['fecha_expedicion_cert'] = $this->cambiarDateToString($input['fecha_expedicion_cert']);
+		
+                $this->oferta->agregarReglas($input);
                 //Como la oferta es nueva, agrego que no se pueda crear si ya esta el nombre año y tipo_oferta
                 $this->oferta->agregarReglas2($input);
                 //$fechaInicioOferta = Input::get('fecha_inicio_oferta');
@@ -250,11 +270,18 @@ class OfertasController extends BaseController {
 			->withInput()			
 			->with('message', "$cabecera Oferta creada exitosamente!! $final");
 		}
-
+                
+                $cabecera = $this->getEstiloMensajeCabecera('danger', 'glyphicon glyphicon-warning-sign');
+                $final = $this->getEstiloMensajeFinal();
 		return Redirect::route('ofertas.create')
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'Error al guardar.');
+			->with('message', "$cabecera Error al guardar! $final ")
+                        ->with('inicio', $this->cambiarStringToDate($input['inicio']))
+                        ->with('fin', $this->cambiarStringToDate($input['fin']))
+                        ->with('fecha_inicio_oferta', $this->cambiarStringToDate($input['fecha_inicio_oferta']))
+                        ->with('fecha_fin_oferta', $this->cambiarStringToDate($input['fecha_fin_oferta']))
+                        ->with('fecha_expedicion_cert', $this->cambiarStringToDate($input['fecha_expedicion_cert']));
 	}
 
 	/**

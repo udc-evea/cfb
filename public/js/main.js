@@ -4,7 +4,7 @@ var MainModule = {
         var self = this;
         self.initBootbox();
         self.confirmDeleteForm();
-        self.initDatepicker();
+        //self.initDatepicker();
     },
     
     initBootbox: function()

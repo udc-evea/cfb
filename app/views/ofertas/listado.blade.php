@@ -20,8 +20,8 @@
                 <th>Inscribiendo</th>
                 <!--<th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
-                <th>Acciones</th>-->                
-                <th>Ultima Modif.</th>
+                <th>Acciones</th>
+                <th>Ultima Modif.</th>-->
                 <th>Capacitador/es</th>
                 <th>Opciones</th>
             </tr>
@@ -29,7 +29,7 @@
         <tbody class="list">
             @foreach ($ofertas as $oferta)
             <tr>
-                <td class="nombre" title="Creador: {{ $oferta->creador->nombreyapellido }}">{{ $oferta->nombre }}</td>
+                <td class="nombre" >{{ $oferta->nombre }}</td>
                 <td class="anio">{{ $oferta->anio }}</td>
                 <td>
                     {{ $oferta->inscriptos }}
@@ -99,8 +99,8 @@
                 @else
                     <small>No tiene permisos para esta oferta</small>
                 @endif
-                </td>-->                
-                <td>{{ $oferta->ultimaModificacion->nombreyapellido }} ({{ ($oferta->fecha_modif) }})</td>
+                </td>-->
+                <!--<td><?php //echo $oferta->ultimaModificacion->nombreyapellido; ?> (<?php //echo $oferta->fecha_modif; ?>)</td> -->
                 <td>
                   <?php $capacitadores = $oferta->obtenerCapacitadoresDeLaOferta($oferta->id);?>
                   <?php if($capacitadores != null): ?>

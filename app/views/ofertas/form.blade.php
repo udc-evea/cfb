@@ -45,10 +45,12 @@ input[readonly] {
         <div class="col-lg-10 col-sm-8">
             <div class="btn-group" data-toggle="buttons">
             @foreach($tipos_oferta as $item)
-                <label class="btn btn-default @if($obj && $item->id == $obj->tipo_oferta) active @endif">
-                    <i class="fa {{ $item->icono }}"></i> 
-                    <input type="radio" onchange='ocultarCamposEnCarrera()' required @if($obj && $item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
-                </label>
+                @if ($item->id != 1)
+                    <label class="btn btn-default @if($obj && $item->id == $obj->tipo_oferta) active @endif">
+                        <i class="fa {{ $item->icono }}"></i> 
+                        <input type="radio" onchange='ocultarCamposEnCarrera()' required @if($obj && $item->id == $obj->tipo_oferta) checked="checked" @endif name="tipo_oferta" value="{{$item->id}}" id="tipo_oferta_{{$item->id}}"> {{ $item->descripcion }}
+                    </label>
+                @endif
             @endforeach
             </div>
         </div>
@@ -74,19 +76,26 @@ input[readonly] {
         ->style('visibility: visible; margin-left: 3px')
      }}    -->
 <hr>
-{{ Former::text('inicio')
+<!--{{ Former::text('inicio')
             ->label('Fecha inicio para las Incripciones')
             ->addClass('fecha')
             ->placeholder('Colocar la fecha de INICIO de las inscripciones para esta Oferta.')
             ->required();
-}}
-<hr>
-{{ Former::text('fin')
-            ->label('Fecha fin para las Inscripciones')
-            ->addClass('fecha')
-            ->placeholder('Colocar la fecha de FIN de las inscripciones para esta Oferta.')
-            ->required();
-}}
+}}-->
+<div style="text-align: center" class="alert alert-success"><h3>Fecha de las inscripciones para la Oferta</h3></div>
+<div class="row">
+    <label for="inicio" class="control-label col-sm-2" style="margin-right: 5px">Inicio<sup>*</sup></label>
+    <input type="date" class="form-group col-sm-4" name="inicio" id="inicio" required="true" value="{{ Input::old('inicio') }}">
+    <!--<hr>-->
+    <!--{{ Former::text('fin')
+                ->label('Fecha fin para las Inscripciones')
+                ->addClass('fecha')
+                ->placeholder('Colocar la fecha de FIN de las inscripciones para esta Oferta.')
+                ->required();
+    }}-->
+    <label for="fin" class="control-label col-lg-1 col-sm-2" style="margin-right: 5px">Fin<sup>*</sup></label>
+    <input type="date" class="form-group col-sm-4" name="fin" id="fin" required="true" value="{{ Input::old('fin') }}">
+</div>
 <hr>
 {{ Former::number('cupo_maximo')
             ->label('Cupo máximo')
@@ -264,7 +273,7 @@ input[readonly] {
             ->placeholder('Ej.: Res./Expte. UDC-000/2016');            
     }}
     <hr>
-    {{ Former::text('fecha_inicio_oferta')
+    <!--{{ Former::text('fecha_inicio_oferta')
                 ->label('Fecha de inicio de la Oferta')
                 ->addClass('fecha')
                 ->placeholder('Colocar la fecha de inicio de la Oferta.')
@@ -284,6 +293,18 @@ input[readonly] {
                 ->placeholder('Colocar la fecha de expedición de los certificados.')
                 ->required();
     }}
+    <hr>-->
+    <div style="text-align: center" class="alert alert-success"><h3>Fechas de la Oferta</h3></div>
+    <div class="row">
+        <label for="fecha_inicio_oferta" class="control-label col-sm-2" style="margin-right: 5px">Inicio Oferta<sup>*</sup></label>
+        <input type="date" class="form-group col-sm-2" name="fecha_inicio_oferta" id="fecha_inicio_oferta" required="true" value="{{ Input::old('fecha_inicio_oferta') }}">
+        
+        <label for="fecha_fin_oferta" class="control-label col-sm-2" style="margin-right: 5px">Fin Oferta<sup>*</sup></label>
+        <input type="date" class="form-group col-sm-2" name="fecha_fin_oferta" id="fecha_fin_oferta" required="true" value="{{ Input::old('fecha_fin_oferta') }}">
+        
+        <label for="fecha_expedicion_cert" class="control-label col-sm-2" style="margin-right: 5px">Envío Certificados<sup>*</sup></label>
+        <input type="date" class="form-group col-sm-2" name="fecha_expedicion_cert" id="fecha_expedicion_cert" required="true" value="{{ Input::old('fecha_expedicion_cert') }}">
+    </div>
     <hr>
     {{ Former::text('lugar')
                 ->label('Lugar de encuentro') 
