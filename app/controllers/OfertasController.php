@@ -194,11 +194,10 @@ class OfertasController extends BaseController {
                                 
                 $input['inicio'] = $this->cambiarDateToString($input['inicio']);
                 $input['fin'] = $this->cambiarDateToString($input['fin']);
-                
                 $input['fecha_inicio_oferta'] = $this->cambiarDateToString($input['fecha_inicio_oferta']);
                 $input['fecha_fin_oferta'] = $this->cambiarDateToString($input['fecha_fin_oferta']);
                 $input['fecha_expedicion_cert'] = $this->cambiarDateToString($input['fecha_expedicion_cert']);
-		
+                
                 $this->oferta->agregarReglas($input);
                 //Como la oferta es nueva, agrego que no se pueda crear si ya esta el nombre año y tipo_oferta
                 $this->oferta->agregarReglas2($input);
@@ -340,6 +339,13 @@ class OfertasController extends BaseController {
                 $imagenMailBienvenida = Input::get('mail_bienvenida_file_name');
                 $imagenCertBaseAlum = Input::get('cert_base_alum_file_name');
                 $imagenCertBaseCapacitadores = Input::get('cert_base_cap_file_name');
+                
+                $input['inicio'] = $this->cambiarDateToString($input['inicio']);
+                $input['fin'] = $this->cambiarDateToString($input['fin']);
+                $input['fecha_inicio_oferta'] = $this->cambiarDateToString($input['fecha_inicio_oferta']);
+                $input['fecha_fin_oferta'] = $this->cambiarDateToString($input['fecha_fin_oferta']);
+                $input['fecha_expedicion_cert'] = $this->cambiarDateToString($input['fecha_expedicion_cert']);
+                
                 $this->oferta->agregarReglas($input);
                 
                 /*if(($fechaInicioOferta != null)&&($fechaFinOferta != null)){
@@ -621,7 +627,10 @@ class OfertasController extends BaseController {
             //creo el nomre del archivo pdf
             $filename = "capacitador_".$oferta->id."_".$capacPersonal->getApellido()."_".$capacPersonal->getNombre();
             
-            if (!file_exists(public_path("pdfs/$filename.pdf"))){
+            if (file_exists(public_path("pdfs/$filename.pdf"))){
+                unlink(public_path("pdfs/$filename.pdf"));
+            }
+            //if (!file_exists(public_path("pdfs/$filename.pdf"))){
                 //creo el certificado
                 Session::set('cap',$capacitador);
                 $html = View::make('ofertas.certificado', compact('rows'));        
@@ -631,7 +640,7 @@ class OfertasController extends BaseController {
                 $content = $pdf->load($html, 'A4', 'landscape')->output();
                 $path_to_pdf = public_path("pdfs/$filename.pdf");
                 File::put($path_to_pdf, $content);
-            }
+            //}
             
             try{
                 //Envío el mail al mail institucional y al personal
@@ -692,7 +701,10 @@ class OfertasController extends BaseController {
                 //$filename = "capacitador_".$oferta->id."_".$capacitador->getApellido()."_".$capacPersonal->getNombre();
                 $filename = "capacitador_".$oferta->id."_".$capacPersonal->getApellido()."_".$capacPersonal->getNombre();
                 
-                if (!file_exists(public_path("pdfs/$filename.pdf"))){
+                if (file_exists(public_path("pdfs/$filename.pdf"))){
+                    unlink(public_path("pdfs/$filename.pdf"));
+                }
+                //if (!file_exists(public_path("pdfs/$filename.pdf"))){
                     //creo el certificado
                     Session::set('cap',$capacitador);
                     $html = View::make('ofertas.certificado', compact('rows'));        
@@ -702,7 +714,7 @@ class OfertasController extends BaseController {
                     $content = $pdf->load($html, 'A4', 'landscape')->output();
                     $path_to_pdf = public_path("pdfs/$filename.pdf");
                     File::put($path_to_pdf, $content);
-                }
+                //}
                     
                 try{
                     //Envío el mail personal de cada Capacitador                    
@@ -796,7 +808,10 @@ class OfertasController extends BaseController {
                 //creo el nomre del archivo pdf
                 $filename = $ofid.$rows->id;
                 
-                if (!file_exists(public_path("pdfs/$filename.pdf"))){
+                if (file_exists(public_path("pdfs/$filename.pdf"))){
+                    unlink(public_path("pdfs/$filename.pdf"));
+                }                
+                //if (!file_exists(public_path("pdfs/$filename.pdf"))){
                     //creo el certificado
                     $html = View::make('inscripciones.'.$oferta->view.'.certificado', compact('rows'));
                     //Creo el pdf y lo guardo en la carpeta /public/pdfs
@@ -804,7 +819,7 @@ class OfertasController extends BaseController {
                     $content = $pdf->load($html, 'A4', 'landscape')->output();
                     $path_to_pdf = public_path("pdfs/$filename.pdf");
                     File::put($path_to_pdf, $content);                                
-                }
+                //}
             }
             //echo "<br>Se creadon los ".count($inscripciones)." pdfs";
             // envío los mails con el certificado adjunto

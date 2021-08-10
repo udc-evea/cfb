@@ -916,13 +916,16 @@ class OfertasInscripcionesController extends BaseController {
         //creo el certificado
         $html = View::make('inscripciones.'.$oferta->view.'.certificado', compact('rows'));        
         
-        if (!file_exists(public_path("pdfs/$filename.pdf"))){
+        if (file_exists(public_path("pdfs/$filename.pdf"))){
+            unlink(public_path("pdfs/$filename.pdf"));
+        }
+        //if (!file_exists(public_path("pdfs/$filename.pdf"))){
             //Creo el pdf y lo guardo en la carpeta /public/pdfs
             $pdf = new \Thujohn\Pdf\Pdf();
             $content = $pdf->load($html, 'A4', 'landscape')->output();
             $path_to_pdf = public_path("pdfs/$filename.pdf");
             File::put($path_to_pdf, $content);
-        }
+        //}
         
         try{
             //Envío el mail al mail institucional y al personal
