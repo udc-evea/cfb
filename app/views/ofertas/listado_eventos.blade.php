@@ -282,6 +282,16 @@
                         <button class="btn btn-xs btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Más
                         <span class="caret"></span></button>
                         <ul class="dropdown-menu">
+                            @if( $item->ultimaModificacion != null )
+                                <li class="dropdown-header">Ultima modificacion</li>
+                                <li style="padding: 3px 20px;">{{ $item->ultimaModificacion->nombreyapellido }}</li>
+                                <li class="divider"></li>
+                            @endif
+                            <li class="dropdown-header">Fechas Evento</li>
+                            <li style="padding: 3px 20px;">Inicio: {{ $item->fecha_inicio_oferta }}</li>
+                            <li style="padding: 3px 20px;">Fin: {{ $item->fecha_fin_oferta }}</li>
+                            <li style="padding: 3px 20px;">Inicio: {{ $item->fecha_expedicion_cert }}</li>
+                            <li class="divider"></li>
                             <li class="dropdown-header">Fecha preinscripciones</li>
                             <li style="padding: 3px 20px;">Inicio: {{ $item->inicio }}</li>
                             <li style="padding: 3px 20px;">Fin: {{ $item->fin }}</li>
