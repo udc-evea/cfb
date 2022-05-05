@@ -290,7 +290,7 @@
                             <li class="dropdown-header">Fechas Evento</li>
                             <li style="padding: 3px 20px;">Inicio: {{ $item->fecha_inicio_oferta }}</li>
                             <li style="padding: 3px 20px;">Fin: {{ $item->fecha_fin_oferta }}</li>
-                            <li style="padding: 3px 20px;">Inicio: {{ $item->fecha_expedicion_cert }}</li>
+                            <li style="padding: 3px 20px;">Exp. Certif.: {{ $item->fecha_expedicion_cert }}</li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Fecha preinscripciones</li>
                             <li style="padding: 3px 20px;">Inicio: {{ $item->inicio }}</li>
