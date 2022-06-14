@@ -96,7 +96,8 @@ return array(
 	*/
 
 	//'password' => $_ENV['MAIL_PASS'],
-        'password' => 'cfbinscripciones',
+        //'password' => 'cfbinscripciones',
+        'password' => 'dnjlvvgvlugenrej',
 
 	/*
 	|--------------------------------------------------------------------------
