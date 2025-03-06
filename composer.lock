@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "6c5baf8be375694aeb7ccd82c384e4ba",
     "content-hash": "119630ed903057140c1c798cae9441c3",
     "packages": [
         {
@@ -64,7 +63,7 @@
                 "foundation",
                 "laravel"
             ],
-            "time": "2014-10-09 08:02:19"
+            "time": "2014-10-09T08:02:19+00:00"
         },
         {
             "name": "anahkiasen/html-object",
@@ -103,7 +102,7 @@
                 }
             ],
             "description": "A set of classes to create and manipulate HTML objects abstractions",
-            "time": "2014-01-27 22:41:20"
+            "time": "2014-01-27T22:41:20+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -145,7 +144,7 @@
             ],
             "description": "BaconQrCode is a QR code generator for PHP.",
             "homepage": "https://github.com/Bacon/BaconQrCode",
-            "time": "2016-01-09 22:55:35"
+            "time": "2016-01-09T22:55:35+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -199,7 +198,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-10-16 07:20:01"
+            "time": "2014-10-16T07:20:01+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -262,7 +261,7 @@
                 "phpstorm",
                 "sublime"
             ],
-            "time": "2014-10-14 08:39:02"
+            "time": "2014-10-14T08:39:02+00:00"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -309,7 +308,7 @@
                 "class",
                 "preload"
             ],
-            "time": "2014-03-12 00:05:31"
+            "time": "2014-03-12T00:05:31+00:00"
         },
         {
             "name": "codesleeve/laravel-stapler",
@@ -359,7 +358,7 @@
                 "stapler",
                 "upload"
             ],
-            "time": "2014-09-28 02:28:55"
+            "time": "2014-09-28T02:28:55+00:00"
         },
         {
             "name": "codesleeve/stapler",
@@ -412,7 +411,7 @@
                 "s3",
                 "upload"
             ],
-            "time": "2014-09-27 19:15:58"
+            "time": "2014-09-27T19:15:58+00:00"
         },
         {
             "name": "d11wtq/boris",
@@ -446,7 +445,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2014-01-17 12:21:18"
+            "time": "2014-01-17T12:21:18+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -510,7 +509,7 @@
                 "singuarlize",
                 "string"
             ],
-            "time": "2013-01-10 21:49:15"
+            "time": "2013-01-10T21:49:15+00:00"
         },
         {
             "name": "dollar/generators",
@@ -572,7 +571,7 @@
                 "laravel",
                 "scaffold"
             ],
-            "time": "2014-05-11 14:35:11"
+            "time": "2014-05-11T14:35:11+00:00"
         },
         {
             "name": "felixkiss/uniquewith-validator",
@@ -617,7 +616,7 @@
             "keywords": [
                 "laravel"
             ],
-            "time": "2014-08-07 06:42:51"
+            "time": "2014-08-07T06:42:51+00:00"
         },
         {
             "name": "filp/whoops",
@@ -675,7 +674,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2014-07-11 05:56:54"
+            "time": "2014-07-11T05:56:54+00:00"
         },
         {
             "name": "greggilbert/recaptcha",
@@ -727,7 +726,7 @@
                 "laravel4",
                 "recaptcha"
             ],
-            "time": "2014-08-18 02:14:28"
+            "time": "2014-08-18T02:14:28+00:00"
         },
         {
             "name": "imagine/imagine",
@@ -784,7 +783,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2014-06-13 10:54:04"
+            "time": "2014-06-13T10:54:04+00:00"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -823,7 +822,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2013-04-30 19:58:08"
+            "time": "2013-04-30T19:58:08+00:00"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -871,7 +870,7 @@
                 "serialize",
                 "tokenizer"
             ],
-            "time": "2013-10-09 04:20:00"
+            "time": "2013-10-09T04:20:00+00:00"
         },
         {
             "name": "laravel/framework",
@@ -986,7 +985,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-10-20 20:22:00"
+            "time": "2014-10-20T20:22:00+00:00"
         },
         {
             "name": "maatwebsite/excel",
@@ -1051,7 +1050,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2014-10-17 18:57:53"
+            "time": "2014-10-17T18:57:53+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -1106,7 +1105,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2014-10-17 09:11:20"
+            "time": "2014-10-17T09:11:20+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1178,7 +1177,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-10-21 20:10:18"
+            "time": "2014-10-21T20:10:18+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -1223,7 +1222,7 @@
                 "mustache",
                 "templating"
             ],
-            "time": "2013-08-13 04:49:23"
+            "time": "2013-08-13T04:49:23+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1269,7 +1268,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-09-26 02:52:02"
+            "time": "2014-09-26T02:52:02+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1314,7 +1313,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2014-07-23 18:24:17"
+            "time": "2014-07-23T18:24:17+00:00"
         },
         {
             "name": "patchwork/utf8",
@@ -1370,7 +1369,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2014-08-05 08:00:32"
+            "time": "2014-08-05T08:00:32+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1419,20 +1418,20 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "time": "2014-09-02 14:26:20"
+            "time": "2014-09-02T14:26:20+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PHPExcel.git",
-                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b"
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
-                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1475,12 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2014-03-02 15:22:49"
+            "support": {
+                "issues": "https://github.com/PHPOffice/PHPExcel/issues",
+                "source": "https://github.com/PHPOffice/PHPExcel/tree/master"
+            },
+            "abandoned": "phpoffice/phpspreadsheet",
+            "time": "2015-05-01T07:00:55+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -1574,7 +1578,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2014-10-19 19:32:18"
+            "time": "2014-10-19T19:32:18+00:00"
         },
         {
             "name": "predis/predis",
@@ -1624,7 +1628,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2014-08-01 09:43:10"
+            "time": "2014-08-01T09:43:10+00:00"
         },
         {
             "name": "psr/log",
@@ -1667,7 +1671,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2014-01-18 15:33:09"
+            "time": "2014-01-18T15:33:09+00:00"
         },
         {
             "name": "simplesoftwareio/simple-qrcode",
@@ -1718,7 +1722,7 @@
                 "qrcode",
                 "wrapper"
             ],
-            "time": "2016-04-24 02:00:22"
+            "time": "2016-04-24T02:00:22+00:00"
         },
         {
             "name": "stack/builder",
@@ -1767,7 +1771,7 @@
             "keywords": [
                 "stack"
             ],
-            "time": "2014-08-06 20:56:36"
+            "time": "2014-08-06T20:56:36+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1819,7 +1823,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-10-05 19:53:07"
+            "time": "2014-10-05T19:53:07+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -1874,7 +1878,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-22 09:14:18"
+            "time": "2014-09-22T09:14:18+00:00"
         },
         {
             "name": "symfony/class-loader",
@@ -1924,7 +1928,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:53:11"
+            "time": "2014-10-01T05:53:11+00:00"
         },
         {
             "name": "symfony/console",
@@ -1979,7 +1983,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-05 13:57:04"
+            "time": "2014-10-05T13:57:04+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -2030,7 +2034,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-09 16:00:03"
+            "time": "2014-10-09T16:00:03+00:00"
         },
         {
             "name": "symfony/debug",
@@ -2085,7 +2089,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -2138,7 +2142,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2196,7 +2200,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-04 06:08:58"
+            "time": "2014-10-04T06:08:58+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -2243,7 +2247,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-22 15:54:44"
+            "time": "2014-09-22T15:54:44+00:00"
         },
         {
             "name": "symfony/finder",
@@ -2290,7 +2294,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -2343,7 +2347,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -2415,7 +2419,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "symfony/process",
@@ -2462,7 +2466,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "symfony/routing",
@@ -2529,7 +2533,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2014-10-09 16:00:03"
+            "time": "2014-10-09T16:00:03+00:00"
         },
         {
             "name": "symfony/security-core",
@@ -2591,7 +2595,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "http://symfony.com",
-            "time": "2014-09-28 15:22:14"
+            "time": "2014-09-28T15:22:14+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2647,7 +2651,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-10-01T05:50:18+00:00"
         },
         {
             "name": "thujohn/pdf",
@@ -2690,7 +2694,7 @@
                 "laravel4",
                 "pdf"
             ],
-            "time": "2014-10-08 14:57:13"
+            "time": "2014-10-08T14:57:13+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -2737,7 +2741,7 @@
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
-            "time": "2014-08-01 18:02:04"
+            "time": "2014-08-01T18:02:04+00:00"
         }
     ],
     "packages-dev": [],
@@ -2753,5 +2757,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
